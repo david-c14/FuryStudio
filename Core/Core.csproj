@@ -4,17 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{383EE39F-B7D8-4B55-87BB-B0DEA68C3382}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <ProjectGuid>{9A8DD6A3-6C0B-4EB5-8FA2-5619A4406551}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>carbon14.FuryStudio</RootNamespace>
-    <AssemblyName>carbon14.FuryStudio</AssemblyName>
+    <AssemblyName>carbon14.FuryStudio.Core</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -24,7 +23,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -39,56 +37,40 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Deployment" />
-    <Reference Include="System.Drawing" />
     <Reference Include="System.Net.Http" />
-    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="YamlDotNet, Version=8.0.0.0, Culture=neutral, PublicKeyToken=ec19458f3c15af5e, processorArchitecture=MSIL">
-      <HintPath>..\packages\YamlDotNet.8.1.1\lib\net45\YamlDotNet.dll</HintPath>
+      <HintPath>..\packages\YamlDotNet.8.1.2\lib\net45\YamlDotNet.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Program.cs" />
+    <Compile Include="Infrastructure\Config\ApplicationConfiguration.cs" />
+    <Compile Include="Infrastructure\Config\ConfigLocator.cs" />
+    <Compile Include="Infrastructure\Config\IApplicationConfiguration.cs" />
+    <Compile Include="Infrastructure\Config\IConfigLocator.cs" />
+    <Compile Include="Infrastructure\Config\IRegistryAdapter.cs" />
+    <Compile Include="Infrastructure\Config\RegistryAdapter.cs" />
+    <Compile Include="Infrastructure\Files\FileAdapter.cs" />
+    <Compile Include="Infrastructure\Files\IFileAdapter.cs" />
+    <Compile Include="Infrastructure\Logging\ILogger.cs" />
+    <Compile Include="Infrastructure\Logging\LogEventArgs.cs" />
+    <Compile Include="Infrastructure\Logging\LogEventHandler.cs" />
+    <Compile Include="Infrastructure\Logging\Logger.cs" />
+    <Compile Include="Infrastructure\Plugins\BasePlugin.cs" />
+    <Compile Include="Infrastructure\Plugins\IPluginLoader.cs" />
+    <Compile Include="Infrastructure\Plugins\IPluginManager.cs" />
+    <Compile Include="Infrastructure\Plugins\IPlugin_v1.cs" />
+    <Compile Include="Infrastructure\Plugins\PluginLoader.cs" />
+    <Compile Include="Infrastructure\Plugins\PluginManager.cs" />
+    <Compile Include="Infrastructure\ServiceContext\ICoreServiceContext_v1.cs" />
+    <Compile Include="Infrastructure\ServiceContext\CoreServiceContext.cs" />
+    <Compile Include="Infrastructure\ServiceContext\ServiceContextException.cs" />
+    <Compile Include="Infrastructure\YAML\IYamlAdapter.cs" />
+    <Compile Include="Infrastructure\YAML\YamlAdapter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
+  </ItemGroup>
+  <ItemGroup>
     <None Include="packages.config" />
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Core\Core.csproj">
-      <Project>{9a8dd6a3-6c0b-4eb5-8fa2-5619a4406551}</Project>
-      <Name>Core</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,5 +1,4 @@
-﻿using System;
-using carbon14.FuryStudio.Infrastructure.Config;
+﻿using carbon14.FuryStudio.Infrastructure.Config;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 

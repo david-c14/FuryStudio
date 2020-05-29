@@ -64,15 +64,22 @@
   <ItemGroup>
     <Compile Include="Infrastructure\RegistryAdapterTests.cs" />
     <Compile Include="Infrastructure\ConfigLocatorTests.cs" />
+    <Compile Include="Infrastructure\FileAdapterTests.cs" />
+    <Compile Include="Infrastructure\ApplicationConfigurationTests.cs" />
+    <Compile Include="Infrastructure\PluginLoaderTests.cs" />
+    <Compile Include="Infrastructure\PluginManagerTests.cs" />
+    <Compile Include="Infrastructure\CoreServiceContextTests.cs" />
+    <Compile Include="Infrastructure\LoggerTests.cs" />
+    <Compile Include="Infrastructure\YamlAdapterTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\FuryStudio\FuryStudio.csproj">
-      <Project>{383ee39f-b7d8-4b55-87bb-b0dea68c3382}</Project>
-      <Name>FuryStudio</Name>
+    <ProjectReference Include="..\Core\Core.csproj">
+      <Project>{9a8dd6a3-6c0b-4eb5-8fa2-5619a4406551}</Project>
+      <Name>Core</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />

@@ -46,10 +46,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\FuryStudio\FuryStudio.csproj">
-      <Project>{383ee39f-b7d8-4b55-87bb-b0dea68c3382}</Project>
-      <Name>FuryStudio</Name>
+    <ProjectReference Include="..\Core\Core.csproj">
+      <Project>{9a8dd6a3-6c0b-4eb5-8fa2-5619a4406551}</Project>
+      <Name>Core</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>copy /Y "$(TargetDir)$(TargetFileName)" "$(SolutionDir)FuryStudio\$(OutDir)$(TargetFileName)"</PostBuildEvent>
+  </PropertyGroup>
 </Project>

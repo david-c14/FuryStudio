@@ -3,6 +3,7 @@ using System.IO;
 using System.Text;
 using carbon14.FuryStudio.Infrastructure.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 
 namespace carbon14.FuryStudio.UnitTests.Infrastructure
 {
@@ -113,6 +114,100 @@ namespace carbon14.FuryStudio.UnitTests.Infrastructure
             Assert.AreEqual(message1, loggedMessage);
         }
 
-        //TODO Add tests for correct disposal.
+        [TestMethod]
+        public void Given_a_MemoryLogger_When_a_disposal_is_requested_for_a_stream_Then_it_is_disposed()
+        {
+            //Arrange
+            Mock<Stream> stream1 = new Mock<Stream>();
+            Logger logger = new Logger(stream1.Object, true);
+
+            //Act
+            logger.Dispose();
+
+            //Assert
+            stream1.Verify(s => s.Close(), Times.Once);
+        }
+
+        [TestMethod]
+        public void Given_a_MemoryLogger_When_a_disposal_is_not_requested_for_a_stream_Then_it_is_not_disposed()
+        {
+            //Arrange
+            Mock<Stream> stream1 = new Mock<Stream>();
+            Logger logger = new Logger(stream1.Object, false);
+
+            //Act
+            logger.Dispose();
+
+            //Assert
+            stream1.Verify(s => s.Close(), Times.Never);
+        }
+
+        [TestMethod]
+        public void Given_a_MemoryLogger_When_a_disposal_is_requested_for_the_first_stream_but_not_the_second_Then_they_are_disposed_correctly()
+        {
+            //Arrange
+            Mock<Stream> stream1 = new Mock<Stream>();
+            Mock<Stream> stream2 = new Mock<Stream>();
+            Logger logger = new Logger(stream1.Object, true);
+
+            //Act
+            logger.ChangeStream(stream2.Object, false, false);
+            logger.Dispose();
+
+            //Assert
+            stream1.Verify(s => s.Close(), Times.Once);
+            stream2.Verify(s => s.Close(), Times.Never);
+        }
+
+        [TestMethod]
+        public void Given_a_MemoryLogger_When_a_disposal_is_requested_for_the_second_stream_but_not_the_first_Then_they_are_disposed_correctly()
+        {
+            //Arrange
+            Mock<Stream> stream1 = new Mock<Stream>();
+            Mock<Stream> stream2 = new Mock<Stream>();
+            Logger logger = new Logger(stream1.Object, false);
+
+            //Act
+            logger.ChangeStream(stream2.Object, true, false);
+            logger.Dispose();
+
+            //Assert
+            stream1.Verify(s => s.Close(), Times.Never);
+            stream2.Verify(s => s.Close(), Times.Once);
+        }
+
+        [TestMethod]
+        public void Given_a_MemoryLogger_When_a_disposal_is_requested_for_both_streams_Then_they_are_disposed_correctly()
+        {
+            //Arrange
+            Mock<Stream> stream1 = new Mock<Stream>();
+            Mock<Stream> stream2 = new Mock<Stream>();
+            Logger logger = new Logger(stream1.Object, true);
+
+            //Act
+            logger.ChangeStream(stream2.Object, true, false);
+            logger.Dispose();
+
+            //Assert
+            stream1.Verify(s => s.Close(), Times.Once);
+            stream2.Verify(s => s.Close(), Times.Once);
+        }
+
+        [TestMethod]
+        public void Given_a_MemoryLogger_When_a_disposal_is_requested_for_neither_stream_Then_they_are_disposed_correctly()
+        {
+            //Arrange
+            Mock<Stream> stream1 = new Mock<Stream>();
+            Mock<Stream> stream2 = new Mock<Stream>();
+            Logger logger = new Logger(stream1.Object, false);
+
+            //Act
+            logger.ChangeStream(stream2.Object, false, false);
+            logger.Dispose();
+
+            //Assert
+            stream1.Verify(s => s.Close(), Times.Never);
+            stream2.Verify(s => s.Close(), Times.Never);
+        }
     }
 }

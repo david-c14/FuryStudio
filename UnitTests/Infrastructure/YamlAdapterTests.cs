@@ -64,7 +64,7 @@ payload:
             input.Strings.Add("Gamma");
 
             //Act
-            using (MemoryStream stream = new MemoryStream())
+            MemoryStream stream = new MemoryStream();
             {
                 YamlAdapter adapter = new YamlAdapter();
                 adapter.Serialize<YamlTestClass>(input, stream);
@@ -79,6 +79,10 @@ payload:
             Assert.AreEqual(expectedOutput, output);
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "Microsoft.Usage", 
+            "CA2202:Do not dispose objects multiple times", 
+            Justification = "StreamWriter is explicitly requested not to dispose of the MemoryStream")]
         [TestMethod]
         public void Given_a_YamlAdapter_When_Deserialize_is_called_an_object_is_deserialized()
         {

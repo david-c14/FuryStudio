@@ -7,6 +7,7 @@ using carbon14.FuryStudio.Infrastructure.YAML;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace carbon14.FuryStudio.UnitTests.Infrastructure
 {
@@ -14,6 +15,7 @@ namespace carbon14.FuryStudio.UnitTests.Infrastructure
     public class CoreServiceContextTests
     {
         [TestMethod]
+        [ExcludeFromCodeCoverage]
         public void Given_a_CoreServiceContext_with_a_null_ApplicationConfiguration_interface_when_the_interface_is_requested_Then_a_ServiceContextException_is_thrown()
         {
             //Arrange
@@ -46,25 +48,17 @@ namespace carbon14.FuryStudio.UnitTests.Infrastructure
                 ApplicationConfiguration = expectedInterface
             };
             IApplicationConfiguration actualInterface = null;
-            Exception caughtException = null;
 
             //Act
-            try
-            {
-                actualInterface = context.ApplicationConfiguration;
-            }
-            catch (Exception innerException)
-            {
-                caughtException = innerException;
-            }
+            actualInterface = context.ApplicationConfiguration;
 
             //Assert
-            Assert.IsNull(caughtException);
             Assert.IsNotNull(actualInterface);
             Assert.AreSame(expectedInterface, actualInterface);
         }
 
         [TestMethod]
+        [ExcludeFromCodeCoverage]
         public void Given_a_CoreServiceContext_with_a_null_ConfigLocator_interface_when_the_interface_is_requested_Then_a_ServiceContextException_is_thrown()
         {
             //Arrange
@@ -97,25 +91,17 @@ namespace carbon14.FuryStudio.UnitTests.Infrastructure
                 ConfigLocator = expectedInterface
             };
             IConfigLocator actualInterface = null;
-            Exception caughtException = null;
 
             //Act
-            try
-            {
-                actualInterface = context.ConfigLocator;
-            }
-            catch (Exception innerException)
-            {
-                caughtException = innerException;
-            }
+            actualInterface = context.ConfigLocator;
 
             //Assert
-            Assert.IsNull(caughtException);
             Assert.IsNotNull(actualInterface);
             Assert.AreSame(expectedInterface, actualInterface);
         }
 
         [TestMethod]
+        [ExcludeFromCodeCoverage]
         public void Given_a_CoreServiceContext_with_a_null_FileAdapter_interface_when_the_interface_is_requested_Then_a_ServiceContextException_is_thrown()
         {
             //Arrange
@@ -148,25 +134,17 @@ namespace carbon14.FuryStudio.UnitTests.Infrastructure
                 FileAdapter = expectedInterface
             };
             IFileAdapter actualInterface = null;
-            Exception caughtException = null;
 
             //Act
-            try
-            {
-                actualInterface = context.FileAdapter;
-            }
-            catch (Exception innerException)
-            {
-                caughtException = innerException;
-            }
+            actualInterface = context.FileAdapter;
 
             //Assert
-            Assert.IsNull(caughtException);
             Assert.IsNotNull(actualInterface);
             Assert.AreSame(expectedInterface, actualInterface);
         }
 
         [TestMethod]
+        [ExcludeFromCodeCoverage]
         public void Given_a_CoreServiceContext_with_a_null_Logger_interface_when_the_interface_is_requested_Then_a_ServiceContextException_is_thrown()
         {
             //Arrange
@@ -199,25 +177,17 @@ namespace carbon14.FuryStudio.UnitTests.Infrastructure
                 Logger = expectedInterface
             };
             ILogger actualInterface = null;
-            Exception caughtException = null;
 
             //Act
-            try
-            {
-                actualInterface = context.Logger;
-            }
-            catch (Exception innerException)
-            {
-                caughtException = innerException;
-            }
+            actualInterface = context.Logger;
 
             //Assert
-            Assert.IsNull(caughtException);
             Assert.IsNotNull(actualInterface);
             Assert.AreSame(expectedInterface, actualInterface);
         }
 
         [TestMethod]
+        [ExcludeFromCodeCoverage]
         public void Given_a_CoreServiceContext_with_a_null_PluginLoader_interface_when_the_interface_is_requested_Then_a_ServiceContextException_is_thrown()
         {
             //Arrange
@@ -250,25 +220,17 @@ namespace carbon14.FuryStudio.UnitTests.Infrastructure
                 PluginLoader = expectedInterface
             };
             IPluginLoader actualInterface = null;
-            Exception caughtException = null;
 
             //Act
-            try
-            {
-                actualInterface = context.PluginLoader;
-            }
-            catch (Exception innerException)
-            {
-                caughtException = innerException;
-            }
+            actualInterface = context.PluginLoader;
 
             //Assert
-            Assert.IsNull(caughtException);
             Assert.IsNotNull(actualInterface);
             Assert.AreSame(expectedInterface, actualInterface);
         }
 
         [TestMethod]
+        [ExcludeFromCodeCoverage]
         public void Given_a_CoreServiceContext_with_a_null_PluginManager_interface_when_the_interface_is_requested_Then_a_ServiceContextException_is_thrown()
         {
             //Arrange
@@ -301,25 +263,17 @@ namespace carbon14.FuryStudio.UnitTests.Infrastructure
                 PluginManager = expectedInterface
             };
             IPluginManager actualInterface = null;
-            Exception caughtException = null;
 
             //Act
-            try
-            {
-                actualInterface = context.PluginManager;
-            }
-            catch (Exception innerException)
-            {
-                caughtException = innerException;
-            }
+            actualInterface = context.PluginManager;
 
             //Assert
-            Assert.IsNull(caughtException);
             Assert.IsNotNull(actualInterface);
             Assert.AreSame(expectedInterface, actualInterface);
         }
 
         [TestMethod]
+        [ExcludeFromCodeCoverage]
         public void Given_a_CoreServiceContext_with_a_null_YamlAdapter_interface_when_the_interface_is_requested_Then_a_ServiceContextException_is_thrown()
         {
             //Arrange
@@ -352,25 +306,17 @@ namespace carbon14.FuryStudio.UnitTests.Infrastructure
                 YamlAdapter = expectedInterface
             };
             IYamlAdapter actualInterface = null;
-            Exception caughtException = null;
 
             //Act
-            try
-            {
-                actualInterface = context.YamlAdapter;
-            }
-            catch (Exception innerException)
-            {
-                caughtException = innerException;
-            }
+            actualInterface = context.YamlAdapter;
 
             //Assert
-            Assert.IsNull(caughtException);
             Assert.IsNotNull(actualInterface);
             Assert.AreSame(expectedInterface, actualInterface);
         }
 
         [TestMethod]
+        [ExcludeFromCodeCoverage]
         public void Given_a_CoreServiceContext_with_a_null_interface_when_the_interface_is_requested_Then_the_throw_exception_is_correctly_formed()
         {
             //Arrange

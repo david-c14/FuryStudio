@@ -13,18 +13,10 @@ namespace carbon14.FuryStudio.Infrastructure.Config
             adapter.Serialize(this, stream);
         }
 
-        public void Save(Stream stream) {
-            Save(stream, new YamlAdapter());
-        }
-
         public static IApplicationConfiguration Load(Stream stream, IYamlAdapter adapter)
         {
             return adapter.Deserialize<ApplicationConfiguration>(stream);
         }
 
-        public static IApplicationConfiguration Load(Stream stream)
-        {
-            return Load(stream, new YamlAdapter());
-        }
     }
 }

@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{7E1421BF-4B8F-4E61-B5A1-C7105D145123}</ProjectGuid>
+    <ProjectGuid>{66F9A32E-EA22-48CC-BF93-DC102E8FCFD6}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>carbon14.FuryStudio.Plugins</RootNamespace>
-    <AssemblyName>carbon14.FuryStudio.Plugins</AssemblyName>
+    <RootNamespace>UI</RootNamespace>
+    <AssemblyName>UI</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -42,9 +42,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
-    <Compile Include="Infrastructure\Plugins\MainPlugin.cs" />
-    <Compile Include="Infrastructure\Plugins\Menus\BaseMenu.cs" />
-    <Compile Include="Infrastructure\Plugins\Menus\FileMenu.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -54,7 +51,4 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PostBuildEvent>copy /Y "$(TargetDir)$(TargetFileName)" "$(SolutionDir)FuryStudio\$(OutDir)$(TargetFileName)"</PostBuildEvent>
-  </PropertyGroup>
 </Project>

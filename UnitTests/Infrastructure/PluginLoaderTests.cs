@@ -2,6 +2,7 @@
 using carbon14.FuryStudio.Infrastructure.Plugins;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 
@@ -15,6 +16,8 @@ namespace carbon14.FuryStudio.UnitTests.Infrastructure
         public class TestPlugin : IPlugin_v1
         {
             public string Name => pluginName;
+
+            public IEnumerable<IPluginItem_v1> Items => new List<IPluginItem_v1>();
         }
 
         [TestMethod]

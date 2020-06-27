@@ -1,4 +1,6 @@
-﻿namespace carbon14.FuryStudio.Infrastructure.Plugins
+﻿using System.Collections.Generic;
+
+namespace carbon14.FuryStudio.Infrastructure.Plugins
 {
 
     /*
@@ -16,5 +18,7 @@
     public interface IPlugin_v1
     {
         string Name { get; }
+
+        IEnumerable<IPluginItem_v1> Items { get; }
     }
 }

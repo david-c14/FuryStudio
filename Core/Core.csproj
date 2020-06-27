@@ -57,11 +57,16 @@
     <Compile Include="Infrastructure\Logging\LogEventHandler.cs" />
     <Compile Include="Infrastructure\Logging\Logger.cs" />
     <Compile Include="Infrastructure\Plugins\BasePlugin.cs" />
+    <Compile Include="Infrastructure\Plugins\BasePluginItem.cs" />
+    <Compile Include="Infrastructure\Plugins\IPluginItem_v1.cs" />
     <Compile Include="Infrastructure\Plugins\IPluginLoader.cs" />
     <Compile Include="Infrastructure\Plugins\IPluginManager.cs" />
+    <Compile Include="Infrastructure\Plugins\IPluginMenuItem.cs" />
     <Compile Include="Infrastructure\Plugins\IPlugin_v1.cs" />
+    <Compile Include="Infrastructure\Plugins\PluginInstanceConstants.cs" />
     <Compile Include="Infrastructure\Plugins\PluginLoader.cs" />
     <Compile Include="Infrastructure\Plugins\PluginManager.cs" />
+    <Compile Include="Infrastructure\Plugins\PluginTypeConstants.cs" />
     <Compile Include="Infrastructure\ServiceContext\ICoreServiceContext_v1.cs" />
     <Compile Include="Infrastructure\ServiceContext\CoreServiceContext.cs" />
     <Compile Include="Infrastructure\ServiceContext\ServiceContextException.cs" />

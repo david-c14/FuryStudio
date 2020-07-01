@@ -6,6 +6,7 @@ namespace carbon14.FuryStudio.Infrastructure.Config
 {
     public class ApplicationConfiguration : IApplicationConfiguration
     {
+        //TODO Remove this reference to plugins in the configuration
         public IList<string> Plugins { get; set; } = new List<string>();
 
         public void Save(Stream stream, IYamlAdapter adapter)

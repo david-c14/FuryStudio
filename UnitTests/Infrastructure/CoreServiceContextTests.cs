@@ -1,7 +1,6 @@
 ﻿using carbon14.FuryStudio.Infrastructure.Config;
 using carbon14.FuryStudio.Infrastructure.Files;
 using carbon14.FuryStudio.Infrastructure.Logging;
-using carbon14.FuryStudio.Infrastructure.Plugins;
 using carbon14.FuryStudio.Infrastructure.ServiceContext;
 using carbon14.FuryStudio.Infrastructure.YAML;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -180,92 +179,6 @@ namespace carbon14.FuryStudio.UnitTests.Infrastructure
 
             //Act
             actualInterface = context.Logger;
-
-            //Assert
-            Assert.IsNotNull(actualInterface);
-            Assert.AreSame(expectedInterface, actualInterface);
-        }
-
-        [TestMethod]
-        [ExcludeFromCodeCoverage]
-        public void Given_a_CoreServiceContext_with_a_null_PluginLoader_interface_when_the_interface_is_requested_Then_a_ServiceContextException_is_thrown()
-        {
-            //Arrange
-            CoreServiceContext context = new CoreServiceContext();
-            IPluginLoader actualInterface = null;
-            Exception caughtException = null;
-
-            //Act
-            try
-            {
-                actualInterface = context.PluginLoader;
-            }
-            catch (Exception innerException)
-            {
-                caughtException = innerException;
-            }
-
-            //Assert
-            Assert.IsNotNull(caughtException);
-            Assert.IsInstanceOfType(caughtException, typeof(ServiceContextException));
-        }
-
-        [TestMethod]
-        public void Given_a_CoreServiceContext_with_a_PluginLoader_interface_when_the_interface_is_requested_Then_the_interface_is_returned()
-        {
-            //Arrange
-            IPluginLoader expectedInterface = new Mock<IPluginLoader>().Object;
-            CoreServiceContext context = new CoreServiceContext
-            {
-                PluginLoader = expectedInterface
-            };
-            IPluginLoader actualInterface = null;
-
-            //Act
-            actualInterface = context.PluginLoader;
-
-            //Assert
-            Assert.IsNotNull(actualInterface);
-            Assert.AreSame(expectedInterface, actualInterface);
-        }
-
-        [TestMethod]
-        [ExcludeFromCodeCoverage]
-        public void Given_a_CoreServiceContext_with_a_null_PluginManager_interface_when_the_interface_is_requested_Then_a_ServiceContextException_is_thrown()
-        {
-            //Arrange
-            CoreServiceContext context = new CoreServiceContext();
-            IPluginManager actualInterface = null;
-            Exception caughtException = null;
-
-            //Act
-            try
-            {
-                actualInterface = context.PluginManager;
-            }
-            catch (Exception innerException)
-            {
-                caughtException = innerException;
-            }
-
-            //Assert
-            Assert.IsNotNull(caughtException);
-            Assert.IsInstanceOfType(caughtException, typeof(ServiceContextException));
-        }
-
-        [TestMethod]
-        public void Given_a_CoreServiceContext_with_a_PluginManager_interface_when_the_interface_is_requested_Then_the_interface_is_returned()
-        {
-            //Arrange
-            IPluginManager expectedInterface = new Mock<IPluginManager>().Object;
-            CoreServiceContext context = new CoreServiceContext
-            {
-                PluginManager = expectedInterface
-            };
-            IPluginManager actualInterface = null;
-
-            //Act
-            actualInterface = context.PluginManager;
 
             //Assert
             Assert.IsNotNull(actualInterface);

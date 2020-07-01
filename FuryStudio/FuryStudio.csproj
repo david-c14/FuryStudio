@@ -49,6 +49,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DummyPagePresenter.cs" />
+    <Compile Include="DummyPageView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="DummyPageView.Designer.cs">
+      <DependentUpon>DummyPageView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -57,6 +64,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="DummyPageView.resx">
+      <DependentUpon>DummyPageView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -88,6 +98,14 @@
     <ProjectReference Include="..\Core\Core.csproj">
       <Project>{9a8dd6a3-6c0b-4eb5-8fa2-5619a4406551}</Project>
       <Name>Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Services\Services.csproj">
+      <Project>{DC2D00C4-6C38-4440-94F1-C9565B4586F2}</Project>
+      <Name>Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UI\UI.csproj">
+      <Project>{66f9a32e-ea22-48cc-bf93-dc102e8fcfd6}</Project>
+      <Name>UI</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

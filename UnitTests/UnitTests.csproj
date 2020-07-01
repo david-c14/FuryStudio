@@ -66,8 +66,6 @@
     <Compile Include="Infrastructure\ConfigLocatorTests.cs" />
     <Compile Include="Infrastructure\FileAdapterTests.cs" />
     <Compile Include="Infrastructure\ApplicationConfigurationTests.cs" />
-    <Compile Include="Infrastructure\PluginLoaderTests.cs" />
-    <Compile Include="Infrastructure\PluginManagerTests.cs" />
     <Compile Include="Infrastructure\CoreServiceContextTests.cs" />
     <Compile Include="Infrastructure\LoggerTests.cs" />
     <Compile Include="Infrastructure\YamlAdapterTests.cs" />

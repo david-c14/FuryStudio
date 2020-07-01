@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UI
+namespace carbon14.FuryStudio.Wizards
 {
-    public class Class1
+    public interface IWizardPagePresenter
     {
+        IWizardPageView View { get; }
     }
 }

@@ -1,161 +1,165 @@
 {
 	"version": "2.0.0",
+	"windows": {
+		"tasks": [
+			{
+				"label": "run WinUI",
+				"command": "dotnet",
+				"type": "process",
+				"args": [ "run", "WinUI.csproj" ],
+				"options": {
+					"cwd": "${workspaceFolder}/WinUI"
+				},
+				"problemMatcher": "$msCompile",
+			},
+			{
+				"label": "build WinUI",
+				"command": "dotnet",
+				"type": "process",
+				"args": [ "build", "WinUI.csproj" ],
+				"options": {
+					"cwd": "${workspaceFolder}/WinUI"
+				},
+				"problemMatcher": "$msCompile",
+			},
+		]	
+	},
 	"tasks": [
-	{
-		"label": "run AvaloniaUI",
-		"command": "dotnet",
-		"type": "process",
-		"args": [ "run", "AvaloniaUI.csproj" ],
-		"options": {
-			"cwd": "${workspaceFolder}/AvaloniaUI"
+		{
+			"label": "run AvaloniaUI",
+			"command": "dotnet",
+			"type": "process",
+			"args": [ "run", "AvaloniaUI.csproj" ],
+			"options": {
+				"cwd": "${workspaceFolder}/AvaloniaUI"
+			},
+			"problemMatcher": "$msCompile",
 		},
-		"problemMatcher": "$msCompile",
-	},
-	{
-		"label": "run WinUI",
-		"command": "dotnet",
-		"type": "process",
-		"args": [ "run", "WinUI.csproj" ],
-		"options": {
-			"cwd": "${workspaceFolder}/WinUI"
+		{
+			"label": "test Core",
+			"command": "dotnet",
+			"type": "process",
+			"args": [ "test", "Core.Tests.csproj" ],
+			"options": {
+				"cwd": "${workspaceFolder}/Core.Tests"
+			},
+			"problemMatcher": "$msCompile",
 		},
-		"problemMatcher": "$msCompile",
-	},
-	{
-		"label": "test Core",
-		"command": "dotnet",
-		"type": "process",
-		"args": [ "test", "Core.Tests.csproj" ],
-		"options": {
-			"cwd": "${workspaceFolder}/Core.Tests"
+		{
+			"label": "build Interfaces",
+			"command": "dotnet",
+			"type": "process",
+			"args": [ "build", "Interfaces.csproj" ],
+			"options": {
+				"cwd": "${workspaceFolder}/Interfaces"
+			},
+			"problemMatcher": "$msCompile",
 		},
-		"problemMatcher": "$msCompile",
-	},
-	{
-		"label": "build Interfaces",
-		"command": "dotnet",
-		"type": "process",
-		"args": [ "build", "Interfaces.csproj" ],
-		"options": {
-			"cwd": "${workspaceFolder}/Interfaces"
+		{
+			"label": "build Core",
+			"command": "dotnet",
+			"type": "process",
+			"args": [ "build", "Core.csproj" ],
+			"options": {
+				"cwd": "${workspaceFolder}/Core"
+			},
+			"problemMatcher": "$msCompile",
 		},
-		"problemMatcher": "$msCompile",
-	},
-	{
-		"label": "build Core",
-		"command": "dotnet",
-		"type": "process",
-		"args": [ "build", "Core.csproj" ],
-		"options": {
-			"cwd": "${workspaceFolder}/Core"
+		{
+			"label": "build ViewModels",
+			"command": "dotnet",
+			"type": "process",
+			"args": [ "build", "ViewModels.csproj" ],
+			"options": {
+				"cwd": "${workspaceFolder}/ViewModels"
+			},
+			"problemMatcher": "$msCompile",
 		},
-		"problemMatcher": "$msCompile",
-	},
-	{
-		"label": "build ViewModels",
-		"command": "dotnet",
-		"type": "process",
-		"args": [ "build", "ViewModels.csproj" ],
-		"options": {
-			"cwd": "${workspaceFolder}/ViewModels"
+		{
+			"label": "build Core.Tests",
+			"command": "dotnet",
+			"type": "process",
+			"args": [ "build", "Core.Tests.csproj" ],
+			"options": {
+				"cwd": "${workspaceFolder}/Core.Tests"
+			},
+			"problemMatcher": "$msCompile",
 		},
-		"problemMatcher": "$msCompile",
-	},
-	{
-		"label": "build Core.Tests",
-		"command": "dotnet",
-		"type": "process",
-		"args": [ "build", "Core.Tests.csproj" ],
-		"options": {
-			"cwd": "${workspaceFolder}/Core.Tests"
+		{
+			"label": "build AvaloniaUI",
+			"command": "dotnet",
+			"type": "process",
+			"args": [ "build", "AvaloniaUI.csproj" ],
+			"options": {
+				"cwd": "${workspaceFolder}/AvaloniaUI"
+			},
+			"problemMatcher": "$msCompile",
 		},
-		"problemMatcher": "$msCompile",
-	},
-	{
-		"label": "build AvaloniaUI",
-		"command": "dotnet",
-		"type": "process",
-		"args": [ "build", "AvaloniaUI.csproj" ],
-		"options": {
-			"cwd": "${workspaceFolder}/AvaloniaUI"
+		{
+			"label": "clean Interfaces",
+			"command": "dotnet",
+			"type": "process",
+			"args": [ "clean", "Interfaces.csproj" ],
+			"options": {
+				"cwd": "${workspaceFolder}/Interfaces"
+			},
+			"problemMatcher": "$msCompile",
 		},
-		"problemMatcher": "$msCompile",
-	},
-	{
-		"label": "build WinUI",
-		"command": "dotnet",
-		"type": "process",
-		"args": [ "build", "WinUI.csproj" ],
-		"options": {
-			"cwd": "${workspaceFolder}/WinUI"
+		{
+			"label": "clean Core",
+			"command": "dotnet",
+			"type": "process",
+			"args": [ "clean", "Core.csproj" ],
+			"options": {
+				"cwd": "${workspaceFolder}/Core"
+			},
+			"problemMatcher": "$msCompile",
 		},
-		"problemMatcher": "$msCompile",
-	},
-	{
-		"label": "clean Interfaces",
-		"command": "dotnet",
-		"type": "process",
-		"args": [ "clean", "Interfaces.csproj" ],
-		"options": {
-			"cwd": "${workspaceFolder}/Interfaces"
+		{
+			"label": "clean ViewModels",
+			"command": "dotnet",
+			"type": "process",
+			"args": [ "clean", "ViewModels.csproj" ],
+			"options": {
+				"cwd": "${workspaceFolder}/ViewModels"
+			},
+			"problemMatcher": "$msCompile",
 		},
-		"problemMatcher": "$msCompile",
-	},
-	{
-		"label": "clean Core",
-		"command": "dotnet",
-		"type": "process",
-		"args": [ "clean", "Core.csproj" ],
-		"options": {
-			"cwd": "${workspaceFolder}/Core"
+		{
+			"label": "clean Core.Tests",
+			"command": "dotnet",
+			"type": "process",
+			"args": [ "clean", "Core.Tests.csproj" ],
+			"options": {
+				"cwd": "${workspaceFolder}/Core.Tests"
+			},
+			"problemMatcher": "$msCompile",
 		},
-		"problemMatcher": "$msCompile",
-	},
-	{
-		"label": "clean ViewModels",
-		"command": "dotnet",
-		"type": "process",
-		"args": [ "clean", "ViewModels.csproj" ],
-		"options": {
-			"cwd": "${workspaceFolder}/ViewModels"
+		{
+			"label": "clean AvaloniaUI",
+			"command": "dotnet",
+			"type": "process",
+			"args": [ "clean", "AvaloniaUI.csproj" ],
+			"options": {
+				"cwd": "${workspaceFolder}/AvaloniaUI"
+			},
+			"problemMatcher": "$msCompile",
 		},
-		"problemMatcher": "$msCompile",
-	},
-	{
-		"label": "clean Core.Tests",
-		"command": "dotnet",
-		"type": "process",
-		"args": [ "clean", "Core.Tests.csproj" ],
-		"options": {
-			"cwd": "${workspaceFolder}/Core.Tests"
+		{
+			"label": "clean WinUI",
+			"command": "dotnet",
+			"type": "process",
+			"args": [ "clean", "WinUI.csproj" ],
+			"options": {
+				"cwd": "${workspaceFolder}/WinUI"
+			},
+			"problemMatcher": "$msCompile",
 		},
-		"problemMatcher": "$msCompile",
-	},
-	{
-		"label": "clean AvaloniaUI",
-		"command": "dotnet",
-		"type": "process",
-		"args": [ "clean", "AvaloniaUI.csproj" ],
-		"options": {
-			"cwd": "${workspaceFolder}/AvaloniaUI"
+		{
+			"label": "clean all",
+			"dependsOn": ["clean Core", "clean Interfaces", "clean ViewModels", "clean Core.Tests", "clean AvaloniaUI", "clean WinUI"],
+			"problemMatcher": "$msCompile",
 		},
-		"problemMatcher": "$msCompile",
-	},
-	{
-		"label": "clean WinUI",
-		"command": "dotnet",
-		"type": "process",
-		"args": [ "clean", "WinUI.csproj" ],
-		"options": {
-			"cwd": "${workspaceFolder}/WinUI"
-		},
-		"problemMatcher": "$msCompile",
-	},
-	{
-		"label": "clean all",
-		"dependsOn": ["clean Core", "clean Interfaces", "clean ViewModels", "clean Core.Tests", "clean AvaloniaUI", "clean WinUI"],
-		"problemMatcher": "$msCompile",
-	},
-	
+		
 	]
 }

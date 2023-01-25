@@ -2,13 +2,11 @@
     "version": "0.2.0",
     "configurations":[
         {
-            "windows": {
-                "name": "WinUI",
-                "program": "${workspaceFolder}/WinUI/bin/Debug/net6.0-windows/carbon14.FuryStudio.WinUI.exe",
-                "request": "launch",
-                "preLaunchTask": "build WinUI",
-                "type": "coreclr"
-            }
+            "name": "WinUI",
+            "program": "${workspaceFolder}/WinUI/bin/Debug/net6.0-windows/carbon14.FuryStudio.WinUI",
+            "request": "launch",
+            "preLaunchTask": "build WinUI",
+            "type": "coreclr"
         },
         {
             "name": "AvaloniaUI",

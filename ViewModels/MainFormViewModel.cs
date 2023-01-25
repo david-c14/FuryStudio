@@ -53,8 +53,6 @@ namespace carbon14.FuryStudio.ViewModels
     }
 }
 
-///TODO Get solution into github
-///TODO Get solution building on linux
 ///TODO Get c++ project into solution
 ///TODO Get c wrapper into solution
 ///TODO Get c# wrapper into solution

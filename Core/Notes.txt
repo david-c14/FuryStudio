@@ -1,0 +1,38 @@
+﻿Directory structure
+
+Program Data
+
+
+Users AppData
+		carbon14
+				FuryStudio
+						Config.yml
+						Sessions
+								Config.yml
+								{sessionId}
+										Config.yml
+										Assets
+												BIN
+												DEC
+												KMD
+										Install
+												BIN
+												DEC
+												KMD
+						Templates
+								Config.yml
+								Template1
+										Config.yml
+										BIN
+										DEC
+										KMD
+
+need 
+
+IZipper
+IStreamWriter
+IStreamReader
+ISession
+ISessionManager
+IDOSEmulator
+

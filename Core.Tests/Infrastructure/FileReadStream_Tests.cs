@@ -22,7 +22,8 @@ namespace carbon14.FuryStudio.Core.Tests.Infrastructure
             string actualResult;
 
             // Act
-            using Stream stream = readStream.GetStream(@"..\..\..\TestAssets\TextFile.txt");
+            char sep = Path.DirectorySeparatorChar;
+            using Stream stream = readStream.GetStream($"..{sep}..{sep}..{sep}TestAssets{sep}TextFile.txt");
             using StreamReader reader = new(stream);
             actualResult = reader.ReadToEnd();
 

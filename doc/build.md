@@ -15,8 +15,7 @@
 - `cmake --build .`
 
 ### Test the utils
-- `cd Debug`
-- `vstest.console C_Tests.dll`
+- `vstest.console Debug\C_Tests.dll`
 
 ### Build FuryStudio
 - `cd ..\..\WinUI`

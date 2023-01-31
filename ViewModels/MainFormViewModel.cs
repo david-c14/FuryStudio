@@ -48,7 +48,10 @@ namespace carbon14.FuryStudio.ViewModels
 
         public void EnableCommand(object? parameter)
         {
-            Menu[0].Items[1].Enabled = true;
+            ViewModelMenuItem? item = Menu[0]?.Items?[1];
+            if (item != null) {
+                item.Enabled = true;
+            }
         }
     }
 }

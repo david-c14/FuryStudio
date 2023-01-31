@@ -16,7 +16,7 @@ namespace carbon14.FuryStudio.Core.Tests.Infrastructure
         {
             // Arrange
             PlatformInfo platformInfo = new PlatformInfo();
-            FileStreamLocator locator = new (platformInfo) { BasePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) };
+            FileStreamLocator locator = new (platformInfo) { BasePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? ""};
             FileReadStream readStream = new(locator);
             string expectedResult = "This is a text file";
             string actualResult;

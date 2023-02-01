@@ -56,7 +56,7 @@ namespace carbon14.FuryStudio.ViewModels
     }
 }
 
-///TODO Get c# wrapper into solution
+///TODO Fix utils to 32/64 bit
 ///TODO Get Cli working in linux
 ///TODO Get Library working in linux
 ///TODO Get c# wrapper working in linux (.so rather than .dll)

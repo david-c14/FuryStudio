@@ -1,4 +1,5 @@
 cmake_minimum_required(VERSION 3.10)
+#set(CMAKE_GENERATOR_PLATFORM x64)
 project(All VERSION 1.0)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR})
 set(LIBRARY_OUTPUT_PATH ${CMAKE_SOURCE_DIR})
@@ -8,4 +9,7 @@ add_subdirectory(../FuryUtils FuryUtils)
 add_subdirectory(../C_Tests C_Tests)
 add_subdirectory(../Cpp_Tests Cpp_Tests)
 add_subdirectory(../Cli_Tests Cli_Tests)
-add_dependencies(Cli_Tests DatFile ImmFile)
+add_dependencies(Cli_Tests 
+    DatFile 
+    ImmFile
+)

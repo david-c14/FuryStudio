@@ -163,9 +163,9 @@ namespace Dat_Tests
 
 		TEST_METHOD(Given_a_dat_When_size_is_called_Then_the_correct_size_is_returned) {
 			std::vector<uint8_t> expected = utils::ReadFile("basic.dat");
-			int size = expected.size();
+			uint32_t size = uint32_t(expected.size());
 			Dat dat(expected);
-			int actualSize = dat.Size();
+			uint32_t actualSize = uint32_t(dat.Size());
 			Assert::AreEqual(size, actualSize, L"Incorrect size returned");
 		}
 
@@ -180,10 +180,10 @@ namespace Dat_Tests
 
 		TEST_METHOD(Given_an_empty_dat_When_a_file_is_added_Then_the_size_is_correct) {
 			std::vector<uint8_t> file1 = utils::ReadFile("pal8out.bmp");
-			int expectedSize = 2 + 13 + 4 + 4 + 1 + file1.size();
+			uint32_t expectedSize = 2 + 13 + 4 + 4 + 1 + uint32_t(file1.size());
 			Dat dat;
 			dat.Add("pal8out.bmp", file1, false);
-			int actualSize = dat.Size();
+			uint32_t actualSize = uint32_t(dat.Size());
 			Assert::AreEqual(expectedSize, actualSize, L"Size is incorrect");
 		}
 
@@ -191,8 +191,8 @@ namespace Dat_Tests
 			std::vector<uint8_t> file1 = utils::ReadFile("pal8out.bmp");
 			Dat dat;
 			dat.Add("pal8out.bmp", file1, true);
-			int actualSize = dat.Size();
-			int expectedSize = file1.size() + 2 + 13 + 4 + 4 + 1;
+			uint32_t actualSize = uint32_t(dat.Size());
+			uint32_t expectedSize = uint32_t(file1.size()) + 2 + 13 + 4 + 4 + 1;
 			Assert::AreEqual(expectedSize, actualSize, L"Size is incorrect");
 		}
 

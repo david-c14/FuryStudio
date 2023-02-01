@@ -14,7 +14,7 @@ namespace Bmp_Tests
 	public:
 		TEST_METHOD(Given_a_faulty_bmp_When_created_Then_an_exception_is_raised) {
 			std::vector<uint8_t> inputFile = utils::ReadFile("badrle.bmp");
-			bmp_p bmp = Test_Bmp_createFromBmp(inputFile.data(), inputFile.size());
+			bmp_p bmp = Test_Bmp_createFromBmp(inputFile.data(), uint32_t(inputFile.size()));
 			Assert::IsNull(bmp, L"Expected null return value");
 			Assert::AreEqual(1, Test_GetExceptionCode(), L"Incorrect error code");
 			Assert::AreEqual("Compressed data contains an error", Test_GetExceptionString(), L"Incorrect error message");
@@ -23,7 +23,7 @@ namespace Bmp_Tests
 		TEST_METHOD(Given_a_faulty_imm_When_created_Then_an_exception_is_raised) {
 			std::vector<uint8_t> pixelFile = utils::ReadFile("tooshort.bmp");
 			std::vector<uint8_t> paletteFile = utils::ReadFile("pal8out.pam");
-			bmp_p bmp = Test_Bmp_createFromImmAndPam(pixelFile.data(), pixelFile.size(), paletteFile.data(), paletteFile.size());
+			bmp_p bmp = Test_Bmp_createFromImmAndPam(pixelFile.data(), uint32_t(pixelFile.size()), paletteFile.data(), uint32_t(paletteFile.size()));
 			Assert::IsNull(bmp, L"Expected null return value");
 			Assert::AreEqual(1, Test_GetExceptionCode(), L"Incorrect error code");
 			Assert::AreEqual("Image buffer size is too short for valid Imm", Test_GetExceptionString(), L"Incorrect error message");
@@ -34,12 +34,12 @@ namespace Bmp_Tests
 			std::vector<uint8_t> inputFile = utils::ReadFile("pal8out.bmp");
 			std::vector<uint8_t> expectedPixelFile = utils::ReadFile("pal8out.imm");
 			std::vector<uint8_t> expectedPaletteFile = utils::ReadFile("pal8out.pam");
-			bmp_p bmp = Test_Bmp_createFromBmp(inputFile.data(), inputFile.size());
+			bmp_p bmp = Test_Bmp_createFromBmp(inputFile.data(), uint32_t(inputFile.size()));
 			try {
 				std::vector<uint8_t> actualPixelFile(Test_Imm_immSize(bmp));
-				uint8_t result1 = Test_Imm_immBuffer(bmp, actualPixelFile.data(), actualPixelFile.size());
+				uint8_t result1 = Test_Imm_immBuffer(bmp, actualPixelFile.data(), uint32_t(actualPixelFile.size()));
 				std::vector<uint8_t> actualPaletteFile(Test_Imm_pamSize(bmp));
-				uint8_t result2 = Test_Imm_pamBuffer(bmp, actualPaletteFile.data(), actualPaletteFile.size());
+				uint8_t result2 = Test_Imm_pamBuffer(bmp, actualPaletteFile.data(), uint32_t(actualPaletteFile.size()));
 				Assert::AreEqual((uint8_t)true, result1, L"Incorrect result from ImmBuffer");
 				Assert::AreEqual((uint8_t)true, result2, L"Incorrect result from PamBuffer");
 				Assert::AreEqual(expectedPixelFile.size(), actualPixelFile.size(), L"Incorrect size for Imm buffer");
@@ -57,10 +57,10 @@ namespace Bmp_Tests
 			std::vector<uint8_t> inputPixelFile = utils::ReadFile("pal8out.imm");
 			std::vector<uint8_t> inputPaletteFile = utils::ReadFile("pal8out.pam");
 			std::vector<uint8_t> expectedFile = utils::ReadFile("pal8qnt.bmp");
-			bmp_p bmp = Test_Bmp_createFromImmAndPam(inputPixelFile.data(), inputPixelFile.size(), inputPaletteFile.data(), inputPaletteFile.size());
+			bmp_p bmp = Test_Bmp_createFromImmAndPam(inputPixelFile.data(), uint32_t(inputPixelFile.size()), inputPaletteFile.data(), uint32_t(inputPaletteFile.size()));
 			try {
 				std::vector<uint8_t> actualFile(Test_Imm_size(bmp));
-				uint8_t result = Test_Imm_buffer(bmp, actualFile.data(), actualFile.size());
+				uint8_t result = Test_Imm_buffer(bmp, actualFile.data(), uint32_t(actualFile.size()));
 				Assert::AreEqual((uint8_t)true, result, L"Incorrect result returned from Buffer");
 				Assert::AreEqual(expectedFile.size(), actualFile.size(), L"Incorrect size for buffer");
 				Assert::IsTrue(expectedFile == actualFile, L"Buffers do not match");

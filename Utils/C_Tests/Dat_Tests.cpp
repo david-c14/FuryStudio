@@ -15,7 +15,7 @@ namespace Dat_Tests
 		TEST_METHOD(Given_a_faulty_dat_When_created_Then_an_exception_is_raised)
 		{
 			std::vector<uint8_t> inputFile = utils::ReadFile("pal8out.bmp");
-			dat_p dat = Test_Dat_create(inputFile.data(), inputFile.size());
+			dat_p dat = Test_Dat_create(inputFile.data(), uint32_t(inputFile.size()));
 			Assert::IsNull(dat, L"Expected null return value");
 			Assert::AreEqual(3, Test_GetExceptionCode(), L"Incorrect error code");
 			Assert::AreEqual("Attempt to read beyond end of buffer", Test_GetExceptionString(), L"Incorrect error message");
@@ -24,7 +24,7 @@ namespace Dat_Tests
 		TEST_METHOD(Given_a_valid_dat_When_entry_point_is_called_Then_the_number_of_entries_is_returned)
 		{
 			std::vector<uint8_t> inputFile = utils::ReadFile("basic.dat");
-			dat_p dat = Test_Dat_create(inputFile.data(), inputFile.size());
+			dat_p dat = Test_Dat_create(inputFile.data(), uint32_t(inputFile.size()));
 			try {
 				int count = Test_Dat_entryCount(dat);
 				Assert::AreEqual(2, count, L"Invalid entry count should have been returned");
@@ -38,7 +38,7 @@ namespace Dat_Tests
 
 		TEST_METHOD(Given_a_valid_dat_When_next_is_called_Then_the_correct_header_is_returned) {
 			std::vector<uint8_t> inputFile = utils::ReadFile("basic.dat");
-			dat_p dat = Test_Dat_create(inputFile.data(), inputFile.size());
+			dat_p dat = Test_Dat_create(inputFile.data(), uint32_t(inputFile.size()));
 			try {
 				DatHeader header;
 				bool result;
@@ -73,7 +73,7 @@ namespace Dat_Tests
 
 		TEST_METHOD(Given_a_valid_dat_When_next_is_called_past_the_last_entry_Then_false_is_returned_and_the_passed_header_is_unchanged) {
 			std::vector<uint8_t> inputFile = utils::ReadFile("basic.dat");
-			dat_p dat = Test_Dat_create(inputFile.data(), inputFile.size());
+			dat_p dat = Test_Dat_create(inputFile.data(), uint32_t(inputFile.size()));
 			try {
 				DatHeader header;
 				bool result;
@@ -99,7 +99,7 @@ namespace Dat_Tests
 
 		TEST_METHOD(Given_a_valid_dat_When_header_is_called_Then_the_correct_header_is_returned) {
 			std::vector<uint8_t> inputFile = utils::ReadFile("basic.dat");
-			dat_p dat = Test_Dat_create(inputFile.data(), inputFile.size());
+			dat_p dat = Test_Dat_create(inputFile.data(), uint32_t(inputFile.size()));
 			try {
 				DatHeader header;
 				bool result;
@@ -118,7 +118,7 @@ namespace Dat_Tests
 
 		TEST_METHOD(Given_a_valid_dat_When_header_is_called_with_an_incorrect_index_Then_the_false_is_returned_and_the_header_is_unchanged) {
 			std::vector<uint8_t> inputFile = utils::ReadFile("basic.dat");
-			dat_p dat = Test_Dat_create(inputFile.data(), inputFile.size());
+			dat_p dat = Test_Dat_create(inputFile.data(), uint32_t(inputFile.size()));
 			try {
 				DatHeader header;
 				bool result;
@@ -145,10 +145,10 @@ namespace Dat_Tests
 		TEST_METHOD(Given_a_valid_dat_When_entry_is_called_Then_the_correct_buffer_is_returned) {
 			std::vector<uint8_t> inputFile = utils::ReadFile("basic.dat");
 			std::vector<uint8_t> expected = utils::ReadFile("pal8out.bmp");
-			dat_p dat = Test_Dat_create(inputFile.data(), inputFile.size());
+			dat_p dat = Test_Dat_create(inputFile.data(), uint32_t(inputFile.size()));
 			try {
 				std::vector<uint8_t> actualBuffer(9270);
-				bool result = Test_Dat_entry(dat, 0, actualBuffer.data(), actualBuffer.size());
+				bool result = Test_Dat_entry(dat, 0, actualBuffer.data(), uint32_t(actualBuffer.size()));
 				Assert::IsTrue(result, L"Return value is incorrect");
 				Assert::AreEqual(expected.size(), actualBuffer.size(), L"Filesize is incorrect");
 				int cmp = memcmp(expected.data(), actualBuffer.data(), expected.size());
@@ -162,10 +162,10 @@ namespace Dat_Tests
 
 		TEST_METHOD(Given_a_valid_dat_When_entry_is_called_with_an_invalid_index_Then_the_return_value_is_false_and_INDEX_OUT_OF_RANGE_is_raised) {
 			std::vector<uint8_t> inputFile = utils::ReadFile("basic.dat");
-			dat_p dat = Test_Dat_create(inputFile.data(), inputFile.size());
+			dat_p dat = Test_Dat_create(inputFile.data(), uint32_t(inputFile.size()));
 			try {
 				std::vector<uint8_t> actualBuffer(9270);
-				bool result = Test_Dat_entry(dat, 2, actualBuffer.data(), actualBuffer.size());
+				bool result = Test_Dat_entry(dat, 2, actualBuffer.data(), uint32_t(actualBuffer.size()));
 				Assert::IsFalse(result, L"Return value is incorrect");
 				Assert::AreEqual(4, Test_GetExceptionCode(), L"Incorrect error code");
 				Assert::AreEqual("Index out of range", Test_GetExceptionString(), L"Incorrect error message");
@@ -178,10 +178,10 @@ namespace Dat_Tests
 
 		TEST_METHOD(Given_a_valid_dat_When_entry_is_called_with_an_incorrectly_sized_buffer_Then_the_return_value_is_false_and_BUFFER_OVERFLOW_is_raised) {
 			std::vector<uint8_t> inputFile = utils::ReadFile("basic.dat");
-			dat_p dat = Test_Dat_create(inputFile.data(), inputFile.size());
+			dat_p dat = Test_Dat_create(inputFile.data(), uint32_t(inputFile.size()));
 			try {
 				std::vector<uint8_t> actualBuffer(9269);
-				bool result = Test_Dat_entry(dat, 0, actualBuffer.data(), actualBuffer.size());
+				bool result = Test_Dat_entry(dat, 0, actualBuffer.data(), uint32_t(actualBuffer.size()));
 				Assert::IsFalse(result, L"Return value is incorrect");
 				Assert::AreEqual(3, Test_GetExceptionCode(), L"Incorrect error code");
 				Assert::AreEqual("Buffer too small", Test_GetExceptionString(), L"Incorrect error message");
@@ -220,14 +220,14 @@ namespace Dat_Tests
 			std::vector<uint8_t> pal4out = utils::ReadFile("pal4out.bmp");
 			dat_p dat = Test_Dat_createNew();
 			try {
-				Test_Dat_add(dat, "pal8out.bmp", pal8out.data(), pal8out.size(), true);
-				Test_Dat_add(dat, "pal4out.bmp", pal4out.data(), pal4out.size(), true);
+				Test_Dat_add(dat, "pal8out.bmp", pal8out.data(), uint32_t(pal8out.size()), true);
+				Test_Dat_add(dat, "pal4out.bmp", pal4out.data(), uint32_t(pal4out.size()), true);
 				uint32_t size = Test_Dat_size(dat);
 				std::vector<uint8_t> actualBuffer(size);
-				bool result = Test_Dat_buffer(dat, actualBuffer.data(), actualBuffer.size());
+				bool result = Test_Dat_buffer(dat, actualBuffer.data(), uint32_t(actualBuffer.size()));
 				Assert::AreEqual(expected.size(), actualBuffer.size(), L"File sizes are incorrect");
 				Assert::IsTrue(result, L"Return value is incorrect");
-				int cmp = memcmp(expected.data(), actualBuffer.data(), actualBuffer.size());
+				int cmp = memcmp(expected.data(), actualBuffer.data(), uint32_t(actualBuffer.size()));
 				Assert::AreEqual(0, cmp, L"Files do not compare equal");
 			}
 			catch (...) {
@@ -240,12 +240,12 @@ namespace Dat_Tests
 			std::vector<uint8_t> pal8out = utils::ReadFile("pal8out.bmp");
 			dat_p dat = Test_Dat_createNew();
 			try {
-				Test_Dat_add(dat, "pal8out.bmp", pal8out.data(), pal8out.size(), false);
+				Test_Dat_add(dat, "pal8out.bmp", pal8out.data(), uint32_t(pal8out.size()), false);
 				uint32_t size = Test_Dat_size(dat);
 				std::vector<uint8_t> buffer(size);
-				bool result = Test_Dat_buffer(dat, buffer.data(), buffer.size());
+				bool result = Test_Dat_buffer(dat, buffer.data(), uint32_t(buffer.size()));
 				Assert::IsTrue(result, L"Return value is incorrect");
-				Assert::AreEqual(24 + pal8out.size(), size, L"Buffer size is incorrect");
+				Assert::AreEqual(24 + uint32_t(pal8out.size()), size, L"Buffer size is incorrect");
 				Assert::AreEqual((uint8_t)1, buffer[0], L"First byte of buffer is incorrect");
 				Assert::AreEqual((uint8_t)0, buffer[1], L"Second byte of buffer is incorrect");
 				DatHeader header;

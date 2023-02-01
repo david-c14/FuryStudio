@@ -45,7 +45,7 @@ Bmp::Bmp(std::vector<uint8_t> &inputPalette, std::vector<uint8_t> &inputPixels) 
 }
 
 Bmp::Bmp(std::vector<uint8_t> &inputBuffer) {
-	uint32_t inputSize = inputBuffer.size();
+	uint32_t inputSize = uint32_t(inputBuffer.size());
 	if (inputSize < sizeof(BitmapFileHeader) + sizeof(uint32_t)) {
 		Exceptions::ERROR(Exceptions::INVALID_FORMAT, Exceptions::ERROR_BMP_SHORT_HEADER);
 	}
@@ -150,7 +150,7 @@ Bmp::Bmp(std::vector<uint8_t> &inputBuffer) {
 	if (paletteCount > (1u << _depth)) {
 		Exceptions::ERROR(Exceptions::INVALID_FORMAT, Exceptions::ERROR_BMP_PALETTE_SIZE_MISMATCH);
 	}
-	std::vector<RGBTriple> paletteVector((1 << _depth));
+	std::vector<RGBTriple> paletteVector(uint32_t(1 << _depth));
 	paletteVector.swap(_palette);
 	if (core) {
 		BGRTriple triple;
@@ -376,7 +376,7 @@ Bmp::Bmp(std::vector<uint8_t> &inputBuffer) {
 void Bmp::MakeBmp() {
 	BitmapFileHeader fh;
 	uint32_t stride = 4 * ((_width / (32 / _depth)) + ((_width % (32 / _depth)) > 0));
-	uint32_t paletteSize = sizeof(RGBAQuad) * _palette.size();
+	uint32_t paletteSize = sizeof(RGBAQuad) * uint32_t(_palette.size());
 	fh.pixelOffset = sizeof(BitmapFileHeader) + sizeof(BitmapInfoHeader) + paletteSize;
 	fh.size = fh.pixelOffset + stride * _height;
 	BitmapInfoHeader ih;

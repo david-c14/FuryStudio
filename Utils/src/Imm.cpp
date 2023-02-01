@@ -7,7 +7,7 @@ Imm::Imm() {
 }
 
 Imm::Imm(std::vector<uint8_t> &inputPalette, std::vector<uint8_t> &inputPixels) {
-	uint32_t inputSize = inputPixels.size();
+	uint32_t inputSize = uint32_t(inputPixels.size());
 	if (inputSize < 9) {
 		Exceptions::ERROR(Exceptions::INVALID_FORMAT, Exceptions::ERROR_IMM_SHORT_HEADER);
 	}
@@ -50,7 +50,7 @@ Imm::Imm(std::vector<uint8_t> &inputPalette, std::vector<uint8_t> &inputPixels) 
 }
 
 uint32_t Imm::Size() {
-	return _outputBuffer.size();
+	return uint32_t(_outputBuffer.size());
 }
 
 void Imm::Buffer(std::vector<uint8_t> &inputBuffer) {
@@ -82,7 +82,7 @@ void Imm::ImmBuffer(std::vector<uint8_t> &inputBuffer) {
 }
 
 uint32_t Imm::PamSize() {
-	return (1 << _depth) * sizeof(RGBTriple);
+	return uint32_t(1 << _depth) * sizeof(RGBTriple);
 }
 
 void Imm::PamBuffer(std::vector<uint8_t> &inputBuffer) {

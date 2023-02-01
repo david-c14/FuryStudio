@@ -56,9 +56,9 @@ namespace carbon14.FuryStudio.ViewModels
     }
 }
 
-///TODO Get c++ project into solution
-///TODO Get c wrapper into solution
 ///TODO Get c# wrapper into solution
+///TODO Get Cli working in linux
+///TODO Get Library working in linux
 ///TODO Get c# wrapper working in linux (.so rather than .dll)
 ///TODO Get copyrighted test assets into git submodule (so they can remain private)
 ///TODO Get Fury Project Template builders working.

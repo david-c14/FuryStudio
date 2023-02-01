@@ -1,12 +1,12 @@
 ﻿using System.Windows.Input;
 
-namespace carbon14.FuryStudio.ViewModels.Components
+namespace carbon14.FuryStudio.ViewModels.Commands
 {
-    public class ViewModelCommand : ICommand
+    public class AppCommand : ICommand
     {
-        private ViewModelExecuteDelegate _executeCallback;
+        private AppCommandExecuteDelegate _executeCallback;
 
-        public ViewModelCommand(ViewModelExecuteDelegate executeCallback)
+        public AppCommand(AppCommandExecuteDelegate executeCallback)
         {
             _executeCallback = executeCallback;
         }

@@ -36,5 +36,8 @@
     <Compile Update="MainMenuWindow.axaml.cs">
       <DependentUpon>MainMenuWindow.axaml</DependentUpon>
     </Compile>
+    <Compile Update="ProjectTemplateWizardSelectorWindow.axaml.cs">
+      <DependentUpon>ProjectTemplateWizardSelectorWindow.axaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 </Project>

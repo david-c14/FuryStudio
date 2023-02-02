@@ -33,11 +33,11 @@
     <Folder Include="Styles\" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="MainMenuWindow.axaml.cs">
-      <DependentUpon>MainMenuWindow.axaml</DependentUpon>
+    <Compile Update="Main\Menu\MenuV.axaml.cs">
+      <DependentUpon>MenuV.axaml</DependentUpon>
     </Compile>
-    <Compile Update="ProjectTemplateWizardSelectorWindow.axaml.cs">
-      <DependentUpon>ProjectTemplateWizardSelectorWindow.axaml</DependentUpon>
+    <Compile Update="ProjectTemplate\NewTemplateWizard\SelectorV.axaml.cs">
+      <DependentUpon>SelectorV.axaml</DependentUpon>
     </Compile>
   </ItemGroup>
 </Project>

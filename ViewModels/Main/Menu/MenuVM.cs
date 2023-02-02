@@ -2,24 +2,22 @@
 using carbon14.FuryStudio.ViewModels.Commands;
 using carbon14.FuryStudio.ViewModels.Components;
 
-namespace carbon14.FuryStudio.ViewModels
+namespace carbon14.FuryStudio.ViewModels.Main.Menu
 {
-    public class MainFormViewModel: ViewModelBase
+    public class MenuVM : ViewModelBase
     {
         public ICommand Exit { get; }
         public ICommand Enable { get; }
-        private ICommand AppMenu { get; }
         public IList<ViewModelMenuItem> Menu { get; set; }
         public AppCommands Commands { get; }
 
         public string Version { get; } = "1.0.0";
         public string AppTitle { get => "Fury Studio " + Version; }
 
-        public MainFormViewModel()
+        public MenuVM()
         {
             Exit = new AppCommand(ExitCommand);
             Enable = new AppCommand(EnableCommand);
-            AppMenu = new AppCommand(AppCommand);
             Commands = new AppCommands();
             Menu = new List<ViewModelMenuItem>()
             {
@@ -29,12 +27,7 @@ namespace carbon14.FuryStudio.ViewModels
                     Command = null,
                     Items = new List<ViewModelMenuItem>()
                     {
-                        new ViewModelMenuItem()
-                        {
-                            Name="New Project _Template",
-                            Command = AppMenu,
-                            CommandParameter = new AppCommandParameter(AppCommandEnum.NewProjectTemplate)
-                        },
+                        new ViewModelMenuItem(AppCommandEnum.NewProjectTemplate, Commands.AppMenu),
                         new ViewModelMenuItem() {
                             Name="_Enable",
                             Command = Enable
@@ -54,28 +47,23 @@ namespace carbon14.FuryStudio.ViewModels
 
         public void ExitCommand(object? parameter)
         {
-            
+
         }
 
         public void EnableCommand(object? parameter)
         {
             ViewModelMenuItem? item = Menu[0]?.Items?[1];
-            if (item != null) {
+            if (item != null)
+            {
                 item.Enabled = true;
             }
         }
 
-        public void AppCommand(object? parameter)
-        {
-            if (parameter is AppCommandParameter commandParameter)
-            {
-                Commands.Execute(commandParameter.Command, commandParameter.Parameter);
-            }
-        }
     }
 }
 
-/// Add methods to ViewModelMenuItem to create AppCommandMenuItem use enum attributes to decorate item name
+///TODO Add methods to ViewModelMenuItem to create AppCommandMenuItem use enum attributes to decorate item name
+///TODO Use service container in main view
 
 ///TODO Get Cli working in linux
 ///TODO Get Library working in linux

@@ -1,6 +1,8 @@
-﻿namespace carbon14.FuryStudio.WinUI
+﻿using carbon14.FuryStudio.ViewModels.Main.Menu;
+
+namespace carbon14.FuryStudio.WinUI
 {
-    partial class MainMenuForm
+    partial class MenuV
     {
         /// <summary>
         ///  Required designer variable.
@@ -44,7 +46,7 @@
             // 
             // bindingSource1
             // 
-            this.bindingSource1.DataSource = typeof(carbon14.FuryStudio.ViewModels.MainFormViewModel);
+            this.bindingSource1.DataSource = typeof(MenuVM);
             // 
             // MainMenuForm
             // 

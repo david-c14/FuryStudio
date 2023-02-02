@@ -1,8 +1,8 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
-using carbon14.FuryStudio.ViewModels;
 using carbon14.FuryStudio.ViewModels.Commands;
+using carbon14.FuryStudio.ViewModels.Main.Menu;
 
 namespace carbon14.FuryStudio.AvaloniaUI
 {
@@ -17,10 +17,10 @@ namespace carbon14.FuryStudio.AvaloniaUI
         {
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
-                MainFormViewModel model = new MainFormViewModel();
+                MenuVM model = new MenuVM();
                 model.Commands.Add(AppCommandEnum.NewProjectTemplate, new AppCommand(NewProjectTemplate));
 
-                desktop.MainWindow = new MainWindow()
+                desktop.MainWindow = new Main.Menu.MenuV()
                 {
                     DataContext = model
                 };
@@ -33,7 +33,7 @@ namespace carbon14.FuryStudio.AvaloniaUI
         {
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
-                var dialog = new ProjectTemplateWizardSelectorWindow();
+                var dialog = new ProjectTemplate.NewTemplateWizard.SelectorV();
                 dialog.ShowDialog(desktop.MainWindow);
             }
         }

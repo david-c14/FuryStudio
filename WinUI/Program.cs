@@ -1,4 +1,4 @@
-using carbon14.FuryStudio.ViewModels;
+using carbon14.FuryStudio.ViewModels.Main.Menu;
 using CoreApp = carbon14.FuryStudio.Core.Infrastructure;
 
 namespace carbon14.FuryStudio.WinUI
@@ -17,8 +17,8 @@ namespace carbon14.FuryStudio.WinUI
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            MainFormViewModel vm = new MainFormViewModel();
-            Application.Run(new MainMenuForm(app, vm));
+            MenuVM vm = new MenuVM();
+            Application.Run(new MenuV(app, vm));
         }
     }
 }

@@ -16,10 +16,17 @@
 
 ### Test the utils
 - `vstest.console Debug\C_Tests.dll`
+- `vstest.console Debug\Cpp_Tests.dll`
+- `vstest.console Debug\Cli_Tests.dll`
+
+### Test FuryStudio
+- `cd ..\..\Core.Tests`
+- `dotnet test`
 
 ### Build FuryStudio
-- `cd ..\..\WinUI`
-- `dotnet build WinUI.csproj`
+- `cd ..\WinUI` or `cd ..\AvaloniaUI`
+- `dotnet build`
+
 
 ### Run FuryStudio
-- `dotnet run WinUI.csproj`
+- `dotnet run` or - `dotnet run --framework net6.0` (for avaloniaUI)

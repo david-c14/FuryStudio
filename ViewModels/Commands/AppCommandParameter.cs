@@ -1,5 +1,4 @@
-﻿
-using carbon14.FuryStudio.ViewModels.Interfaces.Commands;
+﻿using carbon14.FuryStudio.ViewModels.Interfaces.Commands;
 
 namespace carbon14.FuryStudio.ViewModels.Commands
 {

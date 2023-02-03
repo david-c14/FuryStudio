@@ -30,6 +30,7 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\Core.Interfaces\Core.Interfaces.csproj" />
+	  <ProjectReference Include="..\ViewModels.Interfaces\ViewModels.Interfaces.csproj" />
 	</ItemGroup>
 
 </Project>

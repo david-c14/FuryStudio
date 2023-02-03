@@ -2,29 +2,23 @@
 using carbon14.FuryStudio.Core.Configuration;
 using carbon14.FuryStudio.Core.Interfaces.Configuration;
 using carbon14.FuryStudio.Core.Interfaces.Infrastructure;
-
+using carbon14.FuryStudio.ViewModels.Interfaces.Components;
 
 namespace carbon14.FuryStudio.Core.Infrastructure
 {
-    public class Application: IApplication
+    static public class Application
     {
-        private ILifetimeScope _scope;
-
-        public Application()
+        static public ILifetimeScope Build()
         {
-            _scope = DefaultScope();
+            return Configure(Array.Empty<ApplicationBuilderDelegate>());
         }
 
-        public Application(ILifetimeScope scope)
+        static public ILifetimeScope Build(params ApplicationBuilderDelegate[] builders)
         {
-            _scope = scope;
+            return Configure(builders);
         }
 
-        public void Initialize()
-        {
-        }
-
-        private ILifetimeScope DefaultScope()
+        static private ILifetimeScope Configure(ApplicationBuilderDelegate[] builders)
         {
             var builder = new ContainerBuilder();
             builder.RegisterType<PlatformInfo>().SingleInstance().As<IPlatformInfo>();
@@ -33,6 +27,11 @@ namespace carbon14.FuryStudio.Core.Infrastructure
             builder.RegisterType<FileStreamLocator>().InstancePerLifetimeScope().As<IFileStreamLocator>();
             builder.RegisterType<FileReadStream>().InstancePerLifetimeScope().As<IFileReadStream>();
             builder.RegisterType<FileWriteStream>().InstancePerLifetimeScope().As<IFileWriteStream>();
+
+            foreach(ApplicationBuilderDelegate builderDelegate in builders)
+            {
+                builderDelegate(builder);
+            }
 
             ILifetimeScope scope = builder.Build().BeginLifetimeScope();
             IGlobalConfiguration config = scope.Resolve<IGlobalConfigurationContainer>().Configuration;

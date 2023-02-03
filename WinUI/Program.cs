@@ -17,7 +17,7 @@ namespace carbon14.FuryStudio.WinUI
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            MenuVM vm = new MenuVM();
+            MenuVM vm = new MenuVM(scope);
             Application.Run(new MenuV(vm));
         }
     }

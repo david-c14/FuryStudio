@@ -1,8 +1,11 @@
+using Autofac;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using CoreApp = carbon14.FuryStudio.Core.Infrastructure;
 using carbon14.FuryStudio.ViewModels.Commands;
 using carbon14.FuryStudio.ViewModels.Interfaces.Commands;
+using carbon14.FuryStudio.ViewModels.Interfaces.Main.Menu;
 using carbon14.FuryStudio.ViewModels.Main.Menu;
 
 namespace carbon14.FuryStudio.AvaloniaUI
@@ -18,7 +21,8 @@ namespace carbon14.FuryStudio.AvaloniaUI
         {
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
-                MenuVM model = new MenuVM();
+                ILifetimeScope scope = CoreApp.Application.Build();
+                IMenuVM model = new MenuVM(scope);
                 model.Commands.Add(AppCommandEnum.NewProjectTemplate, new AppCommand(NewProjectTemplate));
 
                 desktop.MainWindow = new Main.Menu.MenuV()

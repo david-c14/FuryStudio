@@ -1,4 +1,5 @@
-﻿using carbon14.FuryStudio.ViewModels.Commands;
+﻿using Autofac;
+using carbon14.FuryStudio.ViewModels.Commands;
 using carbon14.FuryStudio.ViewModels.Interfaces.Commands;
 using carbon14.FuryStudio.ViewModels.Interfaces.Components;
 using System.ComponentModel;
@@ -22,12 +23,12 @@ namespace carbon14.FuryStudio.ViewModels.Components
             }
         }
 
-        public ViewModelMenuItem()
+        public ViewModelMenuItem(ILifetimeScope scope): base(scope)
         {
         }
 
         //TODO This should not need an explicit ICommand passing in.   The ICommand delegate should be a property of the Command Dictionary, and the dictionary should be available in the service container
-        public ViewModelMenuItem(AppCommandEnum command, ICommand del)
+        public ViewModelMenuItem(ILifetimeScope scope, AppCommandEnum command, ICommand del): base(scope)
         {
             Name = command.ToString();
             FieldInfo? fieldInfo = command.GetType().GetField(command.ToString());

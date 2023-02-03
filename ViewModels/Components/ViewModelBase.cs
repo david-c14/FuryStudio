@@ -1,4 +1,5 @@
-﻿using carbon14.FuryStudio.ViewModels.Interfaces.Components;
+﻿using Autofac;
+using carbon14.FuryStudio.ViewModels.Interfaces.Components;
 using System.ComponentModel;
 
 namespace carbon14.FuryStudio.ViewModels.Components
@@ -10,6 +11,13 @@ namespace carbon14.FuryStudio.ViewModels.Components
         protected void OnPropertyChanged(string name)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
+
+        public ILifetimeScope Scope { get;}
+
+        public ViewModelBase(ILifetimeScope scope)
+        {
+            Scope = scope;
         }
     }
 }

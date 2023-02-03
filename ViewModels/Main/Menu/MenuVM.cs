@@ -1,4 +1,5 @@
-﻿using carbon14.FuryStudio.ViewModels.Commands;
+﻿using Autofac;
+using carbon14.FuryStudio.ViewModels.Commands;
 using carbon14.FuryStudio.ViewModels.Components;
 using carbon14.FuryStudio.ViewModels.Interfaces.Commands;
 using carbon14.FuryStudio.ViewModels.Interfaces.Components;
@@ -14,23 +15,23 @@ namespace carbon14.FuryStudio.ViewModels.Main.Menu
         public string Version { get; } = "1.0.0";
         public string AppTitle { get => "Fury Studio " + Version; }
 
-        public MenuVM()
+        public MenuVM(ILifetimeScope scope): base(scope)
         {
             Commands = new AppCommands();
             Menu = new List<IViewModelMenuItem>()
             {
-                new ViewModelMenuItem()
+                new ViewModelMenuItem(scope)
                 {
                     Name = "_File",
                     Command = null,
                     Items = new List<IViewModelMenuItem>()
                     {
-                        new ViewModelMenuItem(AppCommandEnum.NewProjectTemplate, Commands.AppMenu),
-                        new ViewModelMenuItem() {
+                        new ViewModelMenuItem(scope, AppCommandEnum.NewProjectTemplate, Commands.AppMenu),
+                        new ViewModelMenuItem(scope) {
                             Name="_Enable",
                             Command = new AppCommand(EnableCommand)
                         },
-                        new ViewModelMenuItem()
+                        new ViewModelMenuItem(scope)
                         {
                             Name = "E_xit",
                             Command = new AppCommand(ExitCommand),

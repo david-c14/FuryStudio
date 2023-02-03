@@ -10,14 +10,13 @@ namespace carbon14.FuryStudio.ViewModels.Main.Menu
     public class MenuVM : ViewModelBase, IMenuVM
     {
         public IList<IViewModelMenuItem> Menu { get; set; }
-        public IAppCommands Commands { get; }
 
         public string Version { get; } = "1.0.0";
         public string AppTitle { get => "Fury Studio " + Version; }
 
         public MenuVM(ILifetimeScope scope): base(scope)
         {
-            Commands = new AppCommands();
+            IAppCommands commands = scope.Resolve<IAppCommands>();
             Menu = new List<IViewModelMenuItem>()
             {
                 new ViewModelMenuItem(scope)
@@ -26,7 +25,7 @@ namespace carbon14.FuryStudio.ViewModels.Main.Menu
                     Command = null,
                     Items = new List<IViewModelMenuItem>()
                     {
-                        new ViewModelMenuItem(scope, AppCommandEnum.NewProjectTemplate, Commands.AppMenu),
+                        new ViewModelMenuItem(scope, AppCommandEnum.NewProjectTemplate, commands.AppMenu),
                         new ViewModelMenuItem(scope) {
                             Name="_Enable",
                             Command = new AppCommand(EnableCommand)

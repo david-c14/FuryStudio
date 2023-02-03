@@ -1,4 +1,5 @@
 using Autofac;
+using carbon14.FuryStudio.ViewModels.Components;
 using carbon14.FuryStudio.ViewModels.Main.Menu;
 using CoreApp = carbon14.FuryStudio.Core.Infrastructure;
 
@@ -12,7 +13,7 @@ namespace carbon14.FuryStudio.WinUI
         [STAThread]
         static void Main()
         {
-            ILifetimeScope scope = CoreApp.Application.Build();
+            ILifetimeScope scope = CoreApp.Application.Build(ApplicationBuilder.Build);
 
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.

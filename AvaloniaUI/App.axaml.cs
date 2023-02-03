@@ -7,6 +7,7 @@ using carbon14.FuryStudio.ViewModels.Commands;
 using carbon14.FuryStudio.ViewModels.Interfaces.Commands;
 using carbon14.FuryStudio.ViewModels.Interfaces.Main.Menu;
 using carbon14.FuryStudio.ViewModels.Main.Menu;
+using carbon14.FuryStudio.ViewModels.Components;
 
 namespace carbon14.FuryStudio.AvaloniaUI
 {
@@ -21,9 +22,13 @@ namespace carbon14.FuryStudio.AvaloniaUI
         {
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
-                ILifetimeScope scope = CoreApp.Application.Build();
+                ILifetimeScope scope = CoreApp.Application.Build(ApplicationBuilder.Build);
                 IMenuVM model = new MenuVM(scope);
-                model.Commands.Add(AppCommandEnum.NewProjectTemplate, new AppCommand(NewProjectTemplate));
+                scope.Resolve<IAppCommands>().Add(AppCommandEnum.NewProjectTemplate, new AppCommand(
+                    p => {
+                        new ProjectTemplate.NewTemplateWizard.SelectorV().ShowDialog(desktop.MainWindow);
+                    }
+                    )) ;
 
                 desktop.MainWindow = new Main.Menu.MenuV()
                 {
@@ -32,15 +37,6 @@ namespace carbon14.FuryStudio.AvaloniaUI
             }
 
             base.OnFrameworkInitializationCompleted();
-        }
-
-        public void NewProjectTemplate(object? parameter)
-        {
-            if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
-            {
-                var dialog = new ProjectTemplate.NewTemplateWizard.SelectorV();
-                dialog.ShowDialog(desktop.MainWindow);
-            }
         }
     }
 }

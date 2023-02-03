@@ -16,7 +16,6 @@ namespace carbon14.FuryStudio.ViewModels.Main.Menu
 
         public MenuVM(ILifetimeScope scope): base(scope)
         {
-            IAppCommands commands = scope.Resolve<IAppCommands>();
             Menu = new List<IViewModelMenuItem>()
             {
                 new ViewModelMenuItem(scope)
@@ -25,7 +24,7 @@ namespace carbon14.FuryStudio.ViewModels.Main.Menu
                     Command = null,
                     Items = new List<IViewModelMenuItem>()
                     {
-                        new ViewModelMenuItem(scope, AppCommandEnum.NewProjectTemplate, commands.AppMenu),
+                        new ViewModelMenuItem(scope, AppCommandEnum.NewProjectTemplate),
                         new ViewModelMenuItem(scope) {
                             Name="_Enable",
                             Command = new AppCommand(EnableCommand)
@@ -59,9 +58,6 @@ namespace carbon14.FuryStudio.ViewModels.Main.Menu
 
     }
 }
-
-///TODO Add methods to ViewModelMenuItem to create AppCommandMenuItem use enum attributes to decorate item name
-///TODO Use service container in main view
 
 ///TODO Get Cli working in linux
 ///TODO Get Library working in linux

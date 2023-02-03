@@ -9,14 +9,14 @@ namespace carbon14.FuryStudio.ViewModels.Main.Menu
 {
     public class MenuVM : ViewModelBase, IMenuVM
     {
-        public IList<IViewModelMenuItem> Menu { get; set; }
+        public IObservableList<IViewModelMenuItem> Menu { get; set; }
 
         public string Version { get; } = "1.0.0";
         public string AppTitle { get => "Fury Studio " + Version; }
 
         public MenuVM(ILifetimeScope scope): base(scope)
         {
-            Menu = new List<IViewModelMenuItem>()
+            Menu = new ObservableList<IViewModelMenuItem>()
             {
                 new ViewModelMenuItem(scope)
                 {

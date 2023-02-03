@@ -5,7 +5,7 @@ namespace carbon14.FuryStudio.ViewModels.Interfaces.Main.Menu
 {
     public interface IMenuVM: IViewModelBase
     {
-        public IList<IViewModelMenuItem> Menu { get; set; }
+        public IObservableList<IViewModelMenuItem> Menu { get; set; }
         public string Version { get; }
         public string AppTitle { get; }
     }

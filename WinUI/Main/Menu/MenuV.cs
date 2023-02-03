@@ -1,5 +1,4 @@
 using carbon14.FuryStudio.ViewModels.Interfaces.Main.Menu;
-using carbon14.FuryStudio.WinUI.Helpers;
 
 namespace carbon14.FuryStudio.WinUI
 {
@@ -13,7 +12,7 @@ namespace carbon14.FuryStudio.WinUI
         public MenuV(IMenuVM vm) : this()
         {
             bindingSource1.DataSource = vm;
-            new MenuBinder(menuStrip1, vm.Menu);
+            MenuStrip.MenuItems = vm.Menu;
         }
     }
 }

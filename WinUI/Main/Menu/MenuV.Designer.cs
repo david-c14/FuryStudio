@@ -31,33 +31,34 @@ namespace carbon14.FuryStudio.WinUI
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+            this.MenuStrip = new carbon14.FuryStudio.WinUI.MVVM.Menu.MvvmMenuStrip();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             this.SuspendLayout();
             // 
-            // menuStrip1
-            // 
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(784, 24);
-            this.menuStrip1.TabIndex = 0;
-            this.menuStrip1.Text = "menuStrip1";
-            // 
             // bindingSource1
             // 
-            this.bindingSource1.DataSource = typeof(MenuVM);
+            this.bindingSource1.DataSource = typeof(carbon14.FuryStudio.ViewModels.Main.Menu.MenuVM);
             // 
-            // MainMenuForm
+            // MenuStrip
+            // 
+            this.MenuStrip.Location = new System.Drawing.Point(0, 0);
+            this.MenuStrip.MenuItems = null;
+            this.MenuStrip.Name = "MenuStrip";
+            this.MenuStrip.Size = new System.Drawing.Size(784, 24);
+            this.MenuStrip.TabIndex = 1;
+            this.MenuStrip.Text = "mvvmMenuStrip1";
+            // 
+            // MenuV
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 24);
-            this.Controls.Add(this.menuStrip1);
+            this.Controls.Add(this.MenuStrip);
             this.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bindingSource1, "AppTitle", true));
-            this.MainMenuStrip = this.menuStrip1;
+            this.MainMenuStrip = this.MenuStrip;
             this.MaximumSize = new System.Drawing.Size(32768, 63);
-            this.Name = "MainMenuForm";
+            this.Name = "MenuV";
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
             this.ResumeLayout(false);
@@ -66,8 +67,7 @@ namespace carbon14.FuryStudio.WinUI
         }
 
         #endregion
-
-        private MenuStrip menuStrip1;
         private BindingSource bindingSource1;
+        private MVVM.Menu.MvvmMenuStrip MenuStrip;
     }
 }

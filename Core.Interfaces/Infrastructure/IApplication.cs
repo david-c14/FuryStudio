@@ -1,4 +1,4 @@
-﻿namespace carbon14.FuryStudio.Interfaces.Infrastructure
+﻿namespace carbon14.FuryStudio.Core.Interfaces.Infrastructure
 {
     public interface IApplication
     {

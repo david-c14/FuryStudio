@@ -1,7 +1,7 @@
 ﻿using Autofac;
 using carbon14.FuryStudio.Core.Infrastructure;
-using carbon14.FuryStudio.Interfaces.Configuration;
-using carbon14.FuryStudio.Interfaces.Infrastructure;
+using carbon14.FuryStudio.Core.Interfaces.Configuration;
+using carbon14.FuryStudio.Core.Interfaces.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Linq;

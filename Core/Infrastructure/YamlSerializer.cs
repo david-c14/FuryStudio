@@ -1,5 +1,5 @@
 ﻿using YamlDotNet.Serialization;
-using ISerializer = carbon14.FuryStudio.Interfaces.Infrastructure.ISerializer;
+using ISerializer = carbon14.FuryStudio.Core.Interfaces.Infrastructure.ISerializer;
 
 namespace carbon14.FuryStudio.Core.Infrastructure
 {

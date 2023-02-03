@@ -2,7 +2,7 @@
 // If the class is not defined, then the platform is not supported,
 // a compilation error should occur in the autofac configuration.
 
-using carbon14.FuryStudio.Interfaces.Configuration;
+using carbon14.FuryStudio.Core.Interfaces.Configuration;
 
 namespace carbon14.FuryStudio.Core.Configuration
 {

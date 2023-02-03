@@ -2,6 +2,7 @@ using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using carbon14.FuryStudio.ViewModels.Commands;
+using carbon14.FuryStudio.ViewModels.Interfaces.Commands;
 using carbon14.FuryStudio.ViewModels.Main.Menu;
 
 namespace carbon14.FuryStudio.AvaloniaUI

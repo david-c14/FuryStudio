@@ -1,8 +1,9 @@
-﻿using System.Windows.Input;
+﻿using carbon14.FuryStudio.ViewModels.Interfaces.Commands;
+using System.Windows.Input;
 
 namespace carbon14.FuryStudio.ViewModels.Commands
 {
-    public class AppCommands : Dictionary<AppCommandEnum, ICommand>
+    public class AppCommands : Dictionary<AppCommandEnum, ICommand>, IAppCommands
     {
         public ICommand AppMenu { get; }
 
@@ -21,7 +22,7 @@ namespace carbon14.FuryStudio.ViewModels.Commands
 
         private void AppCommand(object? parameter)
         {
-            if (parameter is AppCommandParameter commandParameter)
+            if (parameter is IAppCommandParameter commandParameter)
             {
                 Execute(commandParameter.Command, commandParameter.Parameter);
             }

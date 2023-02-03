@@ -1,7 +1,9 @@
 ﻿
+using carbon14.FuryStudio.ViewModels.Interfaces.Commands;
+
 namespace carbon14.FuryStudio.ViewModels.Commands
 {
-    public class AppCommandParameter
+    public class AppCommandParameter: IAppCommandParameter
     {
         public AppCommandEnum Command { get; }
         public object? Parameter { get; }

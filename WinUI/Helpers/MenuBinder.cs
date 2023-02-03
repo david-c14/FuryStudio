@@ -1,22 +1,18 @@
 ﻿using carbon14.FuryStudio.ViewModels.Components;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using carbon14.FuryStudio.ViewModels.Interfaces.Components;
 
 namespace carbon14.FuryStudio.WinUI.Helpers
 {
     internal class MenuBinder
     {
-        public MenuBinder(MenuStrip viewControl, IList<ViewModelMenuItem> vmMenu) 
+        public MenuBinder(MenuStrip viewControl, IList<IViewModelMenuItem> vmMenu) 
         {
             Bind(viewControl.Items, vmMenu);
         }
 
-        private void Bind(ToolStripItemCollection menuItemCollection, IList<ViewModelMenuItem> vmMenu)
+        private void Bind(ToolStripItemCollection menuItemCollection, IList<IViewModelMenuItem> vmMenu)
         {
-            foreach(ViewModelMenuItem vmItem in vmMenu)
+            foreach(IViewModelMenuItem vmItem in vmMenu)
             {
                 ToolStripMenuItem viewMenuItem = new ToolStripMenuItem();
                 viewMenuItem.Text = vmItem.Name?.Replace('_', '&');
@@ -24,7 +20,7 @@ namespace carbon14.FuryStudio.WinUI.Helpers
                 viewMenuItem.Click += (s, e) => { vmItem.Command?.Execute(vmItem.CommandParameter); };
                 vmItem.PropertyChanged += (s, e) =>
                 {
-                    if (e.PropertyName == nameof(ViewModelMenuItem.Enabled))
+                    if (e.PropertyName == nameof(IViewModelMenuItem.Enabled))
                     {
                         viewMenuItem.Enabled = vmItem.Enabled;
                     }

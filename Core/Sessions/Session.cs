@@ -1,4 +1,4 @@
-﻿using carbon14.FuryStudio.Interfaces.Sessions;
+﻿using carbon14.FuryStudio.Core.Interfaces.Sessions;
 
 namespace carbon14.FuryStudio.Core.Sessions
 {

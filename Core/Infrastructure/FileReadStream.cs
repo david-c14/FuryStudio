@@ -1,9 +1,4 @@
-﻿using carbon14.FuryStudio.Interfaces.Infrastructure;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using carbon14.FuryStudio.Core.Interfaces.Infrastructure;
 
 namespace carbon14.FuryStudio.Core.Infrastructure
 {

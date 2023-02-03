@@ -1,41 +1,39 @@
-﻿using System.Windows.Input;
-using carbon14.FuryStudio.ViewModels.Commands;
+﻿using carbon14.FuryStudio.ViewModels.Commands;
 using carbon14.FuryStudio.ViewModels.Components;
+using carbon14.FuryStudio.ViewModels.Interfaces.Commands;
+using carbon14.FuryStudio.ViewModels.Interfaces.Components;
+using carbon14.FuryStudio.ViewModels.Interfaces.Main.Menu;
 
 namespace carbon14.FuryStudio.ViewModels.Main.Menu
 {
-    public class MenuVM : ViewModelBase
+    public class MenuVM : ViewModelBase, IMenuVM
     {
-        public ICommand Exit { get; }
-        public ICommand Enable { get; }
-        public IList<ViewModelMenuItem> Menu { get; set; }
-        public AppCommands Commands { get; }
+        public IList<IViewModelMenuItem> Menu { get; set; }
+        public IAppCommands Commands { get; }
 
         public string Version { get; } = "1.0.0";
         public string AppTitle { get => "Fury Studio " + Version; }
 
         public MenuVM()
         {
-            Exit = new AppCommand(ExitCommand);
-            Enable = new AppCommand(EnableCommand);
             Commands = new AppCommands();
-            Menu = new List<ViewModelMenuItem>()
+            Menu = new List<IViewModelMenuItem>()
             {
                 new ViewModelMenuItem()
                 {
                     Name = "_File",
                     Command = null,
-                    Items = new List<ViewModelMenuItem>()
+                    Items = new List<IViewModelMenuItem>()
                     {
                         new ViewModelMenuItem(AppCommandEnum.NewProjectTemplate, Commands.AppMenu),
                         new ViewModelMenuItem() {
                             Name="_Enable",
-                            Command = Enable
+                            Command = new AppCommand(EnableCommand)
                         },
                         new ViewModelMenuItem()
                         {
                             Name = "E_xit",
-                            Command = Exit,
+                            Command = new AppCommand(ExitCommand),
                             CommandParameter= "Wibble",
                             Enabled = false
                         }
@@ -45,14 +43,14 @@ namespace carbon14.FuryStudio.ViewModels.Main.Menu
         }
 
 
-        public void ExitCommand(object? parameter)
+        private void ExitCommand(object? parameter)
         {
 
         }
 
-        public void EnableCommand(object? parameter)
+        private void EnableCommand(object? parameter)
         {
-            ViewModelMenuItem? item = Menu[0]?.Items?[1];
+            IViewModelMenuItem? item = Menu[0]?.Items?[1];
             if (item != null)
             {
                 item.Enabled = true;

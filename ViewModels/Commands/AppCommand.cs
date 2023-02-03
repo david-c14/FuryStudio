@@ -1,8 +1,8 @@
-﻿using System.Windows.Input;
+﻿using carbon14.FuryStudio.ViewModels.Interfaces.Commands;
 
 namespace carbon14.FuryStudio.ViewModels.Commands
 {
-    public class AppCommand : ICommand
+    public class AppCommand : IAppCommand
     {
         private AppCommandExecuteDelegate _executeCallback;
 

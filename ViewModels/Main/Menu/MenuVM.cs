@@ -22,7 +22,7 @@ namespace carbon14.FuryStudio.ViewModels.Main.Menu
                 {
                     Name = "_File",
                     Command = null,
-                    Items = new List<IViewModelMenuItem>()
+                    Items = new ObservableList<IViewModelMenuItem>()
                     {
                         new ViewModelMenuItem(scope, AppCommandEnum.NewProjectTemplate),
                         new ViewModelMenuItem(scope) {
@@ -49,11 +49,6 @@ namespace carbon14.FuryStudio.ViewModels.Main.Menu
 
         private void EnableCommand(object? parameter)
         {
-            IViewModelMenuItem? item = Menu[0]?.Items?[1];
-            if (item != null)
-            {
-                item.Enabled = true;
-            }
         }
 
     }

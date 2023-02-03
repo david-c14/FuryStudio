@@ -1,5 +1,6 @@
 ﻿using carbon14.FuryStudio.ViewModels.Components;
 using carbon14.FuryStudio.ViewModels.Interfaces.Components;
+using System.Collections.Specialized;
 
 namespace carbon14.FuryStudio.WinUI.Helpers
 {
@@ -8,6 +9,7 @@ namespace carbon14.FuryStudio.WinUI.Helpers
         public MenuBinder(MenuStrip viewControl, IList<IViewModelMenuItem> vmMenu) 
         {
             Bind(viewControl.Items, vmMenu);
+            INotifyCollectionChanged changed = (INotifyCollectionChanged)vmMenu;
         }
 
         private void Bind(ToolStripItemCollection menuItemCollection, IList<IViewModelMenuItem> vmMenu)

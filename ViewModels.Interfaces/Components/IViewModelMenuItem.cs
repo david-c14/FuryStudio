@@ -7,7 +7,7 @@ namespace carbon14.FuryStudio.ViewModels.Interfaces.Components
         public string? Name { get; set; }
         public ICommand? Command { get; set; }
         public object? CommandParameter { get; set; }
-        public IList<IViewModelMenuItem>? Items { get; set; }
+        public IObservableList<IViewModelMenuItem>? Items { get; set; }
         public bool Enabled { get; set; }
     }
 }

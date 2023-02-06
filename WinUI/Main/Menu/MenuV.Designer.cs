@@ -43,11 +43,11 @@ namespace carbon14.FuryStudio.WinUI
             // MenuStrip
             // 
             this.MenuStrip.Location = new System.Drawing.Point(0, 0);
-            this.MenuStrip.MenuItems = null;
             this.MenuStrip.Name = "MenuStrip";
             this.MenuStrip.Size = new System.Drawing.Size(784, 24);
             this.MenuStrip.TabIndex = 1;
             this.MenuStrip.Text = "mvvmMenuStrip1";
+            this.MenuStrip.VmItems = null;
             // 
             // MenuV
             // 

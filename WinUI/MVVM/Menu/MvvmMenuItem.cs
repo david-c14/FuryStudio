@@ -4,32 +4,27 @@ namespace carbon14.FuryStudio.WinUI.MVVM.Menu
 {
     internal class MvvmMenuItem: ToolStripMenuItem
     {
-        private IObservableList<IViewModelMenuItem>? _menuItems;
+        private IObservableList<IViewModelMenuItem>? _vmItems;
 
-        public MvvmMenuItem(IViewModelMenuItem menuItem)
+        public MvvmMenuItem(IViewModelMenuItem vmItem)
         {
-            Text = menuItem.Name?.Replace('_', '&');
-            Enabled = menuItem.Enabled;
-            Click += (s, e) => { menuItem.Command?.Execute(menuItem.CommandParameter); };
-            menuItem.PropertyChanged += (s, e) =>
+            Text = vmItem.Name?.Replace('_', '&');
+            Enabled = vmItem.Enabled;
+            Click += (s, e) => { vmItem.Command?.Execute(vmItem.CommandParameter); };
+            vmItem.PropertyChanged += (s, e) =>
             {
-                if (e.PropertyName == nameof(IViewModelMenuItem.Enabled))
+                switch (e.PropertyName)
                 {
-                    Enabled = menuItem.Enabled;
+                    case nameof(IViewModelMenuItem.Enabled):
+                        Enabled = vmItem.Enabled;
+                        break;
+                    case nameof(IViewModelMenuItem.Name):
+                        Text = vmItem.Name?.Replace('_', '&');
+                        break;
                 }
             };
-            if (menuItem.Items != null)
-            {
-                foreach (IViewModelMenuItem subItem in menuItem.Items)
-                {
-                    MvvmMenuItem viewMenuItem = new MvvmMenuItem(subItem);
-                    DropDownItems.Add(viewMenuItem);
-                }
-                menuItem.Items.CollectionChanged += (s, e) =>
-                {
-                    //TODO Handle collection changed
-                };
-            }
+            _vmItems = vmItem.Items;
+            MvvmMenuBuilder.BuildItems(_vmItems, DropDownItems);
         }
     }
 }

@@ -12,7 +12,7 @@ namespace carbon14.FuryStudio.WinUI
         public MenuV(IMenuVM vm) : this()
         {
             bindingSource1.DataSource = vm;
-            MenuStrip.MenuItems = vm.Menu;
+            MenuStrip.VmItems = vm.Menu;
         }
     }
 }

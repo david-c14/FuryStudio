@@ -13,7 +13,7 @@ namespace carbon14.FuryStudio.Core.Tests.Infrastructure
             PlatformInfo platformInfo = new PlatformInfo();
             FileStreamLocator locator = new(platformInfo) { BasePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? "" };
             FileWriteStream writeStream = new(locator);
-            string relativePath = @"..\..\..\..\TestAssets\WriteTestOutput.txt";
+            string relativePath = Path.Combine(Utils.Prefix, "WriteTestOutput.txt");
             string expectedResult = "This is a text file";
             string actualResult;
             if (File.Exists(Path.Combine(locator.BasePath, relativePath)))

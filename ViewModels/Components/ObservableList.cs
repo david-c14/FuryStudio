@@ -95,7 +95,7 @@ namespace carbon14.FuryStudio.ViewModels.Components
         {
             List.AddRange(collection);
             var iList = collection as IList;
-            OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+            OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, iList, List.Count - iList.Count));
         }
 
         public int IndexOf(T item)
@@ -121,7 +121,7 @@ namespace carbon14.FuryStudio.ViewModels.Components
         public void Add(T item)
         {
             List.Add(item);
-            OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, item));
+            OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, item, List.Count - 1));
         }
 
         public void Clear()
@@ -142,8 +142,9 @@ namespace carbon14.FuryStudio.ViewModels.Components
 
         public bool Remove(T item)
         {
-            var result = List.Remove(item);
-            OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, item));
+            int index = List.IndexOf(item);
+            bool result = List.Remove(item);
+            if (result) OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, item, index));
             return result;
         }
 
@@ -183,8 +184,12 @@ namespace carbon14.FuryStudio.ViewModels.Components
 
         void IList.Remove(object value)
         {
-            ((IList)List).Remove(value);
-            OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, value));
+            int index = ((IList)List).IndexOf(value);
+            if (index > -1)
+            {
+                ((IList)List).Remove(value);
+                OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, value, index));
+            }
         }
 
         public void CopyTo(Array array, int index)

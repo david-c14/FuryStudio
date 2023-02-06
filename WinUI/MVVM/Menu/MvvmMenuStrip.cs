@@ -4,36 +4,19 @@ namespace carbon14.FuryStudio.WinUI.MVVM.Menu
 {
     internal class MvvmMenuStrip: MenuStrip
     {
-        private IObservableList<IViewModelMenuItem>? _menuItems;
-        public IObservableList<IViewModelMenuItem>? MenuItems 
+        private IObservableList<IViewModelMenuItem>? _vmItems;
+        public IObservableList<IViewModelMenuItem>? VmItems 
         {
             get 
             {
-                return _menuItems;
+                return _vmItems;
             }
             set
             {
-                _menuItems = value;
+                _vmItems = value;
                 Items.Clear();
-                BuildItems();
+                MvvmMenuBuilder.BuildItems(_vmItems, Items);
             }
-        }
-
-        private void BuildItems()
-        {
-            if (_menuItems == null)
-            {
-                return;
-            }
-            foreach (IViewModelMenuItem menuItem in _menuItems)
-            {
-                MvvmMenuItem viewMenuItem = new MvvmMenuItem(menuItem);
-                Items.Add(viewMenuItem);
-            }
-            _menuItems.CollectionChanged += (s, e) =>
-            {
-                //TODO Handle Collection Changed
-            };
         }
     }
 }

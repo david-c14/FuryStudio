@@ -17,8 +17,7 @@ namespace carbon14.FuryStudio.Core.Tests.Infrastructure
             string actualResult;
 
             // Act
-            char sep = Path.DirectorySeparatorChar;
-            using Stream stream = readStream.GetStream($"..{sep}..{sep}..{sep}..{sep}TestAssets{sep}TextFile.txt");
+            using Stream stream = readStream.GetStream(Path.Combine(Utils.Prefix, "TextFile.txt"));
             using StreamReader reader = new(stream);
             actualResult = reader.ReadToEnd();
 

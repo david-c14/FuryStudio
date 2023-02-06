@@ -4,16 +4,22 @@ namespace carbon14.FuryStudio.WinUI.MVVM.Menu
 {
     static internal class MvvmMenuBuilder
     {
+        static private ToolStripItem BuildItem(IViewModelMenuItem vmItem)
+        {
+            if (vmItem.Name == "-")
+                return new ToolStripSeparator();
+            return new MvvmMenuItem(vmItem);
+        }
+
         static public void BuildItems(IObservableList<IViewModelMenuItem>? vmItems, ToolStripItemCollection vItems)
         {
             if (vmItems == null)
             {
                 return;
             }
-            foreach (IViewModelMenuItem menuItem in vmItems)
+            foreach (IViewModelMenuItem vmItem in vmItems)
             {
-                MvvmMenuItem viewMenuItem = new MvvmMenuItem(menuItem);
-                vItems.Add(viewMenuItem);
+                vItems.Add(BuildItem(vmItem));
             }
             vmItems.CollectionChanged += (s, e) =>
             {
@@ -29,9 +35,9 @@ namespace carbon14.FuryStudio.WinUI.MVVM.Menu
                         int addingIndex = e.NewStartingIndex;
                         foreach (var x in e.NewItems)
                         {
-                            IViewModelMenuItem menuItem = (IViewModelMenuItem)x;
-                            MvvmMenuItem viewMenuItem = new MvvmMenuItem(menuItem);
-                            vItems.Insert(addingIndex++, viewMenuItem);
+                            IViewModelMenuItem vmItem = (IViewModelMenuItem)x;
+                            MvvmMenuItem vItem = new MvvmMenuItem(vmItem);
+                            vItems.Insert(addingIndex++, vItem);
                         }
                         break;
                     case System.Collections.Specialized.NotifyCollectionChangedAction.Remove:
@@ -61,10 +67,9 @@ namespace carbon14.FuryStudio.WinUI.MVVM.Menu
                         int replacingIndex = e.OldStartingIndex;
                         foreach (var x in e.NewItems)
                         {
-                            IViewModelMenuItem menuItem = (IViewModelMenuItem)x;
-                            MvvmMenuItem viewMenuItem = new MvvmMenuItem(menuItem);
+                            IViewModelMenuItem vmItem = (IViewModelMenuItem)x;
                             vItems.RemoveAt(replacingIndex);
-                            vItems.Insert(replacingIndex++, viewMenuItem);
+                            vItems.Insert(replacingIndex++, BuildItem(vmItem));
                         }
                         break;
                     case System.Collections.Specialized.NotifyCollectionChangedAction.Reset:

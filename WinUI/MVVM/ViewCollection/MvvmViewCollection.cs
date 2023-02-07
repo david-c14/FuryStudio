@@ -1,8 +1,6 @@
-﻿using carbon14.FuryStudio.ViewModels.Components;
-using carbon14.FuryStudio.ViewModels.Interfaces.Components;
+﻿using carbon14.FuryStudio.ViewModels.Interfaces.Components;
 using System.Collections;
 using System.Collections.Specialized;
-using System.Linq;
 using System.Reflection;
 
 namespace carbon14.FuryStudio.WinUI.MVVM.ViewCollection
@@ -47,52 +45,54 @@ namespace carbon14.FuryStudio.WinUI.MVVM.ViewCollection
             switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Add:
+                    if (e.NewItems == null)
+                    {
+                        return;
+                    }
+                    if (e.NewItems.Count == 0)
+                    {
+                        return;
+                    }
                     if (e.NewStartingIndex > Controls.Count)
                     {
                         throw new IndexOutOfRangeException();
                     }
-                    if (e.NewItems == null)
-                        return;
-                    if (e.NewItems.Count == 1)
-                    {
-                        OnAdd((IViewModelBase)e.NewItems[0]);
-                    }
-                    else
+                    if (e.NewStartingIndex == Controls.Count)
                     {
                         OnAddRange(e.NewItems);
                     }
+                    else
+                    {
+                        OnInsertRange(e.NewStartingIndex, e.NewItems);
+                    }
+                           
                     break;
                 case NotifyCollectionChangedAction.Remove:
-                    //if (e.OldStartingIndex >= vItems.Count)
-                    //{
-                    //    throw new IndexOutOfRangeException();
-                    //}
-                    //vItems.RemoveAt(e.OldStartingIndex);
+                    if (e.OldStartingIndex >= Controls.Count)
+                    {
+                        throw new IndexOutOfRangeException();
+                    }
+                    OnRemove(e.OldStartingIndex);
                     break;
                 case NotifyCollectionChangedAction.Replace:
-                    //if (e.NewItems == null)
-                    //{
-                    //    throw new ArgumentNullException(nameof(e.NewItems));
-                    //}
-                    //if (e.OldItems == null)
-                    //{
-                    //    throw new ArgumentNullException(nameof(e.OldItems));
-                    //}
-                    //if (e.NewItems.Count != e.OldItems.Count)
-                    //{
-                    //    throw new ArgumentException($"Length of {nameof(e.NewItems)} does not match length of {nameof(e.OldItems)}");
-                    //}
-                    //if (e.OldStartingIndex + e.NewItems.Count > vItems.Count)
-                    //{
-                    //    throw new IndexOutOfRangeException();
-                    //}
-                    //int replacingIndex = e.OldStartingIndex;
-                    //foreach (var x in e.NewItems)
-                    //{
-                    //    IViewModelMenuItem vmItem = (IViewModelMenuItem)x;
-                    //    vItems.RemoveAt(replacingIndex);
-                    //    vItems.Insert(replacingIndex++, BuildItem(vmItem));
-                    //}
+                    if (e.NewItems == null)
+                    {
+                        throw new ArgumentNullException(nameof(e.NewItems));
+                    }
+                    if (e.OldItems == null)
+                    {
+                        throw new ArgumentNullException(nameof(e.OldItems));
+                    }
+                    if (e.NewItems.Count != e.OldItems.Count)
+                    {
+                        throw new ArgumentException($"Length of {nameof(e.NewItems)} does not match length of {nameof(e.OldItems)}");
+                    }
+                    if (e.OldStartingIndex + e.NewItems.Count > Controls.Count)
+                    {
+                        throw new IndexOutOfRangeException();
+                    }
+                    int replacingIndex = e.OldStartingIndex;
+                    OnReplaceRange(e.OldStartingIndex, e.OldItems.Count, e.NewItems);
                     break;
                 case NotifyCollectionChangedAction.Reset:
                     OnClear();
@@ -106,36 +106,87 @@ namespace carbon14.FuryStudio.WinUI.MVVM.ViewCollection
             foreach (object x in viewModels)
             {
                 IViewModelBase? viewModel = x as IViewModelBase;
-                Control? view = FactoryBuild(viewModel);
-                if (view != null)
+                if (viewModel != null)
                 {
-                    Controls.Add(view);
+                    OnAdd(viewModel);
                 }
             }
         }
 
-        protected virtual void OnAdd(IViewModelBase viewModel)
+        protected virtual bool OnAdd(IViewModelBase viewModel)
         {
             Control? view = FactoryBuild(viewModel);
             if (view != null)
             {
                 Controls.Add(view);
+                return true;
+            }
+            return false;
+        }
+
+        protected virtual bool OnInsert(int index, IViewModelBase viewModel)
+        {
+            Control? view = FactoryBuild(viewModel);
+            if (view != null)
+            {
+                Controls.Add(view);
+                Controls.SetChildIndex(view, index);
+                return true;
+            }
+            return false;
+        }
+
+        protected virtual void OnInsertRange(int index, IList viewModels)
+        {
+            foreach (object x in viewModels)
+            {
+                IViewModelBase? viewModel = x as IViewModelBase;
+                if (viewModel != null)
+                {
+                    if (OnInsert(index, viewModel)) {
+                        index++;
+                    }
+                }
             }
         }
 
-        protected virtual void OnInsert()
+        protected virtual bool OnReplace(int index, IViewModelBase viewModel)
         {
-
+            Controls.RemoveAt(index);
+            Control? view = FactoryBuild(viewModel);
+            if (view != null)
+            {
+                Controls.Add(view);
+                Controls.SetChildIndex(view, index);
+                return true;
+            }
+            return false;
         }
 
-        protected virtual void OnInsertRange()
+        protected virtual void OnReplaceRange(int index, int count, IList viewModels)
         {
-
+            int newIndex = index;
+            foreach (object x in viewModels)
+            {
+                IViewModelBase? viewModel = x as IViewModelBase;
+                if (viewModel != null)
+                {
+                    if (OnReplace(index, viewModel))
+                    {
+                        index++;
+                    }
+                }
+            }
         }
 
         protected virtual void OnClear()
         {
             Controls.Clear();
+        }
+
+        protected virtual void OnRemove(int index)
+        {
+            Controls.RemoveAt(index);
         }
 
         protected virtual Control? FactoryBuild(IViewModelBase? vm)
@@ -148,9 +199,11 @@ namespace carbon14.FuryStudio.WinUI.MVVM.ViewCollection
             {
                 try
                 {
-                    MethodInfo? castMethod = GetType().GetMethod("Cast").MakeGenericMethod(pair.Key);
-                    object castObject = castMethod.Invoke(null, new object[] { vm });
-                    return pair.Value(vm);
+                    MethodInfo? castMethod = GetType().GetMethod("Cast")?.MakeGenericMethod(pair.Key);
+                    object? castObject = castMethod?.Invoke(null, new object[] { vm });
+                    if (castObject != null) {
+                        return pair.Value(vm);
+                    }
                 }
                 catch
                 {

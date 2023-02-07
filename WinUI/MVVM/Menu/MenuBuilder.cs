@@ -2,13 +2,13 @@
 
 namespace carbon14.FuryStudio.WinUI.MVVM.Menu
 {
-    static internal class MvvmMenuBuilder
+    static internal class MenuBuilder
     {
         static private ToolStripItem BuildItem(IViewModelMenuItem vmItem)
         {
             if (vmItem.Name == "-")
                 return new ToolStripSeparator();
-            return new MvvmMenuItem(vmItem);
+            return new MenuItem(vmItem);
         }
 
         static public void BuildItems(IObservableList<IViewModelMenuItem>? vmItems, ToolStripItemCollection vItems)
@@ -36,7 +36,7 @@ namespace carbon14.FuryStudio.WinUI.MVVM.Menu
                         foreach (var x in e.NewItems)
                         {
                             IViewModelMenuItem vmItem = (IViewModelMenuItem)x;
-                            MvvmMenuItem vItem = new MvvmMenuItem(vmItem);
+                            MenuItem vItem = new MenuItem(vmItem);
                             vItems.Insert(addingIndex++, vItem);
                         }
                         break;

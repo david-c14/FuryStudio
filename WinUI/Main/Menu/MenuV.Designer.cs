@@ -32,7 +32,7 @@ namespace carbon14.FuryStudio.WinUI
         {
             this.components = new System.ComponentModel.Container();
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
-            this.MenuStrip = new carbon14.FuryStudio.WinUI.MVVM.Menu.MvvmMenuStrip();
+            this.MenuStrip = new carbon14.FuryStudio.WinUI.MVVM.Menu.MenuStrip();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -68,6 +68,6 @@ namespace carbon14.FuryStudio.WinUI
 
         #endregion
         private BindingSource bindingSource1;
-        private MVVM.Menu.MvvmMenuStrip MenuStrip;
+        private MVVM.Menu.MenuStrip MenuStrip;
     }
 }

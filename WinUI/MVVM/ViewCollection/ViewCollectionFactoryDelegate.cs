@@ -2,5 +2,5 @@
 
 namespace carbon14.FuryStudio.WinUI.MVVM.ViewCollection
 {
-    public delegate Control MvvmViewCollectionFactoryDelegate(IViewModelBase viewModel);
+    public delegate Control ViewCollectionFactoryDelegate(IViewModelBase viewModel);
 }

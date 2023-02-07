@@ -2,11 +2,11 @@
 
 namespace carbon14.FuryStudio.WinUI.MVVM.Menu
 {
-    internal class MvvmMenuItem: ToolStripMenuItem
+    internal class MenuItem: ToolStripMenuItem
     {
         private IObservableList<IViewModelMenuItem>? _vmItems;
 
-        public MvvmMenuItem(IViewModelMenuItem vmItem)
+        public MenuItem(IViewModelMenuItem vmItem)
         {
             Text = vmItem.Name?.Replace('_', '&');
             Enabled = vmItem.Enabled;
@@ -24,7 +24,7 @@ namespace carbon14.FuryStudio.WinUI.MVVM.Menu
                 }
             };
             _vmItems = vmItem.Items;
-            MvvmMenuBuilder.BuildItems(_vmItems, DropDownItems);
+            MenuBuilder.BuildItems(_vmItems, DropDownItems);
         }
     }
 }

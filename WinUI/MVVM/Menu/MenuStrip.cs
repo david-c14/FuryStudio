@@ -2,7 +2,7 @@
 
 namespace carbon14.FuryStudio.WinUI.MVVM.Menu
 {
-    internal class MvvmMenuStrip: MenuStrip
+    internal class MenuStrip: System.Windows.Forms.MenuStrip
     {
         private IObservableList<IViewModelMenuItem>? _vmItems;
         public IObservableList<IViewModelMenuItem>? VmItems 
@@ -15,7 +15,7 @@ namespace carbon14.FuryStudio.WinUI.MVVM.Menu
             {
                 _vmItems = value;
                 Items.Clear();
-                MvvmMenuBuilder.BuildItems(_vmItems, Items);
+                MenuBuilder.BuildItems(_vmItems, Items);
             }
         }
     }

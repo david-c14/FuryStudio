@@ -5,15 +5,15 @@ using System.Reflection;
 
 namespace carbon14.FuryStudio.WinUI.MVVM.ViewCollection
 {
-    public partial class MvvmViewCollection : UserControl
+    public partial class ViewCollectionControl : UserControl
     {
         private IObservableList<IViewModelBase>? _viewModelList;
-        public IList<KeyValuePair<Type, MvvmViewCollectionFactoryDelegate>> Factory { get; }
+        public IList<KeyValuePair<Type, ViewCollectionFactoryDelegate>> Factory { get; }
 
-        public MvvmViewCollection()
+        public ViewCollectionControl()
         {
             InitializeComponent();
-            Factory = new List<KeyValuePair<Type, MvvmViewCollectionFactoryDelegate>>();
+            Factory = new List<KeyValuePair<Type, ViewCollectionFactoryDelegate>>();
         }
 
         public IObservableList<IViewModelBase>? ViewModels
@@ -35,9 +35,9 @@ namespace carbon14.FuryStudio.WinUI.MVVM.ViewCollection
             }
         }
 
-        public void AddBuilder(Type type, MvvmViewCollectionFactoryDelegate del)
+        public void AddBuilder(Type type, ViewCollectionFactoryDelegate del)
         {
-            Factory.Add(new KeyValuePair<Type, MvvmViewCollectionFactoryDelegate>(type, del));
+            Factory.Add(new KeyValuePair<Type, ViewCollectionFactoryDelegate>(type, del));
         }
 
         protected virtual void OnCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
@@ -124,18 +124,6 @@ namespace carbon14.FuryStudio.WinUI.MVVM.ViewCollection
             return false;
         }
 
-        protected virtual bool OnInsert(int index, IViewModelBase viewModel)
-        {
-            Control? view = FactoryBuild(viewModel);
-            if (view != null)
-            {
-                Controls.Add(view);
-                Controls.SetChildIndex(view, index);
-                return true;
-            }
-            return false;
-        }
-
         protected virtual void OnInsertRange(int index, IList viewModels)
         {
             foreach (object x in viewModels)
@@ -150,9 +138,8 @@ namespace carbon14.FuryStudio.WinUI.MVVM.ViewCollection
             }
         }
 
-        protected virtual bool OnReplace(int index, IViewModelBase viewModel)
+        protected virtual bool OnInsert(int index, IViewModelBase viewModel)
         {
-            Controls.RemoveAt(index);
             Control? view = FactoryBuild(viewModel);
             if (view != null)
             {
@@ -179,6 +166,19 @@ namespace carbon14.FuryStudio.WinUI.MVVM.ViewCollection
             }
         }
 
+        protected virtual bool OnReplace(int index, IViewModelBase viewModel)
+        {
+            Controls.RemoveAt(index);
+            Control? view = FactoryBuild(viewModel);
+            if (view != null)
+            {
+                Controls.Add(view);
+                Controls.SetChildIndex(view, index);
+                return true;
+            }
+            return false;
+        }
+
         protected virtual void OnClear()
         {
             Controls.Clear();
@@ -195,12 +195,12 @@ namespace carbon14.FuryStudio.WinUI.MVVM.ViewCollection
             {
                 return null;
             }
-            foreach (KeyValuePair<Type, MvvmViewCollectionFactoryDelegate> pair in Factory)
+            foreach (KeyValuePair<Type, ViewCollectionFactoryDelegate> pair in Factory)
             {
                 try
                 {
                     MethodInfo? castMethod = GetType().GetMethod("Cast")?.MakeGenericMethod(pair.Key);
-                    object? castObject = castMethod?.Invoke(null, new object[] { vm });
+                    object? castObject = castMethod?.Invoke(this, new object[] { vm });
                     if (castObject != null) {
                         return pair.Value(vm);
                     }
@@ -213,7 +213,7 @@ namespace carbon14.FuryStudio.WinUI.MVVM.ViewCollection
             return null;
         }
 
-        public static T Cast<T>(object o)
+        public T Cast<T>(object o)
         {
             return (T)o;
         }

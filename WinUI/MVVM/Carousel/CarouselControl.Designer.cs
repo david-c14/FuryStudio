@@ -1,6 +1,6 @@
-﻿namespace carbon14.FuryStudio.WinUI.MVVM.ViewCollection
+﻿namespace carbon14.FuryStudio.WinUI.MVVM.Carousel
 {
-    partial class MvvmViewCollection
+    partial class CarouselControl
     {
         /// <summary> 
         /// Required designer variable.

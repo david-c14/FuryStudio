@@ -66,7 +66,6 @@
             this.nextButton.TabIndex = 1;
             this.nextButton.Text = "&Next";
             this.nextButton.UseVisualStyleBackColor = true;
-            this.nextButton.Click += new System.EventHandler(this.nextButton_Click);
             // 
             // backButton
             // 
@@ -76,7 +75,6 @@
             this.backButton.TabIndex = 0;
             this.backButton.Text = "&Back";
             this.backButton.UseVisualStyleBackColor = true;
-            this.backButton.Click += new System.EventHandler(this.backButton_Click);
             // 
             // carouselControl1
             // 

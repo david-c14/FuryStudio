@@ -30,7 +30,7 @@ namespace carbon14.FuryStudio.AvaloniaUI
                     }
                     )) ;
 
-                desktop.MainWindow = new Main.Menu.MenuV()
+                desktop.MainWindow = new Main.Menu.MenuWindow()
                 {
                     DataContext = model
                 };

@@ -4,7 +4,6 @@ using carbon14.FuryStudio.ViewModels.Components;
 using carbon14.FuryStudio.ViewModels.Interfaces.Commands;
 using carbon14.FuryStudio.ViewModels.Interfaces.Components;
 using carbon14.FuryStudio.ViewModels.Interfaces.Main.Menu;
-using carbon14.FuryStudio.ViewModels.ProjectTemplate.NewTemplateWizard;
 
 namespace carbon14.FuryStudio.ViewModels.Main.Menu
 {
@@ -45,7 +44,6 @@ namespace carbon14.FuryStudio.ViewModels.Main.Menu
                 }
             };
 
-            var wizards = NewTemplateWizards.Wizards;
         }
 
 

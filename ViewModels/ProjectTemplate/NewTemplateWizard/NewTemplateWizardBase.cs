@@ -1,10 +1,9 @@
 ﻿using Autofac;
 using carbon14.FuryStudio.ViewModels.Components;
-using carbon14.FuryStudio.ViewModels.Interfaces.Components;
 
 namespace carbon14.FuryStudio.ViewModels.ProjectTemplate.NewTemplateWizard
 {
-    public class NewTemplateWizardBase: ViewModelBase, IWizard
+    public class NewTemplateWizardBase: ViewModelBase
     {
         public const string FuryOfTheFurries = "Fury of the Furries";
         public const string PacInTime = "Pac in Time";

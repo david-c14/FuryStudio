@@ -119,6 +119,7 @@ namespace carbon14.FuryStudio.WinUI.MVVM.ViewCollection
             if (view != null)
             {
                 Controls.Add(view);
+                view.Dock = DockStyle.Fill;
                 return true;
             }
             return false;
@@ -145,6 +146,7 @@ namespace carbon14.FuryStudio.WinUI.MVVM.ViewCollection
             {
                 Controls.Add(view);
                 Controls.SetChildIndex(view, index);
+                view.Dock = DockStyle.Fill;
                 return true;
             }
             return false;
@@ -174,6 +176,7 @@ namespace carbon14.FuryStudio.WinUI.MVVM.ViewCollection
             {
                 Controls.Add(view);
                 Controls.SetChildIndex(view, index);
+                view.Dock = DockStyle.Fill;
                 return true;
             }
             return false;
@@ -210,7 +213,7 @@ namespace carbon14.FuryStudio.WinUI.MVVM.ViewCollection
 
                 }
             }
-            return null;
+            throw new TypeLoadException($"Unable to build view for viewModel: {vm.GetType().Name}");
         }
 
         public T Cast<T>(object o)

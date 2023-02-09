@@ -4,9 +4,9 @@ namespace carbon14.FuryStudio.ViewModels.ProjectTemplate.NewTemplateWizard
 {
     [NewTemplateWizard(FuryOfTheFurries)]
     [NewTemplateWizard(Amiga)]
-    public class NewTemplate_Fury_Amiga: NewTemplateWizardBase
+    public class NewTemplate_Fury_AmigaVM: NewTemplateWizardBase
     {
-        public NewTemplate_Fury_Amiga(ILifetimeScope scope) : base(scope) 
+        public NewTemplate_Fury_AmigaVM(ILifetimeScope scope) : base(scope) 
         {
         }
     }

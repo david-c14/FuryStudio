@@ -2,9 +2,9 @@ using Avalonia.Controls;
 
 namespace carbon14.FuryStudio.AvaloniaUI.Main.Menu
 {
-    public partial class MenuV : Window
+    public partial class MenuWindow: Window
     {
-        public MenuV()
+        public MenuWindow()
         {
             InitializeComponent();
         }

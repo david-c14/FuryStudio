@@ -2,7 +2,7 @@
 
 namespace carbon14.FuryStudio.WinUI
 {
-    partial class MenuV
+    partial class MenuForm
     {
         /// <summary>
         ///  Required designer variable.

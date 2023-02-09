@@ -65,6 +65,8 @@ namespace carbon14.FuryStudio.ViewModels.ProjectTemplate.NewTemplateWizard
                 }
                 _currentPage = value;
                 OnPropertyChanged(nameof(CurrentPage));
+                OnPropertyChanged(nameof(NextEnabled));
+                OnPropertyChanged(nameof(BackEnabled));
             }
         } 
 

@@ -8,6 +8,7 @@ using carbon14.FuryStudio.ViewModels.Interfaces.Commands;
 using carbon14.FuryStudio.ViewModels.Interfaces.Main.Menu;
 using carbon14.FuryStudio.ViewModels.Main.Menu;
 using carbon14.FuryStudio.ViewModels.Components;
+using carbon14.FuryStudio.ViewModels.ProjectTemplate.NewTemplateWizard;
 
 namespace carbon14.FuryStudio.AvaloniaUI
 {
@@ -26,7 +27,10 @@ namespace carbon14.FuryStudio.AvaloniaUI
                 IMenuVM model = new MenuVM(scope);
                 scope.Resolve<IAppCommands>().Add(AppCommandEnum.NewProjectTemplate, new AppCommand(
                     p => {
-                        new ProjectTemplate.NewTemplateWizard.SelectorV().ShowDialog(desktop.MainWindow);
+                        new Wizard.Wizard()
+                        {
+                            DataContext = new NewTemplateWizard(scope)
+                        }.ShowDialog(desktop.MainWindow);
                     }
                     )) ;
 

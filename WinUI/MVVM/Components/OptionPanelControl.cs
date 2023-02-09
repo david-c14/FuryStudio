@@ -1,5 +1,4 @@
 ﻿using carbon14.FuryStudio.ViewModels.Interfaces.Components;
-using System.Windows.Forms;
 
 namespace carbon14.FuryStudio.WinUI.MVVM.Components
 {

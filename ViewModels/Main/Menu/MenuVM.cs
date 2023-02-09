@@ -66,6 +66,7 @@ namespace carbon14.FuryStudio.ViewModels.Main.Menu
 
 // TODO Get Fury Project Template builders working.
 // TODO WizardPage needs interface
-// TODO WizardPage base class/interface needs enabled property
-// TODO Wizard base class/interface needs enabled property and Page list
-// TODO Wizard base class/interface needs selectedIndex property
+
+// TODO Proper flow of IsValid up through view collection
+// TODO View collection could be build on IPanels
+// TODO dynamically add wizard pages as needed

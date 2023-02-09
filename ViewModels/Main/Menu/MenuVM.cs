@@ -4,6 +4,7 @@ using carbon14.FuryStudio.ViewModels.Components;
 using carbon14.FuryStudio.ViewModels.Interfaces.Commands;
 using carbon14.FuryStudio.ViewModels.Interfaces.Components;
 using carbon14.FuryStudio.ViewModels.Interfaces.Main.Menu;
+using carbon14.FuryStudio.ViewModels.ProjectTemplate.NewTemplateWizard;
 
 namespace carbon14.FuryStudio.ViewModels.Main.Menu
 {
@@ -43,6 +44,8 @@ namespace carbon14.FuryStudio.ViewModels.Main.Menu
                     }
                 }
             };
+
+            var wizards = NewTemplateWizards.Wizards;
         }
 
 
@@ -58,8 +61,13 @@ namespace carbon14.FuryStudio.ViewModels.Main.Menu
     }
 }
 
-///TODO Get Cli working in linux
-///TODO Get Library working in linux
-///TODO Get c# wrapper working in linux (.so rather than .dll)
-///TODO Get copyrighted test assets into git submodule (so they can remain private)
-///TODO Get Fury Project Template builders working.
+// TODO Get Cli working in linux
+// TODO Get Library working in linux
+// TODO Get c# wrapper working in linux (.so rather than .dll)
+// TODO Get copyrighted test assets into git submodule (so they can remain private)
+
+// TODO Get Fury Project Template builders working.
+// TODO WizardPage needs interface
+// TODO WizardPage base class/interface needs enabled property
+// TODO Wizard base class/interface needs enabled property and Page list
+// TODO Wizard base class/interface needs selectedIndex property

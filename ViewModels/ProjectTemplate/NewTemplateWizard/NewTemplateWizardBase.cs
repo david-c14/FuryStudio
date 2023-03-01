@@ -1,9 +1,12 @@
 ﻿using Autofac;
-using carbon14.FuryStudio.ViewModels.Components;
+using carbon14.FuryStudio.Core.Interfaces.Templates;
+using carbon14.FuryStudio.ViewModels.Interfaces.Components;
+using carbon14.FuryStudio.ViewModels.Interfaces.ProjectTemplate.NewTemplateWizard;
+using System.ComponentModel;
 
 namespace carbon14.FuryStudio.ViewModels.ProjectTemplate.NewTemplateWizard
 {
-    public class NewTemplateWizardBase: ViewModelBase
+    public abstract class NewTemplateWizardBase: INewTemplateWizard
     {
         public const string FuryOfTheFurries = "Fury of the Furries";
         public const string PacInTime = "Pac in Time";
@@ -14,8 +17,7 @@ namespace carbon14.FuryStudio.ViewModels.ProjectTemplate.NewTemplateWizard
         public const string SingleZip = "A single zip file containing an installed game";
         public const string InstalledDir = "A folder containing an installed game";
 
-        public NewTemplateWizardBase(ILifetimeScope scope) : base(scope) 
-        { 
-        }
+        public abstract void AddPanels(ILifetimeScope scope, IObservableList<IViewModelBase> list);
+        public abstract ITemplate Complete();
     }
 }

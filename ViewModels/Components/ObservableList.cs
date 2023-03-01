@@ -54,7 +54,7 @@ namespace carbon14.FuryStudio.ViewModels.Components
             }
         }
 
-        object IList.this[int index]
+        object? IList.this[int index]
         {
             get
             {
@@ -95,7 +95,7 @@ namespace carbon14.FuryStudio.ViewModels.Components
         {
             List.AddRange(collection);
             var iList = collection as IList;
-            OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, iList, List.Count - iList.Count));
+            OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, iList, List.Count - iList?.Count));
         }
 
         public int IndexOf(T item)
@@ -158,7 +158,7 @@ namespace carbon14.FuryStudio.ViewModels.Components
             return GetEnumerator();
         }
 
-        int IList.Add(object value)
+        int IList.Add(object? value)
         {
             var result = ((IList)List).Add(value);
             ;
@@ -166,23 +166,23 @@ namespace carbon14.FuryStudio.ViewModels.Components
             return result;
         }
 
-        bool IList.Contains(object value)
+        bool IList.Contains(object? value)
         {
             return ((IList)List).Contains(value);
         }
 
-        int IList.IndexOf(object value)
+        int IList.IndexOf(object? value)
         {
             return ((IList)List).IndexOf(value);
         }
 
-        void IList.Insert(int index, object value)
+        void IList.Insert(int index, object? value)
         {
             ((IList)List).Insert(index, value);
             OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, value, index));
         }
 
-        void IList.Remove(object value)
+        void IList.Remove(object? value)
         {
             int index = ((IList)List).IndexOf(value);
             if (index > -1)

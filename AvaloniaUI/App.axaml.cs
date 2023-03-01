@@ -9,6 +9,7 @@ using carbon14.FuryStudio.ViewModels.Interfaces.Main.Menu;
 using carbon14.FuryStudio.ViewModels.Main.Menu;
 using carbon14.FuryStudio.ViewModels.Components;
 using carbon14.FuryStudio.ViewModels.ProjectTemplate.NewTemplateWizard;
+using carbon14.FuryStudio.ViewModels.Interfaces.Components;
 
 namespace carbon14.FuryStudio.AvaloniaUI
 {
@@ -27,10 +28,13 @@ namespace carbon14.FuryStudio.AvaloniaUI
                 IMenuVM model = new MenuVM(scope);
                 scope.Resolve<IAppCommands>().Add(AppCommandEnum.NewProjectTemplate, new AppCommand(
                     p => {
-                        new Wizard.Wizard()
+                        NewTemplateWizard vm = new NewTemplateWizard(scope);
+                        Wizard.Wizard wizard = new Wizard.Wizard()
                         {
-                            DataContext = new NewTemplateWizard(scope)
-                        }.ShowDialog(desktop.MainWindow);
+                            DataContext = vm
+                        };
+                        vm.OnCloseDialog += (s, e) => wizard.Close(e);
+                        wizard.ShowDialog<DialogResult>(desktop.MainWindow);
                     }
                     )) ;
 
@@ -41,6 +45,11 @@ namespace carbon14.FuryStudio.AvaloniaUI
             }
 
             base.OnFrameworkInitializationCompleted();
+        }
+
+        private void Vm_OnCloseDialog(object? sender, ViewModels.Interfaces.Components.DialogResult e)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

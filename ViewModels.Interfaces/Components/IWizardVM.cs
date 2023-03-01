@@ -7,10 +7,14 @@ namespace carbon14.FuryStudio.ViewModels.Interfaces.Components
         public string Caption { get; }
         public bool NextEnabled { get; }
         public ICommand Next { get; }
+        public string NextCaption { get; }
         public bool BackEnabled { get; }
         public ICommand Back { get; }
+        public ICommand Cancel { get; }
         public IObservableList<IViewModelBase> ViewModels { get; }
         public int CurrentPage { get; }
+        public DialogResult DialogResult { get; }
+        public event EventHandler<DialogResult> OnCloseDialog;
 
     }
 }

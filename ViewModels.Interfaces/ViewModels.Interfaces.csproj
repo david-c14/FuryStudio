@@ -12,4 +12,8 @@
     <PackageReference Include="Autofac" Version="6.5.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Core.Interfaces\Core.Interfaces.csproj" />
+  </ItemGroup>
+
 </Project>

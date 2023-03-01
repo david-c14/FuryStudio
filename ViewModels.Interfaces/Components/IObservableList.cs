@@ -9,5 +9,6 @@ namespace carbon14.FuryStudio.ViewModels.Interfaces.Components
         public new void Clear();
         public new void RemoveAt(int index);
         public new T this[int index] { get; set; }
+        public new int Count { get; }
     }
 }

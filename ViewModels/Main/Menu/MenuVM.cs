@@ -60,6 +60,9 @@ namespace carbon14.FuryStudio.ViewModels.Main.Menu
 }
 
 // TODO Get Cli working in linux
+//  Shim strncpy_s
+//  include <string.h>
+//  Shim CmakeLists to specify Debug output directory under unix
 // TODO Get Library working in linux
 // TODO Get c# wrapper working in linux (.so rather than .dll)
 // TODO Get copyrighted test assets into git submodule (so they can remain private)

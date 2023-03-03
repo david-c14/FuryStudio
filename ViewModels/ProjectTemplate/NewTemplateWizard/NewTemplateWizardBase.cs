@@ -18,6 +18,6 @@ namespace carbon14.FuryStudio.ViewModels.ProjectTemplate.NewTemplateWizard
         public const string InstalledDir = "A folder containing an installed game";
 
         public abstract void AddPanels(ILifetimeScope scope, IObservableList<IViewModelBase> list);
-        public abstract ITemplate Complete();
+        public abstract ITemplate? Complete();
     }
 }

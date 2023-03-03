@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Core\Core.csproj" />
     <ProjectReference Include="..\ViewModels.Interfaces\ViewModels.Interfaces.csproj" />
   </ItemGroup>
 

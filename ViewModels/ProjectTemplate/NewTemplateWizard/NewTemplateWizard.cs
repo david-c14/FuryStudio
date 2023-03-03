@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using carbon14.FuryStudio.Core.Interfaces.Templates;
 using carbon14.FuryStudio.ViewModels.Commands;
 using carbon14.FuryStudio.ViewModels.Components;
 using carbon14.FuryStudio.ViewModels.Interfaces.Commands;
@@ -121,8 +122,17 @@ namespace carbon14.FuryStudio.ViewModels.ProjectTemplate.NewTemplateWizard
             {
                 if (CurrentPage >= ViewModels.Count() - 1)
                 {
-                    _wizard.Complete();
+                    try
+                    {
+                        ITemplate? template = _wizard.Complete();
+                        template?.Save("Thing");
+                    }
+                    catch (Exception ex)
+                    {
+
+                    }
                     DialogResult = DialogResult.Cancel;
+                    return;
                 }
                 if (CurrentPage == ViewModels.Count() - 2)
                 {

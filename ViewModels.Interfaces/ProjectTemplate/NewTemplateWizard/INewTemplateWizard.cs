@@ -8,6 +8,6 @@ namespace carbon14.FuryStudio.ViewModels.Interfaces.ProjectTemplate.NewTemplateW
     public interface INewTemplateWizard
     {
         public void AddPanels(ILifetimeScope scope, IObservableList<IViewModelBase> list);
-        public ITemplate Complete();
+        public ITemplate? Complete();
     }
 }

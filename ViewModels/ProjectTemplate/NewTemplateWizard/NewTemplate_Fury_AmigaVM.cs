@@ -19,7 +19,7 @@ namespace carbon14.FuryStudio.ViewModels.ProjectTemplate.NewTemplateWizard
             throw new NotImplementedException();
         }
 
-        public override ITemplate Complete()
+        public override ITemplate? Complete()
         {
             throw new NotImplementedException();
         }

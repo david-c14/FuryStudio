@@ -2,6 +2,8 @@
 #include <vector>
 #include <cstdint>
 #include <filesystem>
+#include <string.h>
+#include "shims.hpp"
 #include "BinaryIO.cpp"
 #include "Dat.cpp"
 #include "Exceptions.cpp"

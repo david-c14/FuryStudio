@@ -1,4 +1,6 @@
 #include <fstream>
+#include <string.h>
+#include "shims.hpp"
 #include "BinaryIO.cpp"
 #include "Imm.cpp"
 #include "Bmp.cpp"

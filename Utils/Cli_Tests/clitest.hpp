@@ -1,86 +1,115 @@
 #pragma once
-#include <string>
 #include <filesystem>
+#include <fstream>
+#include <vector>
+#include <cstring>
+#include <ctime>
 
-namespace clitest {
-	struct CLITest {
+extern std::filesystem::path moduleDir;
+extern std::filesystem::path testDir;
+extern int _error;
 
-	private:
-		std::filesystem::path testDir;
-		bool cleaned;
-		std::string _testName;
-		int _error;
-
-	public:
-		static void ModuleInit(std::string initTestDir);
-		static void ModuleCleanup();
-
-		CLITest(const std::string & testName);
-		~CLITest();
-
-		void TestCleanup();
-
-		int Error();
-
-		void CopyFile(const std::filesystem::path & sourceFile);
-		void CopyFile(const std::filesystem::path & sourceFile, const std::filesystem::path & destination);
-
-		int Run(const std::string & commandLine);
-		
-		bool Compare(const std::filesystem::path & sourceFile, const std::filesystem::path & destination);
-		bool Content(const std::filesystem::path & sourceFile, const std::string & content);
-		bool Exists(const std::filesystem::path & sourceFile);
-		bool IsEmpty(const std::filesystem::path & sourceFile);
-
-		std::vector<uint8_t> ReadFile(const std::string & fileName);
-		std::vector<uint8_t> ReadText(const std::string & fileName);
-	};
-
-#ifndef CLITEST_STDOUT
 #define CLITEST_STDOUT "out.txt"
-#endif
 
-#ifndef CLITEST_STDERR
 #define CLITEST_STDERR "err.txt"
-#endif
 
-#ifndef ASSETS
-#define ASSETS "../../../testassets/"
+
+
+#ifdef __UNIX__
+	#define PWD "./"
+	#define ASSETS "../../testassets/"
+	#define BUILD "debug/"
+#else
+	#define PWD ".\\"
+	#define ASSETS "..\\..\\testassets\\"
+	#define BUILD "debug\\"
 #endif 
 
-#ifndef BUILD
-#define BUILD "./"
-#endif
+namespace {
+	
+	void CopyAsset(const std::filesystem::path & sourceFile, const std::filesystem::path & destinationFile) {
+		std::filesystem::path _dest = testDir / destinationFile;
+		std::filesystem::path _src = std::filesystem::absolute(sourceFile);
+		std::filesystem::copy_file(_src, _dest);
+	}
+	
+	void CopyAsset(const std::filesystem::path & sourceFile) {
+		CopyAsset(sourceFile, testDir / sourceFile.filename());
+	}
 
-#ifndef PWD
-#define PWD ".\\"
-#endif
+	int Run(const std::string & commandLine) {
+		std::filesystem::path cp = std::filesystem::current_path();
+		_error = -1;
+		try {
+			std::filesystem::current_path(testDir);
+			_error = std::system(commandLine.c_str());
+		}
+		catch (...) {
+		}
+		std::filesystem::current_path(cp);
+		return _error;
+	}
 
+	bool IsEmpty(const std::filesystem::path & sourceFile) {
+		return std::filesystem::is_empty(testDir / sourceFile);
+	}
 
-#define CLITEST_BEGIN(methodName) TEST_METHOD(methodName) {\
-	clitest::CLITest clitest(#methodName);
+	bool Exists(const std::filesystem::path & sourceFile) {
+		return std::filesystem::exists(testDir / sourceFile);
+	}
 
-#define CLITEST_END clitest.TestCleanup(); }
+	std::vector<uint8_t> ReadText(const std::string & fileName) {
+		std::ifstream file(fileName, std::ios::ate);
 
-#define ADDFILE(fileName) clitest.CopyFile(fileName);
+		std::streamsize size = file.tellg();
+		file.seekg(0, std::ios::beg);
 
-#define ADDFILEAS(filename, destination) clitest.CopyFile(filename, destination);
+		std::vector<uint8_t> buffer((uint32_t)size);
+		file.read((char *)(buffer.data()), size);
+		buffer.resize((int)(file.gcount()));
+		return buffer;
+	}
 
-#define EXEC(commandLine) clitest.Run(commandLine " > " CLITEST_STDOUT " 2> " CLITEST_STDERR);
+	std::vector<uint8_t> ReadFile(const std::string & fileName) {
+		std::ifstream file(fileName, std::ios::binary | std::ios::ate);
 
-#define RETURNVALUE(expected) Assert::AreEqual(expected, clitest.Error(), L"Return value should be " L#expected);
+		std::streamsize size = file.tellg();
+		file.seekg(0, std::ios::beg);
 
-#define ISEMPTY(fileName) Assert::IsTrue(clitest.IsEmpty(fileName), L#fileName L" should be empty");
+		std::vector<uint8_t> buffer((uint32_t)size);
+		file.read((char *)(buffer.data()), size);
 
-#define EXISTS(fileName) Assert::IsTrue(clitest.Exists(fileName), L#fileName L" should exist");
+		return buffer;
+	}
 
-#define FILECOMPARE(fileName1, fileName2) Assert::IsTrue(clitest.Compare(fileName1, fileName2), L"File content differs between" L#fileName1 L" and " L#fileName2);
+	bool Content(const std::filesystem::path & sourceFile, const std::string & content) {
+		std::filesystem::path _src = testDir / sourceFile;
+		std::vector<uint8_t> vec(content.length());
+		memcpy(vec.data(), content.c_str(), vec.size());
+		return ReadText(_src.generic_string()) == vec;
+	}
 
-#define FILECONTENT(fileName, content) Assert::IsTrue(clitest.Content(fileName, content), L#fileName L" content differs from expectation");
-
-
-
-
-
+	bool Compare(const std::filesystem::path & sourceFile, const std::filesystem::path & destinationFile) {
+		std::filesystem::path _src = testDir / sourceFile;
+		std::filesystem::path _dest = testDir / destinationFile;
+		return ReadFile(_src.generic_string()) == ReadFile(_dest.generic_string());
+	}
 
 }
+
+#define ADDFILE(fileName) CopyAsset(fileName);
+
+#define ADDFILEAS(filename, destination) CopyAsset(filename, destination);
+
+#define EXEC(commandLine) Run(commandLine " > " CLITEST_STDOUT " 2> " CLITEST_STDERR);
+
+#define RETURNVALUE(expected) REQUIRE(_error == expected);
+
+#define EXISTS(fileName) REQUIRE(Exists(fileName) == true);
+
+#define ISEMPTY(fileName) REQUIRE(IsEmpty(fileName) == true);
+
+#define FILECONTENT(fileName, content) REQUIRE(Content(fileName, content) == true);
+
+#define FILECOMPARE(fileName1, fileName2) REQUIRE(Compare(fileName1, fileName2) == true);
+

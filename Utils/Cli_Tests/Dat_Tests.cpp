@@ -15,7 +15,7 @@ namespace {
 			
 }
 
-#define EXE BUILD "DatFile.exe"
+#define EXE BUILD "DatFile" EXEEXT
 #define COMM PWD "DatFile "
 
 TEST_CASE("DAT_No_parameters_should_yield_usage_message") {

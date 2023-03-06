@@ -3,7 +3,6 @@
 #include <fstream>
 #include <vector>
 #include <cstring>
-#include <ctime>
 
 extern std::filesystem::path moduleDir;
 extern std::filesystem::path testDir;
@@ -15,14 +14,16 @@ extern int _error;
 
 
 
-#ifdef __UNIX__
+#ifdef __unix__
 	#define PWD "./"
 	#define ASSETS "../../testassets/"
-	#define BUILD "debug/"
+	#define BUILD "Debug/"
+	#define EXEEXT ""
 #else
 	#define PWD ".\\"
 	#define ASSETS "..\\..\\testassets\\"
-	#define BUILD "debug\\"
+	#define BUILD "Debug\\"
+	#define EXEEXT ".exe"
 #endif 
 
 namespace {

@@ -11,7 +11,7 @@ namespace {
 			
 }
 
-#define EXE BUILD "ImmFile.exe"
+#define EXE BUILD "ImmFile" EXEEXT
 #define COMM PWD "ImmFile "
 
 TEST_CASE("IMM_No_parameters_should_yield_usage_message") {

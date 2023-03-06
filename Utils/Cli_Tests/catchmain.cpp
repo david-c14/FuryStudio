@@ -21,10 +21,10 @@ namespace {
 
 		auto now = std::chrono::system_clock::now();
 		std::time_t t = std::chrono::system_clock::to_time_t(now);
-		std::tm tm;
-		localtime_s(&tm, &t);
+		std::tm *tm;
+		tm = localtime(&t);
 
-		strftime(buffer.data(), buffer.size(), "%Y-%m-%d_%H-%M-%S", &tm);
+		strftime(buffer.data(), buffer.size(), "%Y-%m-%d_%H-%M-%S", tm);
 		return std::string(buffer.data());
 	}
 }

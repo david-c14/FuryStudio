@@ -19,11 +19,13 @@ extern int _error;
 	#define ASSETS "../../testassets/"
 	#define BUILD "Debug/"
 	#define EXEEXT ""
+	#define RETVAL(x) WEXITSTATUS(x)
 #else
 	#define PWD ".\\"
 	#define ASSETS "..\\..\\testassets\\"
 	#define BUILD "Debug\\"
 	#define EXEEXT ".exe"
+	#define RETVAL(x) (x)
 #endif 
 
 namespace {
@@ -43,7 +45,7 @@ namespace {
 		_error = -1;
 		try {
 			std::filesystem::current_path(testDir);
-			_error = std::system(commandLine.c_str());
+			_error = RETVAL(std::system(commandLine.c_str()));
 		}
 		catch (...) {
 		}

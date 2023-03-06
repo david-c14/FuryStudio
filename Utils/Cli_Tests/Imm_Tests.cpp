@@ -111,11 +111,11 @@ TEST_CASE("IMM_Missing_input_file_on_bi_should_raise_IO_ERROR") {
 
 TEST_CASE("IMM_Invalid_output_file_on_bi_should_raise_IO_ERROR") {
 	std::string error = "ImmFile Error:\n\n"
-		"Could not write output file \"garbage?\"\n";
+		"Could not write output file \"\"\n";
 	ADDFILE(ASSETS "pal8out.bmp")
 	ADDFILE(EXE)
 
-	EXEC(COMM " -bi pal8out.bmp garbage? file3")
+	EXEC(COMM " -bi pal8out.bmp \"\" file3")
 
 	RETURNVALUE(6)
 	ISEMPTY(CLITEST_STDERR)
@@ -124,11 +124,11 @@ TEST_CASE("IMM_Invalid_output_file_on_bi_should_raise_IO_ERROR") {
 		
 TEST_CASE("IMM_Invalid_output_file2_on_bi_should_raise_IO_ERROR") {
 	std::string error = "ImmFile Error:\n\n"
-		"Could not write output file \"garbage2?\"\n";
+		"Could not write output file \"\"\n";
 	ADDFILE(ASSETS "pal8out.bmp")
 	ADDFILE(EXE)
 
-	EXEC(COMM " -bi pal8out.bmp garbage garbage2?")
+	EXEC(COMM " -bi pal8out.bmp garbage \"\"")
 
 	RETURNVALUE(6)
 	ISEMPTY(CLITEST_STDERR)
@@ -162,12 +162,12 @@ TEST_CASE("IMM_Missing_input_file2_on_ib_should_raise_IO_ERROR") {
 
 TEST_CASE("IMM_Invalid_output_file_on_ib_should_raise_IO_ERROR") {
 	std::string error = "ImmFile Error:\n\n"
-		"Could not write output file \"garbage?\"\n";
+		"Could not write output file \"\"\n";
 	ADDFILE(ASSETS "pal8out.imm")
 	ADDFILE(ASSETS "pal8out.pam")
 	ADDFILE(EXE)
 
-	EXEC(COMM " -ib pal8out.imm pal8out.pam garbage?")
+	EXEC(COMM " -ib pal8out.imm pal8out.pam \"\"")
 
 	RETURNVALUE(6)
 	ISEMPTY(CLITEST_STDERR)

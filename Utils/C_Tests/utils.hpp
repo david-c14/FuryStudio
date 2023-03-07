@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <fstream>
+#include <cstring>
 
 namespace utils {
 
@@ -10,3 +11,10 @@ namespace utils {
 
 
 }
+
+#ifdef __unix__
+#define ASSETDIR "../../testassets/"
+#else
+#define ASSETDIR "..\\..\\testassets\\"
+#endif
+

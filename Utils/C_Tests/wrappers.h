@@ -1,3 +1,4 @@
+
 typedef void * dat_p;
 typedef void * imm_p;
 typedef void * bmp_p;
@@ -30,3 +31,4 @@ extern "C" {
 	void Test_Bmp_destroy(bmp_p bmp);
 
 }
+

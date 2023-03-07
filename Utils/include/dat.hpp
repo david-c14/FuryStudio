@@ -1,6 +1,7 @@
 #pragma once
 
-#ifndef APIENTRY
+#ifdef __unix__
+#undef APIENTRY
 #define APIENTRY
 #endif
 

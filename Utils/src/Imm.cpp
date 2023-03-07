@@ -1,3 +1,4 @@
+#include <cstring>
 #include "../headers/BinaryIO.hpp"
 #include "../include/exceptions.hpp"
 #include "../include/imm.hpp"

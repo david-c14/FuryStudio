@@ -2,6 +2,9 @@
 
 #ifdef __unix__
 #undef APIENTRY
+#endif
+
+#ifndef APIENTRY
 #define APIENTRY
 #endif
 

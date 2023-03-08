@@ -14,6 +14,11 @@ namespace carbon14.FuryStudio.Core.Infrastructure
         public Stream GetStream(string path)
         {
             path = Path.Combine(_locator.BasePath, path);
+            string? dirPath = Path.GetDirectoryName(path);
+            if (dirPath != null)
+            {
+                Directory.CreateDirectory(dirPath);
+            }
             return new FileStream(path, FileMode.Create);
         }
     }

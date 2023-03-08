@@ -18,7 +18,8 @@
                             _prefix = Path.Combine(_prefix, "..");
                             directoryName = Path.GetDirectoryName(directoryName);
                         }
-                        _prefix = Path.Combine(_prefix, "..\\..\\testassets\\");
+                        char _sep = Path.DirectorySeparatorChar;
+                        _prefix = Path.Combine(_prefix, $"..{_sep}..{_sep}testassets{_sep}");
                     }
                     return _prefix;
                 }

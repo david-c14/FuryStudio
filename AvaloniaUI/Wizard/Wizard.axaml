@@ -3,9 +3,13 @@
         xmlns:vm="using:carbon14.FuryStudio.ViewModels"
 				xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        mc:Ignorable="d" d:DesignWidth="600" d:DesignHeight="400"
         x:Class="carbon14.FuryStudio.AvaloniaUI.Wizard.Wizard"
-        Title="{Binding Caption}">
+        Title="{Binding Caption}"
+				Position="100,100"
+				Width="600"
+				Height="400"
+				CanResize="False">
 		<DockPanel>
 				<StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom">
 						<Button IsEnabled="{Binding BackEnabled}" Command="{Binding Back}">

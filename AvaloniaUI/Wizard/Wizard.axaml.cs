@@ -2,6 +2,7 @@ using Avalonia.Controls;
 using Avalonia.Interactivity;
 using carbon14.FuryStudio.ViewModels.Interfaces.Components;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace carbon14.FuryStudio.AvaloniaUI.Wizard
 {
@@ -26,7 +27,12 @@ namespace carbon14.FuryStudio.AvaloniaUI.Wizard
             {
                 dialog.Filters?.Add(new FileDialogFilter() { Name = kvp.Key, Extensions = kvp.Value });
             }
-            var result = dialog.ShowAsync(this).GetAwaiter().GetResult();
+            _ = ShowDialog(dialog, panel);
+        }
+
+        public async Task ShowDialog(OpenFileDialog dialog, IFileOpenPanelVM panel)
+        {
+            var result = await dialog.ShowAsync(this);
             if (result == null)
             {
                 return;

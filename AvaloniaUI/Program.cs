@@ -1,6 +1,7 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
+using Avalonia.Dialogs;
 using System;
 
 namespace carbon14.FuryStudio.AvaloniaUI
@@ -17,6 +18,7 @@ namespace carbon14.FuryStudio.AvaloniaUI
         // Avalonia configuration, don't remove; also used by visual designer.
         public static AppBuilder BuildAvaloniaApp()
             => AppBuilder.Configure<App>()
+                .UseManagedSystemDialogs()
                 .UsePlatformDetect()
                 .LogToTrace();
     }

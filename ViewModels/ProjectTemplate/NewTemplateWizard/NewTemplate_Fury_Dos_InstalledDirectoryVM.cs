@@ -1,7 +1,6 @@
 ﻿using Autofac;
 using carbon14.FuryStudio.Core.Interfaces.Templates;
 using carbon14.FuryStudio.ViewModels.Interfaces.Components;
-using System.ComponentModel;
 
 namespace carbon14.FuryStudio.ViewModels.ProjectTemplate.NewTemplateWizard
 {

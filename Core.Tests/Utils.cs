@@ -29,7 +29,6 @@
 
         public static byte[] ReadFile(string fileName)
         {
-            //string prefix = "..\\..\\..\\..\\..\\testassets\\";
             string prefix = Prefix;
             byte[] buffer;
             using (FileStream fs = new($"{prefix}{fileName}", FileMode.Open))

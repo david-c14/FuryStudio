@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace carbon14.FuryStudio.ViewModels.ProjectTemplate.NewTemplateWizard
 {
-    static class NewTemplateWizards
+    public static class NewTemplateWizards
     {
         private static List<KeyValuePair<List<string>, Type>> _wizards = new List<KeyValuePair<List<string>, Type>>();
 

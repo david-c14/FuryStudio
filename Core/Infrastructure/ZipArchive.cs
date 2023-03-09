@@ -13,6 +13,11 @@ namespace carbon14.FuryStudio.Core.Infrastructure
             _zipFile = ZipFile.Read(zipFileName);
         }
 
+        public ZipArchive(Stream zipStream)
+        {
+            _zipFile = ZipFile.Read(zipStream);
+        }
+
         public long UncompressedSize { get; private set; } = -1;
 
         public void AddFile(string fileName)
@@ -40,6 +45,14 @@ namespace carbon14.FuryStudio.Core.Infrastructure
         public void Save(string fileName)
         {
             throw new NotImplementedException();
+        }
+
+        public string Password
+        {
+            set
+            {
+                _zipFile.Password = value;
+            } 
         }
 
         protected virtual void Dispose(bool disposing)

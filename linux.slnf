@@ -1,0 +1,17 @@
+{
+  "solution": {
+    "path": "FuryStudio.sln",
+    "projects": [
+      "AvaloniaUI\\AvaloniaUI.csproj",
+      "Core.Interfaces\\Core.Interfaces.csproj",
+      "Core\\Core.csproj",
+      "Tests.Core\\Tests.Core.csproj",
+      "Tests.Utils\\Tests.Utils.csproj",
+      "Tests.ViewModels\\Tests.ViewModels.csproj",
+      "Tests\\Tests.csproj",
+      "UtilsDotNet\\Utils.csproj",
+      "ViewModels.Interfaces\\ViewModels.Interfaces.csproj",
+      "ViewModels\\ViewModels.csproj"
+    ]
+  }
+}

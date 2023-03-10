@@ -4,22 +4,22 @@ namespace carbon14.FuryStudio.Utils
 {
     public class Imm : IDisposable
     {
-        [DllImport("FuryUtils.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(Constants.dllPath, CallingConvention = CallingConvention.Cdecl)]
         private static extern int Imm_size(IntPtr imm);
 
-        [DllImport("FuryUtils.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(Constants.dllPath, CallingConvention = CallingConvention.Cdecl)]
         private static extern byte Imm_buffer(IntPtr imm, [MarshalAs(UnmanagedType.LPArray)] byte[] buffer, int size);
 
-        [DllImport("FuryUtils.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(Constants.dllPath, CallingConvention = CallingConvention.Cdecl)]
         private static extern int Imm_immSize(IntPtr imm);
 
-        [DllImport("FuryUtils.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(Constants.dllPath, CallingConvention = CallingConvention.Cdecl)]
         private static extern byte Imm_immBuffer(IntPtr imm, [MarshalAs(UnmanagedType.LPArray)] byte[] buffer, int size);
 
-        [DllImport("FuryUtils.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(Constants.dllPath, CallingConvention = CallingConvention.Cdecl)]
         private static extern int Imm_pamSize(IntPtr imm);
 
-        [DllImport("FuryUtils.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(Constants.dllPath, CallingConvention = CallingConvention.Cdecl)]
         private static extern byte Imm_pamBuffer(IntPtr imm, [MarshalAs(UnmanagedType.LPArray)] byte[] buffer, int size);
 
         readonly protected IntPtr _imm;

@@ -14,5 +14,5 @@ add_library(FuryUtils SHARED
     FuryUtils.def
 )
 add_custom_command(TARGET FuryUtils POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy "$<SHELL_PATH:$<TARGET_FILE:FuryUtils>>" "$<SHELL_PATH:${PROJECT_SOURCE_DIR}/../../UtilsDotNet/FuryUtils.dll>"
+    COMMAND ${CMAKE_COMMAND} -E copy "$<SHELL_PATH:$<TARGET_FILE:FuryUtils>>" "$<SHELL_PATH:${PROJECT_SOURCE_DIR}/../../UtilsDotNet/>"
 )

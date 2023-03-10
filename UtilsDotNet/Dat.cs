@@ -53,37 +53,37 @@ namespace carbon14.FuryStudio.Utils
             }
         }
 
-        [DllImport("FuryUtils.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(Constants.dllPath, CallingConvention = CallingConvention.Cdecl)]
         private static extern IntPtr Dat_createNew();
 
-        [DllImport("FuryUtils.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(Constants.dllPath, CallingConvention = CallingConvention.Cdecl)]
         private static extern IntPtr Dat_create([MarshalAs(UnmanagedType.LPArray)] byte[] buffer, int size);
 
-        [DllImport("FuryUtils.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(Constants.dllPath, CallingConvention = CallingConvention.Cdecl)]
         private static extern void Dat_destroy(IntPtr datFile);
 
-        [DllImport("FuryUtils.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(Constants.dllPath, CallingConvention = CallingConvention.Cdecl)]
         private static extern int Dat_entryCount(IntPtr datFile);
 
-        [DllImport("FuryUtils.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(Constants.dllPath, CallingConvention = CallingConvention.Cdecl)]
         private static extern void Dat_reset(IntPtr datFile);
 
-        [DllImport("FuryUtils.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(Constants.dllPath, CallingConvention = CallingConvention.Cdecl)]
         private static extern byte Dat_next(IntPtr datFile, ref DatHeader header);
 
-        [DllImport("FuryUtils.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(Constants.dllPath, CallingConvention = CallingConvention.Cdecl)]
         private static extern byte Dat_header(IntPtr datFile, uint index, ref DatHeader header);
 
-        [DllImport("FuryUtils.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(Constants.dllPath, CallingConvention = CallingConvention.Cdecl)]
         private static extern byte Dat_entry(IntPtr datFile, uint index, [MarshalAs(UnmanagedType.LPArray)] byte[] buffer, int size);
 
-        [DllImport("FuryUtils.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(Constants.dllPath, CallingConvention = CallingConvention.Cdecl)]
         private static extern void Dat_add(IntPtr datFile, [MarshalAs(UnmanagedType.LPArray)] byte[] fileName, [MarshalAs(UnmanagedType.LPArray)] byte[] buffer, int size, byte compress);
 
-        [DllImport("FuryUtils.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(Constants.dllPath, CallingConvention = CallingConvention.Cdecl)]
         private static extern int Dat_size(IntPtr datFile);
 
-        [DllImport("FuryUtils.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(Constants.dllPath, CallingConvention = CallingConvention.Cdecl)]
         private static extern byte Dat_buffer(IntPtr datFile, [MarshalAs(UnmanagedType.LPArray)] byte[] buffer, int size);
 
         readonly private IntPtr _dat;

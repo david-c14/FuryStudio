@@ -19,10 +19,10 @@ namespace carbon14.FuryStudio.Utils
 
         public ErrorCodes ErrorCode { get; }
 
-        [DllImport("FuryUtils.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(Constants.dllPath, CallingConvention = CallingConvention.Cdecl)]
         private static extern int GetExceptionCode();
 
-        [DllImport("FuryUtils.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(Constants.dllPath, CallingConvention = CallingConvention.Cdecl)]
         private static extern IntPtr GetExceptionString();
 
         public static int Code()

@@ -459,3 +459,4 @@ $RECYCLE.BIN/
 Utils/build/*
 !Utils/build/CMakeLists.txt
 /UtilsDotNet/FuryUtils.dll
+/UtilsDotNet/libFuryUtils.so

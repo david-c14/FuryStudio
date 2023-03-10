@@ -21,7 +21,7 @@
 
 ### Build and Test GUI Application
 - `cd ..\..`
-- `dotnet test Core.Tests`
+- `dotnet test`
 
 ### Run Guid application 
 either
@@ -55,7 +55,7 @@ or
 
 ### Build and Test GUI Application
 - `cd ../..`
-- `dotnet test Core.Tests`
+- `dotnet test`
 
 ### Run GUI application 
 - `cd AvaloniaUI`

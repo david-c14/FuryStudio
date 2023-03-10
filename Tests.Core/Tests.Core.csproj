@@ -28,7 +28,8 @@
   <ItemGroup>
     <ProjectReference Include="..\Core.Interfaces\Core.Interfaces.csproj" />
     <ProjectReference Include="..\Core\Core.csproj" />
-    <ProjectReference Include="..\UtilsDotNet\UtilsDotNet.csproj" />
+    <ProjectReference Include="..\Tests\Tests.csproj" />
+    <ProjectReference Include="..\UtilsDotNet\Utils.csproj" />
   </ItemGroup>
 
 </Project>

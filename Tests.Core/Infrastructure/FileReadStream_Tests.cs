@@ -1,8 +1,10 @@
 ﻿using carbon14.FuryStudio.Core.Configuration;
 using carbon14.FuryStudio.Core.Infrastructure;
+using carbon14.FuryStudio.Core.Interfaces.Configuration;
+using carbon14.FuryStudio.Core.Interfaces.Infrastructure;
 using System.Reflection;
 
-namespace carbon14.FuryStudio.Core.Tests.Infrastructure
+namespace carbon14.FuryStudio.Tests.Core.Infrastructure
 {
     public class FileReadStream_Tests
     {
@@ -10,14 +12,14 @@ namespace carbon14.FuryStudio.Core.Tests.Infrastructure
         public void Given_a_FileReadStream_When_a_file_is_requested_Then_the_correct_stream_is_returned()
         {
             // Arrange
-            PlatformInfo platformInfo = new PlatformInfo();
-            FileStreamLocator locator = new (platformInfo) { BasePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? ""};
-            FileReadStream readStream = new(locator);
+            IPlatformInfo platformInfo = new PlatformInfo();
+            IFileStreamLocator locator = new FileStreamLocator(platformInfo) { BasePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? ""};
+            IFileReadStream readStream = new FileReadStream(locator);
             string expectedResult = "This is a text file";
             string actualResult;
 
             // Act
-            using Stream stream = readStream.GetStream(Path.Combine(Utils.Prefix, "TextFile.txt"));
+            using Stream stream = readStream.GetStream(Path.Combine(TestHelpers.Prefix, "TextFile.txt"));
             using StreamReader reader = new(stream);
             actualResult = reader.ReadToEnd();
 

@@ -1,6 +1,7 @@
 ﻿using carbon14.FuryStudio.Core.Infrastructure;
+using carbon14.FuryStudio.Core.Interfaces.Infrastructure;
 
-namespace carbon14.FuryStudio.Core.Tests.Infrastructure
+namespace carbon14.FuryStudio.Tests.Core.Infrastructure
 {
     public class ZipArchive_Tests
     {
@@ -8,8 +9,8 @@ namespace carbon14.FuryStudio.Core.Tests.Infrastructure
         public void Given_a_ZipArchive_of_a_file_When_I_extract_all_Then_I_get_a_correct_dictionary_of_file_buffers()
         {
             //Arrange
-            ZipArchive zip = new ZipArchive(Path.Combine(Utils.Prefix, "test.zip"));
-            byte[] pal8topdownFile = Utils.ReadFile("pal8topdown.bmp");
+            IZipArchive zip = new ZipArchive(Path.Combine(TestHelpers.Prefix, "test.zip"));
+            byte[] pal8topdownFile = TestHelpers.ReadFile("pal8topdown.bmp");
 
             //Act
             IList<KeyValuePair<string, byte[]>> dict = zip.ExtractAll(1000000);
@@ -31,9 +32,9 @@ namespace carbon14.FuryStudio.Core.Tests.Infrastructure
         public void Given_a_ZipArchive_of_a_stream_When_I_extract_all_Then_I_get_a_correct_dictionary_of_file_buffers()
         {
             //Arrange
-            FileStream fs = new FileStream(Path.Combine(Utils.Prefix, "test.zip"), FileMode.Open);
-            ZipArchive zip = new ZipArchive(fs);
-            byte[] pal8topdownFile = Utils.ReadFile("pal8topdown.bmp");
+            FileStream fs = new FileStream(Path.Combine(TestHelpers.Prefix, "test.zip"), FileMode.Open);
+            IZipArchive zip = new ZipArchive(fs);
+            byte[] pal8topdownFile = TestHelpers.ReadFile("pal8topdown.bmp");
 
             //Act
             IList<KeyValuePair<string, byte[]>> dict = zip.ExtractAll(1000000);
@@ -56,7 +57,7 @@ namespace carbon14.FuryStudio.Core.Tests.Infrastructure
         public void Given_a_ZipArchive_of_a_large_file_When_I_extract_all_Then_I_get_an_exception_when_too_much_content_is_found()
         {
             //Arrange
-            ZipArchive zip = new ZipArchive(Path.Combine(Utils.Prefix, "test.zip"));
+            IZipArchive zip = new ZipArchive(Path.Combine(TestHelpers.Prefix, "test.zip"));
             Exception? foundException = null;
 
             //Act
@@ -80,8 +81,8 @@ namespace carbon14.FuryStudio.Core.Tests.Infrastructure
         public void Given_a_password_protected_ZipArchive_of_a_file_When_I_extract_all_Then_I_get_a_correct_dictionary_of_file_buffers()
         {
             //Arrange
-            ZipArchive zip = new ZipArchive(Path.Combine(Utils.Prefix, "password.zip"));
-            byte[] pal8topdownFile = Utils.ReadFile("pal8topdown.bmp");
+            IZipArchive zip = new ZipArchive(Path.Combine(TestHelpers.Prefix, "password.zip"));
+            byte[] pal8topdownFile = TestHelpers.ReadFile("pal8topdown.bmp");
 
             //Act
             zip.Password = "password";

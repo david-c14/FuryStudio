@@ -2,7 +2,7 @@
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace carbon14.FuryStudio.UtilsDotNet
+namespace carbon14.FuryStudio.Utils
 {
     public class Dat : IDisposable, IEnumerable<Dat.DatItem>
     {

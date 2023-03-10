@@ -1,6 +1,7 @@
-﻿namespace carbon14.FuryStudio.Core.Tests
+﻿
+namespace carbon14.FuryStudio.Tests
 {
-    public class Utils
+    public class TestHelpers
     {
         private static string _prefix = string.Empty;
 
@@ -13,7 +14,7 @@
                     if (_prefix == string.Empty)
                     {
                         string? directoryName = Path.GetDirectoryName(Environment.CurrentDirectory);
-                        while (directoryName?.Split(Path.DirectorySeparatorChar).Last() != "Core.Tests")
+                        while (directoryName?.Split(Path.DirectorySeparatorChar).Last().StartsWith("Tests.") == false)
                         {
                             _prefix = Path.Combine(_prefix, "..");
                             directoryName = Path.GetDirectoryName(directoryName);

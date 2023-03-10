@@ -1,4 +1,4 @@
-﻿namespace carbon14.FuryStudio.UtilsDotNet
+﻿namespace carbon14.FuryStudio.Utils
 {
     public enum ErrorCodes
     {

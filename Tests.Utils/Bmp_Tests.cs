@@ -1,11 +1,6 @@
-﻿using carbon14.FuryStudio.UtilsDotNet;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using carbon14.FuryStudio.Utils;
 
-namespace carbon14.FuryStudio.Core.Tests.UtilsDotNet
+namespace carbon14.FuryStudio.Tests.Utils
 {
     public class Bmp_Tests
     {
@@ -14,7 +9,7 @@ namespace carbon14.FuryStudio.Core.Tests.UtilsDotNet
         {
             try
             {
-                Assert.Throws<FuryException>(() => { Bmp bmp = new Bmp(Utils.ReadFile("badrle.bmp")); });
+                Assert.Throws<FuryException>(() => { Bmp bmp = new Bmp(TestHelpers.ReadFile("badrle.bmp")); });
             }
             catch (FuryException ex)
             {
@@ -28,7 +23,7 @@ namespace carbon14.FuryStudio.Core.Tests.UtilsDotNet
         {
             try
             {
-                Assert.Throws<FuryException>(() => { Bmp bmp = new Bmp(Utils.ReadFile("tooshort.bmp"), Utils.ReadFile("pal8out.pam")); });
+                Assert.Throws<FuryException>(() => { Bmp bmp = new Bmp(TestHelpers.ReadFile("tooshort.bmp"), TestHelpers.ReadFile("pal8out.pam")); });
             }
             catch (FuryException ex)
             {
@@ -40,9 +35,9 @@ namespace carbon14.FuryStudio.Core.Tests.UtilsDotNet
         [Fact]
         public void Given_a_valid_bmp_file_When_pixel_and_palette_buffers_are_requested_Then_the_correct_buffers_are_returned()
         {
-            Bmp bmp = new Bmp(Utils.ReadFile("pal8out.bmp"));
-            byte[] expectedPixelBuffer = Utils.ReadFile("pal8out.imm");
-            byte[] expectedPaletteBuffer = Utils.ReadFile("pal8out.pam");
+            Bmp bmp = new Bmp(TestHelpers.ReadFile("pal8out.bmp"));
+            byte[] expectedPixelBuffer = TestHelpers.ReadFile("pal8out.imm");
+            byte[] expectedPaletteBuffer = TestHelpers.ReadFile("pal8out.pam");
             byte[]? actualPixelBuffer = bmp.ImmBuffer;
             byte[]? actualPaletteBuffer = bmp.PamBuffer;
             Assert.True(actualPixelBuffer?.SequenceEqual(expectedPixelBuffer), "Imm buffer is not correct");
@@ -52,8 +47,8 @@ namespace carbon14.FuryStudio.Core.Tests.UtilsDotNet
         [Fact]
         public void Given_a_valid_bmp_file_When_bmp_buffer_is_requested_Then_the_correct_buffer_is_returned()
         {
-            Bmp bmp = new Bmp(Utils.ReadFile("pal8out.imm"), Utils.ReadFile("pal8out.pam"));
-            byte[] expectedBuffer = Utils.ReadFile("pal8qnt.bmp");
+            Bmp bmp = new Bmp(TestHelpers.ReadFile("pal8out.imm"), TestHelpers.ReadFile("pal8out.pam"));
+            byte[] expectedBuffer = TestHelpers.ReadFile("pal8qnt.bmp");
             byte[]? actualBuffer = bmp.Buffer;
             Assert.True(actualBuffer?.SequenceEqual(expectedBuffer), "Buffer is not correct");
         }

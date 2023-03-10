@@ -1,6 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 
-namespace carbon14.FuryStudio.UtilsDotNet
+namespace carbon14.FuryStudio.Utils
 {
     public class FuryException : Exception
     {

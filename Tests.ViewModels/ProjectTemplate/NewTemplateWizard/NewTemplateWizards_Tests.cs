@@ -1,6 +1,6 @@
 ﻿using carbon14.FuryStudio.ViewModels.ProjectTemplate.NewTemplateWizard;
 
-namespace carbon14.FuryStudio.ViewModels.Tests.ProjectTemplate.NewTemplateWizard
+namespace carbon14.FuryStudio.Tests.ViewModels.ProjectTemplate.NewTemplateWizard
 {
     public class NewTemplateWizards_Tests
     {

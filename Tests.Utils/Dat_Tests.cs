@@ -1,14 +1,14 @@
-﻿using carbon14.FuryStudio.UtilsDotNet;
+﻿using carbon14.FuryStudio.Utils;
 using Xunit.Sdk;
 
-namespace carbon14.FuryStudio.Core.Tests.UtilsDotNet
+namespace carbon14.FuryStudio.Tests.Utils
 {
     public class Dat_Tests
     {
         [Fact]
         public void Given_a_valid_dat_file_When_a_DAT_object_is_created_Then_the_count_property_returns_a_count_of_content_files()
         {
-            Dat df = new(Utils.ReadFile("basic.dat"));
+            Dat df = new(TestHelpers.ReadFile("basic.dat"));
             Assert.Equal(2, df.Count);
         }
 
@@ -16,7 +16,7 @@ namespace carbon14.FuryStudio.Core.Tests.UtilsDotNet
         public void Given_a_valid_dat_file_When_iterated_Then_correct_headers_are_available()
         {
             uint count = 0;
-            Dat df = new(Utils.ReadFile("basic.dat"));
+            Dat df = new(TestHelpers.ReadFile("basic.dat"));
             foreach (Dat.DatItem item in df.Cast<Dat.DatItem>())
             {
                 Assert.Equal(count, item.Index);
@@ -43,7 +43,7 @@ namespace carbon14.FuryStudio.Core.Tests.UtilsDotNet
         [Fact]
         public void Given_a_valid_dat_file_When_accessed_by_index_Then_the_correct_item_is_returned()
         {
-            Dat df = new(Utils.ReadFile("basic.dat"));
+            Dat df = new(TestHelpers.ReadFile("basic.dat"));
             Dat.DatItem? item = df.Item(1);
             Assert.Equal(1698u, item?.CompressedSize);
             Assert.Equal(4214u, item?.UncompressedSize);
@@ -55,7 +55,7 @@ namespace carbon14.FuryStudio.Core.Tests.UtilsDotNet
         [Fact]
         public void Given_a_valid_dat_file_When_accessed_with_an_invalid_index_Then_INDEX_OUT_OF_RANGE_is_thrown()
         {
-            Dat df = new(Utils.ReadFile("basic.dat"));
+            Dat df = new(TestHelpers.ReadFile("basic.dat"));
             try
             {
                 Dat.DatItem? item = df.Item(2);
@@ -84,8 +84,8 @@ namespace carbon14.FuryStudio.Core.Tests.UtilsDotNet
         {
             Dat df = new()
             {
-                { "pal8out.bmp", Utils.ReadFile("pal8out.bmp"), true },
-                { "pal4out.bmp", Utils.ReadFile("pal4out.bmp"), false }
+                { "pal8out.bmp", TestHelpers.ReadFile("pal8out.bmp"), true },
+                { "pal4out.bmp", TestHelpers.ReadFile("pal4out.bmp"), false }
             };
             Assert.Equal(2, df.Count);
         }
@@ -95,11 +95,11 @@ namespace carbon14.FuryStudio.Core.Tests.UtilsDotNet
         {
             Dat df = new()
             {
-                { "pal8out.bmp", Utils.ReadFile("pal8out.bmp"), true },
-                { "pal4out.bmp", Utils.ReadFile("pal4out.bmp"), true }
+                { "pal8out.bmp", TestHelpers.ReadFile("pal8out.bmp"), true },
+                { "pal4out.bmp", TestHelpers.ReadFile("pal4out.bmp"), true }
             };
             byte[]? actual = df.Buffer;
-            byte[] expected = Utils.ReadFile("basic.dat");
+            byte[] expected = TestHelpers.ReadFile("basic.dat");
             Assert.True(actual?.SequenceEqual(expected), "Buffer differs");
         }
 
@@ -107,7 +107,7 @@ namespace carbon14.FuryStudio.Core.Tests.UtilsDotNet
         public void Given_an_empty_dat_When_uncompressed_files_are_added_Then_buffer_size_is_correct()
         {
             Dat df = new();
-            byte[] pal8 = Utils.ReadFile("pal8out.bmp");
+            byte[] pal8 = TestHelpers.ReadFile("pal8out.bmp");
             df.Add("pal8out.bmp", pal8, false);
             byte[]? actual = df.Buffer;
             Assert.Equal(pal8.Length + 24, actual?.Length);
@@ -116,8 +116,8 @@ namespace carbon14.FuryStudio.Core.Tests.UtilsDotNet
         [Fact]
         public void Given_an_empty_dat_When_files_are_added_Then_they_can_be_correctly_retrieved()
         {
-            byte[] pal8 = Utils.ReadFile("pal8out.bmp");
-            byte[] pal4 = Utils.ReadFile("pal4out.bmp");
+            byte[] pal8 = TestHelpers.ReadFile("pal8out.bmp");
+            byte[] pal4 = TestHelpers.ReadFile("pal4out.bmp");
             Dat df = new()
             {
                 { "pal8out.bmp", pal8, true },

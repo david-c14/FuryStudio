@@ -1,8 +1,10 @@
 ﻿using carbon14.FuryStudio.Core.Configuration;
 using carbon14.FuryStudio.Core.Infrastructure;
+using carbon14.FuryStudio.Core.Interfaces.Configuration;
+using carbon14.FuryStudio.Core.Interfaces.Infrastructure;
 using System.Reflection;
 
-namespace carbon14.FuryStudio.Core.Tests.Infrastructure
+namespace carbon14.FuryStudio.Tests.Core.Infrastructure
 {
     public class FileWriteStream_Tests
     {
@@ -10,10 +12,10 @@ namespace carbon14.FuryStudio.Core.Tests.Infrastructure
         public void Given_a_FileWriteStream_When_a_file_is_requested_Then_the_correct_stream_is_returned()
         {
             // Arrange
-            PlatformInfo platformInfo = new PlatformInfo();
-            FileStreamLocator locator = new(platformInfo) { BasePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? "" };
-            FileWriteStream writeStream = new(locator);
-            string relativePath = Path.Combine(Utils.Prefix, "WriteTestOutput.txt");
+            IPlatformInfo platformInfo = new PlatformInfo();
+            IFileStreamLocator locator = new FileStreamLocator(platformInfo) { BasePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? "" };
+            IFileWriteStream writeStream = new FileWriteStream(locator);
+            string relativePath = Path.Combine(TestHelpers.Prefix, "WriteTestOutput.txt");
             string expectedResult = "This is a text file";
             string actualResult;
             if (File.Exists(Path.Combine(locator.BasePath, relativePath)))

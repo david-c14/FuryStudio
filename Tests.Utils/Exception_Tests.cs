@@ -1,6 +1,6 @@
-﻿using carbon14.FuryStudio.UtilsDotNet;
+﻿using carbon14.FuryStudio.Utils;
 
-namespace carbon14.FuryStudio.Core.Tests.UtilsDotNet
+namespace carbon14.FuryStudio.Tests.Utils
 {
     public class Exceptions_Tests
     {

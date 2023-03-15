@@ -59,17 +59,18 @@ namespace carbon14.FuryStudio.ViewModels.Main.Menu
     }
 }
 
-// TODO Get Cli working in linux
-//  Shim strncpy_s
-//  include <string.h>
-//  Shim CmakeLists to specify Debug output directory under unix
-// TODO Get Library working in linux
-// TODO Get c# wrapper working in linux (.so rather than .dll)
-// TODO Get copyrighted test assets into git submodule (so they can remain private)
+// TODO: Get copyrighted test assets into git submodule (so they can remain private)
 
-// TODO Get Fury Project Template builders working.
-// TODO WizardPage needs interface
+// TODO: Get Fury Project Template builders working.
+// TODO: WizardPage needs interface
 
-// TODO Proper flow of IsValid up through view collection
-// TODO View collection could be build on IPanels
-// TODO dynamically add wizard pages as needed
+// TODO: Create project from template
+// TODO: Unit tests for template builders
+// TODO: Create project tree
+// TODO: Create property page for options
+// TODO: Integrate with DOSBox
+// TODO: Launch project using DOSBox
+// TODO: Create level editor
+// TODO: Launch level using DOSBox
+// TODO: Nice to bypass passwords for debugging level
+// TODO: Nice to bypass attract screen for debugging level

@@ -34,16 +34,15 @@ namespace carbon14.FuryStudio.ViewModels.ProjectTemplate.NewTemplateWizard
 
         public override ITemplate? Complete()
         {
-            // TODO ZipArchive needs to be disposable, and needs to be disposed
             using (IZipArchive? zipArchive = _scope?.Resolve<IZipArchive>(new NamedParameter("zipFileName", _panel?.FilePath ?? string.Empty)))
             {
                 if (zipArchive == null)
                 {
                     return null;
                 }
-                IList<KeyValuePair<string, byte[]>> output = zipArchive.ExtractAll(6000000);
+                IList<KeyValuePair<string, byte[]>> output = zipArchive.ExtractAll(maxSize : 6000000);
 
-                return new Template(output);
+                return _scope?.Resolve<ITemplate>(new NamedParameter("buffers", output));
             }
         }
     }

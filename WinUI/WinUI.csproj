@@ -1,23 +1,37 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+		<PropertyGroup>
+				<IsWindows Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Windows)))' == 'true'">true</IsWindows>
+				<IsLinux Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Linux)))' == 'true'">true</IsLinux>
+				<IsOSX Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::OSX)))' == 'true'">true</IsOSX>
+		</PropertyGroup>
 
-  <PropertyGroup>
-    <OutputType>WinExe</OutputType>
-    <TargetFramework>net6.0-windows</TargetFramework>
-    <Nullable>enable</Nullable>
-    <UseWindowsForms>true</UseWindowsForms>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <AssemblyName>carbon14.FuryStudio.$(MSBuildProjectName)</AssemblyName>
-    <RootNamespace>carbon14.FuryStudio.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
-  </PropertyGroup>
+		<PropertyGroup Condition="'$(IsLinux)'=='true'">
+				<TargetFramework>net6.0</TargetFramework>
+		</PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Core.Interfaces\Core.Interfaces.csproj" />
-    <ProjectReference Include="..\Core\Core.csproj" />
-    <ProjectReference Include="..\ViewModels\ViewModels.csproj" />
-  </ItemGroup>
+		<PropertyGroup Condition="'$(IsWindows)'=='true'">
+				<OutputType>WinExe</OutputType>
+				<TargetFramework>net6.0-windows</TargetFramework>
+				<Nullable>enable</Nullable>
+				<UseWindowsForms>true</UseWindowsForms>
+				<ImplicitUsings>enable</ImplicitUsings>
+				<AssemblyName>carbon14.FuryStudio.$(MSBuildProjectName)</AssemblyName>
+				<RootNamespace>carbon14.FuryStudio.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
+		</PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="ProjectTemplate\NewTemplateWizard\" />
-  </ItemGroup>
+		<ItemGroup Condition="'$(IsLinux)'=='true'">
+				<Compile Remove="**" />
+				<Content Include="**"/>
+		</ItemGroup>
+
+		<ItemGroup Condition="'$(IsWindows)'=='true'">
+				<ProjectReference Include="..\Core.Interfaces\Core.Interfaces.csproj" />
+				<ProjectReference Include="..\Core\Core.csproj" />
+				<ProjectReference Include="..\ViewModels\ViewModels.csproj" />
+		</ItemGroup>
+
+		<ItemGroup>
+				<Folder Include="ProjectTemplate\NewTemplateWizard\" />
+		</ItemGroup>
 
 </Project>

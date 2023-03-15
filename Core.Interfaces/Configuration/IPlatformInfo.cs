@@ -3,5 +3,6 @@
     public interface IPlatformInfo
     {
         public string UserAppConfigLocation { get; }
+        public string UserDocStoreLocation { get; }
     }
 }

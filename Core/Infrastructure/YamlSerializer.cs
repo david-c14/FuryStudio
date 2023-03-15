@@ -1,9 +1,9 @@
 ﻿using YamlDotNet.Serialization;
-using ISerializer = carbon14.FuryStudio.Core.Interfaces.Infrastructure.ISerializer;
+using IObjectSerializer = carbon14.FuryStudio.Core.Interfaces.Infrastructure.IObjectSerializer;
 
 namespace carbon14.FuryStudio.Core.Infrastructure
 {
-    public class YamlSerializer: ISerializer
+    public class YamlSerializer: IObjectSerializer
     {
         public T Deserialize<T>(Stream stream)
         {

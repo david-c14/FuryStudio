@@ -18,7 +18,7 @@ namespace carbon14.FuryStudio.Tests.Core.Infrastructure
         public void Given_a_yamlSerializer_When_serialize_is_called_Then_a_stream_is_correctly_populated()
         {
             // Arrange
-            ISerializer serializer = new YamlSerializer();
+            IObjectSerializer serializer = new YamlSerializer();
             TestClass testClass = new()
             {
                 Integer = 7,
@@ -52,7 +52,7 @@ List:
         public void Given_a_yamlSerializer_When_deserialize_is_called_Then_an_object_of_the_correct_type_is_correctly_instantiated()
         {
             // Arrange
-            ISerializer serializer = new YamlSerializer();
+            IObjectSerializer serializer = new YamlSerializer();
             TestClass? testClass = null;
             string serializedData = @"Integer: 9
 Name: Golden Dragon

@@ -1,28 +1,25 @@
-﻿using Autofac;
-using carbon14.FuryStudio.Core.Infrastructure;
-using carbon14.FuryStudio.Core.Interfaces.Configuration;
+﻿using carbon14.FuryStudio.Core.Interfaces.Configuration;
 using carbon14.FuryStudio.Core.Interfaces.Infrastructure;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace carbon14.FuryStudio.Core.Configuration
 {
-    internal class GlobalConfigurationContainer : IGlobalConfigurationContainer
+    public class GlobalConfigurationContainer : IGlobalConfigurationContainer
     {
-        private string _templatesLocation = string.Empty;
         private IFileReadStream _readStream;
         private IFileWriteStream _writeStream;
         private IGlobalConfiguration _configuration;
-        private ISerializer _serializer;
+        private IObjectSerializer _serializer;
+        private IPlatformInfo _platformInfo;
 
-        public GlobalConfigurationContainer(IFileReadStream readStream, IFileWriteStream writeStream, ISerializer serializer)
+        public GlobalConfigurationContainer(IFileReadStream readStream, 
+                                            IFileWriteStream writeStream, 
+                                            IObjectSerializer serializer,
+                                            IPlatformInfo platformInfo)
         {
             _readStream = readStream;
             _writeStream = writeStream;
             _serializer = serializer;
+            _platformInfo = platformInfo;
             try
             {
                 using Stream reader = readStream.GetStream("config.yaml");
@@ -30,10 +27,7 @@ namespace carbon14.FuryStudio.Core.Configuration
             }
             catch
             {
-                _configuration = new GlobalConfiguration()
-                {
-                    TemplatesLocation = "Things"
-                };
+                _configuration = Default();
                 using Stream writer = writeStream.GetStream("config.yaml");
                 serializer.Serialize(writer, _configuration);
             }
@@ -45,6 +39,14 @@ namespace carbon14.FuryStudio.Core.Configuration
             {
                 return _configuration;
             }
+        }
+
+        private IGlobalConfiguration Default()
+        {
+            return new GlobalConfiguration()
+            {
+                TemplatesLocation = Path.Combine(_platformInfo.UserDocStoreLocation, "Templates")
+            };
         }
     }
 }

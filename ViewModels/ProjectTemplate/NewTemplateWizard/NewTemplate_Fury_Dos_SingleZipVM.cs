@@ -1,7 +1,6 @@
 ﻿using Autofac;
 using carbon14.FuryStudio.Core.Interfaces.Infrastructure;
 using carbon14.FuryStudio.Core.Interfaces.Templates;
-using carbon14.FuryStudio.Core.Templates;
 using carbon14.FuryStudio.ViewModels.Components;
 using carbon14.FuryStudio.ViewModels.Interfaces.Components;
 
@@ -15,6 +14,8 @@ namespace carbon14.FuryStudio.ViewModels.ProjectTemplate.NewTemplateWizard
         ILifetimeScope? _scope = null;
         IObservableList<IViewModelBase>? _list = null;
         FileOpenPanelVM? _panel = null;
+        TextInputPanelVM? _namePanel = null;
+        TextInputPanelVM? _descPanel = null;
 
         public NewTemplate_Fury_Dos_SingleZipVM()         {
         }
@@ -30,6 +31,10 @@ namespace carbon14.FuryStudio.ViewModels.ProjectTemplate.NewTemplateWizard
                 Filters = new List<KeyValuePair<string, List<string>>>() { new KeyValuePair<string, List<string>>("zip", new List<string>() { "zip" }) }
             };
             list.Add(_panel);
+            _namePanel = new TextInputPanelVM(scope) { Caption = "Enter a name for this template", Mandatory = true };
+            list.Add(_namePanel);
+            _descPanel = new TextInputPanelVM(scope) { Caption = "Enter a description for this template (optional)" };
+            list.Add(_descPanel);
         }
 
         public override ITemplate? Complete()
@@ -42,7 +47,13 @@ namespace carbon14.FuryStudio.ViewModels.ProjectTemplate.NewTemplateWizard
                 }
                 IList<KeyValuePair<string, byte[]>> output = zipArchive.ExtractAll(maxSize : 6000000);
 
-                return _scope?.Resolve<ITemplate>(new NamedParameter("buffers", output));
+                ITemplate? template = _scope?.Resolve<ITemplate>(new NamedParameter("buffers", output));
+                if (template != null)
+                {
+                    template.Name = _namePanel?.Text??string.Empty;
+                    template.Description = _descPanel?.Text??string.Empty;
+                }
+                return template;
             }
         }
     }

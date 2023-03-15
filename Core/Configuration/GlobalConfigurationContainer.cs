@@ -41,6 +41,11 @@ namespace carbon14.FuryStudio.Core.Configuration
             }
         }
 
+        public string TemplateDirectory(string name)
+        {
+            return Path.Combine(_configuration.TemplatesLocation, name);
+        }
+
         private IGlobalConfiguration Default()
         {
             return new GlobalConfiguration()

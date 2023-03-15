@@ -45,8 +45,10 @@ namespace carbon14.FuryStudio.Tests.Core.Configuration
         {
             //Arrange
             string documentLocation = "Documents";
-            string templateLocation = Path.Combine(documentLocation, "Templates");
+            string templatesLocation = Path.Combine(documentLocation, "Templates");
             string configFileName = "config.yaml";
+            string templateName = "TestTemplate";
+            string templateLocation = Path.Combine(templatesLocation, templateName);
 
             MemoryStream stream = new MemoryStream();
 
@@ -61,7 +63,7 @@ namespace carbon14.FuryStudio.Tests.Core.Configuration
 
             Mock<IObjectSerializer> serializerMock = new Mock<IObjectSerializer>();
             serializerMock.Setup(p => p.Serialize(It.IsAny<Stream>(), It.IsAny<IGlobalConfiguration>())).Verifiable();
-            serializerMock.Setup(p => p.Deserialize<GlobalConfiguration>(It.IsAny<Stream>())).Returns(new GlobalConfiguration() { TemplatesLocation = templateLocation }).Verifiable();
+            serializerMock.Setup(p => p.Deserialize<GlobalConfiguration>(It.IsAny<Stream>())).Returns(new GlobalConfiguration() { TemplatesLocation = templatesLocation }).Verifiable();
 
             //Act
             IGlobalConfigurationContainer container = new GlobalConfigurationContainer(fileReadStreamMock.Object,
@@ -70,7 +72,8 @@ namespace carbon14.FuryStudio.Tests.Core.Configuration
                                                                                        platformInfoMock.Object);
 
             //Assert
-            Assert.Equal(templateLocation, container.Configuration.TemplatesLocation);
+            Assert.Equal(templatesLocation, container.Configuration.TemplatesLocation);
+            Assert.Equal(templateLocation, container.TemplateDirectory(templateName));
             fileReadStreamMock.VerifyAll();
             platformInfoMock.Verify(p => p.UserDocStoreLocation, Times.Never());
             fileWriteStreamMock.Verify(p => p.GetStream(It.IsAny<string>()), Times.Never());

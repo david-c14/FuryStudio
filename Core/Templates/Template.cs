@@ -9,6 +9,9 @@ namespace carbon14.FuryStudio.Core.Templates
     {
         private GameType _gameType = GameType.Unknown;
         private GameOptions _gameOptions = GameOptions.None;
+        private GameArchitecture _gameArchitecture = GameArchitecture.Unknown;
+        private string _name = string.Empty;
+        private string _description = string.Empty;
         private IObjectSerializer _serializer;
         private IFileWriteStream _fileWriteStream;
         private IGlobalConfigurationContainer _globalConfigurationContainer;
@@ -42,6 +45,8 @@ namespace carbon14.FuryStudio.Core.Templates
             {
                 _gameOptions |= GameOptions.HasUnzip;
             }
+            // TODO: Select correct architecture
+            _gameArchitecture = GameArchitecture.DOS;
         }
 
         public GameType GameType
@@ -54,9 +59,27 @@ namespace carbon14.FuryStudio.Core.Templates
             get => _gameOptions;
         }
 
-        public void Save(string location)
+        public GameArchitecture GameArchitecture
         {
-            string templateDirectory = Path.Combine(_globalConfigurationContainer.Configuration.TemplatesLocation, location);
+            get => _gameArchitecture;
+        }
+
+        public string Name
+        {
+            get => _name;
+            set => _name = value;
+        }
+
+        public string Description
+        {
+            get => _description;
+            set => _description = value;
+        }
+
+
+        public void Save(string name)
+        {
+            string templateDirectory = _globalConfigurationContainer.TemplateDirectory(name);
 
             foreach (KeyValuePair<string, byte[]> kvp in Files)
             {

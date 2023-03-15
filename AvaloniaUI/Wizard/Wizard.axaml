@@ -28,6 +28,14 @@
 												</TextBlock>
 										</DockPanel>
 								</DataTemplate>
+								<DataTemplate DataType="vm:Components.TextInputPanelVM">
+										<StackPanel Orientation="Vertical">
+												<TextBlock Text="{Binding Caption}">
+												</TextBlock>
+												<TextBox Watermark="{Binding Caption}" Text="{Binding Text}">
+												</TextBox>
+										</StackPanel>
+								</DataTemplate>
 								<DataTemplate DataType="vm:Components.OptionPanelVM">
 										<StackPanel Orientation="Vertical">
 												<TextBlock Text="{Binding Caption}">

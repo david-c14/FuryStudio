@@ -61,6 +61,8 @@ namespace carbon14.FuryStudio.ViewModels.Main.Menu
 
 // TODO: Get copyrighted test assets into git submodule (so they can remain private)
 
+// TODO: Add specialist PanelVM for name and description of template, with better validation
+
 // TODO: Get Fury Project Template builders working.
 // TODO: WizardPage needs interface
 

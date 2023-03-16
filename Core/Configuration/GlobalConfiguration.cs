@@ -1,4 +1,5 @@
 ﻿using carbon14.FuryStudio.Core.Interfaces.Configuration;
+using carbon14.FuryStudio.Core.Interfaces.Infrastructure;
 
 namespace carbon14.FuryStudio.Core.Configuration
 {
@@ -16,6 +17,12 @@ namespace carbon14.FuryStudio.Core.Configuration
             {
                 _templatesLocation = value;
             }
+        }
+
+        public void Save(IFileWriteStream writeStream, IObjectSerializer serializer)
+        {
+            using Stream writer = writeStream.GetStream("config.yaml");
+            serializer.Serialize(writer, this);
         }
     }
 }

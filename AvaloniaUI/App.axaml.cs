@@ -10,6 +10,8 @@ using carbon14.FuryStudio.ViewModels.Main.Menu;
 using carbon14.FuryStudio.ViewModels.Components;
 using carbon14.FuryStudio.ViewModels.ProjectTemplate.NewTemplateWizard;
 using carbon14.FuryStudio.ViewModels.Interfaces.Components;
+using carbon14.FuryStudio.ViewModels.Main.Options;
+using carbon14.FuryStudio.AvaloniaUI.Main.Options;
 
 namespace carbon14.FuryStudio.AvaloniaUI
 {
@@ -24,20 +26,7 @@ namespace carbon14.FuryStudio.AvaloniaUI
         {
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
-                ILifetimeScope scope = CoreApp.Application.Build(ApplicationBuilder.Build);
-                IMenuVM model = new MenuVM(scope);
-                scope.Resolve<IAppCommands>().Add(AppCommandEnum.NewProjectTemplate, new AppCommand(
-                    p => {
-                        NewTemplateWizard vm = new NewTemplateWizard(scope);
-                        Wizard.Wizard wizard = new Wizard.Wizard()
-                        {
-                            DataContext = vm
-                        };
-                        vm.OnCloseDialog += (s, e) => wizard.Close(e);
-                        wizard.ShowDialog<DialogResult>(desktop.MainWindow);
-                    }
-                    )) ;
-
+                IMenuVM model = SetupMenu(desktop);
                 desktop.MainWindow = new Main.Menu.MenuWindow()
                 {
                     DataContext = model
@@ -50,6 +39,42 @@ namespace carbon14.FuryStudio.AvaloniaUI
         private void Vm_OnCloseDialog(object? sender, ViewModels.Interfaces.Components.DialogResult e)
         {
             throw new System.NotImplementedException();
+        }
+
+        private IMenuVM SetupMenu(IClassicDesktopStyleApplicationLifetime desktop)
+        {
+            ILifetimeScope scope = CoreApp.Application.Build(ApplicationBuilder.Build);
+            IMenuVM model = new MenuVM(scope);
+            IAppCommands commands = scope.Resolve<IAppCommands>();
+            commands.Add(AppCommandEnum.Exit, new AppCommand(
+                p =>
+                {
+                    desktop.TryShutdown();
+                }
+                ));
+            commands.Add(AppCommandEnum.NewProjectTemplate, new AppCommand(
+                p => {
+                    NewTemplateWizard vm = new NewTemplateWizard(scope);
+                    Wizard.Wizard wizard = new Wizard.Wizard()
+                    {
+                        DataContext = vm
+                    };
+                    vm.OnCloseDialog += (s, e) => wizard.Close(e);
+                    wizard.ShowDialog<DialogResult>(desktop.MainWindow);
+                }
+                ));
+            commands.Add(AppCommandEnum.Options, new AppCommand(
+                p =>
+                {
+                    OptionsVM vm = new OptionsVM(scope);
+                    OptionsWindow window = new OptionsWindow()
+                    {
+                        DataContext = vm
+                    };
+                    window.ShowDialog<DialogResult>(desktop.MainWindow);
+                }
+                ));
+            return model;
         }
     }
 }

@@ -5,7 +5,16 @@
         [System.ComponentModel.Description("None")]
         None = 0,
 
+        [System.ComponentModel.Description("E_xit")]
+        Exit,
+
         [System.ComponentModel.Description("New Project _Template")]
-        NewProjectTemplate
+        NewProjectTemplate,
+
+        [System.ComponentModel.Description("_Options")]
+        Options,
+
+
+
     }
 }

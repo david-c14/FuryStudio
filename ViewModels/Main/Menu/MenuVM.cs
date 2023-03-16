@@ -1,5 +1,4 @@
 ﻿using Autofac;
-using carbon14.FuryStudio.ViewModels.Commands;
 using carbon14.FuryStudio.ViewModels.Components;
 using carbon14.FuryStudio.ViewModels.Interfaces.Commands;
 using carbon14.FuryStudio.ViewModels.Interfaces.Components;
@@ -24,36 +23,17 @@ namespace carbon14.FuryStudio.ViewModels.Main.Menu
                     Command = null,
                     Items = new ObservableList<IViewModelMenuItem>()
                     {
+                        new ViewModelMenuItem(scope, AppCommandEnum.Options),
                         new ViewModelMenuItem(scope, AppCommandEnum.NewProjectTemplate),
-                        new ViewModelMenuItem(scope) {
-                            Name="_Enable",
-                            Command = new AppCommand(EnableCommand)
-                        },
                         new ViewModelMenuItem(scope)
                         {
                             Name="-"
                         },
-                        new ViewModelMenuItem(scope)
-                        {
-                            Name = "E_xit",
-                            Command = new AppCommand(ExitCommand),
-                            CommandParameter= "Wibble",
-                            Enabled = false
-                        }
+                        new ViewModelMenuItem(scope, AppCommandEnum.Exit),
                     }
                 }
             };
 
-        }
-
-
-        private void ExitCommand(object? parameter)
-        {
-
-        }
-
-        private void EnableCommand(object? parameter)
-        {
         }
 
     }
@@ -62,6 +42,8 @@ namespace carbon14.FuryStudio.ViewModels.Main.Menu
 // TODO: Get copyrighted test assets into git submodule (so they can remain private)
 
 // TODO: Add specialist PanelVM for name and description of template, with better validation
+// TODO: Add reload method for _configuration
+// TODO: OptionsVM should have cancel/close buttons and close event and should save/reload config on close.
 
 // TODO: Get Fury Project Template builders working.
 // TODO: WizardPage needs interface
@@ -69,7 +51,6 @@ namespace carbon14.FuryStudio.ViewModels.Main.Menu
 // TODO: Create project from template
 // TODO: Unit tests for template builders
 // TODO: Create project tree
-// TODO: Create property page for options
 // TODO: Integrate with DOSBox
 // TODO: Launch project using DOSBox
 // TODO: Create level editor

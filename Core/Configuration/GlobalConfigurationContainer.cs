@@ -28,8 +28,7 @@ namespace carbon14.FuryStudio.Core.Configuration
             catch
             {
                 _configuration = Default();
-                using Stream writer = writeStream.GetStream("config.yaml");
-                serializer.Serialize(writer, _configuration);
+                _configuration.Save(writeStream, serializer);
             }
         }
 

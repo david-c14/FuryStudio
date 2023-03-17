@@ -71,6 +71,7 @@ namespace carbon14.FuryStudio.AvaloniaUI
                     {
                         DataContext = vm
                     };
+                    vm.OnCloseDialog += (s, e) => window.Close(e);
                     window.ShowDialog<DialogResult>(desktop.MainWindow);
                 }
                 ));

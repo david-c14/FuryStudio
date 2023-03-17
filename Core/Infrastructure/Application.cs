@@ -24,7 +24,7 @@ namespace carbon14.FuryStudio.Core.Infrastructure
         {
             var builder = new ContainerBuilder();
             builder.RegisterType<PlatformInfo>().SingleInstance().As<IPlatformInfo>();
-            builder.RegisterType<GlobalConfigurationContainer>().SingleInstance().As<IGlobalConfigurationContainer>();
+            builder.RegisterType<Configuration.Configuration>().SingleInstance().As<IConfiguration>();
             builder.RegisterType<YamlSerializer>().SingleInstance().As<IObjectSerializer>();
             builder.RegisterType<FileStreamLocator>().InstancePerLifetimeScope().As<IFileStreamLocator>();
             builder.RegisterType<FileReadStream>().InstancePerLifetimeScope().As<IFileReadStream>();
@@ -38,7 +38,6 @@ namespace carbon14.FuryStudio.Core.Infrastructure
             }
 
             ILifetimeScope scope = builder.Build().BeginLifetimeScope();
-            IGlobalConfiguration config = scope.Resolve<IGlobalConfigurationContainer>().Configuration;
 
             return scope;
         }

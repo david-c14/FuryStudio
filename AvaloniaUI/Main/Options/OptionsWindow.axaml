@@ -13,12 +13,22 @@
 		<Window.Styles>
 				<StyleInclude Source="/Styles/MainStyles.xaml"/>
 		</Window.Styles>
-		<TabControl>
-				<TabItem Header="General">
-						<Grid ColumnDefinitions="150, Auto" RowDefinitions="Auto" Margin="4">
-								<TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Text="Templates Directory" />
-								<TextBox Grid.Row="0" Grid.Column="1" Width="400" Text="{Binding TemplatesDirectory}" />
-						</Grid>
-				</TabItem>
-		</TabControl>
+		<DockPanel>
+				<StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
+						<Button Command="{Binding Okay}">
+								Ok
+						</Button>
+						<Button Command="{Binding Cancel}">
+								Cancel
+						</Button>
+				</StackPanel>
+				<TabControl>
+						<TabItem Header="General">
+								<Grid ColumnDefinitions="150, Auto" RowDefinitions="Auto" Margin="4">
+										<TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Text="Templates Directory" />
+										<TextBox Grid.Row="0" Grid.Column="1" Width="400" Text="{Binding TemplatesDirectory}" />
+								</Grid>
+						</TabItem>
+				</TabControl>
+		</DockPanel>
 </Window>

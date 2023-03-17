@@ -3,7 +3,7 @@ using carbon14.FuryStudio.Core.Interfaces.Infrastructure;
 
 namespace carbon14.FuryStudio.Core.Configuration
 {
-    public class GlobalConfiguration: IGlobalConfiguration
+    public class InternalConfiguration
     {
         private string _templatesLocation = string.Empty;
 
@@ -19,10 +19,10 @@ namespace carbon14.FuryStudio.Core.Configuration
             }
         }
 
-        public void Save(IFileWriteStream writeStream, IObjectSerializer serializer)
+        internal void Copy(InternalConfiguration source, 
+                           InternalConfiguration destination)
         {
-            using Stream writer = writeStream.GetStream("config.yaml");
-            serializer.Serialize(writer, this);
+            destination.TemplatesLocation = source.TemplatesLocation;
         }
     }
 }

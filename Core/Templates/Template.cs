@@ -14,19 +14,19 @@ namespace carbon14.FuryStudio.Core.Templates
         private string _description = string.Empty;
         private IObjectSerializer _serializer;
         private IFileWriteStream _fileWriteStream;
-        private IGlobalConfigurationContainer _globalConfigurationContainer;
+        private IConfiguration _configuration;
 
         [YamlIgnore]
         public IList<KeyValuePair<string, byte[]>> Files { get; } = new List<KeyValuePair<string, byte[]>>();
 
         public Template(IObjectSerializer serializer,
                         IFileWriteStream fileWriteStream, 
-                        IGlobalConfigurationContainer globalConfigurationContainer,
+                        IConfiguration globalConfigurationContainer,
                         IList<KeyValuePair<string, byte[]>> buffers)
         {
             _serializer = serializer;
             _fileWriteStream = fileWriteStream;
-            _globalConfigurationContainer = globalConfigurationContainer;
+            _configuration = globalConfigurationContainer;
             Files = buffers;
             SetOptions();
         }
@@ -79,7 +79,7 @@ namespace carbon14.FuryStudio.Core.Templates
 
         public void Save(string name)
         {
-            string templateDirectory = _globalConfigurationContainer.TemplateDirectory(name);
+            string templateDirectory = _configuration.TemplateDirectory(name);
 
             foreach (KeyValuePair<string, byte[]> kvp in Files)
             {

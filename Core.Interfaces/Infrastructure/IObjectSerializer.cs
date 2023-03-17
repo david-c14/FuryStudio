@@ -4,5 +4,7 @@
     {
         T Deserialize<T>(Stream stream);
         void Serialize<T>(Stream stream, T value) where T : notnull;
+
+        string Extension { get; }
     }
 }

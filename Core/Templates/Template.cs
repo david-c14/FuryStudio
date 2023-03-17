@@ -95,7 +95,7 @@ namespace carbon14.FuryStudio.Core.Templates
 
         private void SaveConfig(string location)
         {
-            string fileName = Path.Combine(location, "template.yaml");
+            string fileName = Path.Combine(location, "template" + _serializer.Extension);
             using (Stream s = _fileWriteStream.GetStream(fileName))
             {
                 _serializer.Serialize(s, this);

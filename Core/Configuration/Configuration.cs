@@ -6,6 +6,7 @@ namespace carbon14.FuryStudio.Core.Configuration
     public class Configuration : IConfiguration
     {
         private bool _mutable = false;
+        private string _fileName = "config";
         private InternalConfiguration _configuration;
         private InternalConfiguration? _clone;
         private IFileReadStream _readStream;
@@ -22,9 +23,10 @@ namespace carbon14.FuryStudio.Core.Configuration
             _writeStream = writeStream;
             _serializer = serializer;
             _platformInfo = platformInfo;
+            _fileName = _fileName + _serializer.Extension;
             try
             {
-                using Stream reader = readStream.GetStream("config.yaml");
+                using Stream reader = readStream.GetStream(_fileName);
                 _configuration = serializer.Deserialize<InternalConfiguration>(reader);
             }
             catch
@@ -46,6 +48,7 @@ namespace carbon14.FuryStudio.Core.Configuration
             _writeStream = writeStream;
             _serializer = serializer;
             _platformInfo = platformInfo;
+            _fileName = _fileName + _serializer.Extension;
         }
 
         public string TemplatesLocation
@@ -72,7 +75,7 @@ namespace carbon14.FuryStudio.Core.Configuration
         }
         private void Save()
         {
-            using Stream writer = _writeStream.GetStream("config.yaml");
+            using Stream writer = _writeStream.GetStream(_fileName);
             _serializer.Serialize(writer, _configuration);
         }
 

@@ -21,5 +21,7 @@ namespace carbon14.FuryStudio.Core.Infrastructure
                 serializer.Serialize(writer, value, typeof(T));
             }
         }
+
+        public string Extension => ".yaml";
     }
 }

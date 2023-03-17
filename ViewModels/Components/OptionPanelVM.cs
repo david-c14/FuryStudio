@@ -1,12 +1,13 @@
 ﻿using Autofac;
 using carbon14.FuryStudio.ViewModels.Interfaces.Components;
+using System.Collections.ObjectModel;
 
 namespace carbon14.FuryStudio.ViewModels.Components
 {
     public class OptionPanelVM: ViewModelBase, IOptionPanelVM
     {
         private string _caption = string.Empty;
-        private IObservableList<string> _options = new ObservableList<string>();
+        private ObservableCollection<string> _options = new ObservableCollection<string>();
         private int _selectedOption = -1;
         public OptionPanelVM(ILifetimeScope scope) : base(scope) 
         { 
@@ -29,7 +30,7 @@ namespace carbon14.FuryStudio.ViewModels.Components
             }
         }
 
-        public IObservableList<string> Options
+        public ObservableCollection<string> Options
         {
             get
             {

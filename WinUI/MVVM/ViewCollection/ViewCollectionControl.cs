@@ -1,5 +1,6 @@
 ﻿using carbon14.FuryStudio.ViewModels.Interfaces.Components;
 using System.Collections;
+using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Reflection;
 
@@ -7,7 +8,7 @@ namespace carbon14.FuryStudio.WinUI.MVVM.ViewCollection
 {
     public partial class ViewCollectionControl : UserControl
     {
-        private IObservableList<IViewModelBase>? _viewModelList;
+        private ObservableCollection<IViewModelBase>? _viewModelList;
         public IList<KeyValuePair<Type, ViewCollectionFactoryDelegate>> Factory { get; }
 
         public ViewCollectionControl()
@@ -16,7 +17,7 @@ namespace carbon14.FuryStudio.WinUI.MVVM.ViewCollection
             Factory = new List<KeyValuePair<Type, ViewCollectionFactoryDelegate>>();
         }
 
-        public IObservableList<IViewModelBase>? ViewModels
+        public ObservableCollection<IViewModelBase>? ViewModels
         {
             get => _viewModelList;
             set

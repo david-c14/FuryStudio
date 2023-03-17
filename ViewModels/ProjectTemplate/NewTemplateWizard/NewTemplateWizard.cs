@@ -5,6 +5,7 @@ using carbon14.FuryStudio.ViewModels.Components;
 using carbon14.FuryStudio.ViewModels.Interfaces.Commands;
 using carbon14.FuryStudio.ViewModels.Interfaces.Components;
 using carbon14.FuryStudio.ViewModels.Interfaces.ProjectTemplate.NewTemplateWizard;
+using System.Collections.ObjectModel;
 using System.Windows.Input;
 
 namespace carbon14.FuryStudio.ViewModels.ProjectTemplate.NewTemplateWizard
@@ -12,7 +13,7 @@ namespace carbon14.FuryStudio.ViewModels.ProjectTemplate.NewTemplateWizard
     public class NewTemplateWizard: ViewModelBase, INewTemplateWizardVM
     {
         private Stack<List<KeyValuePair<List<string>, Type>>> _wizards = new Stack<List<KeyValuePair<List<string>, Type>>>();
-        private IObservableList<IViewModelBase> _viewModels = new ObservableList<IViewModelBase>();
+        private ObservableCollection<IViewModelBase> _viewModels = new ObservableCollection<IViewModelBase>();
         private int _currentPage = 0;
         private IAppCommand _next;
         private IAppCommand _back;
@@ -71,7 +72,7 @@ namespace carbon14.FuryStudio.ViewModels.ProjectTemplate.NewTemplateWizard
 
         public ICommand Cancel => _cancel;
 
-        public IObservableList<IViewModelBase> ViewModels => _viewModels;
+        public ObservableCollection<IViewModelBase> ViewModels => _viewModels;
 
         public string Caption => "New Project Template";
 

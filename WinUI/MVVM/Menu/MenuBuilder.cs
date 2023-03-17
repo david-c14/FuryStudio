@@ -1,4 +1,5 @@
 ﻿using carbon14.FuryStudio.ViewModels.Interfaces.Components;
+using System.Collections.ObjectModel;
 
 namespace carbon14.FuryStudio.WinUI.MVVM.Menu
 {
@@ -11,7 +12,7 @@ namespace carbon14.FuryStudio.WinUI.MVVM.Menu
             return new MenuItem(vmItem);
         }
 
-        static public void BuildItems(IObservableList<IViewModelMenuItem>? vmItems, ToolStripItemCollection vItems)
+        static public void BuildItems(ObservableCollection<IViewModelMenuItem>? vmItems, ToolStripItemCollection vItems)
         {
             if (vmItems == null)
             {

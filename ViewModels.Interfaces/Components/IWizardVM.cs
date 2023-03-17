@@ -1,4 +1,5 @@
-﻿using System.Windows.Input;
+﻿using System.Collections.ObjectModel;
+using System.Windows.Input;
 
 namespace carbon14.FuryStudio.ViewModels.Interfaces.Components
 {
@@ -11,7 +12,7 @@ namespace carbon14.FuryStudio.ViewModels.Interfaces.Components
         public bool BackEnabled { get; }
         public ICommand Back { get; }
         public ICommand Cancel { get; }
-        public IObservableList<IViewModelBase> ViewModels { get; }
+        public ObservableCollection<IViewModelBase> ViewModels { get; }
         public int CurrentPage { get; }
         public DialogResult DialogResult { get; }
         public event EventHandler<DialogResult> OnCloseDialog;

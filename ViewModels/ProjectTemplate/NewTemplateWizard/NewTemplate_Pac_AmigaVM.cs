@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using carbon14.FuryStudio.Core.Interfaces.Templates;
 using carbon14.FuryStudio.ViewModels.Interfaces.Components;
+using System.Collections.ObjectModel;
 
 namespace carbon14.FuryStudio.ViewModels.ProjectTemplate.NewTemplateWizard
 {
@@ -12,7 +13,7 @@ namespace carbon14.FuryStudio.ViewModels.ProjectTemplate.NewTemplateWizard
         { 
         }
 
-        public override void AddPanels(ILifetimeScope scope, IObservableList<IViewModelBase> list)
+        public override void AddPanels(ILifetimeScope scope, ObservableCollection<IViewModelBase> list)
         {
             throw new NotImplementedException();
         }

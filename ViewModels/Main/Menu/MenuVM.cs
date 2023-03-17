@@ -3,25 +3,26 @@ using carbon14.FuryStudio.ViewModels.Components;
 using carbon14.FuryStudio.ViewModels.Interfaces.Commands;
 using carbon14.FuryStudio.ViewModels.Interfaces.Components;
 using carbon14.FuryStudio.ViewModels.Interfaces.Main.Menu;
+using System.Collections.ObjectModel;
 
 namespace carbon14.FuryStudio.ViewModels.Main.Menu
 {
     public class MenuVM : ViewModelBase, IMenuVM
     {
-        public IObservableList<IViewModelMenuItem> Menu { get; set; }
+        public ObservableCollection<IViewModelMenuItem> Menu { get; set; }
 
         public string Version { get; } = "1.0.0";
         public string AppTitle { get => "Fury Studio " + Version; }
 
         public MenuVM(ILifetimeScope scope): base(scope)
         {
-            Menu = new ObservableList<IViewModelMenuItem>()
+            Menu = new ObservableCollection<IViewModelMenuItem>()
             {
                 new ViewModelMenuItem(scope)
                 {
                     Name = "_File",
                     Command = null,
-                    Items = new ObservableList<IViewModelMenuItem>()
+                    Items = new ObservableCollection<IViewModelMenuItem>()
                     {
                         new ViewModelMenuItem(scope, AppCommandEnum.Options),
                         new ViewModelMenuItem(scope, AppCommandEnum.NewProjectTemplate),
@@ -38,9 +39,6 @@ namespace carbon14.FuryStudio.ViewModels.Main.Menu
 
     }
 }
-
-// TODO: Refactor out GlobalConfigurationContainer in favour of direct scoped GlobalConfiguration
-// TODO: Consider using System.Collections.ObjectModel.ObservableCollection in place of ObservableList
 
 // TODO: Have a look at Spice86 as a complement to DOSBox. Or at least as a tool to help with the nice to haves below. 
 //      https://github.com/OpenRakis/Spice86/

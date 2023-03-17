@@ -3,6 +3,7 @@ using carbon14.FuryStudio.Core.Interfaces.Infrastructure;
 using carbon14.FuryStudio.Core.Interfaces.Templates;
 using carbon14.FuryStudio.ViewModels.Components;
 using carbon14.FuryStudio.ViewModels.Interfaces.Components;
+using System.Collections.ObjectModel;
 
 namespace carbon14.FuryStudio.ViewModels.ProjectTemplate.NewTemplateWizard
 {
@@ -12,7 +13,7 @@ namespace carbon14.FuryStudio.ViewModels.ProjectTemplate.NewTemplateWizard
     public class NewTemplate_Fury_Dos_SingleZipVM: NewTemplateWizardBase
     {
         ILifetimeScope? _scope = null;
-        IObservableList<IViewModelBase>? _list = null;
+        ObservableCollection<IViewModelBase>? _list = null;
         FileOpenPanelVM? _panel = null;
         TextInputPanelVM? _namePanel = null;
         TextInputPanelVM? _descPanel = null;
@@ -20,7 +21,7 @@ namespace carbon14.FuryStudio.ViewModels.ProjectTemplate.NewTemplateWizard
         public NewTemplate_Fury_Dos_SingleZipVM()         {
         }
 
-        public override void AddPanels(ILifetimeScope scope, IObservableList<IViewModelBase> list)
+        public override void AddPanels(ILifetimeScope scope, ObservableCollection<IViewModelBase> list)
         {
             _scope = scope;
             _list = list;

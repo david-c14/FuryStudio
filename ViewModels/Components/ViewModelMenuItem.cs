@@ -2,6 +2,7 @@
 using carbon14.FuryStudio.ViewModels.Commands;
 using carbon14.FuryStudio.ViewModels.Interfaces.Commands;
 using carbon14.FuryStudio.ViewModels.Interfaces.Components;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Reflection;
 using System.Windows.Input;
@@ -14,7 +15,7 @@ namespace carbon14.FuryStudio.ViewModels.Components
         public string? Name { get; set; }
         public ICommand? Command { get; set; }
         public object? CommandParameter { get; set; }
-        public IObservableList<IViewModelMenuItem>? Items { get; set; }
+        public ObservableCollection<IViewModelMenuItem>? Items { get; set; }
         public bool Enabled
         {
             get => _enabled;

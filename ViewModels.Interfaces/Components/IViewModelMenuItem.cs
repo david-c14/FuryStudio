@@ -1,4 +1,5 @@
-﻿using System.Windows.Input;
+﻿using System.Collections.ObjectModel;
+using System.Windows.Input;
 
 namespace carbon14.FuryStudio.ViewModels.Interfaces.Components
 {
@@ -7,7 +8,7 @@ namespace carbon14.FuryStudio.ViewModels.Interfaces.Components
         public string? Name { get; set; }
         public ICommand? Command { get; set; }
         public object? CommandParameter { get; set; }
-        public IObservableList<IViewModelMenuItem>? Items { get; set; }
+        public ObservableCollection<IViewModelMenuItem>? Items { get; set; }
         public bool Enabled { get; set; }
     }
 }

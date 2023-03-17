@@ -1,10 +1,11 @@
 ﻿using carbon14.FuryStudio.ViewModels.Interfaces.Components;
+using System.Collections.ObjectModel;
 
 namespace carbon14.FuryStudio.WinUI.MVVM.Menu
 {
     internal class MenuItem: ToolStripMenuItem
     {
-        private IObservableList<IViewModelMenuItem>? _vmItems;
+        private ObservableCollection<IViewModelMenuItem>? _vmItems;
 
         public MenuItem(IViewModelMenuItem vmItem)
         {

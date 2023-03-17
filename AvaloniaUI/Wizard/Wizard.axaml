@@ -10,6 +10,9 @@
 				Width="600"
 				Height="400"
 				CanResize="False">
+		<Window.Styles>
+				<StyleInclude Source="/Styles/MainStyles.xaml"/>
+		</Window.Styles>
 		<DockPanel>
 				<StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom">
 						<Button IsEnabled="{Binding BackEnabled}" Command="{Binding Back}">

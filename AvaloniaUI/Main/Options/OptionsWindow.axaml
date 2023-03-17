@@ -2,19 +2,22 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        mc:Ignorable="d" d:DesignWidth="600" d:DesignHeight="450"
         x:Class="carbon14.FuryStudio.AvaloniaUI.Main.Options.OptionsWindow"
         Title="Options"
 				Position="200,50"
 				Height="400"
 				MinHeight="400"
-				Width="700"
-				MinWidth="700">
+				Width="600"
+				MinWidth="600">
+		<Window.Styles>
+				<StyleInclude Source="/Styles/MainStyles.xaml"/>
+		</Window.Styles>
 		<TabControl>
 				<TabItem Header="General">
-						<Grid ColumnDefinitions="200, Auto" RowDefinitions="Auto" Margin="4">
+						<Grid ColumnDefinitions="150, Auto" RowDefinitions="Auto" Margin="4">
 								<TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Text="Templates Directory" />
-								<TextBox Grid.Row="0" Grid.Column="1" Width="480" Text="{Binding TemplatesDirectory}" />
+								<TextBox Grid.Row="0" Grid.Column="1" Width="400" Text="{Binding TemplatesDirectory}" />
 						</Grid>
 				</TabItem>
 		</TabControl>

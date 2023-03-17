@@ -11,6 +11,12 @@
   </PropertyGroup>
   <ItemGroup>
     <None Remove=".gitignore" />
+    <None Remove="Styles\MainStyles.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AvaloniaXaml Include="Styles\MainStyles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </AvaloniaXaml>
   </ItemGroup>
   <ItemGroup>
     <!--This helps with theme dll-s trimming.
@@ -29,9 +35,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Core\Core.csproj" />
     <ProjectReference Include="..\ViewModels\ViewModels.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Styles\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Main\Menu\MenuWindow.axaml.cs">

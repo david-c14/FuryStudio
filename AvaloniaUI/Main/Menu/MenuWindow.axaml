@@ -11,6 +11,9 @@
 				MaxHeight="35"
 				Width="800"
 				MinWidth="400">
+		<Window.Styles>
+				<StyleInclude Source="/Styles/MainStyles.xaml"/>
+		</Window.Styles>
 		<DockPanel>
 				<Menu Items="{Binding Menu}" DockPanel.Dock="Top">
 						<Menu.Styles>

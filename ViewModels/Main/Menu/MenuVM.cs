@@ -39,6 +39,12 @@ namespace carbon14.FuryStudio.ViewModels.Main.Menu
     }
 }
 
+// TODO: Refactor out GlobalConfigurationContainer in favour of direct scoped GlobalConfiguration
+// TODO: Consider using System.Collections.ObjectModel.ObservableCollection in place of ObservableList
+
+// TODO: Have a look at Spice86 as a complement to DOSBox. Or at least as a tool to help with the nice to haves below. 
+//      https://github.com/OpenRakis/Spice86/
+
 // TODO: Get copyrighted test assets into git submodule (so they can remain private)
 
 // TODO: Add specialist PanelVM for name and description of template, with better validation

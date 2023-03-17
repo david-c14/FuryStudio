@@ -28,6 +28,7 @@ namespace carbon14.FuryStudio.Tests.Core.Configuration
 
             Mock<IObjectSerializer> serializerMock = new Mock<IObjectSerializer>();
             serializerMock.Setup(p => p.Serialize(It.IsAny<Stream>(), It.IsAny<InternalConfiguration>())).Verifiable();
+            serializerMock.Setup(p => p.Extension).Returns(".yaml").Verifiable();
 
             //Act
             IConfiguration configuration = new FuryStudio.Core.Configuration.Configuration(fileReadStreamMock.Object,
@@ -64,6 +65,7 @@ namespace carbon14.FuryStudio.Tests.Core.Configuration
             Mock<IObjectSerializer> serializerMock = new Mock<IObjectSerializer>();
             serializerMock.Setup(p => p.Serialize(It.IsAny<Stream>(), It.IsAny<InternalConfiguration>())).Verifiable();
             serializerMock.Setup(p => p.Deserialize<InternalConfiguration>(It.IsAny<Stream>())).Returns(new InternalConfiguration() { TemplatesLocation = templatesLocation }).Verifiable();
+            serializerMock.Setup(p => p.Extension).Returns(".yaml").Verifiable();
 
             //Act
             IConfiguration configuration = new FuryStudio.Core.Configuration.Configuration(fileReadStreamMock.Object,
@@ -79,6 +81,7 @@ namespace carbon14.FuryStudio.Tests.Core.Configuration
             fileWriteStreamMock.Verify(p => p.GetStream(It.IsAny<string>()), Times.Never());
             serializerMock.Verify(p => p.Serialize(It.IsAny<Stream>(), It.IsAny<InternalConfiguration>()), Times.Never());
             serializerMock.Verify(p => p.Deserialize<InternalConfiguration>(It.IsAny<Stream>()), Times.Once());
+            serializerMock.Verify(p => p.Extension, Times.Once());
         }
 
         [Fact]
@@ -106,6 +109,7 @@ namespace carbon14.FuryStudio.Tests.Core.Configuration
             Mock<IObjectSerializer> serializerMock = new Mock<IObjectSerializer>();
             serializerMock.Setup(p => p.Serialize(It.IsAny<Stream>(), It.IsAny<InternalConfiguration>())).Verifiable();
             serializerMock.Setup(p => p.Deserialize<InternalConfiguration>(It.IsAny<Stream>())).Returns(new InternalConfiguration() { TemplatesLocation = templatesLocation }).Verifiable();
+            serializerMock.Setup(p => p.Extension).Returns(".yaml").Verifiable();
 
             //Act
             IConfiguration configuration = new FuryStudio.Core.Configuration.Configuration(fileReadStreamMock.Object,
@@ -122,6 +126,7 @@ namespace carbon14.FuryStudio.Tests.Core.Configuration
             fileWriteStreamMock.Verify(p => p.GetStream(It.IsAny<string>()), Times.Never());
             serializerMock.Verify(p => p.Serialize(It.IsAny<Stream>(), It.IsAny<InternalConfiguration>()), Times.Never());
             serializerMock.Verify(p => p.Deserialize<InternalConfiguration>(It.IsAny<Stream>()), Times.Once());
+            serializerMock.Verify(p => p.Extension, Times.Once());
         }
 
         [Fact]
@@ -149,6 +154,7 @@ namespace carbon14.FuryStudio.Tests.Core.Configuration
             Mock<IObjectSerializer> serializerMock = new Mock<IObjectSerializer>();
             serializerMock.Setup(p => p.Serialize(It.IsAny<Stream>(), It.IsAny<InternalConfiguration>())).Verifiable();
             serializerMock.Setup(p => p.Deserialize<InternalConfiguration>(It.IsAny<Stream>())).Returns(new InternalConfiguration() { TemplatesLocation = templatesLocation }).Verifiable();
+            serializerMock.Setup(p => p.Extension).Returns(".yaml").Verifiable();
 
             //Act
             IConfiguration configuration = new FuryStudio.Core.Configuration.Configuration(fileReadStreamMock.Object,
@@ -166,6 +172,7 @@ namespace carbon14.FuryStudio.Tests.Core.Configuration
             fileWriteStreamMock.Verify(p => p.GetStream(It.IsAny<string>()), Times.Never());
             serializerMock.Verify(p => p.Serialize(It.IsAny<Stream>(), It.IsAny<InternalConfiguration>()), Times.Never());
             serializerMock.Verify(p => p.Deserialize<InternalConfiguration>(It.IsAny<Stream>()), Times.Once());
+            serializerMock.Verify(p => p.Extension, Times.Exactly(2));
         }
 
         [Fact]
@@ -193,6 +200,7 @@ namespace carbon14.FuryStudio.Tests.Core.Configuration
             Mock<IObjectSerializer> serializerMock = new Mock<IObjectSerializer>();
             serializerMock.Setup(p => p.Serialize(It.IsAny<Stream>(), It.IsAny<InternalConfiguration>())).Verifiable();
             serializerMock.Setup(p => p.Deserialize<InternalConfiguration>(It.IsAny<Stream>())).Returns(new InternalConfiguration() { TemplatesLocation = templatesLocation }).Verifiable();
+            serializerMock.Setup(p => p.Extension).Returns(".yaml").Verifiable();
 
             //Act
             IConfiguration configuration = new FuryStudio.Core.Configuration.Configuration(fileReadStreamMock.Object,
@@ -211,6 +219,7 @@ namespace carbon14.FuryStudio.Tests.Core.Configuration
             fileWriteStreamMock.Verify(p => p.GetStream(It.IsAny<string>()), Times.Once());
             serializerMock.Verify(p => p.Serialize(It.IsAny<Stream>(), It.IsAny<InternalConfiguration>()), Times.Once());
             serializerMock.Verify(p => p.Deserialize<InternalConfiguration>(It.IsAny<Stream>()), Times.Once());
+            serializerMock.Verify(p => p.Extension, Times.Exactly(2));
         }
 
         [Fact]
@@ -238,6 +247,7 @@ namespace carbon14.FuryStudio.Tests.Core.Configuration
             Mock<IObjectSerializer> serializerMock = new Mock<IObjectSerializer>();
             serializerMock.Setup(p => p.Serialize(It.IsAny<Stream>(), It.IsAny<InternalConfiguration>())).Verifiable();
             serializerMock.Setup(p => p.Deserialize<InternalConfiguration>(It.IsAny<Stream>())).Returns(new InternalConfiguration() { TemplatesLocation = templatesLocation }).Verifiable();
+            serializerMock.Setup(p => p.Extension).Returns(".yaml").Verifiable();
 
             //Act
             IConfiguration configuration = new FuryStudio.Core.Configuration.Configuration(fileReadStreamMock.Object,
@@ -256,6 +266,7 @@ namespace carbon14.FuryStudio.Tests.Core.Configuration
             fileWriteStreamMock.Verify(p => p.GetStream(It.IsAny<string>()), Times.Never());
             serializerMock.Verify(p => p.Serialize(It.IsAny<Stream>(), It.IsAny<InternalConfiguration>()), Times.Never());
             serializerMock.Verify(p => p.Deserialize<InternalConfiguration>(It.IsAny<Stream>()), Times.Once());
+            serializerMock.Verify(p => p.Extension, Times.Exactly(2));
         }
     }
 }

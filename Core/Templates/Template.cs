@@ -1,22 +1,16 @@
 ﻿using carbon14.FuryStudio.Core.Interfaces.Configuration;
 using carbon14.FuryStudio.Core.Interfaces.Infrastructure;
 using carbon14.FuryStudio.Core.Interfaces.Templates;
-using YamlDotNet.Serialization;
 
 namespace carbon14.FuryStudio.Core.Templates
 {
     public class Template: ITemplate
     {
-        private GameType _gameType = GameType.Unknown;
-        private GameOptions _gameOptions = GameOptions.None;
-        private GameArchitecture _gameArchitecture = GameArchitecture.Unknown;
-        private string _name = string.Empty;
-        private string _description = string.Empty;
+        private InternalTemplate _template = new();
         private IObjectSerializer _serializer;
         private IFileWriteStream _fileWriteStream;
         private IConfiguration _configuration;
 
-        [YamlIgnore]
         public IList<KeyValuePair<string, byte[]>> Files { get; } = new List<KeyValuePair<string, byte[]>>();
 
         public Template(IObjectSerializer serializer,
@@ -35,47 +29,46 @@ namespace carbon14.FuryStudio.Core.Templates
         {
             if (Files.Where(f => f.Key == "FURY.EXE").Any())
             {
-                _gameType = GameType.FuryOfTheFurries;
+                _template.GameType = GameType.FuryOfTheFurries;
             }
             else if (Files.Where(f => f.Key == "PAC.EXE").Any())
             {
-                _gameType = GameType.PacInTime;
+                _template.GameType = GameType.PacInTime;
             }
             if (Files.Where(f => f.Key == "PKUNZIP.EXE").Any())
             {
-                _gameOptions |= GameOptions.HasUnzip;
+                _template.GameOptions |= GameOptions.HasUnzip;
             }
             // TODO: Select correct architecture
-            _gameArchitecture = GameArchitecture.DOS;
+            _template.GameArchitecture = GameArchitecture.DOS;
         }
 
         public GameType GameType
         {
-            get => _gameType;
+            get => _template.GameType;
         }
 
         public GameOptions GameOptions
         {
-            get => _gameOptions;
+            get => _template.GameOptions;
         }
 
         public GameArchitecture GameArchitecture
         {
-            get => _gameArchitecture;
+            get => _template.GameArchitecture;
         }
 
         public string Name
         {
-            get => _name;
-            set => _name = value;
+            get => _template.Name;
+            set => _template.Name = value;
         }
 
         public string Description
         {
-            get => _description;
-            set => _description = value;
+            get => _template.Description;
+            set => _template.Description = value;
         }
-
 
         public void Save(string name)
         {
@@ -98,7 +91,7 @@ namespace carbon14.FuryStudio.Core.Templates
             string fileName = Path.Combine(location, "template" + _serializer.Extension);
             using (Stream s = _fileWriteStream.GetStream(fileName))
             {
-                _serializer.Serialize(s, this);
+                _serializer.Serialize(s, _template);
             }
         }
     }

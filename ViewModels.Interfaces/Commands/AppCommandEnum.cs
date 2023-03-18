@@ -14,6 +14,9 @@
         [System.ComponentModel.Description("_Options")]
         Options,
 
+        [System.ComponentModel.Description("_New Project")]
+        NewProject,
+
 
 
     }

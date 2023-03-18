@@ -128,7 +128,7 @@ namespace carbon14.FuryStudio.ViewModels.ProjectTemplate.NewTemplateWizard
                         ITemplate? template = _wizard.Complete();
                         template?.Save(template.Name);
                     }
-                    catch (Exception ex)
+                    catch
                     {
 
                     }

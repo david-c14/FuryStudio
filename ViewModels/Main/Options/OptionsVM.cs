@@ -70,12 +70,12 @@ namespace carbon14.FuryStudio.ViewModels.Main.Options
         private void OkayCommand(object? parameter)
         {
             _baseConfig.CommitUpdate();
-            DialogResult = DialogResult.Cancel;
+            DialogResult = DialogResult.Ok;
         }
         private void CancelCommand(object? parameter)
         {
             _baseConfig.RollbackUpdate();
-            DialogResult = DialogResult.Ok;
+            DialogResult = DialogResult.Cancel;
         }
 
     }

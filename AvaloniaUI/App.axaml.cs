@@ -12,6 +12,8 @@ using carbon14.FuryStudio.ViewModels.ProjectTemplate.NewTemplateWizard;
 using carbon14.FuryStudio.ViewModels.Interfaces.Components;
 using carbon14.FuryStudio.ViewModels.Main.Options;
 using carbon14.FuryStudio.AvaloniaUI.Main.Options;
+using carbon14.FuryStudio.ViewModels.Project;
+using carbon14.FuryStudio.AvaloniaUI.Project;
 
 namespace carbon14.FuryStudio.AvaloniaUI
 {
@@ -68,6 +70,18 @@ namespace carbon14.FuryStudio.AvaloniaUI
                 {
                     OptionsVM vm = new OptionsVM(scope);
                     OptionsWindow window = new OptionsWindow()
+                    {
+                        DataContext = vm
+                    };
+                    vm.OnCloseDialog += (s, e) => window.Close(e);
+                    window.ShowDialog<DialogResult>(desktop.MainWindow);
+                }
+                ));
+            commands.Add(AppCommandEnum.NewProject, new AppCommand(
+                p=>
+                {
+                    NewProjectVM vm = new NewProjectVM(scope);
+                    NewProjectWindow window = new NewProjectWindow()
                     {
                         DataContext = vm
                     };

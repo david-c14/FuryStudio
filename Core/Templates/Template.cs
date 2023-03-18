@@ -1,4 +1,5 @@
-﻿using carbon14.FuryStudio.Core.Interfaces.Configuration;
+﻿using carbon14.FuryStudio.Core.Infrastructure;
+using carbon14.FuryStudio.Core.Interfaces.Configuration;
 using carbon14.FuryStudio.Core.Interfaces.Infrastructure;
 using carbon14.FuryStudio.Core.Interfaces.Templates;
 
@@ -9,6 +10,7 @@ namespace carbon14.FuryStudio.Core.Templates
         private InternalTemplate _template = new();
         private IObjectSerializer _serializer;
         private IFileWriteStream _fileWriteStream;
+        private IFileReadStream? _fileReadStream;
         private IConfiguration _configuration;
 
         public IList<KeyValuePair<string, byte[]>> Files { get; } = new List<KeyValuePair<string, byte[]>>();
@@ -23,6 +25,23 @@ namespace carbon14.FuryStudio.Core.Templates
             _configuration = globalConfigurationContainer;
             Files = buffers;
             SetOptions();
+        }
+
+        public Template(IObjectSerializer serializer,
+                        IFileWriteStream fileWriteStream,
+                        IFileReadStream fileReadStream,
+                        IConfiguration globalConfigurationContainer,
+                        string path)
+        {
+            _serializer = serializer;
+            _fileWriteStream = fileWriteStream;
+            _fileReadStream = fileReadStream;
+            _configuration = globalConfigurationContainer;
+
+            using (Stream reader = _fileReadStream.GetStream(path))
+            {
+                _template = serializer.Deserialize<InternalTemplate>(reader);
+            }
         }
 
         private void SetOptions() 

@@ -29,6 +29,7 @@ namespace carbon14.FuryStudio.Core.Infrastructure
             builder.RegisterType<FileStreamLocator>().InstancePerLifetimeScope().As<IFileStreamLocator>();
             builder.RegisterType<FileReadStream>().InstancePerLifetimeScope().As<IFileReadStream>();
             builder.RegisterType<FileWriteStream>().InstancePerLifetimeScope().As<IFileWriteStream>();
+            builder.RegisterType<DirectorySearch>().SingleInstance().As<IDirectorySearch>();
             builder.RegisterType<ZipArchive>().As<IZipArchive>();
             builder.RegisterType<Template>().As<ITemplate>();
 

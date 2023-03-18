@@ -21,11 +21,11 @@ namespace carbon14.FuryStudio.ViewModels.Main.Menu
                 new ViewModelMenuItem(scope)
                 {
                     Name = "_File",
-                    Command = null,
                     Items = new ObservableCollection<IViewModelMenuItem>()
                     {
                         new ViewModelMenuItem(scope, AppCommandEnum.Options),
                         new ViewModelMenuItem(scope, AppCommandEnum.NewProjectTemplate),
+                        new ViewModelMenuItem(scope, AppCommandEnum.NewProject),
                         new ViewModelMenuItem(scope)
                         {
                             Name="-"
@@ -42,12 +42,13 @@ namespace carbon14.FuryStudio.ViewModels.Main.Menu
 
 // TODO: Have a look at Spice86 as a complement to DOSBox. Or at least as a tool to help with the nice to haves below. 
 //      https://github.com/OpenRakis/Spice86/
+//      Not currently up to the job. Fury uses video modes which Spice86 doesn't yet emulate.
 
 // TODO: Get copyrighted test assets into git submodule (so they can remain private)
 
 // TODO: Add specialist PanelVM for name and description of template, with better validation
-// TODO: Add reload method for _configuration
-// TODO: OptionsVM should have cancel/close buttons and close event and should save/reload config on close.
+
+// TODO: Add some preliminary documentation. Readme.md => build.md
 
 // TODO: Get Fury Project Template builders working.
 // TODO: WizardPage needs interface

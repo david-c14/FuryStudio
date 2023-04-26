@@ -36,9 +36,9 @@ namespace carbon14.FuryStudio.Core.Configuration
             }
         }
 
-        public Configuration(InternalConfiguration configuration, 
-                             IFileReadStream readStream, 
-                             IFileWriteStream writeStream, 
+        public Configuration(InternalConfiguration configuration,
+                             IFileReadStream readStream,
+                             IFileWriteStream writeStream,
                              IObjectSerializer serializer,
                              IPlatformInfo platformInfo)
         {
@@ -66,11 +66,27 @@ namespace carbon14.FuryStudio.Core.Configuration
             return Path.Combine(TemplatesLocation, name);
         }
 
+        public string ProjectsLocation
+        {
+            get => _configuration.ProjectsLocation;
+            set
+            {
+                if (_mutable)
+                    _configuration.ProjectsLocation = value;
+            }
+        }
+
+        public string ProjectDirectory(string name)
+        {
+            return Path.Combine(ProjectsLocation, name);
+        }
+
         private InternalConfiguration Default()
         {
             return new InternalConfiguration()
             {
-                TemplatesLocation = Path.Combine(_platformInfo.UserDocStoreLocation, "Templates")
+                TemplatesLocation = Path.Combine(_platformInfo.UserDocStoreLocation, "Templates"),
+                ProjectsLocation = Path.Combine(_platformInfo.UserDocStoreLocation, "Projects")
             };
         }
         private void Save()

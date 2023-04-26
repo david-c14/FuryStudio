@@ -6,8 +6,11 @@ namespace {
 	
 		const std::string usage = "ImmFile usage:\n\n"
 			"\tThis Message                : ImmFile -?\n"
+			"\tPrint Version               : ImmFile -v\n"
 			"\tConvert IMM/PAM to BMP      : ImmFile -ib immfile pamfile bmpfile\n"
 			"\tConvert BMP to IMM/PAM      : ImmFile -bi bmpfile immfile pamfile\n\n";
+			
+#include "../src/version.hpp"
 			
 }
 
@@ -32,6 +35,16 @@ TEST_CASE("IMM_Query_parameter_should_yield_usage_message") {
 	RETURNVALUE(0)
 	ISEMPTY(CLITEST_STDERR)
 	FILECONTENT(CLITEST_STDOUT, usage)
+}
+
+TEST_CASE("IMM_Version_parameter_should_yield_version_number") {
+	ADDFILE(EXE)
+	
+	EXEC(COMM " -v")
+	
+	RETURNVALUE(0)
+	ISEMPTY(CLITEST_STDERR)
+	FILECONTENT(CLITEST_STDOUT, "ImmFile " xstr(UTILS_VER) "\n");
 }
 
 TEST_CASE("IMM_Unknown_parameter_should_yield_usage_message") {

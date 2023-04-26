@@ -7,6 +7,7 @@
 #include "BinaryIO.cpp"
 #include "Dat.cpp"
 #include "Exceptions.cpp"
+#include "version.hpp"
 
 std::string GetFileName(const std::string &s) {
 
@@ -28,6 +29,7 @@ int Usage(char *arg0) {
 	std::string name = GetFileName(arg0);
 	printf("%s usage:\n\n", name.c_str());
 	printf("\tThis Message                : %s -?\n", name.c_str());
+	printf("\tPrint Version               : %s -v\n", name.c_str());
 	printf("\tList entries                : %s -l datfile\n", name.c_str());
 	printf("\tList entries in brief form  : %s -b datfile\n", name.c_str());
 	printf("\tExtract entry               : %s -x datfile entry\n", name.c_str());
@@ -35,6 +37,12 @@ int Usage(char *arg0) {
 	printf("\tCreate a compressed file    : %s -c datfile entry [...]\n", name.c_str());
 	printf("\tCreate an uncompressed file : %s -u datfile entry [...]\n", name.c_str());
 	printf("\n");
+	return 0;
+}
+
+int Version(char *arg0) {
+	std::string name = GetFileName(arg0);
+	printf("%s %s\n", name.c_str(), xstr(UTILS_VER));
 	return 0;
 }
 
@@ -283,6 +291,9 @@ int main(int argc, char* argv[]) {
 	}
 	if (!strncmp(argv[1], "-?", 2)) {
 		return Usage(argv[0]);
+	}
+	if (!strncmp(argv[1], "-v", 2)) {
+		return Version(argv[0]);
 	}
 	if (!strncmp(argv[1], "-l", 2)) {
 		return List(argc, argv);

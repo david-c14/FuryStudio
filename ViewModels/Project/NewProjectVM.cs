@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using carbon14.FuryStudio.Core.Interfaces.Configuration;
 using carbon14.FuryStudio.Core.Interfaces.Infrastructure;
+using carbon14.FuryStudio.Core.Interfaces.Projects;
 using carbon14.FuryStudio.Core.Interfaces.Templates;
 using carbon14.FuryStudio.ViewModels.Commands;
 using carbon14.FuryStudio.ViewModels.Components;
@@ -8,21 +9,26 @@ using carbon14.FuryStudio.ViewModels.Interfaces.Commands;
 using carbon14.FuryStudio.ViewModels.Interfaces.Components;
 using carbon14.FuryStudio.ViewModels.Interfaces.Project;
 using System.Windows.Input;
+using System.ComponentModel.DataAnnotations;
+using carbon14.FuryStudio.Resources;
 
 namespace carbon14.FuryStudio.ViewModels.Project
 {
     public class NewProjectVM : ViewModelBase, INewProjectVM
     {
+        ILifetimeScope? _scope = null;
         private IAppCommand _okay;
         private IAppCommand _cancel;
         private DialogResult _dialogResult = DialogResult.None;
         private List<ITemplate> _templates = new();
         private int _selectedOption = -1;
+        private string _projectName = string.Empty;
 
         public event EventHandler<DialogResult>? OnCloseDialog;
 
         public NewProjectVM(ILifetimeScope scope) : base(scope)
         {
+            _scope = scope;
             IDirectorySearch search = Scope.Resolve<IDirectorySearch>();
             IConfiguration configuration = Scope.Resolve<IConfiguration>();
             IObjectSerializer serializer = Scope.Resolve<IObjectSerializer>();
@@ -52,10 +58,14 @@ namespace carbon14.FuryStudio.ViewModels.Project
         {
             get
             {
-                return _selectedOption > -1;
+                var objectToValidate = this;
+                var ctx = new ValidationContext(objectToValidate);
+                List<ValidationResult> results = new();
+                return Validator.TryValidateObject(objectToValidate, ctx, results, true);
             }
         }
 
+        [Range(0,1000000, ErrorMessage = "Select a template")]
         public int SelectedOption
         {
             get
@@ -83,7 +93,7 @@ namespace carbon14.FuryStudio.ViewModels.Project
         {
             get
             {
-                if (IsValid)
+                if (_selectedOption > -1)
                     return _templates[_selectedOption];
                 return null;
             }
@@ -98,6 +108,25 @@ namespace carbon14.FuryStudio.ViewModels.Project
                     OnPropertyChanged(nameof(SelectedValue));
                 }
 
+            }
+        }
+
+        [MinLength(1, ErrorMessage = "Too short")]
+        [RegularExpression("^[A-Za-z0-9][-A-Za-z0-9 _]*$", ErrorMessage = "Invalid Characters")]
+        public string ProjectName 
+        {
+            get
+            {
+                return _projectName;
+            }
+            set
+            {
+                if (_projectName != value)
+                {
+                    _projectName = value;
+                    OnPropertyChanged(nameof(ProjectName));
+                    OnPropertyChanged(nameof(IsValid));
+                }
             }
         }
 
@@ -123,11 +152,34 @@ namespace carbon14.FuryStudio.ViewModels.Project
 
         private void OkayCommand(object? parameter)
         {
+            if (!IsValid)
+            {
+                return;
+            }
+            ITemplate? template = SelectedValue;
+            if (template == null)
+            {
+                return;
+            }
+            template.Load();
+            IProject? project = _scope?.Resolve<IProject>(new NamedParameter("projectName", _projectName), new NamedParameter("template", template));
+            if (project == null)
+            {
+                return;
+            }
+            project.Save();
             DialogResult = DialogResult.Ok;
         }
         private void CancelCommand(object? parameter)
         {
             DialogResult = DialogResult.Cancel;
+        }
+
+        public Stream? Icon
+        {
+            get {
+                return ResourceStreams.Beacon_Light;
+            }
         }
     }
 }

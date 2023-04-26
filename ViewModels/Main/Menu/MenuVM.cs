@@ -62,3 +62,21 @@ namespace carbon14.FuryStudio.ViewModels.Main.Menu
 // TODO: Launch level using DOSBox
 // TODO: Nice to bypass passwords for debugging level
 // TODO: Nice to bypass attract screen for debugging level
+
+// TODO: Add projectItem subclasses
+// TODO: Add internalProject
+// TODO: Add Versioning to IConfiguration
+// TODO: Add tests for versioning
+// TODO: Centralise mocks for IConfiguration (and possibly for other tests)
+
+// TODO: Add filelists to internalProject
+// TODO: Add load capability to internalProject
+// TODO: Add assets assembly
+// TODO: Add empty KMD and SND files
+// TODO: use underscores for internal files (e.g. template.yaml => _template.yaml)
+
+// TODO: Add constants for regexes
+// TODO: Use regex to restrict game filenames ^[A-Z0-9]{1,8}$ 
+// TODO: Use regex to restrict template/project filenames ^[A-Za-z0-9][-A-Za-z0-9_ ]*$
+// TODO: Use data annotations to control VM
+// TODO: Use Validator to control IsValid

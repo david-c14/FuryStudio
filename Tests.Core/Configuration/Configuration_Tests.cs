@@ -13,6 +13,7 @@ namespace carbon14.FuryStudio.Tests.Core.Configuration
             //Arrange
             string documentLocation = "Documents";
             string templateLocation = Path.Combine(documentLocation, "Templates");
+            string projectLocation = Path.Combine(documentLocation, "Projects");
             string configFileName = "config.yaml";
 
             MemoryStream stream = new MemoryStream();
@@ -38,6 +39,7 @@ namespace carbon14.FuryStudio.Tests.Core.Configuration
 
             //Assert
             Assert.Equal(templateLocation, configuration.TemplatesLocation);
+            Assert.Equal(projectLocation, configuration.ProjectsLocation);
             Mock.Verify(fileReadStreamMock, fileWriteStreamMock, serializerMock, platformInfoMock);
         }
 
@@ -47,9 +49,12 @@ namespace carbon14.FuryStudio.Tests.Core.Configuration
             //Arrange
             string documentLocation = "Documents";
             string templatesLocation = Path.Combine(documentLocation, "Templates");
+            string projectsLocation = Path.Combine(documentLocation, "Projects");
             string configFileName = "config.yaml";
             string templateName = "TestTemplate";
             string templateLocation = Path.Combine(templatesLocation, templateName);
+            string projectName = "TestProject";
+            string projectLocation = Path.Combine(projectsLocation, projectName);
 
             MemoryStream stream = new MemoryStream();
 
@@ -64,7 +69,7 @@ namespace carbon14.FuryStudio.Tests.Core.Configuration
 
             Mock<IObjectSerializer> serializerMock = new Mock<IObjectSerializer>();
             serializerMock.Setup(p => p.Serialize(It.IsAny<Stream>(), It.IsAny<InternalConfiguration>())).Verifiable();
-            serializerMock.Setup(p => p.Deserialize<InternalConfiguration>(It.IsAny<Stream>())).Returns(new InternalConfiguration() { TemplatesLocation = templatesLocation }).Verifiable();
+            serializerMock.Setup(p => p.Deserialize<InternalConfiguration>(It.IsAny<Stream>())).Returns(new InternalConfiguration() { TemplatesLocation = templatesLocation, ProjectsLocation = projectsLocation }).Verifiable();
             serializerMock.Setup(p => p.Extension).Returns(".yaml").Verifiable();
 
             //Act
@@ -76,6 +81,8 @@ namespace carbon14.FuryStudio.Tests.Core.Configuration
             //Assert
             Assert.Equal(templatesLocation, configuration.TemplatesLocation);
             Assert.Equal(templateLocation, configuration.TemplateDirectory(templateName));
+            Assert.Equal(projectsLocation, configuration.ProjectsLocation);
+            Assert.Equal(projectLocation, configuration.ProjectDirectory(projectName));
             fileReadStreamMock.VerifyAll();
             platformInfoMock.Verify(p => p.UserDocStoreLocation, Times.Never());
             fileWriteStreamMock.Verify(p => p.GetStream(It.IsAny<string>()), Times.Never());
@@ -90,10 +97,14 @@ namespace carbon14.FuryStudio.Tests.Core.Configuration
             //Arrange
             string documentLocation = "Documents";
             string templatesLocation = Path.Combine(documentLocation, "Templates");
+            string projectsLocation = Path.Combine(documentLocation, "Projects");
             string configFileName = "config.yaml";
             string templateName = "TestTemplate";
             string templateLocation = Path.Combine(templatesLocation, templateName);
+            string projectName = "TestProject";
+            string projectLocation = Path.Combine(projectsLocation, projectName);
             string alternateTemplateLocation = "Alternate";
+            string alternateProjectLocation = "Other";
 
             MemoryStream stream = new MemoryStream();
 
@@ -108,7 +119,7 @@ namespace carbon14.FuryStudio.Tests.Core.Configuration
 
             Mock<IObjectSerializer> serializerMock = new Mock<IObjectSerializer>();
             serializerMock.Setup(p => p.Serialize(It.IsAny<Stream>(), It.IsAny<InternalConfiguration>())).Verifiable();
-            serializerMock.Setup(p => p.Deserialize<InternalConfiguration>(It.IsAny<Stream>())).Returns(new InternalConfiguration() { TemplatesLocation = templatesLocation }).Verifiable();
+            serializerMock.Setup(p => p.Deserialize<InternalConfiguration>(It.IsAny<Stream>())).Returns(new InternalConfiguration() { TemplatesLocation = templatesLocation, ProjectsLocation = projectsLocation }).Verifiable();
             serializerMock.Setup(p => p.Extension).Returns(".yaml").Verifiable();
 
             //Act
@@ -117,10 +128,13 @@ namespace carbon14.FuryStudio.Tests.Core.Configuration
                                                                                            serializerMock.Object,
                                                                                            platformInfoMock.Object);
             configuration.TemplatesLocation = alternateTemplateLocation;
+            configuration.ProjectsLocation = alternateProjectLocation;
 
             //Assert
             Assert.False(configuration.TemplatesLocation == alternateTemplateLocation);
             Assert.Equal(templatesLocation, configuration.TemplatesLocation);
+            Assert.False(configuration.ProjectsLocation == alternateProjectLocation);
+            Assert.Equal(projectsLocation, configuration.ProjectsLocation);
             fileReadStreamMock.VerifyAll();
             platformInfoMock.Verify(p => p.UserDocStoreLocation, Times.Never());
             fileWriteStreamMock.Verify(p => p.GetStream(It.IsAny<string>()), Times.Never());
@@ -135,10 +149,14 @@ namespace carbon14.FuryStudio.Tests.Core.Configuration
             //Arrange
             string documentLocation = "Documents";
             string templatesLocation = Path.Combine(documentLocation, "Templates");
+            string projectsLocation = Path.Combine(documentLocation, "Projects");
             string configFileName = "config.yaml";
             string templateName = "TestTemplate";
             string templateLocation = Path.Combine(templatesLocation, templateName);
+            string projectName = "TestProject";
+            string projectLocation = Path.Combine(projectsLocation, projectName);
             string alternateTemplateLocation = "Alternate";
+            string alternateProjectLocation = "Other";
 
             MemoryStream stream = new MemoryStream();
 
@@ -153,7 +171,7 @@ namespace carbon14.FuryStudio.Tests.Core.Configuration
 
             Mock<IObjectSerializer> serializerMock = new Mock<IObjectSerializer>();
             serializerMock.Setup(p => p.Serialize(It.IsAny<Stream>(), It.IsAny<InternalConfiguration>())).Verifiable();
-            serializerMock.Setup(p => p.Deserialize<InternalConfiguration>(It.IsAny<Stream>())).Returns(new InternalConfiguration() { TemplatesLocation = templatesLocation }).Verifiable();
+            serializerMock.Setup(p => p.Deserialize<InternalConfiguration>(It.IsAny<Stream>())).Returns(new InternalConfiguration() { TemplatesLocation = templatesLocation, ProjectsLocation = projectsLocation }).Verifiable();
             serializerMock.Setup(p => p.Extension).Returns(".yaml").Verifiable();
 
             //Act
@@ -163,10 +181,13 @@ namespace carbon14.FuryStudio.Tests.Core.Configuration
                                                                                            platformInfoMock.Object);
             configuration = configuration.BeginUpdate();
             configuration.TemplatesLocation = alternateTemplateLocation;
+            configuration.ProjectsLocation = alternateProjectLocation;
 
             //Assert
             Assert.False(configuration.TemplatesLocation == templatesLocation);
             Assert.Equal(alternateTemplateLocation, configuration.TemplatesLocation);
+            Assert.False(configuration.ProjectsLocation == projectsLocation);
+            Assert.Equal(alternateProjectLocation, configuration.ProjectsLocation);
             fileReadStreamMock.VerifyAll();
             platformInfoMock.Verify(p => p.UserDocStoreLocation, Times.Never());
             fileWriteStreamMock.Verify(p => p.GetStream(It.IsAny<string>()), Times.Never());
@@ -181,10 +202,14 @@ namespace carbon14.FuryStudio.Tests.Core.Configuration
             //Arrange
             string documentLocation = "Documents";
             string templatesLocation = Path.Combine(documentLocation, "Templates");
+            string projectsLocation = Path.Combine(documentLocation, "Projects");
             string configFileName = "config.yaml";
             string templateName = "TestTemplate";
             string templateLocation = Path.Combine(templatesLocation, templateName);
+            string projectName = "TestProject";
+            string projectLocation = Path.Combine(projectsLocation, projectName);
             string alternateTemplateLocation = "Alternate";
+            string alternateProjectLocation = "Other";
 
             MemoryStream stream = new MemoryStream();
 
@@ -199,7 +224,7 @@ namespace carbon14.FuryStudio.Tests.Core.Configuration
 
             Mock<IObjectSerializer> serializerMock = new Mock<IObjectSerializer>();
             serializerMock.Setup(p => p.Serialize(It.IsAny<Stream>(), It.IsAny<InternalConfiguration>())).Verifiable();
-            serializerMock.Setup(p => p.Deserialize<InternalConfiguration>(It.IsAny<Stream>())).Returns(new InternalConfiguration() { TemplatesLocation = templatesLocation }).Verifiable();
+            serializerMock.Setup(p => p.Deserialize<InternalConfiguration>(It.IsAny<Stream>())).Returns(new InternalConfiguration() { TemplatesLocation = templatesLocation, ProjectsLocation = projectsLocation }).Verifiable();
             serializerMock.Setup(p => p.Extension).Returns(".yaml").Verifiable();
 
             //Act
@@ -209,11 +234,14 @@ namespace carbon14.FuryStudio.Tests.Core.Configuration
                                                                                            platformInfoMock.Object);
             IConfiguration clone = configuration.BeginUpdate();
             clone.TemplatesLocation = alternateTemplateLocation;
+            clone.ProjectsLocation = alternateProjectLocation;
             configuration.CommitUpdate();
 
             //Assert
             Assert.False(configuration.TemplatesLocation == templatesLocation);
             Assert.Equal(alternateTemplateLocation, configuration.TemplatesLocation);
+            Assert.False(configuration.ProjectsLocation == projectsLocation);
+            Assert.Equal(alternateProjectLocation, configuration.ProjectsLocation);
             fileReadStreamMock.VerifyAll();
             platformInfoMock.Verify(p => p.UserDocStoreLocation, Times.Never());
             fileWriteStreamMock.Verify(p => p.GetStream(It.IsAny<string>()), Times.Once());
@@ -228,10 +256,14 @@ namespace carbon14.FuryStudio.Tests.Core.Configuration
             //Arrange
             string documentLocation = "Documents";
             string templatesLocation = Path.Combine(documentLocation, "Templates");
+            string projectsLocation = Path.Combine(documentLocation, "Projects");
             string configFileName = "config.yaml";
             string templateName = "TestTemplate";
             string templateLocation = Path.Combine(templatesLocation, templateName);
+            string projectName = "TestProject";
+            string projectLocation = Path.Combine(projectsLocation, projectName);
             string alternateTemplateLocation = "Alternate";
+            string alternateProjectLocation = "Other";
 
             MemoryStream stream = new MemoryStream();
 
@@ -246,7 +278,7 @@ namespace carbon14.FuryStudio.Tests.Core.Configuration
 
             Mock<IObjectSerializer> serializerMock = new Mock<IObjectSerializer>();
             serializerMock.Setup(p => p.Serialize(It.IsAny<Stream>(), It.IsAny<InternalConfiguration>())).Verifiable();
-            serializerMock.Setup(p => p.Deserialize<InternalConfiguration>(It.IsAny<Stream>())).Returns(new InternalConfiguration() { TemplatesLocation = templatesLocation }).Verifiable();
+            serializerMock.Setup(p => p.Deserialize<InternalConfiguration>(It.IsAny<Stream>())).Returns(new InternalConfiguration() { TemplatesLocation = templatesLocation, ProjectsLocation = projectsLocation }).Verifiable();
             serializerMock.Setup(p => p.Extension).Returns(".yaml").Verifiable();
 
             //Act
@@ -256,11 +288,14 @@ namespace carbon14.FuryStudio.Tests.Core.Configuration
                                                                                            platformInfoMock.Object);
             IConfiguration clone = configuration.BeginUpdate();
             clone.TemplatesLocation = alternateTemplateLocation;
+            clone.ProjectsLocation = alternateProjectLocation;
             configuration.RollbackUpdate();
 
             //Assert
             Assert.False(configuration.TemplatesLocation == alternateTemplateLocation);
             Assert.Equal(templatesLocation, configuration.TemplatesLocation);
+            Assert.False(configuration.ProjectsLocation == alternateProjectLocation);
+            Assert.Equal(projectsLocation, configuration.ProjectsLocation);
             fileReadStreamMock.VerifyAll();
             platformInfoMock.Verify(p => p.UserDocStoreLocation, Times.Never());
             fileWriteStreamMock.Verify(p => p.GetStream(It.IsAny<string>()), Times.Never());

@@ -1,3 +1,5 @@
+// bmp.hpp You should not need to manually include this file. You should include FuryUtils.hpp
+
 #pragma once
 
 #ifndef APIENTRY

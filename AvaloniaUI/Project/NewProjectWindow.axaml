@@ -10,22 +10,42 @@
 				MinHeight="400"
 				Width="600"
 				MinWidth="600">
+		<Window.Resources>
+				<!--				<local:BitmapAssetValueConverter x:Key="image" /-->
+		</Window.Resources>
 		<Window.Styles>
 				<StyleInclude Source="/Styles/MainStyles.xaml"/>
 		</Window.Styles>
-		<ListBox Items="{Binding Templates}" SelectedItem="{Binding SelectedValue}" Name="RadioList">
-				<ListBox.Styles>
-						<Style Selector="ListBox">
-								<Setter Property="Background" Value="Transparent" />
-						</Style>
-				</ListBox.Styles>
-				<ListBox.ItemTemplate>
-						<DataTemplate>
-								<StackPanel Orientation="Horizontal">
-										<TextBlock MinWidth="150" Text="{Binding Name}"></TextBlock>
-										<TextBlock Text="{Binding Description}"></TextBlock>
-								</StackPanel>
-						</DataTemplate>
-				</ListBox.ItemTemplate>
-		</ListBox>
+		<DockPanel>
+				<StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
+						<Button IsEnabled="{Binding IsValid}" Command="{Binding Okay}">
+								Ok
+						</Button>
+						<Button Command="{Binding Cancel}">
+								Cancel
+						</Button>
+				</StackPanel>
+				<Grid ColumnDefinitions="150, Auto" RowDefinitions="100, Auto" Margin="4">
+						<TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Top" Text="Select Template" />
+						<ListBox Grid.Row="0" Grid.Column="1" Items="{Binding Templates}" SelectedItem="{Binding SelectedValue}" Name="RadioList">
+								<ListBox.Styles>
+										<Style Selector="ListBox">
+												<Setter Property="Background" Value="Transparent" />
+										</Style>
+								</ListBox.Styles>
+								<ListBox.ItemTemplate>
+										<DataTemplate>
+												<StackPanel Orientation="Horizontal">
+														<TextBlock MinWidth="150" Text="{Binding Name}"></TextBlock>
+														<TextBlock Text="{Binding Description}"></TextBlock>
+												</StackPanel>
+										</DataTemplate>
+								</ListBox.ItemTemplate>
+						</ListBox>
+						<!--
+						<TextBlock Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Text="Project Name" />-->
+						<Image Grid.Row="1" Grid.Column="0" Source="{Binding Icon, Converter={StaticResource image16FromStream}}" Width="16" Height="16" />
+						<TextBox Grid.Row="1" Grid.Column="1" Width="400" Text="{Binding ProjectName}" />
+				</Grid>
+		</DockPanel>
 </Window>

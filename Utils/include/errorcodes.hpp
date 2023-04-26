@@ -1,3 +1,4 @@
+// errorcodes.hpp You should not need to manually include this file. You should include FuryUtils.hpp
     {
         NO_ERROR,
         INVALID_FORMAT,

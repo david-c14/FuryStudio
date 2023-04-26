@@ -121,7 +121,7 @@ namespace carbon14.FuryStudio.ViewModels.ProjectTemplate.NewTemplateWizard
             }
             if (_wizard != null) // We are in the wizard itself
             {
-                if (CurrentPage >= ViewModels.Count() - 1)
+                if (CurrentPage >= ViewModels.Count() - 1) // This is the last page. Do the work.
                 {
                     try
                     {

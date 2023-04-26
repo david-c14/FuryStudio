@@ -5,6 +5,7 @@
 #include "Imm.cpp"
 #include "Bmp.cpp"
 #include "Exceptions.cpp"
+#include "version.hpp"
 
 std::string GetFileName(const std::string &s) {
 
@@ -26,9 +27,16 @@ int Usage(char *arg0) {
 	std::string name = GetFileName(arg0);
 	printf("%s usage:\n\n", name.c_str());
 	printf("\tThis Message                : %s -?\n", name.c_str());
+	printf("\tPrint Version               : %s -v\n", name.c_str());
 	printf("\tConvert IMM/PAM to BMP      : %s -ib immfile pamfile bmpfile\n", name.c_str());
 	printf("\tConvert BMP to IMM/PAM      : %s -bi bmpfile immfile pamfile\n", name.c_str());
 	printf("\n");
+	return 0;
+}
+
+int Version(char *arg0) {
+	std::string name = GetFileName(arg0);
+	printf("%s %s\n", name.c_str(), xstr(UTILS_VER));
 	return 0;
 }
 
@@ -156,6 +164,9 @@ int main(int argc, char* argv[]) {
 	}
 	if (!strncmp(argv[1], "-?", 2)) {
 		return Usage(argv[0]);
+	}
+	if (!strncmp(argv[1], "-v", 2)) {
+		return Version(argv[0]);
 	}
 	if (!strncmp(argv[1], "-ib", 3)) {
 		return ImmToBmp(argc, argv);

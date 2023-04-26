@@ -2,7 +2,9 @@
 using carbon14.FuryStudio.Core.Configuration;
 using carbon14.FuryStudio.Core.Interfaces.Configuration;
 using carbon14.FuryStudio.Core.Interfaces.Infrastructure;
+using carbon14.FuryStudio.Core.Interfaces.Projects;
 using carbon14.FuryStudio.Core.Interfaces.Templates;
+using carbon14.FuryStudio.Core.Projects;
 using carbon14.FuryStudio.Core.Templates;
 using carbon14.FuryStudio.ViewModels.Interfaces.Components;
 
@@ -32,6 +34,7 @@ namespace carbon14.FuryStudio.Core.Infrastructure
             builder.RegisterType<DirectorySearch>().SingleInstance().As<IDirectorySearch>();
             builder.RegisterType<ZipArchive>().As<IZipArchive>();
             builder.RegisterType<Template>().As<ITemplate>();
+            builder.RegisterType<Project>().As<IProject>();
 
             foreach(ApplicationBuilderDelegate builderDelegate in builders)
             {

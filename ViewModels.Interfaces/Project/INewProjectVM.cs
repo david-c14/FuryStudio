@@ -10,9 +10,12 @@ namespace carbon14.FuryStudio.ViewModels.Interfaces.Project
         bool IsValid { get; }
         int SelectedOption { get; set; }
         ITemplate? SelectedValue { get; set; }
+        string ProjectName { get; set; }
         event EventHandler<DialogResult>? OnCloseDialog;
         DialogResult DialogResult { get; }
         ICommand Okay { get; }
         ICommand Cancel { get; }
+
+        Stream? Icon { get; }
     }
 }

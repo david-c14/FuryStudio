@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.10)
 project(C_Tests VERSION 1.0)
 add_executable(C_Tests 
-	catchmain.cpp
+    catchmain.cpp
     Bmp_Tests.cpp 
     Dat_Tests.cpp 
     utils.cpp 

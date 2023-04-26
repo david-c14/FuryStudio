@@ -10,5 +10,6 @@ namespace carbon14.FuryStudio.Core.Interfaces.Templates
         public string Description { get; set; }
         public IList<KeyValuePair<string, byte[]>> Files { get; }
         public void Save(string location);
+        public void Load();
     }
 }

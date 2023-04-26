@@ -6,13 +6,16 @@ namespace {
 	
 		const std::string usage = "DatFile usage:\n\n"
 			"\tThis Message                : DatFile -?\n"
+			"\tPrint Version               : DatFile -v\n"
 			"\tList entries                : DatFile -l datfile\n"
 			"\tList entries in brief form  : DatFile -b datfile\n"
 			"\tExtract entry               : DatFile -x datfile entry\n"
 			"\tExtract all entries         : DatFile -X datfile\n"
 			"\tCreate a compressed file    : DatFile -c datfile entry [...]\n"
 			"\tCreate an uncompressed file : DatFile -u datfile entry [...]\n\n";
-			
+
+#include "../src/version.hpp"
+
 }
 
 #define EXE BUILD "DatFile" EXEEXT
@@ -36,6 +39,16 @@ TEST_CASE("DAT_Query_parameter_should_yield_usage_message") {
 	RETURNVALUE(0)
 	ISEMPTY(CLITEST_STDERR)
 	FILECONTENT(CLITEST_STDOUT, usage)
+}
+
+TEST_CASE("DAT_Version_parameter_should_yield_version_number") {
+	ADDFILE(EXE)
+	
+	EXEC(COMM " -v")
+	
+	RETURNVALUE(0)
+	ISEMPTY(CLITEST_STDERR)
+	FILECONTENT(CLITEST_STDOUT, "DatFile " xstr(UTILS_VER) "\n");
 }
 
 TEST_CASE("DAT_Unknown_parameter_should_yield_usage_message") {

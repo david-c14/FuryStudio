@@ -1,3 +1,5 @@
+// BmpWrappers.hpp - internal header these are the public C wrapper prototypes for C++ classes
+
 #pragma once
 
 #ifndef __cplusplus

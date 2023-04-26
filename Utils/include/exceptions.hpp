@@ -1,3 +1,5 @@
+// exception.hpp You should not need to manually include this file. You should include FuryUtils.hpp
+
 #pragma once
 #include <string>
 
@@ -37,5 +39,5 @@ namespace Exceptions
 	const char ERROR_DAT_BUFFER_TOO_SMALL[] = "Buffer too small";
 
 	enum Error
-#include "errorcodes.h"
+#include "errorcodes.hpp"
 }

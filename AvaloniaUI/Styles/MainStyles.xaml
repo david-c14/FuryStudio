@@ -1,10 +1,14 @@
 ﻿<Styles xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+				xmlns:local="clr-namespace:carbon14.FuryStudio.AvaloniaUI.Converters;assembly=carbon14.FuryStudio.AvaloniaUI">
 		<Design.PreviewWith>
 				<Border Padding="20">
 						<!-- Add Controls for Previewer Here -->
 				</Border>
 		</Design.PreviewWith>
+		<Styles.Resources>
+				<local:BitmapAssetValueConverter x:Key="image16FromStream" />
+		</Styles.Resources>
 
 		<!-- Add Styles Here -->
 		<Style Selector="MenuItem">

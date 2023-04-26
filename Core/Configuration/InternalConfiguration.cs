@@ -6,6 +6,7 @@ namespace carbon14.FuryStudio.Core.Configuration
     public class InternalConfiguration
     {
         private string _templatesLocation = string.Empty;
+        private string _projectsLocation = string.Empty;
 
         public string TemplatesLocation
         {
@@ -19,10 +20,23 @@ namespace carbon14.FuryStudio.Core.Configuration
             }
         }
 
+        public string ProjectsLocation
+        {
+            get
+            {
+                return _projectsLocation;
+            }
+            set
+            {
+                _projectsLocation = value;
+            }
+        }
+
         internal void Copy(InternalConfiguration source, 
                            InternalConfiguration destination)
         {
             destination.TemplatesLocation = source.TemplatesLocation;
+            destination.ProjectsLocation = source.ProjectsLocation;
         }
     }
 }

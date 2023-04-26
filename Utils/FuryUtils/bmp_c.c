@@ -1,0 +1,1 @@
+#include "../src/bmp_c.c"

@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AssemblyName>carbon14.FuryStudio.$(MSBuildProjectName)</AssemblyName>
+    <RootNamespace>carbon14.FuryStudio.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Core\Core.csproj" />
+    <ProjectReference Include="..\Resources\Resources.csproj" />
+    <ProjectReference Include="..\ViewModels.Interfaces\ViewModels.Interfaces.csproj" />
+  </ItemGroup>
+
+</Project>

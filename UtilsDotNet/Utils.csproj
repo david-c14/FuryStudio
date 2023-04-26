@@ -1,0 +1,37 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AssemblyName>carbon14.FuryStudio.$(MSBuildProjectName)</AssemblyName>
+    <RootNamespace>carbon14.FuryStudio.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
+    <IsWindows Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Windows)))' == 'true'">true</IsWindows>
+    <IsLinux Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Linux)))' == 'true'">true</IsLinux>
+    <IsOSX Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::OSX)))' == 'true'">true</IsOSX>
+	</PropertyGroup>
+
+  <PropertyGroup Condition="'$(IsWindows)'=='true'">
+	  <DefineConstants>Platform_Windows</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(IsLinux)'=='true'">
+	  <DefineConstants>Platform_Linux</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(IsOSX)'=='true'">
+	  <DefineConstants>Platform_OSX</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(IsWindows)'=='true'">
+    <None Update="FuryUtils.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(IsLinux)'=='true'">
+    <None Update="libFuryUtils.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+</Project>

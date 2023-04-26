@@ -1,0 +1,76 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:carbon14.FuryStudio.ViewModels"
+				xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="600" d:DesignHeight="400"
+        x:Class="carbon14.FuryStudio.AvaloniaUI.Wizard.Wizard"
+        Title="{Binding Caption}"
+				Position="100,100"
+				Width="600"
+				Height="400"
+				CanResize="False">
+		<Window.Styles>
+				<StyleInclude Source="/Styles/MainStyles.xaml"/>
+		</Window.Styles>
+		<DockPanel>
+				<StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom">
+						<Button IsEnabled="{Binding BackEnabled}" Command="{Binding Back}">
+								Back
+						</Button>
+						<Button IsEnabled="{Binding NextEnabled}" Command="{Binding Next}">
+								<TextBlock Text="{Binding NextCaption}" />
+						</Button>
+						<Button IsCancel="True" Command="{Binding Cancel}">Cancel</Button>
+				</StackPanel>
+				<Carousel Items="{Binding ViewModels}" SelectedIndex="{Binding CurrentPage}">
+						<Carousel.DataTemplates>
+								<DataTemplate DataType="vm:Components.TextPanelVM">
+										<DockPanel>
+												<TextBlock Text="{Binding Text}" HorizontalAlignment="Center" VerticalAlignment="Center">
+												</TextBlock>
+										</DockPanel>
+								</DataTemplate>
+								<DataTemplate DataType="vm:Components.TextInputPanelVM">
+										<StackPanel Orientation="Vertical">
+												<TextBlock Text="{Binding Caption}">
+												</TextBlock>
+												<TextBox Watermark="{Binding Caption}" Text="{Binding Text}">
+												</TextBox>
+										</StackPanel>
+								</DataTemplate>
+								<DataTemplate DataType="vm:Components.OptionPanelVM">
+										<StackPanel Orientation="Vertical">
+												<TextBlock Text="{Binding Caption}">
+												</TextBlock>
+												<ListBox Items="{Binding Options}" SelectedItem ="{Binding SelectedValue}" Name="RadioList">
+														<ListBox.Styles>
+																<Style Selector="ListBox">
+																		<Setter Property="Background" Value="Transparent" />
+																</Style>
+														</ListBox.Styles>
+														<ListBox.ItemTemplate>
+																<DataTemplate>
+																		<RadioButton Content="{Binding}"
+																								 GroupName ="1"
+																								 IsChecked="{Binding $parent.IsSelected}">
+																		</RadioButton>
+																</DataTemplate>
+														</ListBox.ItemTemplate>
+												</ListBox>										
+										</StackPanel>
+								</DataTemplate>
+								<DataTemplate DataType="vm:Components.FileOpenPanelVM">
+										<StackPanel Orientation="Vertical">
+												<TextBlock Text="{Binding Caption}">
+												</TextBlock>
+												<Button Click="fileOpenButton_Click" CommandParameter="{Binding}">Select...</Button>
+												<TextBlock Text="{Binding FilePath}">
+														
+												</TextBlock>
+										</StackPanel>
+								</DataTemplate>
+						</Carousel.DataTemplates>
+				</Carousel>
+		</DockPanel>
+</Window>

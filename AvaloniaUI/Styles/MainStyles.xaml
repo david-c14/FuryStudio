@@ -1,0 +1,40 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+				xmlns:local="clr-namespace:carbon14.FuryStudio.AvaloniaUI.Converters;assembly=carbon14.FuryStudio.AvaloniaUI">
+		<Design.PreviewWith>
+				<Border Padding="20">
+						<!-- Add Controls for Previewer Here -->
+				</Border>
+		</Design.PreviewWith>
+		<Styles.Resources>
+				<local:BitmapAssetValueConverter x:Key="image16FromStream" />
+		</Styles.Resources>
+
+		<!-- Add Styles Here -->
+		<Style Selector="MenuItem">
+				<Setter Property="FontSize" Value="12"/>
+		</Style>
+		<Style Selector="TabItem">
+				<Setter Property="FontSize" Value="12"/>
+		</Style>
+		<Style Selector="TextBlock">
+				<Setter Property="FontSize" Value="12"/>
+		</Style>
+		<Style Selector="TextBox">
+				<Setter Property="FontSize" Value="12"/>
+				<Setter Property="CornerRadius" Value="0"	/>
+		</Style>
+		<Style Selector="ListBoxItem">
+				<Setter Property="Padding" Value="1"/>
+		</Style>
+		<Style Selector="AccessText">
+				<Setter Property="FontSize" Value="12"/>
+		</Style>
+		<Style Selector="RadioButton">
+				<Setter Property="FontSize" Value="12"/>
+		</Style>
+		<Style Selector="Button">
+				<Setter Property="Margin" Value="4"/>
+		</Style>
+
+</Styles>

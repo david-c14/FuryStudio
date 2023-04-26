@@ -1,0 +1,4 @@
+[submodule "Utils/Catch2"]
+	path = Utils/Catch2
+	url = https://github.com/catchorg/Catch2
+	branch = v2.x

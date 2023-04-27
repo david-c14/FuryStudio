@@ -1,0 +1,22 @@
+on:
+  push:
+name: Build and Test
+jobs:
+  buildWindows:
+    name: Build Windows
+    runs-on: windows-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@master
+      
+    - name: Checkout Submodules
+      run: git submodule update --init
+      
+    - name: Build cli and library
+      run: |
+        cd FuryStudio\Utils\build
+        cmake .
+        cmake --build .
+        
+    - name: Test cli
+      run Debug\Cli_Tests

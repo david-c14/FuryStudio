@@ -10,5 +10,6 @@
 #include "dat.h"
 #include "imm.h"
 #include "exceptions.h"
+#include "version.h"
 
 #endif

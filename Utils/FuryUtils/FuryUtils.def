@@ -2,6 +2,10 @@ LIBRARY FuryUtils
 EXPORTS
 	GetExceptionCode
 	GetExceptionString
+	GetVersionMajor
+	GetVersionMinor
+	GetVersionRevision
+	GetVersionString
 	Dat_createNew
 	Dat_create
 	Dat_destroy

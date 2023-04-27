@@ -44,7 +44,7 @@ TEST_CASE("IMM_Version_parameter_should_yield_version_number") {
 	
 	RETURNVALUE(0)
 	ISEMPTY(CLITEST_STDERR)
-	FILECONTENT(CLITEST_STDOUT, "ImmFile " xstr(UTILS_VER) "\n");
+	FILECONTENT(CLITEST_STDOUT, "ImmFile " UTILS_VER "\n");
 }
 
 TEST_CASE("IMM_Unknown_parameter_should_yield_usage_message") {

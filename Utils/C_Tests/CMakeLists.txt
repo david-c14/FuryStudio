@@ -4,6 +4,7 @@ add_executable(C_Tests
     catchmain.cpp
     Bmp_Tests.cpp 
     Dat_Tests.cpp 
+	Version_Tests.cpp
     utils.cpp 
     Wrappers.c
 )

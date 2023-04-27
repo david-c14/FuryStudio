@@ -8,6 +8,22 @@ const char *Test_GetExceptionString() {
 	return GetExceptionString();
 }
 
+int Test_GetVersionMajor() {
+	return GetVersionMajor();
+}
+
+int Test_GetVersionMinor() {
+	return GetVersionMinor();
+}
+
+int Test_GetVersionRevision() {
+	return GetVersionRevision();
+}
+
+const char *Test_GetVersionString() {
+	return GetVersionString();
+}
+
 dat_p Test_Dat_createNew() {
 	return Dat_createNew();
 }

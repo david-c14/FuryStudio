@@ -1,3 +1,4 @@
+#include "../include/datheader.h"
 
 typedef void * dat_p;
 typedef void * imm_p;
@@ -7,6 +8,11 @@ extern "C" {
 
 	int Test_GetExceptionCode();
 	const char *Test_GetExceptionString();
+	
+	int Test_GetVersionMajor();
+	int Test_GetVersionMinor();
+	int Test_GetVersionRevision();
+	const char * Test_GetVersionString();
 
 	dat_p Test_Dat_createNew();
 	dat_p Test_Dat_create(uint8_t *buffer, uint32_t size);

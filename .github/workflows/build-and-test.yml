@@ -12,13 +12,38 @@ jobs:
     - name: Checkout Submodules
       run: git submodule update --init
       
-    - name: Build cli and library
+    - name: Build Command Line Utilities and Library
       run: |
         cd Utils\build
         cmake .
         cmake --build .
         
-    - name: Test cli
+    - name: Test Command Line Utilities
       run: |
         cd Utils\build
         .\Debug\Cli_Tests.exe
+
+    - name: Test Library using C
+      run: |
+        cd Utils\build
+        .\Debug\C_Tests.exe
+
+    - name: Test Library using C++
+      run: |
+        cd Utils\build
+        .\Debug\Cpp_Tests.exe
+        
+    - name: Package Utilities
+      run: |
+        cd Utils\build
+        mkdir artifacts
+        mkdir artifacts\Utils
+        copy Debug\DatFile.exe artifacts\Utils
+        copy Debug\ImmFile.exe artifacts\Utils
+        
+    - name: Upload Artifacts
+      uses: actions/upload-artifact/@v3
+      with:
+        name: Utils-Windows-x64
+        path: Utils\build\artifacts\Utils\
+        

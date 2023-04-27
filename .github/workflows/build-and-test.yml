@@ -20,5 +20,5 @@ jobs:
         
     - name: Test cli
       run: |
-        pwd 
+        cd Utils\build
         .\Debug\Cli_Tests.exe

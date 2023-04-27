@@ -14,7 +14,7 @@ jobs:
       
     - name: Build cli and library
       run: |
-        cd FuryStudio\Utils\build
+        cd Utils\build
         cmake .
         cmake --build .
         

@@ -19,4 +19,6 @@ jobs:
         cmake --build .
         
     - name: Test cli
-      run: .\Debug\Cli_Tests.exe
+      run: |
+        cd 
+        .\Debug\Cli_Tests.exe

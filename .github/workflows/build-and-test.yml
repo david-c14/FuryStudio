@@ -60,6 +60,6 @@ jobs:
       uses: softprops/action-gh-release@v1
       with:
         files: |
-          Utils/build/artifacts/artifacts/Utils-win-x64-${{ github.event.release.name }}.zip
+          Utils/build/artifacts/Utils-win-x64-${{ github.event.release.name }}.zip
 
         

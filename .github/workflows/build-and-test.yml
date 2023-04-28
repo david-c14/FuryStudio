@@ -42,8 +42,8 @@ jobs:
       run: |
         cd Utils\build\Debug
         $cmdOutput = &".\datfile.exe" -v
-        $cmdVersion = "v" + $cmdOutput.Substring(12)
-        $relVersion =  ${{ github.event.release.name }}
+        $cmdVersion = $cmdOutput.Substring(12)
+        $relVersion =  "${{ github.event.release.name }}"
         echo $cmdVersion
         echo $relVersion
         if ($cmdVersion -ne $relVersion) { exit 1 }

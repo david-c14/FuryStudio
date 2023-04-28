@@ -1,6 +1,5 @@
 #include "../Catch2/single_include/catch2/catch.hpp"
 #include "utils.hpp"
-#include "../include/datheader.h"
 #include "wrappers.h"
 
 using Catch::Matchers::Equals;
@@ -252,3 +251,4 @@ TEST_CASE("Given a new dat When files are added without compression Then the res
 	}
 	Test_Dat_destroy(dat);
 }
+

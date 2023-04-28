@@ -36,7 +36,7 @@ int Usage(char *arg0) {
 
 int Version(char *arg0) {
 	std::string name = GetFileName(arg0);
-	printf("%s %s\n", name.c_str(), xstr(UTILS_VER));
+	printf("%s %s\n", name.c_str(), UTILS_VER);
 	return 0;
 }
 

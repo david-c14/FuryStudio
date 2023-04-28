@@ -48,7 +48,7 @@ TEST_CASE("DAT_Version_parameter_should_yield_version_number") {
 	
 	RETURNVALUE(0)
 	ISEMPTY(CLITEST_STDERR)
-	FILECONTENT(CLITEST_STDOUT, "DatFile " xstr(UTILS_VER) "\n");
+	FILECONTENT(CLITEST_STDOUT, "DatFile " UTILS_VER "\n");
 }
 
 TEST_CASE("DAT_Unknown_parameter_should_yield_usage_message") {

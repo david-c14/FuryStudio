@@ -11,6 +11,8 @@ add_library(FuryUtils SHARED
     exceptions_c.c 
     Imm.cpp 
     imm_c.c 
+	Version.cpp
+	version_c.c
     FuryUtils.def
 )
 add_custom_command(TARGET FuryUtils POST_BUILD

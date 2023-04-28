@@ -1,0 +1,1 @@
+#include "../src/version_c.c"

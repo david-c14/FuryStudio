@@ -1,5 +1,4 @@
-on:
-  push:
+on: [push, release]
 name: Build and Test
 jobs:
   buildWindows:

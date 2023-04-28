@@ -33,17 +33,27 @@ jobs:
         cd Utils\build
         .\Debug\Cpp_Tests.exe
         
+    - name: Test Version
+      if: ${{ github.event_name == "release" }}
+      run: |
+        cd Utils\build\Debug
+        $cmdOutput = &"datfile.exe" -v
+        $cmdVersion = "v" + $cmdOutput.Substring(12)
+        $relVersion =  ${{ github.event.release.name }}
+        if ($cmdVersion -ne $relVersion) { exit 1 }
+        
     - name: Package Utilities
+      if: ${{ github.event_name == "release" }}
       run: |
         cd Utils\build
         mkdir artifacts
-        mkdir artifacts\Utils
-        copy Debug\DatFile.exe artifacts\Utils
-        copy Debug\ImmFile.exe artifacts\Utils
+        Compress-Archive -Path ".\Debug\DatFile.exe", ".\Debug\ImmFile.exe", "..\..\LICENSE", "..\..\doc\datfile.md", "..\..\doc\immfile.md" -DestinationPath "artifacts\Utils-win-x64-${{ github.event.release.name }}.zip"
         
     - name: Upload Artifacts
-      uses: actions/upload-artifact/@v3
+      if: ${{ github.event_name == "release" }}
+      uses: softprops/action-gh-release@v1
       with:
-        name: Utils-Windows-x64
-        path: Utils\build\artifacts\Utils\
+        files: |
+          Utils/build/artifacts/artifacts/Utils-win-x64-${{ github.event.release.name }}.zip
+
         

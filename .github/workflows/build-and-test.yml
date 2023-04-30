@@ -121,14 +121,14 @@ jobs:
         cp ../../LICENSE artifacts/utils
         cp ../../doc/datfile.md artifacts/utils
         cp ../../doc/immfile.md artifacts/utils
-        tar -cvzf "artifacts\Utils-linux-x64-${{ github.event.release.name }}.zip" artifacts/utils
+        tar -cvzf "artifacts/Utils-linux-x64-${{ github.event.release.name }}.tgz" artifacts/utils
         
     - name: Upload Artifacts
       if: ${{ github.event_name == 'release' }}
       uses: softprops/action-gh-release@v1
       with:
         files: |
-          Utils/build/artifacts/Utils-linux-x64-${{ github.event.release.name }}.zip
+          Utils/build/artifacts/Utils-linux-x64-${{ github.event.release.name }}.tgz
 
         
         

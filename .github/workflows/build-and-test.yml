@@ -116,11 +116,11 @@ jobs:
         cd Utils/build
         mkdir artifacts
         mkdir artifacts/utils
-        copy ./Debug/DatFile artifacts/utils
-        copy ./Debug/ImmFile artifacts/utils
-        copy ../../LICENSE artifacts/utils
-        copy ../../doc/datfile.md artifacts/utils
-        copy ../../doc/immfile.md artifacts/utils
+        cp ./Debug/DatFile artifacts/utils
+        cp ./Debug/ImmFile artifacts/utils
+        cp ../../LICENSE artifacts/utils
+        cp ../../doc/datfile.md artifacts/utils
+        cp ../../doc/immfile.md artifacts/utils
         tar -cvzf "artifacts\Utils-linux-x64-${{ github.event.release.name }}.zip" artifacts/utils
         
     - name: Upload Artifacts

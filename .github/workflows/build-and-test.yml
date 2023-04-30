@@ -53,7 +53,13 @@ jobs:
       run: |
         cd Utils\build
         mkdir artifacts
-        Compress-Archive -Path ".\Debug\DatFile.exe", ".\Debug\ImmFile.exe", "..\..\LICENSE", "..\..\doc\datfile.md", "..\..\doc\immfile.md" -DestinationPath "artifacts\Utils-win-x64-${{ github.event.release.name }}.zip"
+        mkdir artifacts\utils
+        copy .\Debug\DatFile.exe artifacts\utils
+        copy .\Debug\ImmFile.exe artifacts\utils
+        copy ..\..\LICENSE artifacts\utils
+        copy ..\..\doc\datfile.md artifacts\utils
+        copy ..\..\doc\immfile.md artifacts\utils
+        Compress-Archive -Path ".\artifacts\utils\*" -DestinationPath "artifacts\Utils-win-x64-${{ github.event.release.name }}.zip"
         
     - name: Upload Artifacts
       if: ${{ github.event_name == 'release' }}
@@ -62,4 +68,67 @@ jobs:
         files: |
           Utils/build/artifacts/Utils-win-x64-${{ github.event.release.name }}.zip
 
+  buildLinux:
+    name: Build Linux
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@master
+      
+    - name: Checkout Submodules
+      run: git submodule update --init
+      
+    - name: Build Command Line Utilities and Library
+      run: |
+        cd Utils/build
+        cmake .
+        cmake --build .
+        
+    - name: Test Command Line Utilities
+      run: |
+        cd Utils/build
+        ./Debug/Cli_Tests
+
+    - name: Test Library using C
+      run: |
+        cd Utils/build
+        ./Debug/C_Tests
+
+    - name: Test Library using C++
+      run: |
+        cd Utils/build
+        ./Debug/Cpp_Tests
+        
+    - name: Test Version
+      if: ${{ github.event_name == 'release' }}
+      run: |
+        cd Utils/build/Debug
+        cmdOutput=$(./DatFile -v)
+        cmdVersion=${cmdOutput:8}
+        relVersion="${{ github.event.release.name }}"
+        echo $cmdVersion
+        echo $relVersion
+        if [ "$cmdVersion" == "$relVersion" ]; then exit 1; fi
+        
+    - name: Package Utilities
+      if: ${{ github.event_name == 'release' }}
+      run: |
+        cd Utils/build
+        mkdir artifacts
+        mkdir artifacts/utils
+        copy ./Debug/DatFile artifacts/utils
+        copy ./Debug/ImmFile artifacts/utils
+        copy ../../LICENSE artifacts/utils
+        copy ../../doc/datfile.md artifacts/utils
+        copy ../../doc/immfile.md artifacts/utils
+        tar -cvzf "artifacts\Utils-linux-x64-${{ github.event.release.name }}.zip" artifacts/utils
+        
+    - name: Upload Artifacts
+      if: ${{ github.event_name == 'release' }}
+      uses: softprops/action-gh-release@v1
+      with:
+        files: |
+          Utils/build/artifacts/Utils-linux-x64-${{ github.event.release.name }}.zip
+
+        
         

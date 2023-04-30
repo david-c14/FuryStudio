@@ -56,7 +56,7 @@ uint8_t Test_Dat_entry(dat_p dat, uint32_t index, uint8_t *buffer, uint32_t size
 	return Dat_entry(dat, index, buffer, size);
 }
 
-void Test_Dat_add(dat_p dat, char *fileName, uint8_t *buffer, uint32_t size, uint8_t compress) {
+void Test_Dat_add(dat_p dat, const char *fileName, uint8_t *buffer, uint32_t size, uint8_t compress) {
 	Dat_add(dat, fileName, buffer, size, compress);
 }
 

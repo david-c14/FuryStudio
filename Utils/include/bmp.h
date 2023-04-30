@@ -1,4 +1,4 @@
-// bmp.h You should not need to manually include this file. You should include FuryUtils.h
+/* bmp.h You should not need to manually include this file. You should include FuryUtils.h */
 
 #ifndef __BMP_H__
 #define __BMP_H__

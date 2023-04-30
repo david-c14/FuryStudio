@@ -1,4 +1,4 @@
-// datheader.h You should not need to manually include this file. You should include FuryUtils.h
+/* datheader.h You should not need to manually include this file. You should include FuryUtils.h */
 
 #ifndef __DATHEADER_H__
 #define __DATHEADER_H__

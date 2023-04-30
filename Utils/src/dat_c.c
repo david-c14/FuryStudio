@@ -32,7 +32,7 @@ uint8_t Dat_entry(dat_p dat, uint32_t index, uint8_t *buffer, uint32_t size) {
 	return _Dat_entry(dat, index, buffer, size);
 }
 
-void Dat_add(dat_p dat, char *fileName, uint8_t *buffer, uint32_t size, uint8_t compress) {
+void Dat_add(dat_p dat, const char *fileName, uint8_t *buffer, uint32_t size, uint8_t compress) {
 	_Dat_add(dat, fileName, buffer, size, compress);
 }
 

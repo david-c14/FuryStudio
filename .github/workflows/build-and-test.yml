@@ -87,17 +87,17 @@ jobs:
     - name: Test Command Line Utilities
       run: |
         cd Utils/build
-        ./Debug/Cli_Tests.exe
+        ./Debug/Cli_Tests
 
     - name: Test Library using C
       run: |
         cd Utils/build
-        ./Debug/C_Tests.exe
+        ./Debug/C_Tests
 
     - name: Test Library using C++
       run: |
         cd Utils/build
-        ./Debug/Cpp_Tests.exe
+        ./Debug/Cpp_Tests
         
     - name: Test Version
       if: ${{ github.event_name == 'release' }}

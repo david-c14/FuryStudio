@@ -17,6 +17,6 @@ void _Dat_reset(dat_p dat);
 uint8_t _Dat_next(dat_p dat, DatHeader_t *header);
 uint8_t _Dat_header(dat_p dat, uint32_t index, DatHeader_t *header);
 uint8_t _Dat_entry(dat_p dat, uint32_t index, uint8_t *buffer, uint32_t size);
-void _Dat_add(dat_p dat, char *fileName, uint8_t *buffer, uint32_t size, uint8_t compress);
+void _Dat_add(dat_p dat, const char *fileName, uint8_t *buffer, uint32_t size, uint8_t compress);
 uint32_t _Dat_size(dat_p dat);
 uint8_t _Dat_buffer(dat_p dat, uint8_t *buffer, uint32_t size);

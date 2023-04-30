@@ -119,7 +119,7 @@ extern "C" {
 		return true;
 	}
 
-	void _Dat_add(Dat *dat, char *fileName, uint8_t *buffer, uint32_t size, uint8_t compress) {
+	void _Dat_add(Dat *dat, const char *fileName, uint8_t *buffer, uint32_t size, uint8_t compress) {
 		ErrorCode = Exceptions::NO_ERROR;
 		ErrorString = "";
 		try {

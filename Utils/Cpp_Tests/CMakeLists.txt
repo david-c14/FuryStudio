@@ -6,6 +6,7 @@ add_executable(Cpp_Tests
     Bmp2Imm_Tests.cpp 
     Dat_Tests.cpp 
     Imm2Bmp_Tests.cpp 
+	Version_Tests.cpp
     utils.cpp
 )
 target_link_libraries(Cpp_Tests FuryUtils)

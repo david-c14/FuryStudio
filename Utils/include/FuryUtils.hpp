@@ -6,3 +6,4 @@
 #include "bmp.hpp"
 #include "dat.hpp"
 #include "exceptions.hpp"
+#include "version.hpp"

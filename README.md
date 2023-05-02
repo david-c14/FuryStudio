@@ -5,6 +5,7 @@
 ![](https://img.shields.io/github/v/release/david-c14/FuryStudio?label=Latest&logo=github) 
 ![](https://img.shields.io/github/release-date/david-c14/FuryStudio?label=Released&logo=github) 
 ![](https://img.shields.io/badge/License-GPLv3-blue.svg)
+![](https://img.shields.io/badge/platforms-linux--x64%20%7C%20win--x64-lightgrey)
 
 An application for editing the assets of the game Fury of the Furries
 

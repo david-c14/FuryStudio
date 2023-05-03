@@ -59,7 +59,8 @@ jobs:
         copy ..\..\LICENSE artifacts\utils
         copy ..\..\doc\datfile.md artifacts\utils
         copy ..\..\doc\immfile.md artifacts\utils
-        Compress-Archive -Path ".\artifacts\utils\*" -DestinationPath "artifacts\Utils-win-x64-${{ github.event.release.name }}.zip"
+        cd artifacts
+        Compress-Archive -Path ".\utils\*" -DestinationPath "Utils-win-x64-${{ github.event.release.name }}.zip"
         
     - name: Upload Artifacts
       if: ${{ github.event_name == 'release' }}
@@ -121,7 +122,8 @@ jobs:
         cp ../../LICENSE artifacts/utils
         cp ../../doc/datfile.md artifacts/utils
         cp ../../doc/immfile.md artifacts/utils
-        tar -cvzf "artifacts/Utils-linux-x64-${{ github.event.release.name }}.tgz" artifacts/utils
+        cd artifacts
+        tar -cvzf "Utils-linux-x64-${{ github.event.release.name }}.tgz" utils
         
     - name: Upload Artifacts
       if: ${{ github.event_name == 'release' }}

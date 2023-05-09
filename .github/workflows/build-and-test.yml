@@ -27,15 +27,25 @@ jobs:
         cd Utils\build
         .\Debug\Cli_Tests.exe
 
-    - name: Test Library using C
+    - name: Test Dynamic Library using C
       run: |
         cd Utils\build
         .\Debug\C_Tests.exe
 
-    - name: Test Library using C++
+    - name: Test Dynamic Library using C++
       run: |
         cd Utils\build
         .\Debug\Cpp_Tests.exe
+        
+    - name: Test Static Library using C
+      run: |
+        cd Utils\build
+        .\Debug\C_LibTests.exe
+
+    - name: Test Static Library using C++
+      run: |
+        cd Utils\build
+        .\Debug\Cpp_LibTests.exe
         
     - name: Test Version
       if: ${{ github.event_name == 'release' }}
@@ -90,15 +100,25 @@ jobs:
         cd Utils/build
         ./Debug/Cli_Tests
 
-    - name: Test Library using C
+    - name: Test Dynamic Library using C
       run: |
         cd Utils/build
         ./Debug/C_Tests
 
-    - name: Test Library using C++
+    - name: Test Dynamic Library using C++
       run: |
         cd Utils/build
         ./Debug/Cpp_Tests
+        
+    - name: Test Static Library using C
+      run: |
+        cd Utils/build
+        ./Debug/C_LibTests
+
+    - name: Test Static Library using C++
+      run: |
+        cd Utils/build
+        ./Debug/Cpp_LibTests
         
     - name: Test Version
       if: ${{ github.event_name == 'release' }}
@@ -119,6 +139,7 @@ jobs:
         mkdir artifacts/utils
         cp ./Debug/DatFile artifacts/utils
         cp ./Debug/ImmFile artifacts/utils
+        chmod 775 artifacts/utils/*
         cp ../../LICENSE artifacts/utils
         cp ../../doc/datfile.md artifacts/utils
         cp ../../doc/immfile.md artifacts/utils

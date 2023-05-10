@@ -103,5 +103,40 @@ extern "C" {
 		}
 		return true;
 	}
-
+	
+	uint16_t _Imm_width(Imm *imm) {
+		ErrorCode = Exceptions::NO_ERROR;
+		ErrorString = "";
+		try {
+			return imm->Width();
+		}
+		catch (...) {
+			Exceptions::HANDLE();
+		}
+		return 0;
+	}
+	
+	uint16_t _Imm_height(Imm *imm) {
+		ErrorCode = Exceptions::NO_ERROR;
+		ErrorString = "";
+		try {
+			return imm->Height();
+		}
+		catch (...) {
+			Exceptions::HANDLE();
+		}
+		return 0;
+	}
+	
+	uint16_t _Imm_depth(Imm *imm) {
+		ErrorCode = Exceptions::NO_ERROR;
+		ErrorString = "";
+		try {
+			return imm->Depth();
+		}
+		catch (...) {
+			Exceptions::HANDLE();
+		}
+		return 0;
+	}
 }

@@ -42,6 +42,9 @@ public:
 	void ImmBuffer(std::vector<uint8_t> &inputBuffer);
 	uint32_t PamSize();
 	void PamBuffer(std::vector<uint8_t> &inputBuffer);
+	uint16_t Width();
+	uint16_t Height();
+	uint16_t Depth();
 
 };
 

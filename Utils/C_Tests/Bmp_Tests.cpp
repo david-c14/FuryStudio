@@ -62,3 +62,38 @@ TEST_CASE("Given a sound imm and pam When used to create a bmp Then the correct 
 	}
 	Test_Bmp_destroy(bmp);
 }
+
+TEST_CASE("Given a sound imm and pam Whe used to create a bmp Then the correct size and depth are returned") {
+	std::vector<uint8_t> inputPixelFile = utils::ReadFile("pal8out.imm");
+	std::vector<uint8_t> inputPaletteFile = utils::ReadFile("pal8out.pam");
+	bmp_p bmp = Test_Bmp_createFromImmAndPam(inputPixelFile.data(), uint32_t(inputPixelFile.size()), inputPaletteFile.data(), uint32_t(inputPaletteFile.size()));
+	try {
+		uint16_t width = Test_Imm_width(bmp);
+		uint16_t height = Test_Imm_height(bmp);
+		uint16_t depth = Test_Imm_depth(bmp);
+		REQUIRE(width == (uint16_t)127);
+		REQUIRE(height == (uint16_t)64);
+		REQUIRE(depth == (uint16_t)8);
+	}
+	catch (...) {
+
+	}
+	Test_Bmp_destroy(bmp);
+}
+
+TEST_CASE("Given a sound bmp When used to create an imm Then the correct size and depth are returned") {
+	std::vector<uint8_t> inputFile = utils::ReadFile("pal8out.bmp");
+	bmp_p bmp = Test_Bmp_createFromBmp(inputFile.data(), uint32_t(inputFile.size()));
+	try {
+		uint16_t width = Test_Imm_width(bmp);
+		uint16_t height = Test_Imm_height(bmp);
+		uint16_t depth = Test_Imm_depth(bmp);
+		REQUIRE(width == (uint16_t)127);
+		REQUIRE(height == (uint16_t)64);
+		REQUIRE(depth == (uint16_t)8);
+	}
+	catch (...) {
+
+	}
+	Test_Bmp_destroy(bmp);
+}

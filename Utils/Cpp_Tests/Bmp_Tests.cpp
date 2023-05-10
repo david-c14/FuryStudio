@@ -234,6 +234,9 @@ TEST_CASE("Given a file with an 8bpp bitmap When the file is used to construct a
 	bmp.Buffer(actual);
 
 	REQUIRE(actual == expected);
+	REQUIRE(bmp.Width() == (uint16_t)127);
+	REQUIRE(bmp.Height() == (uint16_t)64);
+	REQUIRE(bmp.Depth() == (uint16_t)8);
 }
 
 TEST_CASE("Given a file with an 8bpp bitmap with negative height When the file is used to construct a bmp Then the bmp is correct") {
@@ -245,6 +248,9 @@ TEST_CASE("Given a file with an 8bpp bitmap with negative height When the file i
 	bmp.Buffer(actual);
 
 	REQUIRE(actual == expected);
+	REQUIRE(bmp.Width() == (uint16_t)127);
+	REQUIRE(bmp.Height() == (uint16_t)64);
+	REQUIRE(bmp.Depth() == (uint16_t)8);
 }
 
 TEST_CASE("Given a file with an 8bpp os2 bitmap When the file is used to construct a bmp Then the bmp is correct") {
@@ -256,6 +262,9 @@ TEST_CASE("Given a file with an 8bpp os2 bitmap When the file is used to constru
 	bmp.Buffer(actual);
 
 	REQUIRE(actual == expected);
+	REQUIRE(bmp.Width() == (uint16_t)127);
+	REQUIRE(bmp.Height() == (uint16_t)64);
+	REQUIRE(bmp.Depth() == (uint16_t)8);
 }
 
 TEST_CASE("Given a file with an 8bpp v4 bitmap When the file is used to construct a bmp Then the bmp is correct") {
@@ -267,6 +276,9 @@ TEST_CASE("Given a file with an 8bpp v4 bitmap When the file is used to construc
 	bmp.Buffer(actual);
 
 	REQUIRE(actual == expected);
+	REQUIRE(bmp.Width() == (uint16_t)127);
+	REQUIRE(bmp.Height() == (uint16_t)64);
+	REQUIRE(bmp.Depth() == (uint16_t)8);
 }
 
 TEST_CASE("Given a file with an 8bpp v5 bitmap When the file is used to construct a bmp Then the bmp is correct") {
@@ -278,6 +290,9 @@ TEST_CASE("Given a file with an 8bpp v5 bitmap When the file is used to construc
 	bmp.Buffer(actual);
 
 	REQUIRE(actual == expected);
+	REQUIRE(bmp.Width() == (uint16_t)127);
+	REQUIRE(bmp.Height() == (uint16_t)64);
+	REQUIRE(bmp.Depth() == (uint16_t)8);
 }
 
 TEST_CASE("Given a file with an 8bpp with minimal info When the file is used to construct a bmp Then the bmp is correct") {
@@ -289,6 +304,9 @@ TEST_CASE("Given a file with an 8bpp with minimal info When the file is used to 
 	bmp.Buffer(actual);
 
 	REQUIRE(actual == expected);
+	REQUIRE(bmp.Width() == (uint16_t)127);
+	REQUIRE(bmp.Height() == (uint16_t)64);
+	REQUIRE(bmp.Depth() == (uint16_t)8);
 }
 
 TEST_CASE("Given a file with a 4bpp When the file is used to construct a bmp Then the bmp is correct") {
@@ -300,6 +318,9 @@ TEST_CASE("Given a file with a 4bpp When the file is used to construct a bmp The
 	bmp.Buffer(actual);
 
 	REQUIRE(actual == expected);
+	REQUIRE(bmp.Width() == (uint16_t)127);
+	REQUIRE(bmp.Height() == (uint16_t)64);
+	REQUIRE(bmp.Depth() == (uint16_t)4);
 }
 
 TEST_CASE("Given a file with an 8bpp rle When the file is used to construct a bmp Then the bmp is correct") {
@@ -311,6 +332,9 @@ TEST_CASE("Given a file with an 8bpp rle When the file is used to construct a bm
 	bmp.Buffer(actual);
 
 	REQUIRE(actual == expected);
+	REQUIRE(bmp.Width() == (uint16_t)127);
+	REQUIRE(bmp.Height() == (uint16_t)64);
+	REQUIRE(bmp.Depth() == (uint16_t)8);
 }
 
 TEST_CASE("Given a file with a 4bpp rle When the file is used to construct a bmp Then the bmp is correct") {
@@ -322,4 +346,7 @@ TEST_CASE("Given a file with a 4bpp rle When the file is used to construct a bmp
 	bmp.Buffer(actual);
 
 	REQUIRE(actual == expected);
+	REQUIRE(bmp.Width() == (uint16_t)127);
+	REQUIRE(bmp.Height() == (uint16_t)64);
+	REQUIRE(bmp.Depth() == (uint16_t)4);
 }

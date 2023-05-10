@@ -98,3 +98,15 @@ void Imm::PamBuffer(std::vector<uint8_t> &inputBuffer) {
 	return;
 }
 
+uint16_t Imm::Width() {
+	return _width;
+}
+
+uint16_t Imm::Height() {
+	return _height;
+}
+
+uint16_t Imm::Depth() {
+	return _depth;
+}
+

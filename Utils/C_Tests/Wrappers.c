@@ -92,6 +92,18 @@ uint8_t Test_Imm_pamBuffer(imm_p imm, uint8_t *buffer, uint32_t size) {
 	return Imm_pamBuffer(imm, buffer, size);
 }
 
+uint16_t Test_Imm_width(imm_p imm) {
+	return Imm_width(imm);
+}
+
+uint16_t Test_Imm_height(imm_p imm) {
+	return Imm_height(imm);
+}
+
+uint16_t Test_Imm_depth(imm_p imm) {
+	return Imm_depth(imm);
+}
+
 bmp_p Test_Bmp_createFromBmp(uint8_t *buffer, uint32_t size) {
 	return Bmp_createFromBmp(buffer, size);
 }

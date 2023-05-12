@@ -14,6 +14,7 @@
 
 #include <ios>
 #include <fstream>
+#include <cstring>
 #include "../include/FuryUtils.hpp"
 
 void dat_read(const char * archiveFileName, const char * bmpFileName) {

@@ -11,3 +11,5 @@
 ### Library Sample Code
 
 #### [C](c_samples.md) Using the FuryUtils shared library in C
+
+#### [C++](cpp_samples.md) Using the FuryUtils shared library in c++

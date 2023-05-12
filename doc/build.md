@@ -23,7 +23,7 @@
 - `cd ..\..`
 - `dotnet test`
 
-### Run Guid application 
+### Run GUI application 
 either
 - `cd WinUI`
 - `dotnet run --framework net6.0`

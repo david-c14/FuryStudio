@@ -12,7 +12,7 @@ void dat_create(const char * immFileName, const char * pamFileName, const char *
 void dat_read(const char * datFileName, const char * bmpFileName);
 
 int main(int argc, char *argv[]) {
-	printf("FuryUtils C Samples\n\n");
+	printf("FuryUtils C++ Samples\n\n");
 
 	imm2bmp(ASSETDIR "pal8out.imm", ASSETDIR "pal8out.pam", "pal8out.bmp");
 	bmp2imm(ASSETDIR "pal8out.bmp", "pal8out.imm", "pal8out.pam");

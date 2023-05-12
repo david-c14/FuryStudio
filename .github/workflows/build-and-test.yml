@@ -47,6 +47,10 @@ jobs:
         cd Utils\build
         .\Debug\Cpp_LibTests.exe
         
+    - name: Build and Test C# Libraries
+      run: | 
+        dotnet test
+        
     - name: Test Version
       if: ${{ github.event_name == 'release' }}
       run: |
@@ -89,6 +93,10 @@ jobs:
     - name: Checkout Submodules
       run: git submodule update --init
       
+    - name: Install .NET 6 SDK
+      run: |
+        sudo apt-get update && sudo apt-get install -y dotnet-sdk-6.0
+      
     - name: Build Command Line Utilities and Library
       run: |
         cd Utils/build
@@ -120,6 +128,10 @@ jobs:
         cd Utils/build
         ./Debug/Cpp_LibTests
         
+    - name: Build and Test C# Libraries
+      run: | 
+        dotnet test
+
     - name: Test Version
       if: ${{ github.event_name == 'release' }}
       run: |

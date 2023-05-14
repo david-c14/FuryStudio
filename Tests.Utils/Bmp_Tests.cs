@@ -42,9 +42,9 @@ namespace carbon14.FuryStudio.Tests.Utils
             byte[]? actualPaletteBuffer = bmp.PamBuffer;
             Assert.True(actualPixelBuffer?.SequenceEqual(expectedPixelBuffer), "Imm buffer is not correct");
             Assert.True(actualPaletteBuffer?.SequenceEqual(expectedPaletteBuffer), "Pam buffer is not correct");
-			Assert.Equal(127, bmp.Width);
-			Assert.Equal(64, bmp.Height);
-			Assert.Equal(8, bmp.Depth);
+            Assert.Equal(127, bmp.Width);
+            Assert.Equal(64, bmp.Height);
+            Assert.Equal(8, bmp.Depth);
         }
 
         [Fact]
@@ -54,9 +54,9 @@ namespace carbon14.FuryStudio.Tests.Utils
             byte[] expectedBuffer = TestHelpers.ReadFile("pal8qnt.bmp");
             byte[]? actualBuffer = bmp.Buffer;
             Assert.True(actualBuffer?.SequenceEqual(expectedBuffer), "Buffer is not correct");
-			Assert.Equal(127, bmp.Width);
-			Assert.Equal(64, bmp.Height);
-			Assert.Equal(8, bmp.Depth);
+            Assert.Equal(127, bmp.Width);
+            Assert.Equal(64, bmp.Height);
+            Assert.Equal(8, bmp.Depth);
         }
     }
 }

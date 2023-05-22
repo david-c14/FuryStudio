@@ -1,4 +1,19 @@
-﻿using carbon14.FuryStudio.Utils;
+﻿///////////////////////////////////////////////////////////////////////////////
+///
+/// FuryUtils Sample
+/// 
+/// Converting an Imm format file to a windows Bmp format file
+/// 
+/// using:
+/// 
+///    Bmp
+///         class for reading/writing images in Bmp format.
+///    FuryException
+///         exception class for reporting errors.
+/// 
+///////////////////////////////////////////////////////////////////////////////
+
+using carbon14.FuryStudio.Utils;
 
 namespace carbon14.FuryStudio.CS_Samples
 {
@@ -10,6 +25,7 @@ namespace carbon14.FuryStudio.CS_Samples
 
             try
             {
+                // Read an image and palette file into buffers
                 byte[] immBuffer;
                 byte[] pamBuffer;
                 using (FileStream fs = new FileStream(immFileName, FileMode.Open))
@@ -24,11 +40,15 @@ namespace carbon14.FuryStudio.CS_Samples
                 }
 
                 byte[]? bmpBuffer;
+
+                // Create a Bmp object from the raw buffers.
+                // Get a buffer for the Bmp object data.
                 using (Bmp bmp = new Bmp(immBuffer, pamBuffer))
                 {
                     bmpBuffer = bmp.Buffer;
                 }
 
+                // Write the bmp data into a file.
                 if (bmpBuffer != null)
                 {
                     using (FileStream fs = new FileStream(bmpFileName, FileMode.Create))

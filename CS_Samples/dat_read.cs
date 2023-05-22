@@ -1,4 +1,19 @@
-﻿using carbon14.FuryStudio.Utils;
+﻿///////////////////////////////////////////////////////////////////////////////
+///
+/// FuryUtils Sample
+/// 
+/// Reading a Dat format file and extracting one file.
+/// 
+/// using:
+/// 
+///    Dat
+///         class for reading/writing Dat archive files.
+///    FuryException
+///         exception class for reporting errors.
+/// 
+///////////////////////////////////////////////////////////////////////////////
+
+using carbon14.FuryStudio.Utils;
 
 namespace carbon14.FuryStudio.CS_Samples
 {
@@ -11,6 +26,7 @@ namespace carbon14.FuryStudio.CS_Samples
             try
             {
 
+                // Open the archive file and read into a buffer.
                 byte[] datBuffer;
                 using (FileStream fs = new FileStream(archiveFileName, FileMode.Open))
                 {
@@ -18,9 +34,11 @@ namespace carbon14.FuryStudio.CS_Samples
                     fs.Read(datBuffer, 0, datBuffer.Length);
                 }
 
+                // Create a Dat object from the buffer.
                 using (Dat archive = new Dat(datBuffer))
                 {
-
+                    // Iterate through the items in the archive.
+                    // Writing details for each item.
                     foreach (Dat.DatItem item in archive)
                     {
                         if (item.IsCompressed)
@@ -37,6 +55,7 @@ namespace carbon14.FuryStudio.CS_Samples
                             continue;
                         }
 
+                        // If the archived file is the one that we require, write it to a file.
                         byte[]? itemBuffer = item.Buffer;
                         if (itemBuffer != null)
                         {

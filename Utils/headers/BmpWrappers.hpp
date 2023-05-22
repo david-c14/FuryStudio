@@ -1,4 +1,4 @@
-// BmpWrappers.hpp - internal header these are the public C wrapper prototypes for C++ classes
+// BmpWrappers.hpp - internal header these are the internal C wrapper prototypes for C++ classes
 
 #pragma once
 

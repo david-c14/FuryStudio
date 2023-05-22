@@ -1,4 +1,4 @@
-// BinaryIO.hpp - internal header these are the public C wrapper prototypes for C++ classes
+// BinaryIO.hpp - internal header these are the prototypes for helper functions
 
 #pragma once
 #include <vector>

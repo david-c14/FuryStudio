@@ -38,7 +38,7 @@ void imm2bmp(const char * immFileName, const char * pamFileName, const char * bm
 		pamStream.read((char *)(pamBuffer.data()), size);
 
 		// Create a Bmp object from the palette and image file
-		Bmp bmp(pamBuffer, immBuffer);
+		FuryUtils::Image::Bmp bmp(pamBuffer, immBuffer);
 
 		// Get a buffer of the image in Bmp format and save it to a stream
 		std::vector<uint8_t> outBuffer;
@@ -49,7 +49,7 @@ void imm2bmp(const char * immFileName, const char * pamFileName, const char * bm
 		
 		return;
 	}
-	catch (Exceptions::Exception e)
+	catch (FuryUtils::Exceptions::Exception e)
 	{
 		printf("Error:\n\n%d %s\n", e._errorCode, e._errorString.c_str());
 		return;

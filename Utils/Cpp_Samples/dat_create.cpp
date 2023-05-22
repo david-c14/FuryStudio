@@ -22,7 +22,7 @@ void dat_create(const char * fileName1, const char * fileName2, const char * arc
 	try {
 
 		// create a Dat archive
-		Dat df;
+		FuryUtils::Archive::Dat df;
 
 		{
 			// Get a stream for the first file and load it into a buffer
@@ -37,7 +37,7 @@ void dat_create(const char * fileName1, const char * fileName2, const char * arc
 			
 			// Read the header from the Dat entry so that we can print 
 			// some details about it.
-			DatHeader *dfh = df.Header(df.EntryCount() - 1);
+			FuryUtils::Archive::DatHeader *dfh = df.Header(df.EntryCount() - 1);
 			if (dfh->IsNotCompressed) {
 				printf("%12s\tUncompressed\t%d\n", dfh->FileName, dfh->UncompressedSize);
 			}
@@ -55,7 +55,7 @@ void dat_create(const char * fileName1, const char * fileName2, const char * arc
 			file.read((char *)(buffer.data()), size);
 
 			df.Add("File2", buffer, false);
-			DatHeader *dfh = df.Header(df.EntryCount() - 1);
+			FuryUtils::Archive::DatHeader *dfh = df.Header(df.EntryCount() - 1);
 			if (dfh->IsNotCompressed) {
 				printf("%12s\tUncompressed\t%d\n", dfh->FileName, dfh->UncompressedSize);
 			}
@@ -72,7 +72,7 @@ void dat_create(const char * fileName1, const char * fileName2, const char * arc
 		
 		return ;
 	}
-	catch (Exceptions::Exception e)
+	catch (FuryUtils::Exceptions::Exception e)
 	{
 		printf("Error:\n\n%d %s\n", e._errorCode, e._errorString.c_str());
 		return;

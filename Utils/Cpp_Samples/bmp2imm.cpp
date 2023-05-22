@@ -30,7 +30,7 @@ void bmp2imm(const char * bmpFileName, const char * immFileName, const char * pa
 		bmpStream.read((char *)(bmpBuffer.data()), size);
 
 		// Create a Bmp object from the input stream
-		Bmp bmp(bmpBuffer);
+		FuryUtils::Image::Bmp bmp(bmpBuffer);
 
 		// Get a buffer of the raw image file and save it to a stream
 		std::vector<uint8_t> immBuffer;
@@ -48,7 +48,7 @@ void bmp2imm(const char * bmpFileName, const char * immFileName, const char * pa
 
 		return;
 	}
-	catch (Exceptions::Exception e)
+	catch (FuryUtils::Exceptions::Exception e)
 	{
 		printf("Error:\n\n%d %s\n", e._errorCode, e._errorString.c_str());
 		return;

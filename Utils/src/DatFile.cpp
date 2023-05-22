@@ -56,7 +56,7 @@ int List(int argc, char* argv[]) {
 		std::ifstream file(argv[2], std::ios::binary | std::ios::ate);
 		if (!file) {
 			printf("%s Error:\n\n File \"%s\" could not be opened\n", name.c_str(), argv[2]);
-			return Exceptions::IO_ERROR;
+			return FuryUtils::Exceptions::IO_ERROR;
 		}
 		std::streamsize size = file.tellg();
 		file.seekg(0, std::ios::beg);
@@ -64,8 +64,8 @@ int List(int argc, char* argv[]) {
 		std::vector<uint8_t> buffer((uint32_t)size);
 		if (file.read((char *)(buffer.data()), size))
 		{
-			Dat df(buffer);
-			DatHeader *dfh;
+			FuryUtils::Archive::Dat df(buffer);
+			FuryUtils::Archive::DatHeader *dfh;
 			printf("%s: Contents of %s\n\n", name.c_str(), argv[2]);
 			printf("  Filename     Compressed   Uncompressed\n");
 			printf("------------  ------------  ------------\n");
@@ -75,14 +75,14 @@ int List(int argc, char* argv[]) {
 			return 0;
 		}
 		printf("%s Error:\n\nFile \"%s\" could not be read\n", name.c_str(), argv[2]);
-		return Exceptions::IO_ERROR;
+		return FuryUtils::Exceptions::IO_ERROR;
 	}
-	catch (Exceptions::Exception e)
+	catch (FuryUtils::Exceptions::Exception e)
 	{
 		printf("%s Error:\n\n%d %s\n", name.c_str(), e._errorCode, e._errorString.c_str());
 		return e._errorCode;
 	}
-	return Exceptions::UNKNOWN_ERROR;
+	return FuryUtils::Exceptions::UNKNOWN_ERROR;
 }
 
 int Brief(int argc, char* argv[]) {
@@ -95,7 +95,7 @@ int Brief(int argc, char* argv[]) {
 		std::ifstream file(argv[2], std::ios::binary | std::ios::ate);
 		if (!file) {
 			printf("%s Error:\n\n File \"%s\" could not be opened\n", name.c_str(), argv[2]);
-			return Exceptions::IO_ERROR;
+			return FuryUtils::Exceptions::IO_ERROR;
 		}
 		std::streamsize size = file.tellg();
 		file.seekg(0, std::ios::beg);
@@ -103,22 +103,22 @@ int Brief(int argc, char* argv[]) {
 		std::vector<uint8_t> buffer((uint32_t)size);
 		if (file.read((char *)(buffer.data()), size))
 		{
-			Dat df(buffer);
-			DatHeader *dfh;
+			FuryUtils::Archive::Dat df(buffer);
+			FuryUtils::Archive::DatHeader *dfh;
 			while (dfh = df.Next()) {
 				printf("%s ", dfh->FileName);
 			}
 			return 0;
 		}
 		printf("%s Error:\n\nFile \"%s\" could not be read\n", name.c_str(), argv[2]);
-		return Exceptions::IO_ERROR;
+		return FuryUtils::Exceptions::IO_ERROR;
 	}
-	catch (Exceptions::Exception e)
+	catch (FuryUtils::Exceptions::Exception e)
 	{
 		printf("%s Error:\n\n%d %s\n", name.c_str(), e._errorCode, e._errorString.c_str());
 		return e._errorCode;
 	}
-	return Exceptions::UNKNOWN_ERROR;
+	return FuryUtils::Exceptions::UNKNOWN_ERROR;
 }
 
 int Extract(int argc, char* argv[]) {
@@ -131,7 +131,7 @@ int Extract(int argc, char* argv[]) {
 		std::ifstream file(argv[2], std::ios::binary | std::ios::ate);
 		if (!file) {
 			printf("%s Error:\n\n File \"%s\" could not be opened\n", name.c_str(), argv[2]);
-			return Exceptions::IO_ERROR;
+			return FuryUtils::Exceptions::IO_ERROR;
 		}
 		std::streamsize size = file.tellg();
 		file.seekg(0, std::ios::beg);
@@ -139,8 +139,8 @@ int Extract(int argc, char* argv[]) {
 		std::vector<uint8_t> buffer((uint32_t)size);
 		if (file.read((char *)(buffer.data()), size))
 		{
-			Dat df(buffer);
-			DatHeader *dfh;
+			FuryUtils::Archive::Dat df(buffer);
+			FuryUtils::Archive::DatHeader *dfh;
 			printf("%s: Extracting \"%s\" from \"%s\"\n\n", name.c_str(), argv[3], argv[2]);
 			while (dfh = df.Next()) {
 				if (strncmp(argv[3], dfh->FileName, 12)) {
@@ -160,22 +160,22 @@ int Extract(int argc, char* argv[]) {
 				}
 				else {
 					printf("%s Error: Could not write file \"%s\"\n", name.c_str(), dfh->FileName);
-					return Exceptions::IO_ERROR;
+					return FuryUtils::Exceptions::IO_ERROR;
 				}
 				return 0;
 			}
 			printf("%s Error: \"%s\" not found in \"%s\"\n", name.c_str(), argv[3], argv[2]);
-			return Exceptions::INDEX_OUT_OF_RANGE;
+			return FuryUtils::Exceptions::INDEX_OUT_OF_RANGE;
 		}
 		printf("%s Error:\n\nFile \"%s\" could not be read\n", name.c_str(), argv[2]);
-		return Exceptions::IO_ERROR;
+		return FuryUtils::Exceptions::IO_ERROR;
 	}
-	catch (Exceptions::Exception e)
+	catch (FuryUtils::Exceptions::Exception e)
 	{
 		printf("%s Error:\n\n%d %s\n", name.c_str(), e._errorCode, e._errorString.c_str());
 		return e._errorCode;
 	}
-	return Exceptions::UNKNOWN_ERROR;
+	return FuryUtils::Exceptions::UNKNOWN_ERROR;
 }
 
 int ExtractAll(int argc, char* argv[]) {
@@ -188,7 +188,7 @@ int ExtractAll(int argc, char* argv[]) {
 		std::ifstream file(argv[2], std::ios::binary | std::ios::ate);
 		if (!file) {
 			printf("%s Error:\n\n File \"%s\" could not be opened\n", name.c_str(), argv[2]);
-			return Exceptions::IO_ERROR;
+			return FuryUtils::Exceptions::IO_ERROR;
 		}
 		std::streamsize size = file.tellg();
 		file.seekg(0, std::ios::beg);
@@ -196,8 +196,8 @@ int ExtractAll(int argc, char* argv[]) {
 		std::vector<uint8_t> buffer((uint32_t)size);
 		if (file.read((char *)(buffer.data()), size))
 		{
-			Dat df(buffer);
-			DatHeader *dfh;
+			FuryUtils::Archive::Dat df(buffer);
+			FuryUtils::Archive::DatHeader *dfh;
 			printf("%s: Extracting all entries from \"%s\"\n\n", name.c_str(), argv[2]);
 			while (dfh = df.Next()) {
 				if (dfh->IsNotCompressed) {
@@ -219,14 +219,14 @@ int ExtractAll(int argc, char* argv[]) {
 			return 0;
 		}
 		printf("%s Error:\n\nFile \"%s\" could not be read\n", name.c_str(), argv[2]);
-		return Exceptions::IO_ERROR;
+		return FuryUtils::Exceptions::IO_ERROR;
 	}
-	catch (Exceptions::Exception e)
+	catch (FuryUtils::Exceptions::Exception e)
 	{
 		printf("%s Error:\n\n%d %s\n", name.c_str(), e._errorCode, e._errorString.c_str());
 		return e._errorCode;
 	}
-	return Exceptions::UNKNOWN_ERROR;
+	return FuryUtils::Exceptions::UNKNOWN_ERROR;
 }
 
 int Create(int argc, char* argv[], bool compress) {
@@ -235,7 +235,7 @@ int Create(int argc, char* argv[], bool compress) {
 	}
 	std::string name = GetFileName(argv[0]);
 	try {
-		Dat df;
+		FuryUtils::Archive::Dat df;
 
 		printf("%s: creating %s archive %s\n\n", name.c_str(), compress ? "compressed" : "uncompressed", argv[2]);
 		for (int i = 3; i < argc; i++) {
@@ -245,7 +245,7 @@ int Create(int argc, char* argv[], bool compress) {
 			std::ifstream file(argv[i], std::ios::binary | std::ios::ate);
 			if (!file) {
 				printf("%s Error:\n\n Input file \"%s\" could not be opened\n", name.c_str(), filename.c_str());
-				return Exceptions::IO_ERROR;
+				return FuryUtils::Exceptions::IO_ERROR;
 			}
 			std::streamsize size = file.tellg();
 			file.seekg(0, std::ios::beg);
@@ -253,7 +253,7 @@ int Create(int argc, char* argv[], bool compress) {
 			if (file.read((char *)(buffer.data()), size))
 			{
 				df.Add(filename.c_str(), buffer, compress);
-				DatHeader *dfh = df.Header(df.EntryCount() - 1);
+				FuryUtils::Archive::DatHeader *dfh = df.Header(df.EntryCount() - 1);
 				if (dfh->IsNotCompressed) {
 					printf("%12s\tUncompressed\t%d\n", dfh->FileName, dfh->UncompressedSize);
 				}
@@ -273,16 +273,16 @@ int Create(int argc, char* argv[], bool compress) {
 		}
 		else {
 			printf("%s Error: Could not write output file \"%s\"\n", name.c_str(), argv[2]);
-			return Exceptions::IO_ERROR;
+			return FuryUtils::Exceptions::IO_ERROR;
 		}
 		return 0;
 	}
-	catch (Exceptions::Exception e)
+	catch (FuryUtils::Exceptions::Exception e)
 	{
 		printf("%s Error:\n\n%d %s\n", name.c_str(), e._errorCode, e._errorString.c_str());
 		return e._errorCode;
 	}
-	return Exceptions::UNKNOWN_ERROR;
+	return FuryUtils::Exceptions::UNKNOWN_ERROR;
 }
 
 int main(int argc, char* argv[]) {

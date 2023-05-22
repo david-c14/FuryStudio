@@ -50,7 +50,7 @@ int ImmToBmp(int argc, char* argv[]) {
 		std::ifstream immFile(argv[2], std::ios::binary | std::ios::ate);
 		if (!immFile) {
 			printf("%s Error:\n\nFile \"%s\" could not be opened\n", name.c_str(), argv[2]);
-			return Exceptions::IO_ERROR;
+			return FuryUtils::Exceptions::IO_ERROR;
 		}
 		std::streamsize size = immFile.tellg();
 		immFile.seekg(0, std::ios::beg);
@@ -59,13 +59,13 @@ int ImmToBmp(int argc, char* argv[]) {
 		if (!immFile.read((char *)(immBuffer.data()), size))
 		{
 			printf("%s Error:\n\nFile \"%s\" could not be read\n", name.c_str(), argv[2]);
-			return Exceptions::IO_ERROR;
+			return FuryUtils::Exceptions::IO_ERROR;
 		}
 
 		std::ifstream pamFile(argv[3], std::ios::binary | std::ios::ate);
 		if (!pamFile) {
 			printf("%s Error:\n\nFile \"%s\" could not be opened\n", name.c_str(), argv[3]);
-			return Exceptions::IO_ERROR;
+			return FuryUtils::Exceptions::IO_ERROR;
 		}
 		size = pamFile.tellg();
 		pamFile.seekg(0, std::ios::beg);
@@ -74,10 +74,10 @@ int ImmToBmp(int argc, char* argv[]) {
 		if (!pamFile.read((char *)(pamBuffer.data()), size))
 		{
 			printf("%s Error:\n\nFile \"%s\" could not be read\n", name.c_str(), argv[3]);
-			return Exceptions::IO_ERROR;
+			return FuryUtils::Exceptions::IO_ERROR;
 		}
 
-		Bmp bmp(pamBuffer, immBuffer);
+		FuryUtils::Image::Bmp bmp(pamBuffer, immBuffer);
 
 		std::vector<uint8_t> outBuffer;
 		bmp.Buffer(outBuffer);
@@ -88,16 +88,16 @@ int ImmToBmp(int argc, char* argv[]) {
 		}
 		else {
 			printf("%s Error:\n\nCould not write output file \"%s\"\n", name.c_str(), argv[4]);
-			return Exceptions::IO_ERROR;
+			return FuryUtils::Exceptions::IO_ERROR;
 		}
 		return 0;
 	}
-	catch (Exceptions::Exception e)
+	catch (FuryUtils::Exceptions::Exception e)
 	{
 		printf("%s Error:\n\n%d %s\n", name.c_str(), e._errorCode, e._errorString.c_str());
 		return e._errorCode;
 	}
-	return Exceptions::UNKNOWN_ERROR;
+	return FuryUtils::Exceptions::UNKNOWN_ERROR;
 }
 
 int BmpToImm(int argc, char* argv[]) {
@@ -110,7 +110,7 @@ int BmpToImm(int argc, char* argv[]) {
 		std::ifstream bmpFile(argv[2], std::ios::binary | std::ios::ate);
 		if (!bmpFile) {
 			printf("%s Error:\n\nFile \"%s\" could not be opened\n", name.c_str(), argv[2]);
-			return Exceptions::IO_ERROR;
+			return FuryUtils::Exceptions::IO_ERROR;
 		}
 		std::streamsize size = bmpFile.tellg();
 		bmpFile.seekg(0, std::ios::beg);
@@ -119,10 +119,10 @@ int BmpToImm(int argc, char* argv[]) {
 		if (!bmpFile.read((char *)(bmpBuffer.data()), size))
 		{
 			printf("%s Error:\n\nFile \"%s\" could not be read\n", name.c_str(), argv[2]);
-			return Exceptions::IO_ERROR;
+			return FuryUtils::Exceptions::IO_ERROR;
 		}
 
-		Bmp bmp(bmpBuffer);
+		FuryUtils::Image::Bmp bmp(bmpBuffer);
 
 		std::vector<uint8_t> immBuffer;
 		bmp.ImmBuffer(immBuffer);
@@ -133,7 +133,7 @@ int BmpToImm(int argc, char* argv[]) {
 		}
 		else {
 			printf("%s Error:\n\nCould not write output file \"%s\"\n", name.c_str(), argv[3]);
-			return Exceptions::IO_ERROR;
+			return FuryUtils::Exceptions::IO_ERROR;
 		}
 
 		std::vector<uint8_t> pamBuffer;
@@ -145,17 +145,17 @@ int BmpToImm(int argc, char* argv[]) {
 		}
 		else {
 			printf("%s Error:\n\nCould not write output file \"%s\"\n", name.c_str(), argv[4]);
-			return Exceptions::IO_ERROR;
+			return FuryUtils::Exceptions::IO_ERROR;
 		}
 
 		return 0;
 	}
-	catch (Exceptions::Exception e)
+	catch (FuryUtils::Exceptions::Exception e)
 	{
 		printf("%s Error:\n\n%d %s\n", name.c_str(), e._errorCode, e._errorString.c_str());
 		return e._errorCode;
 	}
-	return Exceptions::UNKNOWN_ERROR;
+	return FuryUtils::Exceptions::UNKNOWN_ERROR;
 }
 
 int main(int argc, char* argv[]) {

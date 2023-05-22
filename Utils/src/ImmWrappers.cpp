@@ -1,6 +1,6 @@
 #ifndef IMM_P
 #define IMM_P
-typedef Imm* imm_p;
+typedef FuryUtils::Image::Imm* imm_p;
 #endif
 
 #include "../headers/Exceptions.hpp"
@@ -8,134 +8,134 @@ typedef Imm* imm_p;
 
 extern "C" {
 
-	uint32_t _Imm_size(Imm *imm) {
-		ErrorCode = Exceptions::NO_ERROR;
+	uint32_t _Imm_size(FuryUtils::Image::Imm *imm) {
+		ErrorCode = FuryUtils::Exceptions::NO_ERROR;
 		ErrorString = "";
 		try {
 			return imm->Size();
 		}
 		catch (...) {
-			Exceptions::HANDLE();
+			FuryUtils::Exceptions::HANDLE();
 		}
 		return 0;
 	}
 
-	uint8_t _Imm_buffer(Imm *imm, uint8_t *buffer, uint32_t size) {
-		ErrorCode = Exceptions::NO_ERROR;
+	uint8_t _Imm_buffer(FuryUtils::Image::Imm *imm, uint8_t *buffer, uint32_t size) {
+		ErrorCode = FuryUtils::Exceptions::NO_ERROR;
 		ErrorString = "";
 		try {
 			std::vector<uint8_t> internal_buffer;
 			imm->Buffer(internal_buffer);
 			if (internal_buffer.size() > size) {
-				ErrorCode = Exceptions::BUFFER_OVERFLOW;
-				ErrorString = Exceptions::ERROR_DAT_BUFFER_TOO_SMALL;
+				ErrorCode = FuryUtils::Exceptions::BUFFER_OVERFLOW;
+				ErrorString = FuryUtils::Exceptions::ERROR_DAT_BUFFER_TOO_SMALL;
 				return false;
 			}
 			memcpy(buffer, internal_buffer.data(), internal_buffer.size());
 		}
 		catch (...) {
-			Exceptions::HANDLE();
+			FuryUtils::Exceptions::HANDLE();
 			return false;
 		}
 		return true;
 	}
 
-	uint32_t _Imm_immSize(Imm *imm) {
-		ErrorCode = Exceptions::NO_ERROR;
+	uint32_t _Imm_immSize(FuryUtils::Image::Imm *imm) {
+		ErrorCode = FuryUtils::Exceptions::NO_ERROR;
 		ErrorString = "";
 		try {
 			return imm->ImmSize();
 		}
 		catch (...) {
-			Exceptions::HANDLE();
+			FuryUtils::Exceptions::HANDLE();
 		}
 		return 0;
 	}
 
-	uint8_t _Imm_immBuffer(Imm *imm, uint8_t *buffer, uint32_t size) {
-		ErrorCode = Exceptions::NO_ERROR;
+	uint8_t _Imm_immBuffer(FuryUtils::Image::Imm *imm, uint8_t *buffer, uint32_t size) {
+		ErrorCode = FuryUtils::Exceptions::NO_ERROR;
 		ErrorString = "";
 		try {
 			std::vector<uint8_t> internal_buffer;
 			imm->ImmBuffer(internal_buffer);
 			if (internal_buffer.size() > size) {
-				ErrorCode = Exceptions::BUFFER_OVERFLOW;
-				ErrorString = Exceptions::ERROR_DAT_BUFFER_TOO_SMALL;
+				ErrorCode = FuryUtils::Exceptions::BUFFER_OVERFLOW;
+				ErrorString = FuryUtils::Exceptions::ERROR_DAT_BUFFER_TOO_SMALL;
 				return false;
 			}
 			memcpy(buffer, internal_buffer.data(), internal_buffer.size());
 		}
 		catch (...) {
-			Exceptions::HANDLE();
+			FuryUtils::Exceptions::HANDLE();
 			return false;
 		}
 		return true;
 	}
 
-	uint32_t _Imm_pamSize(Imm *imm) {
-		ErrorCode = Exceptions::NO_ERROR;
+	uint32_t _Imm_pamSize(FuryUtils::Image::Imm *imm) {
+		ErrorCode = FuryUtils::Exceptions::NO_ERROR;
 		ErrorString = "";
 		try {
 			return imm->PamSize();
 		}
 		catch (...) {
-			Exceptions::HANDLE();
+			FuryUtils::Exceptions::HANDLE();
 		}
 		return 0;
 	}
 
-	uint8_t _Imm_pamBuffer(Imm *imm, uint8_t *buffer, uint32_t size) {
-		ErrorCode = Exceptions::NO_ERROR;
+	uint8_t _Imm_pamBuffer(FuryUtils::Image::Imm *imm, uint8_t *buffer, uint32_t size) {
+		ErrorCode = FuryUtils::Exceptions::NO_ERROR;
 		ErrorString = "";
 		try {
 			std::vector<uint8_t> internal_buffer;
 			imm->PamBuffer(internal_buffer);
 			if (internal_buffer.size() > size) {
-				ErrorCode = Exceptions::BUFFER_OVERFLOW;
-				ErrorString = Exceptions::ERROR_DAT_BUFFER_TOO_SMALL;
+				ErrorCode = FuryUtils::Exceptions::BUFFER_OVERFLOW;
+				ErrorString = FuryUtils::Exceptions::ERROR_DAT_BUFFER_TOO_SMALL;
 				return false;
 			}
 			memcpy(buffer, internal_buffer.data(), internal_buffer.size());
 		}
 		catch (...) {
-			Exceptions::HANDLE();
+			FuryUtils::Exceptions::HANDLE();
 			return false;
 		}
 		return true;
 	}
 	
-	uint16_t _Imm_width(Imm *imm) {
-		ErrorCode = Exceptions::NO_ERROR;
+	uint16_t _Imm_width(FuryUtils::Image::Imm *imm) {
+		ErrorCode = FuryUtils::Exceptions::NO_ERROR;
 		ErrorString = "";
 		try {
 			return imm->Width();
 		}
 		catch (...) {
-			Exceptions::HANDLE();
+			FuryUtils::Exceptions::HANDLE();
 		}
 		return 0;
 	}
 	
-	uint16_t _Imm_height(Imm *imm) {
-		ErrorCode = Exceptions::NO_ERROR;
+	uint16_t _Imm_height(FuryUtils::Image::Imm *imm) {
+		ErrorCode = FuryUtils::Exceptions::NO_ERROR;
 		ErrorString = "";
 		try {
 			return imm->Height();
 		}
 		catch (...) {
-			Exceptions::HANDLE();
+			FuryUtils::Exceptions::HANDLE();
 		}
 		return 0;
 	}
 	
-	uint16_t _Imm_depth(Imm *imm) {
-		ErrorCode = Exceptions::NO_ERROR;
+	uint16_t _Imm_depth(FuryUtils::Image::Imm *imm) {
+		ErrorCode = FuryUtils::Exceptions::NO_ERROR;
 		ErrorString = "";
 		try {
 			return imm->Depth();
 		}
 		catch (...) {
-			Exceptions::HANDLE();
+			FuryUtils::Exceptions::HANDLE();
 		}
 		return 0;
 	}

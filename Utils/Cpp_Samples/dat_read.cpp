@@ -31,8 +31,8 @@ void dat_read(const char * archiveFileName, const char * bmpFileName) {
 		file.read((char *)(buffer.data()), size);
 
 		// Create a Dat object from the buffer
-		Dat df(buffer);
-		DatHeader *dfh;
+		FuryUtils::Archive::Dat df(buffer);
+		FuryUtils::Archive::DatHeader *dfh;
 		
 		// Read each header
 		while (dfh = df.Next()) {
@@ -60,7 +60,7 @@ void dat_read(const char * archiveFileName, const char * bmpFileName) {
 		}
 		return;
 	}
-	catch (Exceptions::Exception e)
+	catch (FuryUtils::Exceptions::Exception e)
 	{
 		printf("Error:\n\n%d %s\n", e._errorCode, e._errorString.c_str());
 		return;

@@ -6,8 +6,8 @@ typedef void * bmp_p;
 
 extern "C" {
 
-	int Test_GetExceptionCode();
-	const char *Test_GetExceptionString();
+	int Test_Exception_Code();
+	const char *Test_Exception_String();
 	
 	int Test_Version_Major();
 	int Test_Version_Minor();

@@ -3,11 +3,11 @@
 
 extern "C" {
 
-	int _GetExceptionCode() {
+	int _Exception_Code() {
 		return ErrorCode;
 	}
 
-	const char * _GetExceptionString() {
+	const char * _Exception_String() {
 		return ErrorString.c_str();
 	}
 }

@@ -23,9 +23,9 @@
 *       to get the color-depth of the image.
 *    Bmp_destroy
 *       to release the memory used by the object.
-*    GetExceptionCode
+*    Exception_Code
 *       to get the integer code of the most recent error.
-*    GetExceptionString
+*    Exception_String
 *       to get a string description of the most recent error.
 *
 ******************************************************************************/
@@ -67,7 +67,7 @@ void bmp2imm(const char * bmpFileName, const char * immFileName, const char * pa
 
 	/* Exception handling example */
 	if (!bitmap) {
-		printf("An error %d occured: %s\n", GetExceptionCode(), GetExceptionString());
+		printf("An error %d occured: %s\n", Exception_Code(), Exception_String());
 		return;
 	}
 

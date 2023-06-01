@@ -1,7 +1,7 @@
 LIBRARY FuryUtils
 EXPORTS
-	GetExceptionCode
-	GetExceptionString
+	Exception_Code
+	Exception_String
 	Version_Major
 	Version_Minor
 	Version_Revision

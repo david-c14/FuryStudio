@@ -1,11 +1,11 @@
 #include "../include/FuryUtils.h"
 
-int Test_GetExceptionCode() {
-	return GetExceptionCode();
+int Test_Exception_Code() {
+	return Exception_Code();
 }
 
-const char *Test_GetExceptionString() {
-	return GetExceptionString();
+const char *Test_Exception_String() {
+	return Exception_String();
 }
 
 int Test_Version_Major() {

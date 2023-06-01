@@ -1,10 +1,10 @@
 #include "../headers/ExceptionsWrappers.hpp"
 #include "../include/exceptions.h"
 
-int GetExceptionCode() {
-	return _GetExceptionCode();
+int Exception_Code() {
+	return _Exception_Code();
 }
 
-const char * GetExceptionString() {
-	return _GetExceptionString();
+const char * Exception_String() {
+	return _Exception_String();
 }

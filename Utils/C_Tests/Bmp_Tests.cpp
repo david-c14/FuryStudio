@@ -8,8 +8,8 @@ TEST_CASE("Given a faulty bmp When created Then an exception is raised") {
 	std::vector<uint8_t> inputFile = utils::ReadFile("badrle.bmp");
 	bmp_p bmp = Test_Bmp_createFromBmp(inputFile.data(), uint32_t(inputFile.size()));
 	REQUIRE(bmp == NULL);
-	REQUIRE(Test_GetExceptionCode() == 1);
-	REQUIRE_THAT(Test_GetExceptionString(), Equals("Compressed data contains an error"));
+	REQUIRE(Test_Exception_Code() == 1);
+	REQUIRE_THAT(Test_Exception_String(), Equals("Compressed data contains an error"));
 }
 
 TEST_CASE("Given a faulty imm When created Then an exception is raised") {
@@ -17,8 +17,8 @@ TEST_CASE("Given a faulty imm When created Then an exception is raised") {
 	std::vector<uint8_t> paletteFile = utils::ReadFile("pal8out.pam");
 	bmp_p bmp = Test_Bmp_createFromImmAndPam(pixelFile.data(), uint32_t(pixelFile.size()), paletteFile.data(), uint32_t(paletteFile.size()));
 	REQUIRE(bmp == NULL);
-	REQUIRE(Test_GetExceptionCode() == 1);
-	REQUIRE_THAT(Test_GetExceptionString(), Equals("Image buffer size is too short for valid Imm"));
+	REQUIRE(Test_Exception_Code() == 1);
+	REQUIRE_THAT(Test_Exception_String(), Equals("Image buffer size is too short for valid Imm"));
 	Test_Bmp_destroy(bmp);
 }
 

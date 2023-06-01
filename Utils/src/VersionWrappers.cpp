@@ -3,19 +3,19 @@
 
 extern "C" {
 
-	int _GetVersionMajor() {
+	int _Version_Major() {
 		return VersionMajor;
 	}
 	
-	int _GetVersionMinor() {
+	int _Version_Minor() {
 		return VersionMinor;
 	}
 	
-	int _GetVersionRevision() {
+	int _Version_Revision() {
 		return VersionRevision;
 	}
 
-	const char * _GetVersionString() {
+	const char * _Version_String() {
 		return VersionString;
 	}
 }

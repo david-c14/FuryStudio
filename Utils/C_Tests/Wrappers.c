@@ -8,20 +8,20 @@ const char *Test_GetExceptionString() {
 	return GetExceptionString();
 }
 
-int Test_GetVersionMajor() {
-	return GetVersionMajor();
+int Test_Version_Major() {
+	return Version_Major();
 }
 
-int Test_GetVersionMinor() {
-	return GetVersionMinor();
+int Test_Version_Minor() {
+	return Version_Minor();
 }
 
-int Test_GetVersionRevision() {
-	return GetVersionRevision();
+int Test_Version_Revision() {
+	return Version_Revision();
 }
 
-const char *Test_GetVersionString() {
-	return GetVersionString();
+const char *Test_Version_String() {
+	return Version_String();
 }
 
 dat_p Test_Dat_createNew() {

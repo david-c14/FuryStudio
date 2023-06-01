@@ -1,18 +1,18 @@
 #include "../headers/VersionWrappers.hpp"
 #include "../include/version.h"
 
-int GetVersionMajor() {
-	return _GetVersionMajor();
+int Version_Major() {
+	return _Version_Major();
 }
 
-int GetVersionMinor() {
-	return _GetVersionMinor();
+int Version_Minor() {
+	return _Version_Minor();
 }
 
-int GetVersionRevision() {
-	return _GetVersionRevision();
+int Version_Revision() {
+	return _Version_Revision();
 }
 
-const char * GetVersionString() {
-	return _GetVersionString();
+const char * Version_String() {
+	return _Version_String();
 }

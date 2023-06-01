@@ -9,10 +9,10 @@ extern "C" {
 	int Test_GetExceptionCode();
 	const char *Test_GetExceptionString();
 	
-	int Test_GetVersionMajor();
-	int Test_GetVersionMinor();
-	int Test_GetVersionRevision();
-	const char * Test_GetVersionString();
+	int Test_Version_Major();
+	int Test_Version_Minor();
+	int Test_Version_Revision();
+	const char * Test_Version_String();
 
 	dat_p Test_Dat_createNew();
 	dat_p Test_Dat_create(uint8_t *buffer, uint32_t size);

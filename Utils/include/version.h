@@ -3,9 +3,9 @@
 #ifndef __VERSION_H__
 #define __VERSION_H__
 
-int GetVersionMajor();
-int GetVersionMinor();
-int GetVersionRevision();
-const char * GetVersionString();
+int Version_Major();
+int Version_Minor();
+int Version_Revision();
+const char * Version_String();
 
 #endif

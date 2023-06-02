@@ -1,6 +1,10 @@
 # Fury Studio Documentation Index
 
-### [Building the project](build.md)
+## [Building the project](build/index.md)
+
+### [Window](build/windows.md)
+
+### [Linux](build/linux.md)
 
 ### Utilities
 

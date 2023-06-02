@@ -1,4 +1,4 @@
-# Bmp functions `FuryUtils.hpp`
+# Bmp class `FuryUtils.hpp`
 
 The Bmp class is a subclass of [Imm](imm.md) for handling images in windows bitmap format.
 

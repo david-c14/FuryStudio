@@ -1,6 +1,4 @@
-# Building FuryStudio
-
-### Linux
+# Building FuryStudio on Linux
 
 ### Environment 
 - Ensure you have a suitable c++ compiler. I use g++

@@ -2,7 +2,7 @@
 
 ## [Building the project](build/index.md)
 
-### [Window](build/windows.md)
+### [Windows](build/windows.md)
 
 ### [Linux](build/linux.md)
 

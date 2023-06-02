@@ -9,16 +9,16 @@
 
 ### Dynamic linking on Windows.
 
-Link your application with FuryUtils.lib and provide FuryUtils.dll at runtime
+Link your application with `FuryUtils.lib` and provide `FuryUtils.dll` at runtime
 
 ### Static linking on Windows
 
-Link your application with LibFuryUtils.lib
+Link your application with `LibFuryUtils.lib`
 
 ### Dynamic linking on Linux
 
-Link your application with libFuryUtils.so
+Link your application with `libFuryUtils.so`
 
 ### Static linking on Linux
 
-Link your application with libFuryUtils.a
+Link your application with `libFuryUtils.a`

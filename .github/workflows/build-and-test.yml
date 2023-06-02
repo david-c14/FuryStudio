@@ -71,8 +71,8 @@ jobs:
         copy .\Debug\DatFile.exe artifacts\utils
         copy .\Debug\ImmFile.exe artifacts\utils
         copy ..\..\LICENSE artifacts\utils
-        copy ..\..\doc\datfile.md artifacts\utils
-        copy ..\..\doc\immfile.md artifacts\utils
+        copy ..\..\doc\utilities\datfile.md artifacts\utils
+        copy ..\..\doc\utilities\immfile.md artifacts\utils
         cd artifacts
         Compress-Archive -Path ".\utils\*" -DestinationPath "Utils-win-x64-${{ github.event.release.name }}.zip"
         
@@ -153,8 +153,8 @@ jobs:
         cp ./Debug/ImmFile artifacts/utils
         chmod 775 artifacts/utils/*
         cp ../../LICENSE artifacts/utils
-        cp ../../doc/datfile.md artifacts/utils
-        cp ../../doc/immfile.md artifacts/utils
+        cp ../../doc/utilities/datfile.md artifacts/utils
+        cp ../../doc/utilities/immfile.md artifacts/utils
         cd artifacts
         tar -cvzf "Utils-linux-x64-${{ github.event.release.name }}.tgz" utils
         

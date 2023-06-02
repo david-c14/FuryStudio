@@ -1,6 +1,6 @@
 # Imm functions `FuryUtils.h`
 
-The Imm functions handle are the base functions for handling images. All image formats in the library derive from Imm.
+The Imm functions are the base functions for handling images. All image formats in the library derive from Imm.
 
 typedef void* imm_p
 

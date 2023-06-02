@@ -18,6 +18,8 @@
 - `Debug/Cli_Tests`
 - `Debug/C_Tests`
 - `Debug/Cpp_Tests`
+- `Debug/C_LibTests`
+- `Debug/Cpp_LibTests`
 
 ### Build and Test GUI Application
 - `cd ../..`

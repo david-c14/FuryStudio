@@ -6,3 +6,14 @@ You will need the include directory and the FuryUtils shared library,  either Fu
 [Converting a windows Bmp file to an Imm and Pam file](../../CS_Samples/bmp2imm.cs)  
 [Packing files into a Dat archive file](../../CS_Samples/dat_create.cs)  
 [Reading files from a Dat archive file](../../CS_Samples/dat_read.cs)  
+
+
+## Linking
+
+### Dynamic linking on Windows.
+
+Use the assembly `carbon14.FuryStudio.Utils.dll`, and also provide `FuryUtils.dll` at runtime
+
+### Dynamic linking on Linux
+
+Use the assembly `carbon14.FuryStudio.Utils.dll`, and also provide `libFuryUtils.so` at runtime

@@ -1,6 +1,4 @@
-# Building FuryStudio
-
-## Windows
+# Building FuryStudio on 64-bit Windows
 
 ### Environment
 - Ensure you have either Visual Studio or the dotnet SDK installed (dotnet 6.0)
@@ -18,6 +16,8 @@
 - `Debug\Cli_Tests`
 - `Debug\C_Tests`
 - `Debug\Cpp_Tests`
+- `Debug\C_LibTests`
+- `Debug\Cpp_LibTests`
 
 ### Build and Test GUI Application
 - `cd ..\..`

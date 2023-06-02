@@ -1,4 +1,4 @@
-# Dat functions `FuryUtils.hpp`
+# Dat class `FuryUtils.hpp`
 
 The Dat class represents a dat archive file.
 

@@ -2,7 +2,18 @@
 
 The Dat functions handle Dat format archive files. 
 
-`typedef void* dat_p`
+```
+struct DatHeader {
+	char FileName[13];
+	uint32_t UncompressedSize;
+	uint32_t CompressedSize;
+	uint8_t IsNotCompressed;
+};
+
+typedef struct DatHeader DatHeader_t;
+
+typedef void* dat_p
+```
 
 ## Dat_createNew
 

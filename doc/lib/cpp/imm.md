@@ -1,4 +1,4 @@
-# Imm functions `FuryUtils.hpp`
+# Imm class `FuryUtils.hpp`
 
 The Imm class is the base class for handling images. All image formats in the library derive from Imm.
 

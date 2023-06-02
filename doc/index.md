@@ -12,10 +12,10 @@
 
 #### [ImmFile](immfile.md) - Converting IMM images to and from BMP format
 
-### Library Sample Code
+## [Library Sample Code](samples/index.md)
 
-#### [C](c_samples.md) Using the FuryUtils shared library in C
+### [C](samples/c_samples.md) Using the FuryUtils shared library in C
 
-#### [C++](cpp_samples.md) Using the FuryUtils shared library in c++
+### [C++](samples/cpp_samples.md) Using the FuryUtils shared library in c++
 
-#### [C#](cs_samples.md) Using the UtilsDotNet assembly in c#
+### [C#](samples/cs_samples.md) Using the UtilsDotNet assembly in c#

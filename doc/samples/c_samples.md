@@ -7,18 +7,14 @@
 
 ## Linking
 
-### Dynamic linking on Windows.
-
+- Dynamic linking on Windows.  
 Link your application with `FuryUtils.lib` and provide `FuryUtils.dll` at runtime
 
-### Static linking on Windows
-
+- Static linking on Windows  
 Link your application with `LibFuryUtils.lib`
 
-### Dynamic linking on Linux
-
+- Dynamic linking on Linux  
 Link your application with `libFuryUtils.so`
 
-### Static linking on Linux
-
+- Static linking on Linux  
 Link your application with `libFuryUtils.a`

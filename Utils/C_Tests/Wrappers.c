@@ -1,27 +1,27 @@
 #include "../include/FuryUtils.h"
 
-int Test_Exception_Code() {
-	return Exception_Code();
+int Test_Exception_code() {
+	return Exception_code();
 }
 
-const char *Test_Exception_String() {
-	return Exception_String();
+const char *Test_Exception_string() {
+	return Exception_string();
 }
 
-int Test_Version_Major() {
-	return Version_Major();
+int Test_Version_major() {
+	return Version_major();
 }
 
-int Test_Version_Minor() {
-	return Version_Minor();
+int Test_Version_minor() {
+	return Version_minor();
 }
 
-int Test_Version_Revision() {
-	return Version_Revision();
+int Test_Version_revision() {
+	return Version_revision();
 }
 
-const char *Test_Version_String() {
-	return Version_String();
+const char *Test_Version_string() {
+	return Version_string();
 }
 
 dat_p Test_Dat_createNew() {

@@ -1,11 +1,11 @@
 LIBRARY FuryUtils
 EXPORTS
-	Exception_Code
-	Exception_String
-	Version_Major
-	Version_Minor
-	Version_Revision
-	Version_String
+	Exception_code
+	Exception_string
+	Version_major
+	Version_minor
+	Version_revision
+	Version_string
 	Dat_createNew
 	Dat_create
 	Dat_destroy

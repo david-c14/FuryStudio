@@ -3,15 +3,15 @@
 The Exception functions allow you to check for error codes and messages. Most functions in the FuryUtils C library will 
 set the exception code and message if an error occurs. See the documentation for specific function calls for details
 
-## Exception_Code
+## Exception_code
 
-`int Exception_Code()`
+`int Exception_code()`
 
 returns the the integer value of the most recent erro
 
-## Exception_String
+## Exception_string
 
-`const char * Exception_String()`
+`const char * Exception_string()`
 
 returns a static null-terminated character array containing a text description of the most recent exception
 
@@ -28,4 +28,4 @@ returns a static null-terminated character array containing a text description o
 | 6 | IO_ERROR Typically a specified file cannot be read / written |
 | 7 | UNKNOWN_ERROR An unexpected error has occurred |
 
-The message returned by `Exception_String` may have more specific details of the error.
+The message returned by `Exception_string` may have more specific details of the error.

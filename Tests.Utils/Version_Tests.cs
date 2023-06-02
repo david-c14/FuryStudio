@@ -5,10 +5,10 @@ namespace carbon14.FuryStudio.Tests.Utils
     public class Version_Tests
     {
         [DllImport("FuryUtils", CallingConvention = CallingConvention.Cdecl)]
-        private static extern IntPtr Version_String();
+        private static extern IntPtr Version_string();
         private string? String()
         {
-            IntPtr ptr = Version_String();
+            IntPtr ptr = Version_string();
             return Marshal.PtrToStringAnsi(ptr);
         }
 

@@ -8,8 +8,8 @@ TEST_CASE("Given a faulty dat When created Then an exception is raised") {
 	std::vector<uint8_t> inputFile = utils::ReadFile("pal8out.bmp");
 	dat_p dat = Test_Dat_create(inputFile.data(), uint32_t(inputFile.size()));
 	REQUIRE(dat == NULL);
-	REQUIRE(Test_Exception_Code() == 3);
-	REQUIRE_THAT(Test_Exception_String(), Equals( "Attempt to read beyond end of buffer"));
+	REQUIRE(Test_Exception_code() == 3);
+	REQUIRE_THAT(Test_Exception_string(), Equals( "Attempt to read beyond end of buffer"));
 }
 
 TEST_CASE("Given a valid dat When entry point is called Then the number of entries is returned") {
@@ -122,8 +122,8 @@ TEST_CASE("Given a valid dat When header is called with an incorrect index Then 
 		REQUIRE(header.UncompressedSize == 10);
 		REQUIRE_THAT(header.FileName, Equals("T"));
 		REQUIRE(header.IsNotCompressed == (uint8_t)true);
-		REQUIRE(Test_Exception_Code() == 4);
-		REQUIRE_THAT(Test_Exception_String(), Equals("Index out of range"));
+		REQUIRE(Test_Exception_code() == 4);
+		REQUIRE_THAT(Test_Exception_string(), Equals("Index out of range"));
 	}
 	catch (...) {
 
@@ -156,8 +156,8 @@ TEST_CASE("Given a valid dat When entry is called with an invalid index Then the
 		std::vector<uint8_t> actualBuffer(9270);
 		bool result = Test_Dat_entry(dat, 2, actualBuffer.data(), uint32_t(actualBuffer.size()));
 		REQUIRE(result == false);
-		REQUIRE(Test_Exception_Code() == 4);
-		REQUIRE_THAT(Test_Exception_String(), Equals("Index out of range"));
+		REQUIRE(Test_Exception_code() == 4);
+		REQUIRE_THAT(Test_Exception_string(), Equals("Index out of range"));
 	}
 	catch (...) {
 
@@ -172,8 +172,8 @@ TEST_CASE("Given a valid dat When entry is called with an incorrectly sized buff
 		std::vector<uint8_t> actualBuffer(9269);
 		bool result = Test_Dat_entry(dat, 0, actualBuffer.data(), uint32_t(actualBuffer.size()));
 		REQUIRE(result == false);
-		REQUIRE(Test_Exception_Code() == 3);
-		REQUIRE_THAT(Test_Exception_String(), Equals("Buffer too small"));
+		REQUIRE(Test_Exception_code() == 3);
+		REQUIRE_THAT(Test_Exception_string(), Equals("Buffer too small"));
 	}
 	catch (...) {
 

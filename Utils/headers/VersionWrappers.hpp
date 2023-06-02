@@ -1,6 +1,6 @@
 // VersionWrappers.hpp - internal header these are the internal C wrapper prototypes for C++ classes
 
-int _Version_Major();
-int _Version_Minor();
-int _Version_Revision();
-const char * _Version_String();
+int _Version_major();
+int _Version_minor();
+int _Version_revision();
+const char * _Version_string();

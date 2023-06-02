@@ -19,9 +19,9 @@
 *       to get the raw file (in its specific Bmp variety format).
 *    Bmp_destroy
 *       to release the memory used by the object.
-*    Exception_Code
+*    Exception_code
 *       to get the integer code of the most recent error.
-*    Exception_String
+*    Exception_string
 *       to get a string description of the most recent error.
 *
 ******************************************************************************/
@@ -74,7 +74,7 @@ void imm2bmp(const char * immFileName, const char * pamFileName, const char * bm
 	
 	/* Exception handling example */
 	if (!bitmap) {
-		printf("An error %d occured: %s\n", Exception_Code(), Exception_String());
+		printf("An error %d occured: %s\n", Exception_code(), Exception_string());
 		return;
 	}
 	

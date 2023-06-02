@@ -17,9 +17,9 @@
 *       to get the raw file.
 *    Dat_destroy
 *       to release the memory used by the object.
-*    Exception_Code
+*    Exception_code
 *       to get the integer code of the most recent error.
-*    Exception_String
+*    Exception_string
 *       to get a string description of the most recent error.
 *
 ******************************************************************************/
@@ -45,7 +45,7 @@ void dat_create(const char * fileName1, const char * fileName2, const char * arc
 	archive = Dat_createNew();
 	/* Exception handling example */
 	if (!archive) {
-		printf("An error %d occured: %s\n", Exception_Code(), Exception_String());
+		printf("An error %d occured: %s\n", Exception_code(), Exception_string());
 		return;
 	}
 	

@@ -10,10 +10,8 @@ You will need the include directory and the FuryUtils shared library,  either Fu
 
 ## Linking
 
-### Dynamic linking on Windows.
-
+- Dynamic linking on Windows.  
 Use the assembly `carbon14.FuryStudio.Utils.dll`, and also provide `FuryUtils.dll` at runtime
 
-### Dynamic linking on Linux
-
+- Dynamic linking on Linux  
 Use the assembly `carbon14.FuryStudio.Utils.dll`, and also provide `libFuryUtils.so` at runtime

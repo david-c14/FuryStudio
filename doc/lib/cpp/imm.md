@@ -52,8 +52,8 @@ Swaps the provided byte vector with a vector containing the raw bitmap data for 
 do *not* need to provide a vector of the correct size.
 
 - `inputBuffer` is a byte vector of any length.
-- 
-- ## PamSize
+ 
+## PamSize
 
 `uint32_t PamSize()`
 

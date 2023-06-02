@@ -1,16 +1,18 @@
 # Fury Studio Documentation Index
 
+## [Changelog](changelog.md)
+
 ## [Building the project](build/index.md)
 
 ### [Windows](build/windows.md)
 
 ### [Linux](build/linux.md)
 
-### Utilities
+## [Utilities](utilities.index.md)
 
-#### [DatFile](datfile.md) - Packing and Unpacking DAT archives
+### [DatFile](utilities/datfile.md) - Packing and Unpacking DAT archives
 
-#### [ImmFile](immfile.md) - Converting IMM images to and from BMP format
+### [ImmFile](utilities/immfile.md) - Converting IMM images to and from BMP format
 
 ## [Library Sample Code](samples/index.md)
 

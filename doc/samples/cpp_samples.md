@@ -2,7 +2,7 @@
 
 You will need the include directory and the FuryUtils shared library,  either FuryUtils.dll or FuryUtils.so
 
-[Converting an Imm and Pam file to a windows Bmp file](../../Utils/Cpp_Samples/imm2bmp.c)  
-[Converting a windows Bmp file to an Imm and Pam file](../../Utils/Cpp_Samples/bmp2imm.c)  
-[Packing files into a Dat archive file](../../Utils/Cpp_Samples/dat_create.c)  
-[Reading files from a Dat archive file](../../Utils/Cpp_Samples/dat_read.c)  
+[Converting an Imm and Pam file to a windows Bmp file](../../Utils/Cpp_Samples/imm2bmp.cpp)  
+[Converting a windows Bmp file to an Imm and Pam file](../../Utils/Cpp_Samples/bmp2imm.cpp)  
+[Packing files into a Dat archive file](../../Utils/Cpp_Samples/dat_create.cpp)  
+[Reading files from a Dat archive file](../../Utils/Cpp_Samples/dat_read.cpp)  

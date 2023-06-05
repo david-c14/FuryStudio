@@ -2,6 +2,7 @@ on:
   push:
     branches:
     - develop
+    - docs
   release:
     types: [published]
 name: Build and Test
@@ -63,25 +64,16 @@ jobs:
         if ($cmdVersion -ne $relVersion) { exit 1 }
         
     - name: Package Utilities
-      if: ${{ github.event_name == 'release' }}
       run: |
-        cd Utils\build
-        mkdir artifacts
-        mkdir artifacts\utils
-        copy .\Debug\DatFile.exe artifacts\utils
-        copy .\Debug\ImmFile.exe artifacts\utils
-        copy ..\..\LICENSE artifacts\utils
-        copy ..\..\doc\utilities\datfile.md artifacts\utils
-        copy ..\..\doc\utilities\immfile.md artifacts\utils
-        cd artifacts
-        Compress-Archive -Path ".\utils\*" -DestinationPath "Utils-win-x64-${{ github.event.release.name }}.zip"
+        cd Utils\package
+        .\utils.cmd
         
     - name: Upload Artifacts
       if: ${{ github.event_name == 'release' }}
       uses: softprops/action-gh-release@v1
       with:
         files: |
-          Utils/build/artifacts/Utils-win-x64-${{ github.event.release.name }}.zip
+          Utils/package/Utils-win-x64-${{ github.event.release.name }}.zip
 
   buildLinux:
     name: Build Linux
@@ -144,26 +136,16 @@ jobs:
         if [ ! "$cmdVersion" == "$relVersion" ]; then exit 1; fi
         
     - name: Package Utilities
-      if: ${{ github.event_name == 'release' }}
       run: |
-        cd Utils/build
-        mkdir artifacts
-        mkdir artifacts/utils
-        cp ./Debug/DatFile artifacts/utils
-        cp ./Debug/ImmFile artifacts/utils
-        chmod 775 artifacts/utils/*
-        cp ../../LICENSE artifacts/utils
-        cp ../../doc/utilities/datfile.md artifacts/utils
-        cp ../../doc/utilities/immfile.md artifacts/utils
-        cd artifacts
-        tar -cvzf "Utils-linux-x64-${{ github.event.release.name }}.tgz" utils
+        cd Utils/package
+        ./utils.sh
         
     - name: Upload Artifacts
       if: ${{ github.event_name == 'release' }}
       uses: softprops/action-gh-release@v1
       with:
         files: |
-          Utils/build/artifacts/Utils-linux-x64-${{ github.event.release.name }}.tgz
+          Utils/package/Utils-linux-x64-${{ github.event.release.name }}.tgz
 
         
         

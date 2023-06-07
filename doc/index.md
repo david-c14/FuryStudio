@@ -18,6 +18,10 @@
 
 - [C](lib/c/index.md) - Documentation for the C library
 
+- [C++](lib/cpp/index.md) - Documentation for the C++ library
+
+- [C#](lib/cs/index.md) - Documentation for the C# library
+
 ## [Library Sample Code](samples/index.md)
 
 - [C](samples/c_samples.md) Using the FuryUtils shared library in C

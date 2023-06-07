@@ -7,7 +7,7 @@ The Dat class handles instances of Dat format file archives for reading or writi
 ## implements
 
 `IDisposable`
-`IEnumerable<[Dat.DatItem](datitem.md)>`
+`IEnumerable<Dat.DatItem>`
 
 ## constructor
 
@@ -41,7 +41,7 @@ Returns a byte array representing the entire archive file.
 
 ### Item
 
-`[Dat.DatItem](datitem.md)? Item(int index)`
+`Dat.DatItem? Item(int index)`
 
 Returns a file from the archive specified by index
 

@@ -3,7 +3,7 @@
 #ifndef __EXCEPTIONS_H__
 #define __EXCEPTIONS_H__
 
-int Exception_Code();
-const char * Exception_String();
+int Exception_code();
+const char * Exception_string();
 
 #endif

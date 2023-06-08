@@ -6,13 +6,13 @@ typedef void * bmp_p;
 
 extern "C" {
 
-	int Test_Exception_Code();
-	const char *Test_Exception_String();
+	int Test_Exception_code();
+	const char *Test_Exception_string();
 	
-	int Test_Version_Major();
-	int Test_Version_Minor();
-	int Test_Version_Revision();
-	const char * Test_Version_String();
+	int Test_Version_major();
+	int Test_Version_minor();
+	int Test_Version_revision();
+	const char * Test_Version_string();
 
 	dat_p Test_Dat_createNew();
 	dat_p Test_Dat_create(uint8_t *buffer, uint32_t size);

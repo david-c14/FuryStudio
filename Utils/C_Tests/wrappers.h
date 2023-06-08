@@ -6,13 +6,13 @@ typedef void * bmp_p;
 
 extern "C" {
 
-	int Test_GetExceptionCode();
-	const char *Test_GetExceptionString();
+	int Test_Exception_code();
+	const char *Test_Exception_string();
 	
-	int Test_GetVersionMajor();
-	int Test_GetVersionMinor();
-	int Test_GetVersionRevision();
-	const char * Test_GetVersionString();
+	int Test_Version_major();
+	int Test_Version_minor();
+	int Test_Version_revision();
+	const char * Test_Version_string();
 
 	dat_p Test_Dat_createNew();
 	dat_p Test_Dat_create(uint8_t *buffer, uint32_t size);
@@ -32,6 +32,9 @@ extern "C" {
 	uint8_t Test_Imm_immBuffer(imm_p imm, uint8_t *buffer, uint32_t size);
 	uint32_t Test_Imm_pamSize(imm_p imm);
 	uint8_t Test_Imm_pamBuffer(imm_p imm, uint8_t *buffer, uint32_t size);
+	uint16_t Test_Imm_width(imm_p imm);
+	uint16_t Test_Imm_height(imm_p imm);
+	uint16_t Test_Imm_depth(imm_p imm);
 	bmp_p Test_Bmp_createFromBmp(uint8_t *buffer, uint32_t size);
 	bmp_p Test_Bmp_createFromImmAndPam(uint8_t *pixelBuffer, uint32_t pixelSize, uint8_t *paletteBuffer, uint32_t paletteSize);
 	void Test_Bmp_destroy(bmp_p bmp);

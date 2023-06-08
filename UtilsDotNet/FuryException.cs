@@ -20,19 +20,19 @@ namespace carbon14.FuryStudio.Utils
         public ErrorCodes ErrorCode { get; }
 
         [DllImport(Constants.dllPath, CallingConvention = CallingConvention.Cdecl)]
-        private static extern int GetExceptionCode();
+        private static extern int Exception_code();
 
         [DllImport(Constants.dllPath, CallingConvention = CallingConvention.Cdecl)]
-        private static extern IntPtr GetExceptionString();
+        private static extern IntPtr Exception_string();
 
         public static int Code()
         {
-            return GetExceptionCode();
+            return Exception_code();
         }
 
         public static string? ErrorString()
         {
-            return Marshal.PtrToStringAnsi(GetExceptionString());
+            return Marshal.PtrToStringAnsi(Exception_string());
         }
 
         public static void Throw()

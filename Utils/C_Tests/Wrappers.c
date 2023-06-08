@@ -1,27 +1,27 @@
 #include "../include/FuryUtils.h"
 
-int Test_GetExceptionCode() {
-	return GetExceptionCode();
+int Test_Exception_code() {
+	return Exception_code();
 }
 
-const char *Test_GetExceptionString() {
-	return GetExceptionString();
+const char *Test_Exception_string() {
+	return Exception_string();
 }
 
-int Test_GetVersionMajor() {
-	return GetVersionMajor();
+int Test_Version_major() {
+	return Version_major();
 }
 
-int Test_GetVersionMinor() {
-	return GetVersionMinor();
+int Test_Version_minor() {
+	return Version_minor();
 }
 
-int Test_GetVersionRevision() {
-	return GetVersionRevision();
+int Test_Version_revision() {
+	return Version_revision();
 }
 
-const char *Test_GetVersionString() {
-	return GetVersionString();
+const char *Test_Version_string() {
+	return Version_string();
 }
 
 dat_p Test_Dat_createNew() {
@@ -90,6 +90,18 @@ uint32_t Test_Imm_pamSize(imm_p imm) {
 
 uint8_t Test_Imm_pamBuffer(imm_p imm, uint8_t *buffer, uint32_t size) {
 	return Imm_pamBuffer(imm, buffer, size);
+}
+
+uint16_t Test_Imm_width(imm_p imm) {
+	return Imm_width(imm);
+}
+
+uint16_t Test_Imm_height(imm_p imm) {
+	return Imm_height(imm);
+}
+
+uint16_t Test_Imm_depth(imm_p imm) {
+	return Imm_depth(imm);
 }
 
 bmp_p Test_Bmp_createFromBmp(uint8_t *buffer, uint32_t size) {

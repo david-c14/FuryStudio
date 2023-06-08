@@ -9,7 +9,7 @@ TEST_CASE("Given a 4bpp bmp When the file is used to construct an imm Then the i
 	std::vector<uint8_t> expectedPam = utils::ReadFile("pal4out.pam");
 	std::vector<uint8_t> bmpFile = utils::ReadFile("pal4out.bmp");
 
-	Bmp bmp(bmpFile);
+	FuryUtils::Image::Bmp bmp(bmpFile);
 	std::vector<uint8_t> actualImm;
 	std::vector<uint8_t> actualPam;
 	bmp.ImmBuffer(actualImm);
@@ -17,6 +17,9 @@ TEST_CASE("Given a 4bpp bmp When the file is used to construct an imm Then the i
 
 	REQUIRE(actualImm == expectedImm);
 	REQUIRE(actualPam == expectedPam);
+	REQUIRE(bmp.Width() == (uint16_t)127);
+	REQUIRE(bmp.Height() == (uint16_t)64);
+	REQUIRE(bmp.Depth() == (uint16_t)4);
 }
 
 TEST_CASE("Given an 8bpp bmp When the file is used to construct an imm Then the imm is correct") {
@@ -24,7 +27,7 @@ TEST_CASE("Given an 8bpp bmp When the file is used to construct an imm Then the 
 	std::vector<uint8_t> expectedPam = utils::ReadFile("pal8out.pam");
 	std::vector<uint8_t> bmpFile = utils::ReadFile("pal8out.bmp");
 
-	Bmp bmp(bmpFile);
+	FuryUtils::Image::Bmp bmp(bmpFile);
 	std::vector<uint8_t> actualImm;
 	std::vector<uint8_t> actualPam;
 	bmp.ImmBuffer(actualImm);
@@ -32,6 +35,9 @@ TEST_CASE("Given an 8bpp bmp When the file is used to construct an imm Then the 
 
 	REQUIRE(actualImm == expectedImm);
 	REQUIRE(actualPam == expectedPam);
+	REQUIRE(bmp.Width() == (uint16_t)127);
+	REQUIRE(bmp.Height() == (uint16_t)64);
+	REQUIRE(bmp.Depth() == (uint16_t)8);
 }
 
 TEST_CASE("Given an 8bpp quantized bmp When the file is used to construct an imm Then the imm is correct") {
@@ -39,7 +45,7 @@ TEST_CASE("Given an 8bpp quantized bmp When the file is used to construct an imm
 	std::vector<uint8_t> expectedPam = utils::ReadFile("pal8out.pam");
 	std::vector<uint8_t> bmpFile = utils::ReadFile("pal8qnt.bmp");
 
-	Bmp bmp(bmpFile);
+	FuryUtils::Image::Bmp bmp(bmpFile);
 	std::vector<uint8_t> actualImm;
 	std::vector<uint8_t> actualPam;
 	bmp.ImmBuffer(actualImm);
@@ -47,5 +53,8 @@ TEST_CASE("Given an 8bpp quantized bmp When the file is used to construct an imm
 
 	REQUIRE(actualImm == expectedImm);
 	REQUIRE(actualPam == expectedPam);
+	REQUIRE(bmp.Width() == (uint16_t)127);
+	REQUIRE(bmp.Height() == (uint16_t)64);
+	REQUIRE(bmp.Depth() == (uint16_t)8);
 }
 

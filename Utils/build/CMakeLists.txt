@@ -13,8 +13,12 @@ add_subdirectory(../DatFile DatFile)
 add_subdirectory(../ImmFile ImmFile)
 add_subdirectory(../FuryUtils FuryUtils)
 add_subdirectory(../C_Tests C_Tests)
+add_subdirectory(../C_LibTests C_LibTests)
 add_subdirectory(../Cpp_Tests Cpp_Tests)
+add_subdirectory(../Cpp_LibTests Cpp_LibTests)
 add_subdirectory(../Cli_Tests Cli_Tests)
+add_subdirectory(../C_Samples C_Samples)
+add_subdirectory(../Cpp_Samples Cpp_Samples)
 add_dependencies(Cli_Tests 
     DatFile 
     ImmFile

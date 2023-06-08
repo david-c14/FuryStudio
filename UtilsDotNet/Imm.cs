@@ -21,6 +21,17 @@ namespace carbon14.FuryStudio.Utils
 
         [DllImport(Constants.dllPath, CallingConvention = CallingConvention.Cdecl)]
         private static extern byte Imm_pamBuffer(IntPtr imm, [MarshalAs(UnmanagedType.LPArray)] byte[] buffer, int size);
+		
+		[DllImport(Constants.dllPath, CallingConvention = CallingConvention.Cdecl)]
+		private static extern ushort Imm_width(IntPtr imm);
+		
+		[DllImport(Constants.dllPath, CallingConvention = CallingConvention.Cdecl)]
+		private static extern ushort Imm_height(IntPtr imm);
+		
+		[DllImport(Constants.dllPath, CallingConvention = CallingConvention.Cdecl)]
+		private static extern ushort Imm_depth(IntPtr imm);
+		
+		
 
         readonly protected IntPtr _imm;
         private bool _disposed = false;
@@ -82,6 +93,33 @@ namespace carbon14.FuryStudio.Utils
                 return null;
             }
         }
+		
+		public ushort Width
+		{
+			get
+			{
+				CheckDisposed();
+				return Imm_width(_imm);
+			}
+		}
+		
+		public ushort Height
+		{
+			get
+			{
+				CheckDisposed();
+				return Imm_height(_imm);
+			}
+		}
+		
+		public ushort Depth
+		{
+			get 
+			{
+				CheckDisposed();
+				return Imm_depth(_imm);
+			}
+		}
 
         protected virtual void Destroy()
         {

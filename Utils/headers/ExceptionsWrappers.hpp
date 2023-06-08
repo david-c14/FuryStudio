@@ -1,4 +1,4 @@
-// ExceptionsWrappers.hpp - internal header these are the public C wrapper prototypes for C++ classes
+// ExceptionsWrappers.hpp - internal header these are the internal C wrapper prototypes for C++ classes
 
-int _GetExceptionCode();
-const char * _GetExceptionString();
+int _Exception_code();
+const char * _Exception_string();

@@ -27,15 +27,29 @@ jobs:
         cd Utils\build
         .\Debug\Cli_Tests.exe
 
-    - name: Test Library using C
+    - name: Test Dynamic Library using C
       run: |
         cd Utils\build
         .\Debug\C_Tests.exe
 
-    - name: Test Library using C++
+    - name: Test Dynamic Library using C++
       run: |
         cd Utils\build
         .\Debug\Cpp_Tests.exe
+        
+    - name: Test Static Library using C
+      run: |
+        cd Utils\build
+        .\Debug\C_LibTests.exe
+
+    - name: Test Static Library using C++
+      run: |
+        cd Utils\build
+        .\Debug\Cpp_LibTests.exe
+        
+    - name: Build and Test C# Libraries
+      run: | 
+        dotnet test
         
     - name: Test Version
       if: ${{ github.event_name == 'release' }}
@@ -53,13 +67,45 @@ jobs:
       run: |
         cd Utils\build
         mkdir artifacts
-        mkdir artifacts\utils
-        copy .\Debug\DatFile.exe artifacts\utils
-        copy .\Debug\ImmFile.exe artifacts\utils
-        copy ..\..\LICENSE artifacts\utils
-        copy ..\..\doc\datfile.md artifacts\utils
-        copy ..\..\doc\immfile.md artifacts\utils
-        Compress-Archive -Path ".\artifacts\utils\*" -DestinationPath "artifacts\Utils-win-x64-${{ github.event.release.name }}.zip"
+        cd artifacts
+        mkdir utils
+        copy ..\Debug\DatFile.exe utils
+        copy ..\Debug\ImmFile.exe utils
+        copy ..\..\..\LICENSE utils
+        copy ..\..\..\doc\utilities\datfile.md utils
+        copy ..\..\..\doc\utilities\immfile.md utils
+        Compress-Archive -Path ".\utils\*" -DestinationPath "Utils-win-x64-${{ github.event.release.name }}.zip"
+        mkdir lib
+        mkdir lib\lib
+        copy ..\Debug\LibFuryUtils.lib lib\lib
+        copy ..\Debug\FuryUtils.dll lib\lib
+        copy ..\Debug\FuryUtils.lib lib\lib
+        copy ..\..\..\UtilsDotNet\bin\Debug\net6.0\carbon14.FuryStudio.Utils.dll lib\lib
+        mkdir lib\include
+        copy ..\..\include\* lib\include
+        mkdir lib\doc
+        mkdir lib\doc\c
+        copy ..\..\..\doc\lib\c\* lib\doc\c
+        mkdir lib\doc\cpp
+        copy ..\..\..\doc\lib\cpp\* lib\doc\cpp
+        mkdir lib\doc\cs
+        copy ..\..\..\doc\lib\cs\* lib\doc\cs
+        mkdir lib\samples
+        mkdir lib\samples\c
+        copy ..\..\C_Samples\*.c lib\samples\c
+        del lib\samples\c\main.c
+        mkdir lib\samples\cpp
+        copy ..\..\Cpp_Samples\*.cpp lib\samples\cpp
+        del lib\samples\cpp\main.cpp
+        mkdir lib\samples\cs
+        copy ..\..\..\CS_Samples\*.cs lib\samples\cs
+        del lib\samples\cs\Program.cs
+        del lib\samples\cs\TestHelpers.cs
+        copy ..\..\..\LICENSE lib
+        Compress-Archive -Path ".\lib\*" -DestinationPath "Lib-win-x64-${{ github.event.release.name }}.zip"
+        mkdir testassets
+        copy ..\..\..\testassets\* testassets
+        Compress-Archive -Path ".\testassets\*" -DestinationPath "TestAssets-win-x64-${{ github.event.release.name }}.zip"
         
     - name: Upload Artifacts
       if: ${{ github.event_name == 'release' }}
@@ -67,6 +113,8 @@ jobs:
       with:
         files: |
           Utils/build/artifacts/Utils-win-x64-${{ github.event.release.name }}.zip
+          Utils/build/artifacts/Lib-win-x64-${{ github.event.release.name }}.zip
+          Utils/build/artifacts/TestAssets-win-x64-${{ github.event.release.name }}.zip
 
   buildLinux:
     name: Build Linux
@@ -77,6 +125,10 @@ jobs:
       
     - name: Checkout Submodules
       run: git submodule update --init
+      
+    - name: Install .NET 6 SDK
+      run: |
+        sudo apt-get update && sudo apt-get install -y dotnet-sdk-6.0
       
     - name: Build Command Line Utilities and Library
       run: |
@@ -89,16 +141,30 @@ jobs:
         cd Utils/build
         ./Debug/Cli_Tests
 
-    - name: Test Library using C
+    - name: Test Dynamic Library using C
       run: |
         cd Utils/build
         ./Debug/C_Tests
 
-    - name: Test Library using C++
+    - name: Test Dynamic Library using C++
       run: |
         cd Utils/build
         ./Debug/Cpp_Tests
         
+    - name: Test Static Library using C
+      run: |
+        cd Utils/build
+        ./Debug/C_LibTests
+
+    - name: Test Static Library using C++
+      run: |
+        cd Utils/build
+        ./Debug/Cpp_LibTests
+        
+    - name: Build and Test C# Libraries
+      run: | 
+        dotnet test
+
     - name: Test Version
       if: ${{ github.event_name == 'release' }}
       run: |
@@ -115,13 +181,45 @@ jobs:
       run: |
         cd Utils/build
         mkdir artifacts
-        mkdir artifacts/utils
-        cp ./Debug/DatFile artifacts/utils
-        cp ./Debug/ImmFile artifacts/utils
-        cp ../../LICENSE artifacts/utils
-        cp ../../doc/datfile.md artifacts/utils
-        cp ../../doc/immfile.md artifacts/utils
-        tar -cvzf "artifacts/Utils-linux-x64-${{ github.event.release.name }}.tgz" artifacts/utils
+        cd artifacts
+        mkdir utils
+        cp ../Debug/DatFile utils
+        cp ../Debug/ImmFile utils
+        chmod 775 utils/*
+        cp ../../../LICENSE utils
+        cp ../../../doc/utilities/datfile.md utils
+        cp ../../../doc/utilities/immfile.md utils
+        tar -cvzf "Utils-linux-x64-${{ github.event.release.name }}.tgz" utils
+        mkdir lib
+        mkdir lib/lib
+        cp ../Debug/libFuryUtils.so lib/lib
+        cp ../Debug/libFuryUtils.a lib/lib
+        cp ../../../UtilsDotNet/bin/Debug/net6.0/carbon14.FuryStudio.Utils.dll lib/lib
+        mkdir lib/include
+        cp ../../include/* lib/include
+        mkdir lib/doc
+        mkdir lib/doc/c
+        cp ../../../doc/lib/c/* lib/doc/c
+        mkdir lib/doc/cpp
+        cp ../../../doc/lib/cpp/* lib/doc/cpp
+        mkdir lib/doc/cs
+        cp ../../../doc/lib/cs/* lib/doc/cs
+        mkdir lib/samples
+        mkdir lib/samples/c
+        cp ../../C_Samples/*.c lib/samples/c
+        rm lib/samples/c/main.c
+        mkdir lib/samples/cpp
+        cp ../../Cpp_Samples/*.cpp lib/samples/cpp
+        rm lib/samples/cpp/main.cpp
+        mkdir lib/samples/cs
+        cp ../../../CS_Samples/*.cs lib/samples/cs
+        rm lib/samples/cs/Program.cs
+        rm lib/samples/cs/TestHelpers.cs
+        cp ../../../LICENSE lib
+        tar -cvzf "Lib-linux-x64-${{ github.event.release.name }}.tgz" lib
+        mkdir testassets
+        cp ../../../testassets/* testassets
+        tar -cvzf "TestAssets-linux-x64-${{ github.event.release.name }}.tgz" testassets
         
     - name: Upload Artifacts
       if: ${{ github.event_name == 'release' }}
@@ -129,6 +227,8 @@ jobs:
       with:
         files: |
           Utils/build/artifacts/Utils-linux-x64-${{ github.event.release.name }}.tgz
+          Utils/build/artifacts/Lib-linux-x64-${{ github.event.release.name }}.tgz
+          Utils/build/artifacts/TestAssets-linux-x64-${{ github.event.release.name }}.tgz
 
         
         

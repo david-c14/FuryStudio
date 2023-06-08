@@ -8,8 +8,8 @@ TEST_CASE("Given a faulty bmp When created Then an exception is raised") {
 	std::vector<uint8_t> inputFile = utils::ReadFile("badrle.bmp");
 	bmp_p bmp = Test_Bmp_createFromBmp(inputFile.data(), uint32_t(inputFile.size()));
 	REQUIRE(bmp == NULL);
-	REQUIRE(Test_GetExceptionCode() == 1);
-	REQUIRE_THAT(Test_GetExceptionString(), Equals("Compressed data contains an error"));
+	REQUIRE(Test_Exception_code() == 1);
+	REQUIRE_THAT(Test_Exception_string(), Equals("Compressed data contains an error"));
 }
 
 TEST_CASE("Given a faulty imm When created Then an exception is raised") {
@@ -17,8 +17,8 @@ TEST_CASE("Given a faulty imm When created Then an exception is raised") {
 	std::vector<uint8_t> paletteFile = utils::ReadFile("pal8out.pam");
 	bmp_p bmp = Test_Bmp_createFromImmAndPam(pixelFile.data(), uint32_t(pixelFile.size()), paletteFile.data(), uint32_t(paletteFile.size()));
 	REQUIRE(bmp == NULL);
-	REQUIRE(Test_GetExceptionCode() == 1);
-	REQUIRE_THAT(Test_GetExceptionString(), Equals("Image buffer size is too short for valid Imm"));
+	REQUIRE(Test_Exception_code() == 1);
+	REQUIRE_THAT(Test_Exception_string(), Equals("Image buffer size is too short for valid Imm"));
 	Test_Bmp_destroy(bmp);
 }
 
@@ -56,6 +56,41 @@ TEST_CASE("Given a sound imm and pam When used to create a bmp Then the correct 
 		REQUIRE(result == (uint8_t)true);
 		REQUIRE(actualFile.size() == expectedFile.size());
 		REQUIRE(expectedFile == actualFile);
+	}
+	catch (...) {
+
+	}
+	Test_Bmp_destroy(bmp);
+}
+
+TEST_CASE("Given a sound imm and pam Whe used to create a bmp Then the correct size and depth are returned") {
+	std::vector<uint8_t> inputPixelFile = utils::ReadFile("pal8out.imm");
+	std::vector<uint8_t> inputPaletteFile = utils::ReadFile("pal8out.pam");
+	bmp_p bmp = Test_Bmp_createFromImmAndPam(inputPixelFile.data(), uint32_t(inputPixelFile.size()), inputPaletteFile.data(), uint32_t(inputPaletteFile.size()));
+	try {
+		uint16_t width = Test_Imm_width(bmp);
+		uint16_t height = Test_Imm_height(bmp);
+		uint16_t depth = Test_Imm_depth(bmp);
+		REQUIRE(width == (uint16_t)127);
+		REQUIRE(height == (uint16_t)64);
+		REQUIRE(depth == (uint16_t)8);
+	}
+	catch (...) {
+
+	}
+	Test_Bmp_destroy(bmp);
+}
+
+TEST_CASE("Given a sound bmp When used to create an imm Then the correct size and depth are returned") {
+	std::vector<uint8_t> inputFile = utils::ReadFile("pal8out.bmp");
+	bmp_p bmp = Test_Bmp_createFromBmp(inputFile.data(), uint32_t(inputFile.size()));
+	try {
+		uint16_t width = Test_Imm_width(bmp);
+		uint16_t height = Test_Imm_height(bmp);
+		uint16_t depth = Test_Imm_depth(bmp);
+		REQUIRE(width == (uint16_t)127);
+		REQUIRE(height == (uint16_t)64);
+		REQUIRE(depth == (uint16_t)8);
 	}
 	catch (...) {
 

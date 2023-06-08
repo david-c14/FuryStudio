@@ -23,3 +23,15 @@ uint32_t Imm_pamSize(imm_p imm) {
 uint8_t Imm_pamBuffer(imm_p imm, uint8_t *buffer, uint32_t size) {
 	return _Imm_pamBuffer(imm, buffer, size);
 }
+
+uint16_t Imm_width(imm_p imm) {
+	return _Imm_width(imm);
+}
+
+uint16_t Imm_height(imm_p imm) {
+	return _Imm_height(imm);
+}
+
+uint16_t Imm_depth(imm_p imm) {
+	return _Imm_depth(imm);
+}

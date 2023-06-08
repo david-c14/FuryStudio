@@ -1,11 +1,11 @@
 LIBRARY FuryUtils
 EXPORTS
-	GetExceptionCode
-	GetExceptionString
-	GetVersionMajor
-	GetVersionMinor
-	GetVersionRevision
-	GetVersionString
+	Exception_code
+	Exception_string
+	Version_major
+	Version_minor
+	Version_revision
+	Version_string
 	Dat_createNew
 	Dat_create
 	Dat_destroy
@@ -23,6 +23,9 @@ EXPORTS
 	Imm_immBuffer
 	Imm_pamSize
 	Imm_pamBuffer
+	Imm_width
+	Imm_height
+	Imm_depth
 	Bmp_createFromBmp
 	Bmp_createFromImmAndPam
 	Bmp_destroy

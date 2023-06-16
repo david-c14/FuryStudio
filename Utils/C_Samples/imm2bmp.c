@@ -24,6 +24,9 @@
 *    Exception_string
 *       to get a string description of the most recent error.
 *
+*
+*    Suggested inputs from the testassets: pal8out.imm, pal8out.pam
+*
 ******************************************************************************/
 
 #include <stdlib.h>

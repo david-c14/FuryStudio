@@ -10,6 +10,9 @@
 ///         class for reading/writing Dat archive files.
 ///    FuryException
 ///         exception class for reporting errors.
+///
+///
+/// Suggested inputs from the testassets: pal8out.imm, pal8out.pam
 /// 
 ///////////////////////////////////////////////////////////////////////////////
 

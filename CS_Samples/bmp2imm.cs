@@ -10,6 +10,9 @@
 ///         class for reading/writing images in Bmp format.
 ///    FuryException
 ///         exception class for reporting errors.
+///
+///
+/// Suggested inputs from the testassets: pal8out.bmp
 /// 
 ///////////////////////////////////////////////////////////////////////////////
 

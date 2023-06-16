@@ -18,6 +18,9 @@
 *    Dat_destroy
 *       to release the memory used by the object.
 *
+*
+*    Suggested inputs from the testassets: basic.dat
+*
 ******************************************************************************/
 
 #include <stdlib.h>

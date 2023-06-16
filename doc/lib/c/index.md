@@ -18,5 +18,6 @@ Link your application with `LibFuryUtils.lib`
 Link your application with `libFuryUtils.so`
 
 - Static linking on Linux  
-Link your application with `libFuryUtils.a`
+Link your application with `libFuryUtils.a`  
+You can compile with gcc, but you will probably be best to link with g++, because this library contains c++ constructs.
 

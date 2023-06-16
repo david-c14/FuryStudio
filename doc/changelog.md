@@ -1,3 +1,6 @@
+### 0.2.1
+- 16/06/23 Add some helpful comments to the samples
+
 ### 0.2.0
 - 02/06/23 Improve documentation
 - 08/06/23 Add library and test asset artifacts

@@ -10,6 +10,9 @@
 //    Exceptions::Exception
 //       exception class for reporting errors.
 //
+//
+//   Suggested inputs from the testassets: basic.dat
+//
 ///////////////////////////////////////////////////////////////////////////////
 
 #include <ios>

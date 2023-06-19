@@ -1,3 +1,6 @@
+### 0.3.0
+- 19/03/23 Add extended options to command line utilities
+
 ### 0.2.1
 - 16/06/23 Add some helpful comments to the samples
 

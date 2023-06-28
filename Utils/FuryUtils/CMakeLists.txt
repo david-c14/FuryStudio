@@ -11,6 +11,8 @@ add_library(FuryUtils SHARED
     exceptions_c.c 
     Imm.cpp 
     imm_c.c 
+	Lbm.cpp
+	lbm_c.c
 	Version.cpp
 	version_c.c
     FuryUtils.def
@@ -26,6 +28,8 @@ add_library(LibFuryUtils
     exceptions_c.c 
     Imm.cpp 
     imm_c.c 
+	Lbm.cpp
+	lbm_c.c
 	Version.cpp
 	version_c.c
 )

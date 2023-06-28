@@ -350,3 +350,26 @@ TEST_CASE("Given a file with a 4bpp rle When the file is used to construct a bmp
 	REQUIRE(bmp.Height() == (uint16_t)64);
 	REQUIRE(bmp.Depth() == (uint16_t)4);
 }
+
+TEST_CASE("Given a bmp object When the copy constructor is used Then a correct bmp is returned") {
+	std::vector<uint8_t> expected = utils::ReadFile("pal8out.bmp");
+	std::vector<uint8_t> bmpFile = utils::ReadFile("pal8.bmp");
+
+	FuryUtils::Image::Bmp bmp(bmpFile);
+	std::vector<uint8_t> actual;
+	bmp.Buffer(actual);
+	
+	std::vector<uint8_t> actual2;
+	FuryUtils::Image::Bmp bmp2(bmp, true);
+	bmp2.Buffer(actual2);
+
+	REQUIRE(actual == expected);
+	REQUIRE(bmp.Width() == (uint16_t)127);
+	REQUIRE(bmp.Height() == (uint16_t)64);
+	REQUIRE(bmp.Depth() == (uint16_t)8);
+	
+	REQUIRE(actual2 == expected);
+	REQUIRE(bmp2.Width() == (uint16_t)127);
+	REQUIRE(bmp2.Height() == (uint16_t)64);
+	REQUIRE(bmp2.Depth() == (uint16_t)8);
+}

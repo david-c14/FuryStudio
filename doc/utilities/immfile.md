@@ -41,7 +41,7 @@ Converts the supplied BMPFILE into an lbm format bitmap file LBMFILE
 
 ### CONVERT lbm to bmp
 
-`immfile -lb [LBMFILE] [BMPFILE]`
+`immfile -lb [LBMFILE] [BMPFILE]`  
 `immfile --lbm-to-bmp [LBMFILE] [BMPFILE]`
 
 Converts the supplied LBMFILE into a windows bmp format bitmap file BMPFILE.

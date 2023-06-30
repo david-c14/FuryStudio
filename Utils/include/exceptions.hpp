@@ -37,7 +37,7 @@ namespace FuryUtils {
 		const char ERROR_BMP_COMPRESSION_ERROR[] = "Compressed data contains an error";
 		
 		const char ERROR_LBM_SHORT_HEADER[] = "Buffer is too short to contain a valid Lbm";
-		const char ERROR_LBM_HEADER_MAGIC[] = "Headear characters of buffer should include 'FORM' and 'ILBM'";
+		const char ERROR_LBM_HEADER_MAGIC[] = "Header characters of buffer should include 'FORM' and 'ILBM'";
 		const char ERROR_LBM_SIZE_MISMATCH[] = "Buffer size does not agree with declared size in header";
 		const char ERROR_LBM_BMHD_SIZE_MISMATCH[] = "Buffer size is too small to hold header structure";
 		const char ERROR_LBM_UNSUPPORTED_MASK[] = "Masked lbm uimages are not supported";

@@ -2,9 +2,11 @@
 
 files used in unit tests and in code samples.
 
+- `1bpp.lbm`			An lbm file which claims to have 1-bit color depth.
 - `ba-bm.bmp`			This image uses the OS/2v2 Bitmap Array container format.
 - `badfilesize.bmp`		Header incorrectly indicates that the file is several GB in size.
 - `badheadersize.bmp`	Header size is 66 bytes, which is not a valid size for any known BMP version.
+- `badorder.lbm`		An lbm file with no CMAP before the BODY section.
 - `badpalettesize.bmp`	Header incorrectly indicates that the palette contains an absurdly large number of colors.
 - `badrle.bmp`			An invalid RLE8-compressed image that tries to cause buffer overruns.
 - `badrle4.bmp`			An invalid RLE4-compressed image that tries to cause buffer overruns.
@@ -12,7 +14,13 @@ files used in unit tests and in code samples.
 - `badrle4ter.bmp`		An invalid RLE4-compressed image that tries to cause buffer overruns.
 - `badrlebis.bmp`		An invalid RLE8-compressed image that tries to cause buffer overruns.
 - `badrleter.bmp`		An invalid RLE8-compressed image that tries to cause buffer overruns.
+- `badsig.lbm`			An lbm file with an incorrect IFF header magic.
 - `basic.dat`			A dat file with compression.
+- `bigchunk.lbm`		An lbm file with a chunk size that overflows the file size.
+- `bigpal.lbm`			An lbm file with an oversized cmap section.
+- `invalidbmhd`			An lbm file with an incorrect header section size.
+- `mask.lbm`			An lbm file containing a mask.
+- `overflow.lbm`		An lbm file with compressed data that overflows.
 - `pal1bg.bmp`			1-bpp paletted image, with colors other than black and white.
 - `pal4.bmp`			Paletted image with 12 palette colours, and 4-bpp.
 - `pal4.lbm`			A 3rd-party generated 4-bpp lbm.
@@ -42,16 +50,19 @@ files used in unit tests and in code samples.
 - `pal8topdown.bmp`		A bmp with top-down storage.
 - `pal8v4.bmp`			A v4 bitmap.
 - `pal8v5.bmp`			A v5 bitmap
+- `palmismatch.lbm`		An lbm with a palette larger than the declared bit-depth.
 - `password.zip`		A password protected zip file.
 - `rletopdown.bmp`		An RLE compressed image that tries to use top-down orientation, which is not valid.
 - `shortfile.bmp`		A file that has been truncated in the middle of the bitmap.
 - `shortimage.bmp`		A file which is shorter than the declared image size.
 - `shortinfo.bmp`		A file which is truncated in the middle of the header.
 - `shortpal.bmp`		A file which is truncated in the middle of the palette.
+- `sizemismatch.lbm`	An lbm file with an IFF size that differs from the actual file size.
 - `test.zip`			A zip file without password protection.
 - `TextFile.txt`		A plain text file.
 - `tooshort.bmp`		A bitmap which is too short to contain a valid header.
 - `tooshort.dat`		A dat file which is shorter than the header claims.
+- `tooshort.lbm`		An lbm which is shorter than the IFF header.
 - `uncompressed.dat`	A dat file without compression
 - `WriteTestOutput.txt`	A plain text file.
 

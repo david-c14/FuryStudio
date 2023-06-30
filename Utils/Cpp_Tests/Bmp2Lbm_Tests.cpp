@@ -29,9 +29,9 @@ TEST_CASE("Given a good 4bpp bmp file, When the file is used to construct a bmp 
 	lbm.Buffer(actual);
 
 	REQUIRE(actual == expected);
-	REQUIRE(bmp.Width() == (uint16_t)127);
-	REQUIRE(bmp.Height() == (uint16_t)64);
-	REQUIRE(bmp.Depth() == (uint16_t)4);
+	REQUIRE(lbm.Width() == (uint16_t)127);
+	REQUIRE(lbm.Height() == (uint16_t)64);
+	REQUIRE(lbm.Depth() == (uint16_t)4);
 }
 
 TEST_CASE("Given a narrow 4bpp bmp file, When the file is used to construct an lbm Then the correct lbm is created") {
@@ -44,13 +44,9 @@ TEST_CASE("Given a narrow 4bpp bmp file, When the file is used to construct an l
 	lbm.Buffer(actual);
 
 	REQUIRE(actual == expected);
-	REQUIRE(bmp.Width() == (uint16_t)117);
-	REQUIRE(bmp.Height() == (uint16_t)64);
-	REQUIRE(bmp.Depth() == (uint16_t)4);
-/*
-	std::ofstream outfile("pal4narrow.lbm", std::ios::out | std::ofstream::binary);
-	outfile.write(reinterpret_cast<char *>(actual.data()), actual.size());
-	outfile.close(); */
+	REQUIRE(lbm.Width() == (uint16_t)117);
+	REQUIRE(lbm.Height() == (uint16_t)64);
+	REQUIRE(lbm.Depth() == (uint16_t)4);
 }
 
 TEST_CASE("Given an uncompressible 4bpp bmp file, When the file is used to construct an lbm Then the correct lbm is created") {
@@ -63,11 +59,7 @@ TEST_CASE("Given an uncompressible 4bpp bmp file, When the file is used to const
 	lbm.Buffer(actual);
 
 	REQUIRE(actual == expected);
-	REQUIRE(bmp.Width() == (uint16_t)127);
-	REQUIRE(bmp.Height() == (uint16_t)64);
-	REQUIRE(bmp.Depth() == (uint16_t)4);
-/*
-	std::ofstream outfile("pal4nc.lbm.bin", std::ios::out | std::ofstream::binary);
-	outfile.write(reinterpret_cast<char *>(actual.data()), actual.size());
-	outfile.close(); */
+	REQUIRE(lbm.Width() == (uint16_t)127);
+	REQUIRE(lbm.Height() == (uint16_t)64);
+	REQUIRE(lbm.Depth() == (uint16_t)4);
 }

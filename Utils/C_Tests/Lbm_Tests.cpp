@@ -97,3 +97,53 @@ TEST_CASE("Given a sound lbm When used to create an imm Then the correct size an
 	}
 	Test_Lbm_destroy(lbm);
 }
+
+TEST_CASE("Given a sound lbm When used to create another lbm Then the correct size, depth and buffers are returned") {
+	std::vector<uint8_t> inputFile = utils::ReadFile("pal8out.lbm");
+	std::vector<uint8_t> expectedFile = inputFile;
+	lbm_p lbm = Test_Lbm_createFromLbm(inputFile.data(), uint32_t(inputFile.size()));
+	lbm_p lbm2 = Test_Lbm_createFromImage(lbm);
+	try {
+		uint16_t width = Test_Imm_width(lbm2);
+		uint16_t height = Test_Imm_height(lbm2);
+		uint16_t depth = Test_Imm_depth(lbm2);
+		std::vector<uint8_t> actualFile(Test_Imm_size(lbm2));
+		uint8_t result = Test_Imm_buffer(lbm2, actualFile.data(), uint32_t(actualFile.size()));
+		REQUIRE(width == (uint16_t)127);
+		REQUIRE(height == (uint16_t)64);
+		REQUIRE(depth == (uint16_t)8);
+		REQUIRE(result == (uint8_t)true);
+		REQUIRE(actualFile.size() == expectedFile.size());
+		REQUIRE(expectedFile == actualFile);
+		
+	}
+	catch (...) {
+	}
+	Test_Lbm_destroy(lbm);
+	Test_Lbm_destroy(lbm2);
+}
+
+TEST_CASE("Given a sound bmp When used to create an lbm Then the correct size, depth and buffers are returned") {
+	std::vector<uint8_t> inputFile = utils::ReadFile("pal8out.bmp");
+	std::vector<uint8_t> expectedFile = utils::ReadFile("pal8out.lbm");
+	bmp_p bmp = Test_Bmp_createFromBmp(inputFile.data(), uint32_t(inputFile.size()));
+	lbm_p lbm = Test_Lbm_createFromImage(bmp);
+	try {
+		uint16_t width = Test_Imm_width(lbm);
+		uint16_t height = Test_Imm_height(lbm);
+		uint16_t depth = Test_Imm_depth(lbm);
+		std::vector<uint8_t> actualFile(Test_Imm_size(lbm));
+		uint8_t result = Test_Imm_buffer(lbm, actualFile.data(), uint32_t(actualFile.size()));
+		REQUIRE(width == (uint16_t)127);
+		REQUIRE(height == (uint16_t)64);
+		REQUIRE(depth == (uint16_t)8);
+		REQUIRE(result == (uint8_t)true);
+		REQUIRE(actualFile.size() == expectedFile.size());
+		REQUIRE(expectedFile == actualFile);
+		
+	}
+	catch (...) {
+	}
+	Test_Bmp_destroy(bmp);
+	Test_Lbm_destroy(lbm);
+}

@@ -42,6 +42,14 @@ namespace FuryUtils {
 			uint8_t r;
 		};
 		#pragma pack(pop)
+		
+		Bmp::Bmp(const Imm &src) : Imm(src) {
+			MakeBmp();
+		}
+		
+		Bmp::Bmp(const Bmp &src) : Imm(src) {
+			MakeBmp();
+		}
 
 		Bmp::Bmp(std::vector<uint8_t> &inputPalette, std::vector<uint8_t> &inputPixels) : Imm(inputPalette, inputPixels) {
 			MakeBmp();

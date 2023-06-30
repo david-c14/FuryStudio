@@ -9,6 +9,7 @@
 #include "bmp.h"
 #include "dat.h"
 #include "imm.h"
+#include "lbm.h"
 #include "exceptions.h"
 #include "version.h"
 

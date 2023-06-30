@@ -2,6 +2,7 @@
 
 - [Bmp](bmp.md) - Windows bitmap format image functions
 - [Dat](dat.md) - Dat archive functions
+- [Lbm](lbm.md) - Lbm format image functions
 - [Exception](exception.md) - Error handling functions
 - [Imm](imm.md) - Imm format image functions
 - [Version](version.md) - Library version functions

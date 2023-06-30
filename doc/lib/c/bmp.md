@@ -3,7 +3,19 @@
 The Bmp functions are functions for handling images in windows bitmap format. 
 Images in this format are derived from the [Imm](imm.md) format images and the `bmp_p` pointer can be passed to Imm functions in place of an `imm_p` pointer.
 
-typedef void* bmp_p
+`typedef void* imm_p`  
+`typedef void* bmp_p`
+
+## Bmp_createFromImage
+
+`bmp_p Bmp_createFromImage(const imm_p src)`
+
+Creates a bmp image from an existing image.
+
+- `src` is a pointer to an existing image object; either a bmp or an lbm.
+- returns a pointer to a bitmap object
+
+When you have finished with the bitmap, you should pass the pointer to `Bmp_destroy` to free up the memory.
 
 ## Bmp_createFromBmp
 

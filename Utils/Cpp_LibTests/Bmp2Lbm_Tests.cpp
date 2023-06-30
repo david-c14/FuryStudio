@@ -1,0 +1,1 @@
+#include "../Cpp_Tests/Bmp2Lbm_Tests.cpp"

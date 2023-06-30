@@ -35,6 +35,16 @@ namespace FuryUtils {
 		const char ERROR_BMP_PALETTE_SIZE_MISMATCH[] = "Declared palette size is too large";
 		const char ERROR_BMP_TOP_TO_BOTTOM_RLE[] = "Top to bottom RLE encoded Bmp are not valid";
 		const char ERROR_BMP_COMPRESSION_ERROR[] = "Compressed data contains an error";
+		
+		const char ERROR_LBM_SHORT_HEADER[] = "Buffer is too short to contain a valid Lbm";
+		const char ERROR_LBM_HEADER_MAGIC[] = "Header characters of buffer should include 'FORM' and 'ILBM'";
+		const char ERROR_LBM_SIZE_MISMATCH[] = "Buffer size does not agree with declared size in header";
+		const char ERROR_LBM_BMHD_SIZE_MISMATCH[] = "Buffer size is too small to hold header structure";
+		const char ERROR_LBM_UNSUPPORTED_MASK[] = "Masked lbm uimages are not supported";
+		const char ERROR_LBM_UNSUPPORTED_DEPTH[] = "Only 16-color and 256-color Lbm are supported";
+		const char ERROR_LBM_FORMAT_ERROR[] = "File format is not understood";
+		const char ERROR_LBM_PALETTE_SIZE_MISMATCH[] = "Declared palette size is too large";
+		const char ERROR_LBM_IMAGE_SIZE_MISMATCH[] = "Buffer size is too small to hold specified image";
 
 		const char ERROR_DAT_COMPRESSION_SIZE_MISMATCH[] = "Uncompressed data is larger than declared size";
 		const char ERROR_DAT_BUFFER_TOO_SMALL[] = "Buffer too small";

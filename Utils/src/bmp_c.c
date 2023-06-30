@@ -1,5 +1,9 @@
 #include "../headers/BmpWrappers.hpp"
 
+bmp_p Bmp_createFromImage(const imm_p src) {
+	return _Bmp_createFromImage(src);
+}
+
 bmp_p Bmp_createFromBmp(uint8_t *buffer, uint32_t size) {
 	return _Bmp_createFromBmp(buffer, size);
 }

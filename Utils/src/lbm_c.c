@@ -1,5 +1,9 @@
 #include "../headers/LbmWrappers.hpp"
 
+lbm_p Lbm_createFromImage(const imm_p src) {
+	return _Lbm_createFromImage(src);
+}
+
 lbm_p Lbm_createFromLbm(uint8_t *buffer, uint32_t size) {
 	return _Lbm_createFromLbm(buffer, size);
 }

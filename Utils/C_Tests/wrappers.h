@@ -3,6 +3,7 @@
 typedef void * dat_p;
 typedef void * imm_p;
 typedef void * bmp_p;
+typedef void * lbm_p;
 
 extern "C" {
 
@@ -35,9 +36,15 @@ extern "C" {
 	uint16_t Test_Imm_width(imm_p imm);
 	uint16_t Test_Imm_height(imm_p imm);
 	uint16_t Test_Imm_depth(imm_p imm);
+	
+	bmp_p Test_Bmp_createFromImage(const imm_p src);
 	bmp_p Test_Bmp_createFromBmp(uint8_t *buffer, uint32_t size);
 	bmp_p Test_Bmp_createFromImmAndPam(uint8_t *pixelBuffer, uint32_t pixelSize, uint8_t *paletteBuffer, uint32_t paletteSize);
 	void Test_Bmp_destroy(bmp_p bmp);
 
+	lbm_p Test_Lbm_createFromImage(const imm_p src);
+	lbm_p Test_Lbm_createFromLbm(uint8_t *buffer, uint32_t size);
+	lbm_p Test_Lbm_createFromImmAndPam(uint8_t *pixelBuffer, uint32_t pixelSize, uint8_t *paletteBuffer, uint32_t paletteSize);
+	void Test_Lbm_destroy(lbm_p lbm);
 }
 

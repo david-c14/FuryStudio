@@ -12,7 +12,7 @@ TEST_CASE("Given a faulty bmp When created Then an exception is raised") {
 	REQUIRE_THAT(Test_Exception_string(), Equals("Compressed data contains an error"));
 }
 
-TEST_CASE("Given a faulty imm When created Then an exception is raised") {
+TEST_CASE("Given a faulty imm When a bmp is created Then an exception is raised") {
 	std::vector<uint8_t> pixelFile = utils::ReadFile("tooshort.bmp");
 	std::vector<uint8_t> paletteFile = utils::ReadFile("pal8out.pam");
 	bmp_p bmp = Test_Bmp_createFromImmAndPam(pixelFile.data(), uint32_t(pixelFile.size()), paletteFile.data(), uint32_t(paletteFile.size()));

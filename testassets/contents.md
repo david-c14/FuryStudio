@@ -46,6 +46,7 @@ files used in unit tests and in code samples.
 - `pal8out.lbm`			A canonical 8-bpp lbm.
 - `pal8out.pam`			A canonical 8-bpp pam.
 - `pal8qnt.bmp`			A canonical 8-bpp bitmap with a palette quantised to 6 bits.
+- `pal8qnt.lbm`			A canonical 8-bpp lbm with a palette quantised to 6 bits.
 - `pal8rle.bmp`			8-bpp image that uses RLE compression.
 - `pal8topdown.bmp`		A bmp with top-down storage.
 - `pal8v4.bmp`			A v4 bitmap.

@@ -11,7 +11,6 @@
 typedef void* imm_p;
 #endif
 
-imm_p _Imm_createFromImm(imm_p imm);
 uint32_t _Imm_size(imm_p imm);
 uint8_t _Imm_buffer(imm_p imm, uint8_t *buffer, uint32_t size);
 uint32_t _Imm_immSize(imm_p imm);

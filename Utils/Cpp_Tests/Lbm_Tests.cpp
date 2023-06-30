@@ -162,6 +162,21 @@ TEST_CASE("Given a good 8bpp lbm file When the file is used to construct an lbm 
 
 }
 
+TEST_CASE("Given a good 8bpp imm and pam file When the file is used to construct an lbm Then the correct size and depth are recorded") {
+	std::vector<uint8_t> immFile = utils::ReadFile("pal8out.imm");
+	std::vector<uint8_t> pamFile = utils::ReadFile("pal8out.pam");
+	std::vector<uint8_t> expected = utils::ReadFile("pal8qnt.lbm");
+
+	std::vector<uint8_t> actual;
+	FuryUtils::Image::Lbm lbm(pamFile, immFile);
+	lbm.Buffer(actual);
+
+	REQUIRE(actual == expected);
+	REQUIRE(lbm.Width() == (uint16_t)127);
+	REQUIRE(lbm.Height() == (uint16_t)64);
+	REQUIRE(lbm.Depth() == (uint16_t)8);
+}
+
 TEST_CASE("Given a good 4bpp lbm file When the file is used to construct an lbm Then the correct size and depth are recorded") {
 	std::vector<uint8_t> lbmFile = utils::ReadFile("pal4.lbm");
 	std::vector<uint8_t> expected = utils::ReadFile("pal4out.lbm");
@@ -219,3 +234,10 @@ TEST_CASE("Given a narrow 4bpp compressed lbm file When the file is used to cons
 	REQUIRE(lbm.Height() == (uint16_t)64);
 	REQUIRE(lbm.Depth() == (uint16_t)4);
 }
+
+/*
+	std::ofstream outfile("pal8qnt.lbm", std::ios::out | std::ofstream::binary);
+	outfile.write(reinterpret_cast<char *>(actual.data()), actual.size());
+	outfile.close();
+
+*/

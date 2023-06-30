@@ -3,8 +3,8 @@
 The Lbm functions are functions for handling images in lbm format. 
 Images in this format are derived from the [Imm](imm.md) format images and the `lbm_p` pointer can be passed to Imm functions in place of an `imm_p` pointer.
 
-typedef void* imm_p  
-typedef void* lbm_p
+`typedef void* imm_p`  
+`typedef void* lbm_p`
 
 ## Lbm_createFromImage
 

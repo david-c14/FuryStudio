@@ -26,7 +26,7 @@ Create a new Lbm instance from a buffer containing an lbm format bitmap file.
 
 Create a new Lbm instance from two buffers containing pixel data and palette.
 
-`src` is an existing image; either a Bmp or an Lbm.
+`src` is an existing image; either a Bmp or an Lbm.  
 `buffer` is a byte array containing a windows format bitmap file.  
 `pixelBuffer` is a byte array containing raw pixel data.
 `paletteBuffer` is a byte array containing a palette.

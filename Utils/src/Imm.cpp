@@ -52,16 +52,6 @@ namespace FuryUtils {
 			_palette.swap(paletteVector);
 			_pixels.swap(pixelVector);
 		}
-		
-		Imm::Imm(Imm &src, bool dummy) {
-			std::vector<RGBTriple> paletteVector(src._palette);
-			paletteVector.swap(_palette);
-			std::vector<uint8_t> pixelVector(src._pixels);
-			pixelVector.swap(_pixels);
-			_width = src._width;
-			_height = src._height;
-			_depth = src._depth;
-		}
 
 		uint32_t Imm::Size() {
 			return uint32_t(_outputBuffer.size());

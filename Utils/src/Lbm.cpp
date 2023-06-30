@@ -156,7 +156,11 @@ namespace FuryUtils {
 			}
 		}
 		
-		Lbm::Lbm(Imm &src, bool dummy) : Imm(src, dummy) {
+		Lbm::Lbm(const Imm &src) : Imm(src) {
+			MakeLbm();
+		}
+		
+		Lbm::Lbm(const Lbm &src) : Imm(src) {
 			MakeLbm();
 		}
 

@@ -28,8 +28,8 @@ namespace FuryUtils {
 
 		public:
 
-			Bmp(Imm &src) = delete;
-			Bmp(Imm &src, bool dummy);
+			Bmp(const Imm &src);
+			Bmp(const Bmp &src);
 			Bmp(std::vector<uint8_t> &inputPalette, std::vector<uint8_t> &inputPixels);
 			Bmp(std::vector<uint8_t> &bmpBuffer);
 		};

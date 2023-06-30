@@ -360,7 +360,7 @@ TEST_CASE("Given a bmp object When the copy constructor is used Then a correct b
 	bmp.Buffer(actual);
 	
 	std::vector<uint8_t> actual2;
-	FuryUtils::Image::Bmp bmp2(bmp, true);
+	FuryUtils::Image::Bmp bmp2(bmp);
 	bmp2.Buffer(actual2);
 
 	REQUIRE(actual == expected);

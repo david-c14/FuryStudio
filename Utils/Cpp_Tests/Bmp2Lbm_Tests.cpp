@@ -10,7 +10,7 @@ TEST_CASE("Given a good 8bpp bmp file, When the file is used to construct a bmp 
 
 	std::vector<uint8_t> actual;
 	FuryUtils::Image::Bmp bmp(bmpFile);
-	FuryUtils::Image::Lbm lbm(bmp, true);
+	FuryUtils::Image::Lbm lbm(bmp);
 	lbm.Buffer(actual);
 
 	REQUIRE(actual == expected);
@@ -25,7 +25,7 @@ TEST_CASE("Given a good 4bpp bmp file, When the file is used to construct a bmp 
 
 	std::vector<uint8_t> actual;
 	FuryUtils::Image::Bmp bmp(bmpFile);
-	FuryUtils::Image::Lbm lbm(bmp, true);
+	FuryUtils::Image::Lbm lbm(bmp);
 	lbm.Buffer(actual);
 
 	REQUIRE(actual == expected);
@@ -40,7 +40,7 @@ TEST_CASE("Given a narrow 4bpp bmp file, When the file is used to construct an l
 
 	std::vector<uint8_t> actual;
 	FuryUtils::Image::Bmp bmp(bmpFile);
-	FuryUtils::Image::Lbm lbm(bmp, true);
+	FuryUtils::Image::Lbm lbm(bmp);
 	lbm.Buffer(actual);
 
 	REQUIRE(actual == expected);
@@ -55,7 +55,7 @@ TEST_CASE("Given an uncompressible 4bpp bmp file, When the file is used to const
 
 	std::vector<uint8_t> actual;
 	FuryUtils::Image::Bmp bmp(bmpFile);
-	FuryUtils::Image::Lbm lbm(bmp, true);
+	FuryUtils::Image::Lbm lbm(bmp);
 	lbm.Buffer(actual);
 
 	REQUIRE(actual == expected);

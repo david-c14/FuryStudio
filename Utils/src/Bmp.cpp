@@ -43,7 +43,11 @@ namespace FuryUtils {
 		};
 		#pragma pack(pop)
 		
-		Bmp::Bmp(Imm &src, bool dummy) : Imm(src, dummy) {
+		Bmp::Bmp(const Imm &src) : Imm(src) {
+			MakeBmp();
+		}
+		
+		Bmp::Bmp(const Bmp &src) : Imm(src) {
 			MakeBmp();
 		}
 

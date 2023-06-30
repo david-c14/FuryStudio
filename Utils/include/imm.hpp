@@ -36,8 +36,6 @@ namespace FuryUtils {
 			uint16_t _height;
 			uint16_t _depth;
 			Imm();
-			Imm(Imm &src) = delete;
-			Imm(Imm &src, bool dummy);
 
 		public:
 			Imm(std::vector<uint8_t> &inputPalette, std::vector<uint8_t> &inputPixels);

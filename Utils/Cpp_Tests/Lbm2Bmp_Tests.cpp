@@ -10,7 +10,7 @@ TEST_CASE("Given a good 8bpp lbm file, When the file is used to construct an lbm
 
 	std::vector<uint8_t> actual;
 	FuryUtils::Image::Lbm lbm(lbmFile);
-	FuryUtils::Image::Bmp bmp(lbm, true);
+	FuryUtils::Image::Bmp bmp(lbm);
 	bmp.Buffer(actual);
 
 	REQUIRE(actual == expected);
@@ -25,7 +25,7 @@ TEST_CASE("Given a good 4bpp lbm file, When the file is used to construct an lbm
 
 	std::vector<uint8_t> actual;
 	FuryUtils::Image::Lbm lbm(lbmFile);
-	FuryUtils::Image::Bmp bmp(lbm, true);
+	FuryUtils::Image::Bmp bmp(lbm);
 	bmp.Buffer(actual);
 
 	REQUIRE(actual == expected);

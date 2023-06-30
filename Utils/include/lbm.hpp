@@ -19,8 +19,8 @@ namespace FuryUtils {
 
 		public:
 
-			Lbm(Imm &src) = delete;
-			Lbm(Imm &src, bool dummy);
+			Lbm(const Imm &src);
+			Lbm(const Lbm &src);
 			Lbm(std::vector<uint8_t> &inputPalette, std::vector<uint8_t> &inputPixels);
 			Lbm(std::vector<uint8_t> &lbmBuffer);
 		};

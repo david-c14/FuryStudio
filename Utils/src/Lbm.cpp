@@ -348,7 +348,6 @@ namespace FuryUtils {
 		}
 
 		void Lbm::MakeLbm() {
-			
 			// Pack pixel data-
 			uint16_t stride = (_width + 15) / 16;
 			stride <<= 1;
@@ -357,8 +356,8 @@ namespace FuryUtils {
 			uint32_t maxPixelSize = stride * _depth * _height;
 			std::vector<uint8_t> pixelBuffer(maxPixelSize, 0);
 			
-			for (uint8_t y = 0; y < _height; y++) {
-				for (uint8_t x = 0; x < _width; x++) {
+			for (uint16_t y = 0; y < _height; y++) {
+				for (uint16_t x = 0; x < _width; x++) {
 					uint8_t source = _pixels[y * _width + x];
 					uint32_t destLocation = y * stride * _depth + x / 8;
 					for (uint8_t d = 0; d < _depth; d++) {

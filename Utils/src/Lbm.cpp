@@ -57,7 +57,7 @@ namespace FuryUtils {
 			}
 			
 			struct CompressionUnit {
-				bool run = 0;
+				bool run = false;
 				uint16_t count = 1;
 			};
 			
@@ -67,54 +67,63 @@ namespace FuryUtils {
 				uint32_t maxPixelSize = (uint32_t)pixelBuffer.size();
 				
 				std::vector<uint8_t> compressionBuffer(maxPixelSize, 0);
+				std::vector<CompressionUnit> units(stride);
+				CompressionUnit *unitBuffer = units.data();
+				uint16_t unitSize = 0;
 				uint32_t offset = 0;
 				uint8_t *line = pixelBuffer.data();
 				for (uint8_t y = 0; y < _height; y++) {
 					for (uint8_t d = 0; d < _depth; d++) {
-						std::vector<CompressionUnit> units(1);
+						unitSize = 1;
+						unitBuffer[0].count = 1;
+						unitBuffer[0].run = false;
 						uint8_t last = 0;
 						uint8_t *pixel = line;
 						for (uint16_t x = 0; x < stride; x++) {
 							uint8_t thisChar = *pixel++;
 							if (x) {
 								if (thisChar == last) {
-									if (units[units.size() - 1].count > 127) {
-										units.resize(units.size() + 1);
+									if (unitBuffer[unitSize - 1].count > 127) {
+										unitBuffer[unitSize].count = 1;
+										unitBuffer[unitSize].run = false;
+										unitSize++;
 									}
 									else {
-										units[units.size() - 1].count++;
-										units[units.size() - 1].run = true;
+										unitBuffer[unitSize - 1].count++;
+										unitBuffer[unitSize - 1].run = true;
 									}
 								}
 								else {
-									units.resize(units.size() + 1);
+										unitBuffer[unitSize].count = 1;
+										unitBuffer[unitSize].run = false;
+										unitSize++;
 								}
 							}
 							last = thisChar;
 						}
 
-						for (uint16_t i = 1; i < units.size() - 1; i++) {
-							if (units[i].count == 2 && units[i - 1].count == 1 && units[i + 1].count == 1) {
-								units[i].run = false;
+						for (uint16_t i = 1; i < unitSize - 1; i++) {
+							if (unitBuffer[i].count == 2 && unitBuffer[i - 1].count == 1 && unitBuffer[i + 1].count == 1) {
+								unitBuffer[i].run = false;
 							}
 						}
 
-						for (uint16_t i = 1; i < units.size(); i++) {
-							if (units[i].run || units[i - 1].run) {
+						for (uint16_t i = 1; i < unitSize; i++) {
+							if (unitBuffer[i].run || unitBuffer[i - 1].run) {
 								continue;
 							}
-							units[i].count += units[i - 1].count;
-							units[i - 1].count = 0;
+							unitBuffer[i].count += unitBuffer[i - 1].count;
+							unitBuffer[i - 1].count = 0;
 						}
 						
 						uint16_t lineLength = 0;
-						for (uint16_t i = 0; i < units.size(); i++) {
-							if (units[i].count) {
-								if (units[i].run) {
+						for (uint16_t i = 0; i < unitSize; i++) {
+							if (unitBuffer[i].count) {
+								if (unitBuffer[i].run) {
 									lineLength += 2;
 								}
 								else {
-									lineLength += units[i].count + 1;
+									lineLength += unitBuffer[i].count + 1;
 								}
 							}
 						}
@@ -123,16 +132,16 @@ namespace FuryUtils {
 							return 0;
 						}
 
-						for (uint16_t i = 0; i < units.size(); i++) {
-							if (units[i].run) {
-								compressionBuffer[offset++] = uint8_t(257 - units[i].count);
+						for (uint16_t i = 0; i < unitSize; i++) {
+							if (unitBuffer[i].run) {
+								compressionBuffer[offset++] = uint8_t(257 - unitBuffer[i].count);
 								compressionBuffer[offset++] = *line;
-								line += units[i].count;
+								line += unitBuffer[i].count;
 							}
 							else {
-								if (units[i].count) {
-									compressionBuffer[offset++] = units[i].count - 1;
-									while (units[i].count--) {
+								if (unitBuffer[i].count) {
+									compressionBuffer[offset++] = unitBuffer[i].count - 1;
+									while (unitBuffer[i].count--) {
 										compressionBuffer[offset++] = *line++;
 									}
 								}

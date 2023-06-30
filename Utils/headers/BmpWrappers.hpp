@@ -11,6 +11,12 @@
 typedef void* bmp_p;
 #endif
 
+#ifndef __IMM_P__
+#define __IMM_P__
+typedef void* imm_p;
+#endif
+
+bmp_p _Bmp_createFromImage(const imm_p src);
 bmp_p _Bmp_createFromBmp(uint8_t *buffer, uint32_t size);
 bmp_p _Bmp_createFromImmAndPam(uint8_t *pixelBuffer, uint32_t pixelSize, uint8_t *paletteBuffer, uint32_t paletteSize);
 void _Bmp_destroy(bmp_p bmp);

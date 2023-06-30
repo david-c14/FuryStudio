@@ -6,6 +6,10 @@ The Bmp class is a subclass of [Imm](imm.md) for handling images in windows bitm
 
 ## constructor
 
+`Bmp(const FuryUtils::Image::Imm &src)`
+
+Creates an image from an existing image.
+
 `Bmp(std::vector<uint8_t> &inputPalette, std::vector<uint8_t> &inputPixels)` inherited from [Imm](imm.md)
 
 Creates an image from byte vectors containing a palette and raw bitmap data.
@@ -14,6 +18,7 @@ Creates an image from byte vectors containing a palette and raw bitmap data.
 
 Creates an image from a byte vector containing a windows bitmap.
 
+- `src` is an existing image; either a Bmp or Lbm.
 - `inputPalette` is a byte vector containing the palette for the image.
 - `inputPixels` is a byte vector containing the pixel data for the image.
 - `bmpBuffer` is a byte vector containing the windows bitmap.

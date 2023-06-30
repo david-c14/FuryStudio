@@ -3,11 +3,28 @@
 typedef FuryUtils::Image::Bmp* bmp_p;
 #endif
 
+#ifndef IMM_P
+#define IMM_P
+typedef FuryUtils::Image::Imm* imm_p;
+#endif
+
 #include "../headers/Exceptions.hpp"
 #include "../include/bmp.hpp"
 
 
 extern "C" {
+	
+	FuryUtils::Image::Bmp * _Bmp_createFromImage(const FuryUtils::Image::Imm *src) {
+		ErrorCode = FuryUtils::Exceptions::NO_ERROR;
+		ErrorString = "";
+		try {
+			return new FuryUtils::Image::Bmp(*src);
+		}
+		catch (...) {
+			FuryUtils::Exceptions::HANDLE();
+			return NULL;
+		}
+	}
 
 	FuryUtils::Image::Bmp * _Bmp_createFromBmp(uint8_t *buffer, uint32_t size) {
 		ErrorCode = FuryUtils::Exceptions::NO_ERROR;

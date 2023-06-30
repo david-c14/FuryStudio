@@ -4,6 +4,7 @@
 
 #include "imm.hpp"
 #include "bmp.hpp"
+#include "lbm.hpp"
 #include "dat.hpp"
 #include "exceptions.hpp"
 #include "version.hpp"

@@ -47,7 +47,7 @@ namespace carbon14.FuryStudio.Utils
                 throw new ObjectDisposedException(nameof(Imm));
         }
 
-        protected IntPtr Pointer => _imm;
+        internal IntPtr Pointer => _imm;
 
         public byte[]? Buffer
         {

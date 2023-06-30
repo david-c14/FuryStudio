@@ -4,6 +4,7 @@ add_executable(C_Samples
     main.c
 	bmp2imm.c
 	imm2bmp.c
+	lbm2bmp.c
 	dat_create.c
 	dat_read.c
 )

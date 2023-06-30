@@ -2,6 +2,7 @@
 
 [Converting an Imm and Pam file to a windows Bmp file](../../Utils/Cpp_Samples/imm2bmp.cpp)  
 [Converting a windows Bmp file to an Imm and Pam file](../../Utils/Cpp_Samples/bmp2imm.cpp)  
+[Converting an Lbm file to a windows Bmp file](../../Utils/Cpp_Samples/lbm2bmp.cpp)  
 [Packing files into a Dat archive file](../../Utils/Cpp_Samples/dat_create.cpp)  
 [Reading files from a Dat archive file](../../Utils/Cpp_Samples/dat_read.cpp)  
 

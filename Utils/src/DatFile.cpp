@@ -28,15 +28,14 @@ std::string GetFileName(const std::string &s) {
 int Usage(char *arg0) {
 	std::string name = GetFileName(arg0);
 	printf("%s usage:\n\n", name.c_str());
-	printf("\tThis Message                : %s -?\n", name.c_str());
-	printf("\tPrint Version               : %s -v\n", name.c_str());
-	printf("\tList entries                : %s -l datfile\n", name.c_str());
-	printf("\tList entries in brief form  : %s -b datfile\n", name.c_str());
-	printf("\tExtract entry               : %s -x datfile entry\n", name.c_str());
-	printf("\tExtract all entries         : %s -X datfile\n", name.c_str());
-	printf("\tCreate a compressed file    : %s -c datfile entry [...]\n", name.c_str());
-	printf("\tCreate an uncompressed file : %s -u datfile entry [...]\n", name.c_str());
-	printf("\n");
+	printf("Print this Message\n"          "\t%s -? \n"                    "\t%s --help \n\n",                        name.c_str(), name.c_str());
+	printf("Print Version\n"               "\t%s -v \n"                    "\t%s --version \n\n",                     name.c_str(), name.c_str());
+	printf("List entries\n"                "\t%s -l datfile\n"             "\t%s --list datfile\n\n",                 name.c_str(), name.c_str());
+	printf("List entries in brief form\n"  "\t%s -b datfile\n"             "\t%s --list-brief datfile\n\n",           name.c_str(), name.c_str());
+	printf("Extract entry\n"               "\t%s -x datfile entry\n"       "\t%s --extract datfile entry\n\n",        name.c_str(), name.c_str());
+	printf("Extract all entries\n"         "\t%s -X datfile\n"             "\t%s --extract-all datfile\n\n",          name.c_str(), name.c_str());
+	printf("Create a compressed file\n"    "\t%s -c datfile entry [...]\n" "\t%s --compress datfile entry [...]\n\n", name.c_str(), name.c_str());
+	printf("Create an uncompressed file\n" "\t%s -u datfile entry [...]\n" "\t%s --pack datfile entry [...]\n\n",     name.c_str(), name.c_str());
 	return 0;
 }
 
@@ -292,25 +291,49 @@ int main(int argc, char* argv[]) {
 	if (!strncmp(argv[1], "-?", 2)) {
 		return Usage(argv[0]);
 	}
+	if (!strncmp(argv[1], "--help", 6)) {
+		return Usage(argv[0]);
+	}
 	if (!strncmp(argv[1], "-v", 2)) {
 		return Version(argv[0]);
 	}
-	if (!strncmp(argv[1], "-l", 2)) {
-		return List(argc, argv);
+	if (!strncmp(argv[1], "--version", 9)) {
+		return Version(argv[0]);
 	}
 	if (!strncmp(argv[1], "-b", 2)) {
 		return Brief(argc, argv);
 	}
-	if (!strncmp(argv[1], "-x", 2)) {
-		return Extract(argc, argv);
+	if (!strncmp(argv[1], "--list-brief", 12)) {
+		return Brief(argc, argv);
+	}
+	if (!strncmp(argv[1], "-l", 2)) {
+		return List(argc, argv);
+	}
+	if (!strncmp(argv[1], "--list", 6)) {
+		return List(argc, argv);
 	}
 	if (!strncmp(argv[1], "-X", 2)) {
 		return ExtractAll(argc, argv);
 	}
+	if (!strncmp(argv[1], "--extract-all", 13)) {
+		return ExtractAll(argc, argv);
+	}
+	if (!strncmp(argv[1], "-x", 2)) {
+		return Extract(argc, argv);
+	}
+	if (!strncmp(argv[1], "--extract", 9)) {
+		return Extract(argc, argv);
+	}
 	if (!strncmp(argv[1], "-c", 2)) {
 		return Create(argc, argv, true);
 	}
+	if (!strncmp(argv[1], "--compress", 10)) {
+		return Create(argc, argv, true);
+	}
 	if (!strncmp(argv[1], "-u", 2)) {
+		return Create(argc, argv, false);
+	}
+	if (!strncmp(argv[1], "--pack", 6)) {
 		return Create(argc, argv, false);
 	}
 	return Usage(argv[0]);

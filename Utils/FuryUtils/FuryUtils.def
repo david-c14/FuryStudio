@@ -26,7 +26,12 @@ EXPORTS
 	Imm_width
 	Imm_height
 	Imm_depth
+	Bmp_createFromImage
 	Bmp_createFromBmp
 	Bmp_createFromImmAndPam
 	Bmp_destroy
+	Lbm_createFromImage
+	Lbm_createFromLbm
+	Lbm_createFromImmAndPam
+	Lbm_destroy
 

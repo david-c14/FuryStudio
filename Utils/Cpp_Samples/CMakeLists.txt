@@ -4,6 +4,7 @@ add_executable(Cpp_Samples
     main.cpp
 	bmp2imm.cpp
 	imm2bmp.cpp
+	lbm2bmp.cpp
 	dat_create.cpp
 	dat_read.cpp
 )

@@ -1,37 +1,37 @@
-# Bmp class `FuryUtils.hpp`
+# Lbm class `FuryUtils.hpp`
 
-The Bmp class is a subclass of [Imm](imm.md) for handling images in windows bitmap format.
+The Lbm class is a subclass of [Imm](imm.md) for handling images in lbm format.
 
-`FuryUtils::Image::Bmp`
+`FuryUtils::Image::Lbm`
 
 ## constructor
 
-`Bmp(const FuryUtils::Image::Imm &src)`
+`Lbm(const FuryUtils::Image::Imm &src)`
 
 Creates an image from an existing image.
 
-`Bmp(std::vector<uint8_t> &inputPalette, std::vector<uint8_t> &inputPixels)` inherited from [Imm](imm.md)
+`Lbm(std::vector<uint8_t> &inputPalette, std::vector<uint8_t> &inputPixels)` inherited from [Imm](imm.md)
 
 Creates an image from byte vectors containing a palette and raw bitmap data.
 
-`Bmp(std::vector<uint8_t> &bmpBuffer)`
+`Lbm(std::vector<uint8_t> &lbmBuffer)`
 
 Creates an image from a byte vector containing a windows bitmap.
 
 - `src` is an existing image; either a Bmp or Lbm.
 - `inputPalette` is a byte vector containing the palette for the image.
 - `inputPixels` is a byte vector containing the pixel data for the image.
-- `bmpBuffer` is a byte vector containing the windows bitmap.
+- `lbmBuffer` is a byte vector containing the lbm bitmap.
 
-The `Bmp` object takes a copy of the pixel and palette data. The supplied vectors can safely be disposed afterwards.
+The `Lbm` object takes a copy of the pixel and palette data. The supplied vectors can safely be disposed afterwards.
 
 ## Size 
 
 `uint32_t Size()` inherited from [Imm](imm.md)
 
-Returns the length of a byte vector required to hold the image in windows bitmap format.
+Returns the length of a byte vector required to hold the image in lbm format.
 
-- returns the minimum length of a byte vector that would be necessary to hold the image in windows bitmap format.
+- returns the minimum length of a byte vector that would be necessary to hold the image in lbm format.
 
 Note below that it is *not* necessary for you to determine the size of the vector in advance of calling `Buffer`
 
@@ -39,7 +39,7 @@ Note below that it is *not* necessary for you to determine the size of the vecto
 
 `void Buffer(std::vector<uint8_t> &inputBuffer)` inherited from [Imm](imm.md)
 
-Swaps the provided byte vector with a vector containing the image in windows bitmap format. Note that because the vector is swapped, you
+Swaps the provided byte vector with a vector containing the image in lbm format. Note that because the vector is swapped, you
 do *not* need to provide a vector of the correct size.
 
 - `inputBuffer` is a byte vector of any length.

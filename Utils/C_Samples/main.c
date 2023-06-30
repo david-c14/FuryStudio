@@ -8,6 +8,7 @@
 
 void imm2bmp(const char * immFileName, const char * pamFileName, const char * bmpFileName);
 void bmp2imm(const char * bmpFileName, const char * immFileName, const char * pamFileName);
+void lbm2bmp(const char * lbmFileName, const char * bmpFileName);
 void dat_create(const char * immFileName, const char * pamFileName, const char * datFileName);
 void dat_read(const char * datFileName, const char * bmpFileName);
 
@@ -16,6 +17,7 @@ int main(int argc, char *argv[]) {
 
 	imm2bmp(ASSETDIR "pal8out.imm", ASSETDIR "pal8out.pam", "pal8out.bmp");
 	bmp2imm(ASSETDIR "pal8out.bmp", "pal8out.imm", "pal8out.pam");
+	lbm2bmp(ASSETDIR "pal8out.lbm", "pal8out.bmp");
 
 	dat_create(ASSETDIR "pal8out.imm", ASSETDIR "pal8out.pam", "pal8out.dat");
 	dat_read(ASSETDIR "basic.dat", "pal4out.bmp");

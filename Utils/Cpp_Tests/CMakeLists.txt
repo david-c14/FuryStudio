@@ -17,8 +17,8 @@ list(APPEND REQUIRED_SRC
 
 add_library(Cpp_TestObjects OBJECT ${REQUIRED_SRC})
 
-add_executable(Cpp_Tests $<TARGET_OBJECTS:Cpp_TestObjects>)
-target_link_libraries(Cpp_Tests FuryUtils)
+add_executable(Cpp_Tests)
+target_link_libraries(Cpp_Tests FuryUtils Cpp_TestObjects)
 
-add_executable(Cpp_LibTests $<TARGET_OBJECTS:Cpp_TestObjects>)
-target_link_libraries(Cpp_LibTests LibFuryUtils)
+add_executable(Cpp_LibTests)
+target_link_libraries(Cpp_LibTests LibFuryUtils Cpp_TestObjects)

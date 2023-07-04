@@ -19,8 +19,7 @@ extern "C" {
 		ErrorString = "";
 		try {
 			std::vector<uint8_t> vBuffer(buffer, buffer + size);
-			FuryUtils::Archive::BinInt binint(vBuffer);
-			return new FuryUtils::Archive::Bin(binint);
+			return new FuryUtils::Archive::Bin(vBuffer);
 		}
 		catch (...) {
 			FuryUtils::Exceptions::HANDLE();

@@ -58,8 +58,8 @@ namespace {
 namespace FuryUtils {
 	namespace Archive {
 
-		BinInt::BinInt() : Bin() {}
-		BinInt::BinInt(std::vector<uint8_t> &inputBuffer) : Bin() {
+		Bin::Bin() {}
+		Bin::Bin(std::vector<uint8_t> &inputBuffer) {
 			if (inputBuffer.size() < 6) {
 				Exceptions::ERROR(Exceptions::BUFFER_OVERFLOW, Exceptions::ERROR_BIN_BUFFER_TOO_SMALL);
 			}

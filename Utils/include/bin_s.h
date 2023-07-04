@@ -3,17 +3,26 @@
 #ifndef __BIN_S_H__
 #define __BIN_S_H__
 
-#ifndef __cplusplus
-#include <stdint.h>
-#define INIT(x)
-#else
-#define INIT(x) = x	
+#ifdef __unix__
+#undef APIENTRY
+#endif
+
+#ifndef APIENTRY
+#define APIENTRY
 #endif
 
 #ifdef __cplusplus
+#pragma once
+#include <vector>
+
+#define INIT(x) = x	
+
 namespace FuryUtils {
 	namespace Archive {
-#endif		
+#else
+#include <stdint.h>
+#define INIT(x)
+#endif
 
 #pragma pack(push, 1)
 struct Bin_Tile {
@@ -187,7 +196,7 @@ struct Bin_Sprite {
 	struct Bin_State states[10];
 };
 
-struct Bin {
+struct APIENTRY Bin {
 	uint16_t mapWidth INIT(20);
 	uint16_t mapHeight INIT(13);
 	struct Bin_Tile map[78][51];
@@ -231,7 +240,14 @@ struct Bin {
 	struct Bin_ExitReturn exitReturns[5];
 	uint16_t exitGraphic[5] INIT({0});
 	uint16_t colourRow INIT(0);
+
+#ifdef __cplusplus
+	Bin();
+	Bin(std::vector<uint8_t> &inputBuffer);
+#endif
+
 };
+
 #pragma pack(pop)
 
 #ifdef __cplusplus

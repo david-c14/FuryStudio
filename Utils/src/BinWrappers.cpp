@@ -2,11 +2,11 @@
 #include "../include/bin.hpp"
 
 extern "C" {
-	Bin_p _Bin_createNew() {
+	bin_p _Bin_createNew() {
 		ErrorCode = FuryUtils::Exceptions::NO_ERROR;
 		ErrorString = "";
 		try {
-			return new Bin_t();
+			return new FuryUtils::Archive::Bin();
 		}
 		catch (...) {
 			FuryUtils::Exceptions::HANDLE();
@@ -14,13 +14,13 @@ extern "C" {
 		}
 	}
 
-	Bin_p _Bin_create(uint8_t *buffer, uint32_t size) {
+	bin_p _Bin_create(uint8_t *buffer, uint32_t size) {
 		ErrorCode = FuryUtils::Exceptions::NO_ERROR;
 		ErrorString = "";
 		try {
 			std::vector<uint8_t> vBuffer(buffer, buffer + size);
 			FuryUtils::Archive::BinInt binint(vBuffer);
-			return new Bin_t(binint);
+			return new FuryUtils::Archive::Bin(binint);
 		}
 		catch (...) {
 			FuryUtils::Exceptions::HANDLE();
@@ -28,7 +28,7 @@ extern "C" {
 		}
 	}
 
-	void _Bin_destroy(Bin_p bin) {
+	void _Bin_destroy(bin_p bin) {
 		ErrorCode = FuryUtils::Exceptions::NO_ERROR;
 		ErrorString = "";
 		try {

@@ -24,15 +24,15 @@ const char *Test_Version_string() {
 	return Version_string();
 }
 
-Bin_p Test_Bin_createNew() {
+bin_p Test_Bin_createNew() {
 	return Bin_createNew();
 }
 
-Bin_p Test_Bin_create(uint8_t *buffer, uint32_t size) {
+bin_p Test_Bin_create(uint8_t *buffer, uint32_t size) {
 	return Bin_create(buffer, size);
 }
 
-void Test_Bin_destroy(Bin_p bin) {
+void Test_Bin_destroy(bin_p bin) {
 	Bin_destroy(bin);
 }
 

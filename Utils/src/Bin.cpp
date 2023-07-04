@@ -5,26 +5,26 @@
 
 namespace {
 	std::vector<uint8_t> decompressBin(std::vector<uint8_t> &inputVector) {
-		std::vector<uint8_t> outputVector(sizeof(Bin));
+		std::vector<uint8_t> outputVector(sizeof(FuryUtils::Archive::Bin));
 		uint8_t *outputBuffer = outputVector.data();
 		uint8_t *inputBuffer = inputVector.data();
 		uint32_t outputLocation = 0;
 		uint32_t inputLocation = 4;
 		uint16_t inputSize = (uint16_t)inputVector.size() - 4;
-		while (outputLocation < sizeof(Bin)) {
+		while (outputLocation < sizeof(FuryUtils::Archive::Bin)) {
 			if (inputSize < 2) {
 				FuryUtils::Exceptions::ERROR(FuryUtils::Exceptions::BUFFER_OVERFLOW, FuryUtils::Exceptions::ERROR_BIN_COMPRESSION_ERROR);
 			}
 			uint16_t copySize = inputBuffer[inputLocation++];
 			copySize += inputBuffer[inputLocation++] * 256;
 			if (copySize == 0) {
-				copySize = (uint16_t)sizeof(Bin) - outputLocation;
+				copySize = (uint16_t)sizeof(FuryUtils::Archive::Bin) - outputLocation;
 				while (copySize--) {
 					outputBuffer[outputLocation++] = 0;
 				}
 			}
 			else if (copySize < 0x7D00) {
-				if (copySize > (sizeof(Bin) - outputLocation)) {
+				if (copySize > (sizeof(FuryUtils::Archive::Bin) - outputLocation)) {
 					FuryUtils::Exceptions::ERROR(FuryUtils::Exceptions::BUFFER_OVERFLOW, FuryUtils::Exceptions::ERROR_BIN_COMPRESSION_ERROR);
 				}
 				inputSize -= 2;
@@ -43,7 +43,7 @@ namespace {
 				}
 				uint8_t runByte = inputBuffer[inputLocation++];
 				inputSize--;
-				if (copySize > (sizeof(Bin) - outputLocation)) {
+				if (copySize > (sizeof(FuryUtils::Archive::Bin) - outputLocation)) {
 					FuryUtils::Exceptions::ERROR(FuryUtils::Exceptions::BUFFER_OVERFLOW, FuryUtils::Exceptions::ERROR_BIN_COMPRESSION_ERROR);
 				}
 				while (copySize--) {

@@ -16,9 +16,9 @@ extern "C" {
 	int Test_Version_revision();
 	const char * Test_Version_string();
 	
-	Bin_p Test_Bin_createNew();
-	Bin_p Test_Bin_create(uint8_t *buffer, uint32_t size);
-	void Test_Bin_destroy(Bin_p bin);
+	bin_p Test_Bin_createNew();
+	bin_p Test_Bin_create(uint8_t *buffer, uint32_t size);
+	void Test_Bin_destroy(bin_p bin);
 
 	dat_p Test_Dat_createNew();
 	dat_p Test_Dat_create(uint8_t *buffer, uint32_t size);

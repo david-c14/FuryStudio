@@ -10,93 +10,94 @@
 #define INIT(x) = x	
 #endif
 
-
+#ifdef __cplusplus
+namespace FuryUtils {
+	namespace Archive {
+#endif		
 
 #pragma pack(push, 1)
-typedef struct Tile {
+struct Bin_Tile {
 	uint8_t x INIT(0);
 	uint8_t y INIT(0);
-} Tile_t;
+};
 
-typedef Tile_t Row_t[78];
-
-typedef struct Exit {
+struct Bin_Exit {
 	uint16_t left INIT(0xFFFF);
 	uint16_t top INIT(0xFFFF);
 	uint16_t destination INIT(0);
-} Exit_t;	
+};	
 
-typedef struct Water {
+struct Bin_Water {
 	uint16_t left INIT(0xFFFF);
 	uint16_t top INIT(0xFFFF);
 	uint16_t right INIT(0xFFFF);
 	uint16_t bottom INIT(0xFFFF);
-} Water_t;
+};
 
-typedef struct Teleport {
+struct Bin_Teleport {
 	uint16_t srcX INIT(0xFFFF);
 	uint16_t srcY INIT(0xFFFF);
 	uint16_t destX INIT(0xFFFF);
 	uint16_t destY INIT(0xFFFF);
-} Teleport_t;
+};
 
-typedef struct Nonstick {
+struct Bin_Nonstick {
 	uint16_t left INIT(0xFFFF);
 	uint16_t top INIT(0xFFFF);
 	uint16_t right INIT(0xFFFF);
 	uint16_t bottom INIT(0xFFFF);
-} Nonstick_t;
+};
 
-typedef struct Acid {
+struct Bin_Acid {
 	uint16_t left INIT(0xFFFF);
 	uint16_t top INIT(0xFFFF);
 	uint16_t right INIT(0xFFFF);
 	uint16_t bottom INIT(0xFFFF);
-} Acid_t;
+};
 
-typedef struct Danger {
+struct Bin_Danger {
 	uint16_t left INIT(0xFFFF);
 	uint16_t top INIT(0xFFFF);
 	uint16_t right INIT(0xFFFF);
 	uint16_t bottom INIT(0xFFFF);
-} Danger_t;	
+};	
 
-typedef struct Field {
+struct Bin_Field {
 	uint16_t left INIT(0xFFFF);
 	uint16_t top INIT(0xFFFF);
 	uint16_t right INIT(0xFFFF);
 	uint16_t bottom INIT(0xFFFF);
-} Field_t;
+};
 
-typedef struct Current {
+struct Bin_Current {
 	uint16_t left INIT(0);
 	uint16_t top INIT(0);
 	uint16_t right INIT(0);
 	uint16_t bottom INIT(0);
 	uint16_t flags INIT(0);
-} Current_t;
+};
 
-typedef struct ExitReturn {
+struct Bin_ExitReturn {
 	uint16_t left INIT(0);
 	uint16_t top INIT(0);
-} ExitReturn_t;
+};
 
-typedef struct Trigger {
+struct Bin_Trigger {
 	uint16_t state INIT(0);
 	uint16_t left INIT(0xFFFF);
 	uint16_t top INIT(0xFFFF);
 	uint16_t right INIT(0xFFFF);
 	uint16_t bottom INIT(0xFFFF);
-} Trigger_t;
+};
 
-typedef struct Frame {
+struct Bin_Frame {
 	uint16_t left INIT(0xFFFF);
 	uint16_t top INIT(0xFFFF);
 	uint16_t right INIT(0xFFFF);
 	uint16_t bottom INIT(0xFFFF);
-} Frame_t;	
+};	
 
-typedef struct State {
+struct Bin_State {
 	uint16_t left INIT(0xFFFF);
 	uint16_t top INIT(0xFFFF);
 	uint16_t destState INIT(0);
@@ -106,10 +107,10 @@ typedef struct State {
 	uint8_t gravity INIT(0);
 	uint8_t current INIT(0);
 	uint16_t activateSprite INIT(0xFFFF);
-	Trigger_t entryTrigger;
-	Trigger_t exitTrigger;
-	Trigger_t spriteEntryTrigger;
-	Trigger_t spriteExitTrigger;
+	struct Bin_Trigger entryTrigger;
+	struct Bin_Trigger exitTrigger;
+	struct Bin_Trigger spriteEntryTrigger;
+	struct Bin_Trigger spriteExitTrigger;
 	uint8_t destroy INIT(0);
 	uint8_t bounce INIT(0);
 	uint16_t emptyWater INIT(0);
@@ -119,15 +120,15 @@ typedef struct State {
 	uint16_t waterTriggerLeft INIT(0xFFFF);
 	uint16_t waterTriggerTop INIT(0xFFFF);
 	uint16_t waterTriggerRight INIT(0xFFFF);
-	Frame_t frames[10];
+	struct Bin_Frame frames[10];
 	uint16_t animationSpeed INIT(0);
 	uint16_t cycle INIT(0);
 	uint8_t cycleCount INIT(0xFF);
 	uint8_t animationTriggerState INIT(0xFF);
 	uint16_t waterTriggerBottom INIT(0xFFFF);
-} State_t;
+};
 
-typedef struct Sprite {
+struct Bin_Sprite {
 	uint8_t layer INIT(0);
 	uint8_t malevolence INIT(0);
 	uint16_t unknown1 INIT(0);
@@ -183,24 +184,24 @@ typedef struct Sprite {
 	uint16_t unknown46 INIT(0xFFFF);
 	uint16_t fireRate INIT(0);
 	uint16_t fireType INIT(1);
-	State_t states[10];
-} Sprite_t;
+	struct Bin_State states[10];
+};
 
 struct Bin {
 	uint16_t mapWidth INIT(20);
 	uint16_t mapHeight INIT(13);
-	Row_t map[51];
+	struct Bin_Tile map[78][51];
 	uint16_t decFile INIT(0);
 	uint16_t startLeft INIT(0);
 	uint16_t startTop INIT(0);
 	uint16_t foregroundPalette INIT(8);
-	Exit_t exits[5];
-	Water_t water1[5];
-	Teleport_t teleports[5];
-	Nonstick_t nonstick[5];
-	Acid_t acid[5];
-	Danger_t danger[20];
-	Sprite_t sprites[10];
+	struct Bin_Exit exits[5];
+	struct Bin_Water water1[5];
+	struct Bin_Teleport teleports[5];
+	struct Bin_Nonstick nonstick[5];
+	struct Bin_Acid acid[5];
+	struct Bin_Danger danger[20];
+	struct Bin_Sprite sprites[10];
 	uint16_t blue INIT(0);
 	uint16_t green INIT(0);
 	uint16_t red INIT(0);
@@ -211,11 +212,11 @@ struct Bin {
 	uint16_t unknown4 INIT(0);
 	uint16_t unknown5 INIT(0);
 	uint16_t unknown6 INIT(0);
-	Field_t redFields[5];
-	Field_t greenFields[5];
-	Field_t yellowFields[5];
-	Field_t blueFields[5];
-	Water_t water2[5];
+	struct Bin_Field redFields[5];
+	struct Bin_Field greenFields[5];
+	struct Bin_Field yellowFields[5];
+	struct Bin_Field blueFields[5];
+	struct Bin_Water water2[5];
 	uint16_t unknown7 INIT(0xFFFF);
 	uint16_t unknown8 INIT(0xFFFF);
 	uint16_t unknown9 INIT(0xFFFF);
@@ -224,16 +225,21 @@ struct Bin {
 	uint8_t waterPalette INIT(0);
 	uint8_t airPalette INIT(0);
 	uint16_t time INIT(0);
-	Current_t currents[5];
+	struct Bin_Current currents[5];
 	uint16_t motePalette INIT(0);
 	uint16_t spriteMap INIT(0);
-	ExitReturn_t exitReturns[5];
+	struct Bin_ExitReturn exitReturns[5];
 	uint16_t exitGraphic[5] INIT({0});
 	uint16_t colourRow INIT(0);
 };
 #pragma pack(pop)
 
-typedef struct Bin Bin_t;
-typedef Bin_t* Bin_p;
+#ifdef __cplusplus
+	}
+}
+typedef struct FuryUtils::Archive::Bin* bin_p;
+#else
+typedef struct Bin* bin_p;
+#endif
 
 #endif

@@ -12,7 +12,7 @@ TEST_CASE("Given a created internal bin When the bin is constructed Then the fie
 }
 
 TEST_CASE("Given a created bin When the bin is constructed Then the fields have default values") {
-	Bin_t bin;
+	FuryUtils::Archive::Bin bin;
 	REQUIRE(sizeof(bin) == 25518);
 	REQUIRE(bin.mapWidth == 20);
 	REQUIRE(bin.mapHeight == 13);

@@ -6,6 +6,9 @@ EXPORTS
 	Version_minor
 	Version_revision
 	Version_string
+	Bin_createNew
+	Bin_create
+	Bin_destroy
 	Dat_createNew
 	Dat_create
 	Dat_destroy

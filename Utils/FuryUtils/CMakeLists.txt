@@ -3,6 +3,8 @@ project(FuryUtils VERSION 1.0)
 add_library(FuryUtils SHARED 
     dllmain.cpp 
     BinaryIO.cpp 
+	Bin.cpp
+	bin_c.c
     Bmp.cpp 
     bmp_c.c 
     Dat.cpp 
@@ -20,6 +22,8 @@ add_library(FuryUtils SHARED
 add_library(LibFuryUtils
     dllmain.cpp 
     BinaryIO.cpp 
+	Bin.cpp
+	bin_c.c
     Bmp.cpp 
     bmp_c.c 
     Dat.cpp 

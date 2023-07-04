@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.10)
 project(C_Tests VERSION 1.0)
-add_executable(C_Tests 
+
+list(APPEND REQUIRED_SRC
     catchmain.cpp
 	Bin_Tests.cpp
     Bmp_Tests.cpp 
@@ -10,4 +11,11 @@ add_executable(C_Tests
     utils.cpp 
     Wrappers.c
 )
+
+add_library(C_TestObjects OBJECT ${REQUIRED_SRC})
+
+add_executable(C_Tests $<TARGET_OBJECTS:C_TestObjects>)
 target_link_libraries(C_Tests FuryUtils)
+
+add_executable(C_LibTests $<TARGET_OBJECTS:C_TestObjects>)
+target_link_libraries(C_LibTests LibFuryUtils)

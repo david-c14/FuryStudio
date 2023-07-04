@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.10)
 project(FuryUtils VERSION 1.0)
-add_library(FuryUtils SHARED 
+
+list(APPEND REQUIRED_SRC
     dllmain.cpp 
     BinaryIO.cpp 
 	Bin.cpp
@@ -17,25 +18,14 @@ add_library(FuryUtils SHARED
 	lbm_c.c
 	Version.cpp
 	version_c.c
+)
+
+add_library(FuryUtils SHARED 
+	${REQUIRED_SRC}
     FuryUtils.def
 )
 add_library(LibFuryUtils
-    dllmain.cpp 
-    BinaryIO.cpp 
-	Bin.cpp
-	bin_c.c
-    Bmp.cpp 
-    bmp_c.c 
-    Dat.cpp 
-    dat_c.c 
-    Exceptions.cpp 
-    exceptions_c.c 
-    Imm.cpp 
-    imm_c.c 
-	Lbm.cpp
-	lbm_c.c
-	Version.cpp
-	version_c.c
+	${REQUIRED_SRC}
 )
 if (UNIX)
 	set_target_properties(LibFuryUtils PROPERTIES OUTPUT_NAME "FuryUtils") 

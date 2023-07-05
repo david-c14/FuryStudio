@@ -20,12 +20,14 @@ list(APPEND REQUIRED_SRC
 	version_c.c
 )
 
+add_library(FuryUtilsObjects OBJECT ${REQUIRED_SRC})
+
 add_library(FuryUtils SHARED 
-	${REQUIRED_SRC}
+	$<TARGET_OBJECTS:FuryUtilsObjects>
     FuryUtils.def
 )
 add_library(LibFuryUtils
-	${REQUIRED_SRC}
+	$<TARGET_OBJECTS:FuryUtilsObjects>
 )
 if (UNIX)
 	set_target_properties(LibFuryUtils PROPERTIES OUTPUT_NAME "FuryUtils") 

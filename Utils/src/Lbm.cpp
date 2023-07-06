@@ -72,7 +72,7 @@ namespace FuryUtils {
 				uint16_t unitSize = 0;
 				uint32_t offset = 0;
 				uint8_t *line = pixelBuffer.data();
-				for (uint8_t y = 0; y < _height; y++) {
+				for (uint16_t y = 0; y < _height; y++) {
 					for (uint8_t d = 0; d < _depth; d++) {
 						unitSize = 1;
 						unitBuffer[0].count = 1;

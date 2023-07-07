@@ -242,8 +242,13 @@ struct APIENTRY Bin {
 	uint16_t colourRow INIT(0);
 
 #ifdef __cplusplus
+	enum ConversionType {
+		Uncompressed = 0,
+		Compressed = 1
+	};
 	Bin();
 	Bin(std::vector<uint8_t> &inputBuffer);
+	void Convert(std::vector<uint8_t> &buffer, ConversionType type);
 #endif
 
 };
@@ -256,6 +261,10 @@ struct APIENTRY Bin {
 typedef struct FuryUtils::Archive::Bin* bin_p;
 #else
 typedef struct Bin* bin_p;
+
+#define CONVERSION_UNCOMPRESSED 0
+#define CONVERSION_COMPRESSED 1
+
 #endif
 
 #endif

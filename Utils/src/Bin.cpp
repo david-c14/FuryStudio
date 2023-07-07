@@ -53,6 +53,79 @@ namespace {
 		}
 		return outputVector;
 	}
+	
+	void ConvertUncompressed(std::vector<uint8_t> &vector, const FuryUtils::Archive::Bin *bin) {
+		std::vector<uint8_t>outputBuffer(sizeof(FuryUtils::Archive::Bin) + 8);
+		outputBuffer[0] = 'b';
+		outputBuffer[1] = 'y';
+		outputBuffer[2] = 't';
+		outputBuffer[3] = '4';
+		outputBuffer[4] = sizeof(FuryUtils::Archive::Bin) % 256;
+		outputBuffer[5] = sizeof(FuryUtils::Archive::Bin) / 256;
+		memcpy(outputBuffer.data() + 6, bin, sizeof(FuryUtils::Archive::Bin));
+		outputBuffer[outputBuffer.size() - 2] = 0;
+		outputBuffer[outputBuffer.size() - 1] = 0;
+		outputBuffer.swap(vector);
+	}
+	
+	void ConvertCompressed(std::vector<uint8_t> &vector, const FuryUtils::Archive::Bin *bin) {
+		std::vector<uint8_t>outputVector(65535);
+		uint8_t *outputBuffer = outputVector.data();
+		outputBuffer[0] = 'b';
+		outputBuffer[1] = 'y';
+		outputBuffer[2] = 't';
+		outputBuffer[3] = '4';
+		uint16_t outputOffset = 4;
+		uint8_t *inputBuffer = (uint8_t *)bin;
+		uint16_t inputOffset = 0;
+		while (true) {
+			uint8_t prevChar = inputBuffer[inputOffset];
+			uint8_t prevPrevChar = prevChar++;
+			uint16_t seqStart = inputOffset;
+			uint16_t runStart = 0;
+			// find sequence of literal characters, followed by a run.
+			while(inputOffset < sizeof(FuryUtils::Archive::Bin)) {
+				uint8_t thisChar;
+				if ((thisChar = inputBuffer[inputOffset++]) == prevChar && prevChar == prevPrevChar) {
+					runStart = inputOffset - 3;
+					while(inputOffset < sizeof(FuryUtils::Archive::Bin)) {
+						if (inputBuffer[inputOffset] != prevChar) {
+							break;
+						}
+						inputOffset++;
+					}
+					break;
+				}
+				prevPrevChar = prevChar;
+				prevChar = thisChar;
+			}
+			uint16_t length = inputOffset - seqStart;
+			if (!length) {
+				break;
+			}
+			if (runStart == seqStart) { // All run, no literals.
+				runStart++;
+			}
+			if (!runStart) {
+				runStart = inputOffset;
+			}
+			uint16_t seqLength = runStart - seqStart;
+			uint16_t runLength = inputOffset - runStart;
+			outputBuffer[outputOffset++] = seqLength % 256;
+			outputBuffer[outputOffset++] = seqLength / 256;
+			memcpy(outputBuffer + outputOffset, inputBuffer + seqStart, seqLength);
+			outputOffset += (seqLength);
+			if (runStart && runLength) {
+				outputBuffer[outputOffset++] = runLength % 256;
+				outputBuffer[outputOffset++] = 0x7D + runLength / 256;
+				outputBuffer[outputOffset++] = inputBuffer[runStart];
+			}
+		}
+		outputBuffer[outputOffset++] = 0;
+		outputBuffer[outputOffset++] = 0;
+		outputVector.resize(outputOffset);
+		vector.swap(outputVector);
+	}
 }
 
 namespace FuryUtils {
@@ -78,6 +151,18 @@ namespace FuryUtils {
 			}
 			else {
 				Exceptions::ERROR(Exceptions::UNSUPPORTED_FORMAT, Exceptions::ERROR_BIN_UNRECOGNISED_FORMAT);
+			}
+		}
+		void Bin::Convert(std::vector<uint8_t> &buffer, Bin::ConversionType type) {
+			switch (type) {
+				case Uncompressed:
+					ConvertUncompressed(buffer, this);
+					break;
+				case Compressed:
+					ConvertCompressed(buffer, this);
+					break;
+				default: 
+					Exceptions::ERROR(Exceptions::UNSUPPORTED_FORMAT, Exceptions::ERROR_BIN_UNRECOGNISED_FORMAT);
 			}
 		}
 	}

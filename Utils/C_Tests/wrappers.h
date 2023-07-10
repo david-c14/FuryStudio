@@ -6,6 +6,9 @@ typedef void * imm_p;
 typedef void * bmp_p;
 typedef void * lbm_p;
 
+#define CONVERSION_UNCOMPRESSED 0
+#define CONVERSION_COMPRESSED 1
+
 extern "C" {
 
 	int Test_Exception_code();
@@ -19,6 +22,10 @@ extern "C" {
 	bin_p Test_Bin_createNew();
 	bin_p Test_Bin_create(uint8_t *buffer, uint32_t size);
 	void Test_Bin_destroy(bin_p bin);
+	binBuffer_p Test_Bin_convert(bin_p bin, uint32_t conversionType);
+	uint32_t Test_BinBuffer_size(binBuffer_p binBuffer);
+	uint8_t Test_BinBuffer_buffer(binBuffer_p binBuffer, uint8_t *buffer, uint32_t size);
+	void Test_BinBuffer_destroy(binBuffer_p binBuffer);
 
 	dat_p Test_Dat_createNew();
 	dat_p Test_Dat_create(uint8_t *buffer, uint32_t size);

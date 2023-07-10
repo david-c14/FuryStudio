@@ -9,6 +9,10 @@ EXPORTS
 	Bin_createNew
 	Bin_create
 	Bin_destroy
+	Bin_convert
+	BinBuffer_size
+	BinBuffer_buffer
+	BinBuffer_destroy
 	Dat_createNew
 	Dat_create
 	Dat_destroy

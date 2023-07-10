@@ -259,9 +259,10 @@ struct APIENTRY Bin {
 	}
 }
 typedef struct FuryUtils::Archive::Bin* bin_p;
+typedef std::vector<uint8_t>* binBuffer_p;
 #else
 typedef struct Bin* bin_p;
-
+typedef void* binBuffer_p;
 #define CONVERSION_UNCOMPRESSED 0
 #define CONVERSION_COMPRESSED 1
 

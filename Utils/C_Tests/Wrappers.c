@@ -36,6 +36,22 @@ void Test_Bin_destroy(bin_p bin) {
 	Bin_destroy(bin);
 }
 
+binBuffer_p Test_Bin_convert(bin_p bin, uint32_t conversionType) {
+	return Bin_convert(bin, conversionType);
+}
+
+uint32_t Test_BinBuffer_size(binBuffer_p binBuffer) {
+	return BinBuffer_size(binBuffer);
+}
+
+uint8_t Test_BinBuffer_buffer(binBuffer_p binBuffer, uint8_t *buffer, uint32_t size) {
+	return BinBuffer_buffer(binBuffer, buffer, size);
+}
+
+void Test_BinBuffer_destroy(binBuffer_p binBuffer) {
+	BinBuffer_destroy(binBuffer);
+}
+
 dat_p Test_Dat_createNew() {
 	return Dat_createNew();
 }

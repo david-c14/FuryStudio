@@ -199,7 +199,7 @@ struct Bin_Sprite {
 struct APIENTRY Bin {
 	uint16_t mapWidth INIT(20);
 	uint16_t mapHeight INIT(13);
-	struct Bin_Tile map[78][51];
+	struct Bin_Tile map[51][78];
 	uint16_t decFile INIT(0);
 	uint16_t startLeft INIT(0);
 	uint16_t startTop INIT(0);
@@ -235,7 +235,8 @@ struct APIENTRY Bin {
 	uint8_t airPalette INIT(0);
 	uint16_t time INIT(0);
 	struct Bin_Current currents[5];
-	uint16_t motePalette INIT(0);
+	uint8_t motePalette INIT(0);
+	uint8_t unknown12 INIT(60);
 	uint16_t spriteMap INIT(0);
 	struct Bin_ExitReturn exitReturns[5];
 	uint16_t exitGraphic[5] INIT({0});
@@ -244,11 +245,14 @@ struct APIENTRY Bin {
 #ifdef __cplusplus
 	enum ConversionType {
 		Uncompressed = 0,
-		Compressed = 1
+		Compressed = 1,
+		Yaml = 2
 	};
 	Bin();
 	Bin(std::vector<uint8_t> &inputBuffer);
 	void Convert(std::vector<uint8_t> &buffer, ConversionType type);
+	private:
+		void ParseYaml(std::vector<uint8_t> &buffer);
 #endif
 
 };
@@ -265,6 +269,7 @@ typedef struct Bin* bin_p;
 typedef void* binBuffer_p;
 #define CONVERSION_UNCOMPRESSED 0
 #define CONVERSION_COMPRESSED 1
+#define CONVERSION_YAML 2
 
 #endif
 

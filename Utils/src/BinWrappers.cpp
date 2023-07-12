@@ -1,5 +1,6 @@
 #include "../headers/Exceptions.hpp"
 #include "../include/bin.hpp"
+#undef NO_ERROR
 
 extern "C" {
 	bin_p _Bin_createNew() {

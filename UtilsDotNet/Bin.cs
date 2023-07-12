@@ -268,7 +268,8 @@ namespace carbon14.FuryStudio.Utils
             public ushort time;
             [MarshalAs(UnmanagedType.ByValArray, SizeConst = 5)]
             public Current[] currents;
-            public ushort motePalette;
+            public byte motePalette;
+            public byte unknown12;
             public ushort spriteMap;
             [MarshalAs(UnmanagedType.ByValArray, SizeConst = 5)]
             public ExitReturn[] exitReturns;

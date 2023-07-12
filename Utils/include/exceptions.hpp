@@ -52,6 +52,7 @@ namespace FuryUtils {
 		const char ERROR_BIN_BUFFER_TOO_SMALL[] = "Buffer too small";
 		const char ERROR_BIN_UNRECOGNISED_FORMAT[] = "Unrecognised format";
 		const char ERROR_BIN_COMPRESSION_ERROR[] = "Compressed data contains an error";
+		const char ERROR_BIN_INVALID_YAML[] = "Yaml contains an error";
 
 		enum Error
 #include "errorcodes.hpp"

@@ -172,7 +172,7 @@ namespace {
 		
 		ff["version"] << std::string(UTILS_VER);
 		{
-			if (comment.length()) {
+			if (comment.c_str()[0]) {
 				ff["comment"] << comment.c_str();
 			}
 		}

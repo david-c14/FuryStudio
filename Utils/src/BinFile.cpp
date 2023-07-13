@@ -1,15 +1,8 @@
 #include <fstream>
 #include <string>
 #include <string.h>
-#include "version.hpp"
-#include "../include/FuryUtils.hpp"
-//#include "shims.hpp"
-//#include "BinaryIO.cpp"
-//#include "Imm.cpp"
-//#include "Bmp.cpp"
-//#include "Lbm.cpp"
 #include "Exceptions.cpp"
-//#include "version.hpp"
+#include "Bin.cpp"
 
 std::string GetFileName(const std::string &s) {
 
@@ -67,7 +60,7 @@ int Info(int argc, char* argv[]) {
 			printf("%s: Summary of %s\n\n", name.c_str(), argv[2]);
 			printf("Width: %d Height %d\n", b.mapWidth, b.mapHeight);
 			std::string comment = b.GetComment();
-			if (comment.length()) {
+			if (comment.c_str()[0]) {
 				printf("Comment: %s\n", comment.c_str());
 			}
 			return 0;

@@ -53,6 +53,7 @@ TEST_CASE("Given a bin When the bin is converted with compression Then the outpu
 TEST_CASE("Yaml tests") {
 	std::vector<uint8_t>binFile = utils::ReadFile("DATA01.BIN");
 	FuryUtils::Archive::Bin bin(binFile);
+	bin.SetComment("(c) 2023 carbon14 (David O'Rourke)");
 	std::vector<uint8_t> output;
 	bin.Convert(output, FuryUtils::Archive::Bin::Yaml);
 	std::ofstream outfile("DATA01.yml", std::ios::out | std::ofstream::binary);
@@ -68,6 +69,7 @@ TEST_CASE("Yaml tests2") {
 		std::vector<uint8_t> buffer((uint32_t)size);
 		file.read((char *)(buffer.data()), size);
 		FuryUtils::Archive::Bin bin(buffer);
+		REQUIRE(bin.map[50][20].x == (int)'(');
 		REQUIRE(bin.mapWidth == 78);
 		REQUIRE(bin.mapHeight == 13);
 		REQUIRE(bin.map[1][1].x == 11);
@@ -86,6 +88,4 @@ TEST_CASE("Yaml tests2") {
 		REQUIRE(bin.danger[2].left == 0xFFFF);
 		REQUIRE(bin.blue == 0);
 		REQUIRE(bin.yellow == 1);
-		
-	
 }

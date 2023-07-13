@@ -2,10 +2,10 @@
 #include "../headers/BinaryIO.hpp"
 #include "../include/exceptions.hpp"
 #include "../include/bin.hpp"
-#include "../include/version.hpp"
 #undef APIENTRY
 #define RYML_SINGLE_HDR_DEFINE_NOW
 #include "../ryml/rapidyaml-0.5.0.hpp"
+#include "version.hpp"
 
 namespace {
 	std::vector<uint8_t> decompressBin(std::vector<uint8_t> &inputVector) {
@@ -131,7 +131,36 @@ namespace {
 		vector.swap(outputVector);
 	}
 	
-	void ConvertYaml(std::vector<uint8_t> &vector, const FuryUtils::Archive::Bin *bin) {
+	struct YamlErrorHandler {
+		void on_error(const char* msg, size_t len, ryml::Location loc) {
+			FuryUtils::Exceptions::ERROR(FuryUtils::Exceptions::INVALID_FORMAT, ryml::formatrs<std::string>("{}:{}:{} ({}B): ERROR {}",
+				loc.name, loc.line, loc.col, loc.offset, ryml::csubstr(msg, len)));
+		}
+		
+		ryml::Callbacks callbacks() {
+			return ryml::Callbacks(this, nullptr, nullptr, YamlErrorHandler::s_error);
+		}
+		
+		static void s_error(const char *msg, size_t len, ryml::Location loc, void *this_) {
+			return ((YamlErrorHandler*)this_)->on_error(msg, len, loc);
+		}
+		
+		YamlErrorHandler() : defaults(ryml::get_callbacks()) {}
+		ryml::Callbacks defaults;
+		
+		bool set = false;
+		
+		void SetCallbacks() {
+			if (!set) {
+				set = true;
+				ryml::set_callbacks(this->callbacks());
+			}
+		}
+	};
+	
+	YamlErrorHandler yamlErrorHandler;
+	
+	void ConvertYaml(std::vector<uint8_t> &vector, const FuryUtils::Archive::Bin *bin, std::string comment) {
 
 		ryml::NodeRef ff;
 		ryml::Tree tree;
@@ -141,7 +170,12 @@ namespace {
 		ff = root["FuryOfTheFurries"];
 		ff |= ryml::MAP;
 		
-		ff["version"] << std::string(Version_string());
+		ff["version"] << std::string(UTILS_VER);
+		{
+			if (comment.length()) {
+				ff["comment"] << comment.c_str();
+			}
+		}
 		ff["mapWidth"] << bin->mapWidth;
 		ff["mapHeight"] << bin->mapHeight;
 		ff["time"] << bin->time;
@@ -480,6 +514,7 @@ namespace {
 				ff.remove_child(field);
 			}
 		}
+		/// TODO Currents
 		
 		ryml::csubstr getLength = ryml::emit_yaml(tree, tree.root_id(), ryml::substr{}, false);
 		std::vector<char> charVec(getLength.len);
@@ -491,9 +526,12 @@ namespace {
 
 namespace FuryUtils {
 	namespace Archive {
-
-		Bin::Bin() {}
+		
+		Bin::Bin() {
+			yamlErrorHandler.SetCallbacks();
+		}
 		Bin::Bin(std::vector<uint8_t> &inputBuffer) {
+			yamlErrorHandler.SetCallbacks();
 			if (inputBuffer.size() < 6) {
 				Exceptions::ERROR(Exceptions::BUFFER_OVERFLOW, Exceptions::ERROR_BIN_BUFFER_TOO_SMALL);
 			}
@@ -547,6 +585,14 @@ namespace FuryUtils {
 			ryml::ConstNodeRef ff = tree["FuryOfTheFurries"];
 			CheckNodeIsMap(ff);
 			ryml::ConstNodeRef ref;
+			if (ff.has_child("comment")) {
+				ref = ff["comment"];
+				if (ref.is_keyval()) {
+					std::string comment;
+					ref >> comment;
+					SetComment(comment);
+				}
+			}
 			if (ff.has_child("mapWidth")) {
 				ref = ff["mapWidth"];
 				if (ref.is_keyval()) ref >> this->mapWidth;
@@ -1032,11 +1078,43 @@ namespace FuryUtils {
 					ConvertCompressed(buffer, this);
 					break;
 				case Yaml:
-					ConvertYaml(buffer, this);
+					ConvertYaml(buffer, this, GetComment());
 					break;
 				default: 
 					Exceptions::ERROR(Exceptions::UNSUPPORTED_FORMAT, Exceptions::ERROR_BIN_UNRECOGNISED_FORMAT);
 			}
+		}
+		void Bin::SetComment(std::string comment) {
+			int16_t len = (int16_t)comment.length();
+			if (len > 3000) {
+				Exceptions::ERROR(Exceptions::BUFFER_OVERFLOW, Exceptions::ERROR_BIN_COMMENT_OVERFLOW);
+			}
+			const char *str = comment.c_str();
+			for (uint8_t y = 50; y > 12; y--) {
+				uint8_t x = (1024 / (y + 1));
+				for (; x < 78; x++) {
+					this->map[y][x].x = *str++;
+					this->map[y][x].y = *str++;
+					len -= 2;
+					if (len < 1) return;
+				}
+			}
+		}
+		std::string Bin::GetComment() {
+			std::string str;
+			for (uint8_t y = 50; y > 12; y--) {
+				uint8_t x = (1024 / (y + 1));
+				for (; x < 78; x++) {
+					char c = (char)this->map[y][x].x;
+					str += c;
+					if (!c) return str;
+					c = (char)this->map[y][x].y;
+					str+= c;
+					if (!c) return str;
+				}
+			}
+			str += '\0';
+			return str;
 		}
 	}
 }

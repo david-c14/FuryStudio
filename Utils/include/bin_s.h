@@ -251,6 +251,8 @@ struct APIENTRY Bin {
 	Bin();
 	Bin(std::vector<uint8_t> &inputBuffer);
 	void Convert(std::vector<uint8_t> &buffer, ConversionType type);
+	void SetComment(std::string comment);
+	std::string GetComment();
 	private:
 		void ParseYaml(std::vector<uint8_t> &buffer);
 #endif

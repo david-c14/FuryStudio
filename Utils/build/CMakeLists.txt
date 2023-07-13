@@ -9,6 +9,7 @@ if (UNIX)
 	set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/Debug)
 	set(LIBRARY_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/Debug)
 endif (UNIX)
+add_subdirectory(../BinFile BinFile)
 add_subdirectory(../DatFile DatFile)
 add_subdirectory(../ImmFile ImmFile)
 add_subdirectory(../FuryUtils FuryUtils)
@@ -18,6 +19,7 @@ add_subdirectory(../Cli_Tests Cli_Tests)
 add_subdirectory(../C_Samples C_Samples)
 add_subdirectory(../Cpp_Samples Cpp_Samples)
 add_dependencies(Cli_Tests 
+	BinFile
     DatFile 
     ImmFile
 )

@@ -53,6 +53,7 @@ namespace FuryUtils {
 		const char ERROR_BIN_UNRECOGNISED_FORMAT[] = "Unrecognised format";
 		const char ERROR_BIN_COMPRESSION_ERROR[] = "Compressed data contains an error";
 		const char ERROR_BIN_INVALID_YAML[] = "Yaml contains an error";
+		const char ERROR_BIN_COMMENT_OVERFLOW[] = "Comment is too large to be stored";
 
 		enum Error
 #include "errorcodes.hpp"

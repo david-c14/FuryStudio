@@ -1,0 +1,1012 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schema.submarine.org.uk/carbon14/FuryStudio/2023-07/FuryOfTheFurries.json",
+  "title": "Fury of the Furries Game Level",
+  "description": "A level in the game",
+  "type": "object",
+  "properties": {
+    "FuryOfTheFurries": {
+      "description": "Container for identifying the yaml",
+      "type": "object",
+      "properties": {
+        "version": {
+          "description": "Version of the utils library",
+          "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$",
+          "type": "string"
+        },
+        "comment": {
+          "description": "Comment embedded in the binary file",
+          "type": "string"
+        },
+        "mapWidth": {
+          "description": "Width of the map in tiles",
+          "type": "integer",
+          "minimum": 20,
+          "maximum": 78
+        },
+        "mapHeight": {
+          "description": "Height of the map in tiles",
+          "type": "integer",
+          "minimum": 13,
+          "maximum": 51
+        },
+        "time": {
+          "description": "Time available in the level in frames (30-fps)",
+          "type": "integer",
+          "minimum": 0
+        },
+        "map": {
+          "description": "Rows of tiles to be used for the level",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "row": {
+                "description": "1-based index of row number. Optional, next row is assumed",
+                "type": "integer",
+                "minimum": 1,
+                "maxiumum": 51
+              },
+              "tiles": {
+                "description": "tiles to be used for the level",
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "column": {
+                      "description": "1-based index of column number. Optional, next column is assumed",
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 78
+                    },
+                    "xy": {
+                      "description": "2 character co-ordinate for this tile in the tilemap.",
+                      "type": "string",
+                      "pattern": "^[A-T][A-Y]$",
+                      "minLength": 2,
+                      "maxLength": 2
+                    }
+                  },
+                  "required": [ "xy" ]
+                }
+              }
+            }
+          }
+        },
+        "decorFile": {
+          "description": "Index of tilemap used",
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 10
+        },
+        "spriteFile": {
+          "description": "Index of spritefile used",
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 2
+        },
+        "startLeft": {
+          "description": "Left of starting position of furry",
+          "type": "integer",
+          "minimum": 0
+        },
+        "startTop": {
+          "description": "Top of starting position of furry",
+          "type": "integer",
+          "minimum": 0
+        },
+        "foreground": {
+          "description": "Index in palette of first foreground colour",
+          "type": "integer",
+          "minimum": 0,
+          "maximim": 15
+        },
+        "water": {
+          "description": "Index in palette of colour used for water",
+          "type": "integer",
+          "minimum": 0,
+          "maximim": 15
+        },
+        "air": {
+          "description": "Index in palette of colour used for air (not water)",
+          "type": "integer",
+          "minimum": 0,
+          "maximim": 15
+        },
+        "motes": {
+          "description": "Index in palette of colour used for dust motes",
+          "type": "integer",
+          "minimum": 0,
+          "maximim": 15
+        },
+        "exits": {
+          "description": "Exits regions",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "index": {
+                "description": "1-based index of the exit. Optional, next exit is assumed",
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 5
+              },
+              "left": {
+                "description": "Left position of exit",
+                "type": "integer",
+                "minimum": 0
+              },
+              "top": {
+                "description": "Top position of exit",
+                "type": "integer",
+                "minimum": 0
+              },
+              "destination": {
+                "description": "Game level to move to",
+                "type": "integer",
+                "minimum": 0
+              },
+              "options": {
+                "description": "Options for exit",
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [ "bonus", "smooth" ]
+                },
+                "uniqueItems": true
+              }
+            }
+          }
+        },
+        "water1": {
+          "description": "Water regions",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "index": {
+                "description": "1-based index of the region. Optional, next region is assumed",
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 5
+              },
+              "left": {
+                "description": "Left edge of region",
+                "type": "integer",
+                "minimum": 0
+              },
+              "top": {
+                "description": "Top edge of region",
+                "type": "integer",
+                "minimum": 0
+              },
+              "right": {
+                "description": "Right edge of region",
+                "type": "integer",
+                "minimum": 0
+              },
+              "bottom": {
+                "description": "Bottom edge of region",
+                "type": "integer",
+                "minimum": 0
+              }
+            }
+          }
+        },
+        "water2": {
+          "description": "Water regions",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "index": {
+                "description": "1-based index of the region. Optional, next region is assumed",
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 5
+              },
+              "left": {
+                "description": "Left edge of region",
+                "type": "integer",
+                "minimum": 0
+              },
+              "top": {
+                "description": "Top edge of region",
+                "type": "integer",
+                "minimum": 0
+              },
+              "right": {
+                "description": "Right edge of region",
+                "type": "integer",
+                "minimum": 0
+              },
+              "bottom": {
+                "description": "Bottom edge of region",
+                "type": "integer",
+                "minimum": 0
+              }
+            }
+          }
+        },
+        "teleport": {
+          "description": "Teleporters",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "index": {
+                "description": "1-based index of the region. Optional, next region is assumed",
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 5
+              },
+              "sourceX": {
+                "description": "Left of teleport",
+                "type": "integer",
+                "minimum": 0
+              },
+              "sourceY": {
+                "description": "Top of teleport",
+                "type": "integer",
+                "minimum": 0
+              },
+              "destX": {
+                "description": "Left of destination",
+                "type": "integer",
+                "minimum": 0
+              },
+              "destY": {
+                "description": "Right of destination",
+                "type": "integer",
+                "minimum": 0
+              }
+            }
+          }
+        },
+        "nonStick": {
+          "description": "Non-stick regions",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "index": {
+                "description": "1-based index of the region. Optional, next region is assumed",
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 5
+              },
+              "left": {
+                "description": "Left edge of region",
+                "type": "integer",
+                "minimum": 0
+              },
+              "top": {
+                "description": "Top edge of region",
+                "type": "integer",
+                "minimum": 0
+              },
+              "right": {
+                "description": "Right edge of region",
+                "type": "integer",
+                "minimum": 0
+              },
+              "bottom": {
+                "description": "Bottom edge of region",
+                "type": "integer",
+                "minimum": 0
+              }
+            }
+          }
+        },
+        "acid": {
+          "description": "Acid regions",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "index": {
+                "description": "1-based index of the region. Optional, next region is assumed",
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 5
+              },
+              "left": {
+                "description": "Left edge of region",
+                "type": "integer",
+                "minimum": 0
+              },
+              "top": {
+                "description": "Top edge of region",
+                "type": "integer",
+                "minimum": 0
+              },
+              "right": {
+                "description": "Right edge of region",
+                "type": "integer",
+                "minimum": 0
+              },
+              "bottom": {
+                "description": "Bottom edge of region",
+                "type": "integer",
+                "minimum": 0
+              }
+            }
+          }
+        },
+        "start": {
+          "description": "List of available furries at start of level",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [ "blue", "green", "red", "yellow" ]
+          },
+          "uniqueItems": true
+        },
+        "blueFields": {
+          "description": "Blue furry activation/deactivation field regions",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "index": {
+                "description": "1-based index of the region. Optional, next region is assumed",
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 5
+              },
+              "left": {
+                "description": "Left edge of region",
+                "type": "integer",
+                "minimum": 0
+              },
+              "top": {
+                "description": "Top edge of region",
+                "type": "integer",
+                "minimum": 0
+              },
+              "right": {
+                "description": "Right edge of region",
+                "type": "integer",
+                "minimum": 0
+              },
+              "bottom": {
+                "description": "Bottom edge of region",
+                "type": "integer",
+                "minimum": 0
+              }
+            }
+          }
+        },
+        "greenFields": {
+          "description": "Green furry activation/deactivation field regions",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "index": {
+                "description": "1-based index of the region. Optional, next region is assumed",
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 5
+              },
+              "left": {
+                "description": "Left edge of region",
+                "type": "integer",
+                "minimum": 0
+              },
+              "top": {
+                "description": "Top edge of region",
+                "type": "integer",
+                "minimum": 0
+              },
+              "right": {
+                "description": "Right edge of region",
+                "type": "integer",
+                "minimum": 0
+              },
+              "bottom": {
+                "description": "Bottom edge of region",
+                "type": "integer",
+                "minimum": 0
+              }
+            }
+          }
+        },
+        "redFields": {
+          "description": "Red furry activation/deactivation field regions",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "index": {
+                "description": "1-based index of the region. Optional, next region is assumed",
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 5
+              },
+              "left": {
+                "description": "Left edge of region",
+                "type": "integer",
+                "minimum": 0
+              },
+              "top": {
+                "description": "Top edge of region",
+                "type": "integer",
+                "minimum": 0
+              },
+              "right": {
+                "description": "Right edge of region",
+                "type": "integer",
+                "minimum": 0
+              },
+              "bottom": {
+                "description": "Bottom edge of region",
+                "type": "integer",
+                "minimum": 0
+              }
+            }
+          }
+        },
+        "yellowFields": {
+          "description": "Yellow furry activation/deactivation field regions",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "index": {
+                "description": "1-based index of the region. Optional, next region is assumed",
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 5
+              },
+              "left": {
+                "description": "Left edge of region",
+                "type": "integer",
+                "minimum": 0
+              },
+              "top": {
+                "description": "Top edge of region",
+                "type": "integer",
+                "minimum": 0
+              },
+              "right": {
+                "description": "Right edge of region",
+                "type": "integer",
+                "minimum": 0
+              },
+              "bottom": {
+                "description": "Bottom edge of region",
+                "type": "integer",
+                "minimum": 0
+              }
+            }
+          }
+        },
+        "danger": {
+          "description": "Danger regions",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "index": {
+                "description": "1-based index of the region. Optional, next region is assumed",
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 20
+              },
+              "left": {
+                "description": "Left edge of region",
+                "type": "integer",
+                "minimum": 0
+              },
+              "top": {
+                "description": "Top edge of region",
+                "type": "integer",
+                "minimum": 0
+              },
+              "right": {
+                "description": "Right edge of region",
+                "type": "integer",
+                "minimum": 0
+              },
+              "bottom": {
+                "description": "Bottom edge of region",
+                "type": "integer",
+                "minimum": 0
+              }
+            }
+          }
+        },
+        "currents": {
+          "description": "Current regions",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "index": {
+                "description": "1-based index of the region. Optional, next region is assumed",
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 5
+              },
+              "left": {
+                "description": "Left edge of region",
+                "type": "integer",
+                "minimum": 0
+              },
+              "top": {
+                "description": "Top edge of region",
+                "type": "integer",
+                "minimum": 0
+              },
+              "right": {
+                "description": "Right edge of region",
+                "type": "integer",
+                "minimum": 0
+              },
+              "bottom": {
+                "description": "Bottom edge of region",
+                "type": "integer",
+                "minimum": 0
+              },
+              "options": {
+                "description": "Facets of current",
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [ "down", "right", "up", "left", "weak", "strong", "motes" ]
+                },
+                "uniqueItems": true
+              }
+            }
+          }
+        },
+        "sprites": {
+          "description": "Sprite data",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "index": {
+                "description": "1-based index of sprite. Optional, next sprite is assumed",
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 10
+              },
+              "depth": {
+                "description": "Foreground, middleground, background",
+                "type": "string",
+                "enum": [ "front", "middle", "behind" ]
+              },
+              "kills": {
+                "description": "Colours of furries this can kill",
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [ "blue", "green", "red", "yellow" ]
+                },
+                "uniqueItems": true
+              },
+              "mask": {
+                "description": "Does the image have a mask",
+                "type": "boolean"
+              },
+              "cleanUp": {
+                "description": "Does the previous frame need to be removed",
+                "type": "boolean"
+              },
+              "strength": {
+                "description": "Hit points",
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 127
+              },
+              "blast": {
+                "description": "Blast radius",
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 5
+              },
+              "active": {
+                "description": "Sprite is initially active in this state",
+                "type":  "boolean"
+              },
+              "entryRegion": {
+                "description": "If the furry enters this region, the sprite will activate",
+                "type": "object",
+                "properties": {
+                  "left": {
+                    "description": "Left edge of region",
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "top": {
+                    "description": "Top edge of region",
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "right": {
+                    "description": "Right edge of region",
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "bottom": {
+                    "description": "Bottom edge of region",
+                    "type": "integer",
+                    "minimum": 0
+                  }
+                }
+              },
+              "exitRegion": {
+                "description": "If the furry leaves this region, the sprite will activate",
+                "type": "object",
+                "properties": {
+                  "left": {
+                    "description": "Left edge of region",
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "top": {
+                    "description": "Top edge of region",
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "right": {
+                    "description": "Right edge of region",
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "bottom": {
+                    "description": "Bottom edge of region",
+                    "type": "integer",
+                    "minimum": 0
+                  }
+                }
+              },
+              "fireRate": {
+                "description": "Rate of bullet fire",
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 5
+              },
+              "fireStyle": {
+                "description": "Way in which bullets are fired",
+                "type": "string",
+                "enum": [ "none", "slow", "right", "left", "medium", "fast" ]
+              },
+              "states": {
+                "description": "State data",
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "index": {
+                      "description": "1-based index of state. Optional, next state is assumed",
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 10
+                    },
+                    "left": {
+                      "description": "Left of sprite location",
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "top": {
+                      "description": "Top of sprite location",
+                      "type": "integer",
+                      "minumum": 0
+                    },
+                    "movementTarget": {
+                      "description": "State whose initial location the sprite moves towards",
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 10
+                    },
+                    "movementSpeed": {
+                      "description": "Speed at which sprite moves",
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 5
+                    },
+                    "movementStyle": {
+                      "description": "Style of sprite movement",
+                      "type": "string",
+                      "enum": [ "h/v", "diagonal", "vertical", "horizontal", "track", "fast", "none" ]
+                    },
+                    "gravity": {
+                      "description": "Sprite should fall when unsupported",
+                      "type": "boolean"
+                    },
+                    "current": {
+                      "description": "Entering this state affects a current",
+                      "type": "object",
+                      "properties": {
+                        "index": {
+                          "description": "Index of current affected",
+                          "type": "integer",
+                          "minumum": 1,
+                          "maximum": 5
+                        },
+                        "change": {
+                          "description": "How to affect the current",
+                          "type": "string",
+                          "enum": [ "on", "off" ]
+                        }
+                      }
+                    },
+                    "otherSprite": {
+                      "description": "Index of another sprite to activate",
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 10
+                    },
+                    "furryEntryRegion": {
+                      "description": "A state change will occur if the furry enters this region",
+                      "type": "object",
+                      "properties": {
+                        "index": {
+                          "description": "Index of state to change to",
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 10
+                        },
+                        "left": {
+                          "description": "Left edge of region",
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "top": {
+                          "description": "Top edge of region",
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "right": {
+                          "description": "Right edge of region",
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "bottom": {
+                          "description": "Bottom edge of region",
+                          "type": "integer",
+                          "minimum": 0
+                        }
+                      }
+                    },
+                    "furryExitRegion": {
+                      "description": "A state change will occur if the furry leaves this region",
+                      "type": "object",
+                      "properties": {
+                        "index": {
+                          "description": "Index of state to change to",
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 10
+                        },
+                        "left": {
+                          "description": "Left edge of region",
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "top": {
+                          "description": "Top edge of region",
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "right": {
+                          "description": "Right edge of region",
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "bottom": {
+                          "description": "Bottom edge of region",
+                          "type": "integer",
+                          "minimum": 0
+                        }
+                      }
+                    },
+                    "spriteEntryRegion": {
+                      "description": "A state change will occur if another sprite enters this region",
+                      "type": "object",
+                      "properties": {
+                        "index": {
+                          "description": "Index of state to change to",
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 10
+                        },
+                        "left": {
+                          "description": "Left edge of region",
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "top": {
+                          "description": "Top edge of region",
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "right": {
+                          "description": "Right edge of region",
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "bottom": {
+                          "description": "Bottom edge of region",
+                          "type": "integer",
+                          "minimum": 0
+                        }
+                      }
+                    },
+                    "spriteExitRegion": {
+                      "description": "A state change will occur if another sprite leaves this region",
+                      "type": "object",
+                      "properties": {
+                        "index": {
+                          "description": "Index of state to change to",
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 10
+                        },
+                        "left": {
+                          "description": "Left edge of region",
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "top": {
+                          "description": "Top edge of region",
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "right": {
+                          "description": "Right edge of region",
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "bottom": {
+                          "description": "Bottom edge of region",
+                          "type": "integer",
+                          "minimum": 0
+                        }
+                      }
+                    },
+                    "destroy": {
+                      "description": "Destroy the sprite if it enters this state",
+                      "type": "boolean"
+                    },
+                    "bounce": {
+                      "description": "The sprite should bounce ballistically",
+                      "type": "boolean"
+                    },
+                    "empty": {
+                      "description": "Water should start to empty from a region",
+                      "type": "object",
+                      "properties": {
+                        "index": {
+                          "description": "Index of region to empty",
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 10
+                        },
+                        "speed": {
+                          "description": "Speed at which water should empty",
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 255
+                        }
+                      }
+                    },
+                    "fill": {
+                      "description": "Water should start to fill a region",
+                      "type": "object",
+                      "properties": {
+                        "index": {
+                          "description": "Index of region to fill",
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 10
+                        },
+                        "speed": {
+                          "description": "Speed at which water should fill",
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 255
+                        }
+                      }
+                    },
+                    "waterChangeRegion": {
+                      "description": "A state change will occur if a water action completes",
+                      "type": "object",
+                      "properties": {
+                        "index": {
+                          "description": "Index of state to change to",
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 10
+                        },
+                        "left": {
+                          "description": "Left edge of region",
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "top": {
+                          "description": "Top edge of region",
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "right": {
+                          "description": "Right edge of region",
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "bottom": {
+                          "description": "Bottom edge of region",
+                          "type": "integer",
+                          "minimum": 0
+                        }
+                      }
+                    },
+                    "animation": {
+                      "description": "Sprite animation",
+                      "type": "object",
+                      "properties": {
+                        "frames": {
+                          "description": "Frames for sprite animation",
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "left": {
+                                "description": "Left edge of image in spriteMap",
+                                "type": "integer",
+                                "minimum": 0
+                              },
+                              "top": {
+                                "description": "Top edge of image in spriteMap",
+                                "type": "integer",
+                                "minimum": 0
+                              },
+                              "right": {
+                                "description": "Right edge of image in spriteMap",
+                                "type": "integer",
+                                "minimum": 0
+                              },
+                              "bottom": {
+                                "description": "Bottom edge of image in spriteMap",
+                                "type": "integer",
+                                "minimum": 0
+                              }
+                            }
+                          }
+                        },
+                        "speed": {
+                          "description": "Speed of animation",
+                          "type": "integer",
+                          "minumum": 0
+                        },
+                        "repeat": {
+                          "description": "repeat animation after completion",
+                          "type": "boolean",
+                        },
+                        "count": {
+                          "description": "Number of frames before changing state",
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "index": {
+                          "description": "Index of state to move to after animation is complete",
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 10
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "required":  ["FuryOfTheFurries"]
+}

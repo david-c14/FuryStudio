@@ -2,7 +2,7 @@
 
 namespace carbon14.FuryStudio.Utils
 {
-    public class Bin: IDisposable
+    public class Bin : IDisposable
     {
         [StructLayout(LayoutKind.Sequential, Pack = 1)]
         public struct Tile
@@ -108,6 +108,15 @@ namespace carbon14.FuryStudio.Utils
         };
 
         [StructLayout(LayoutKind.Sequential, Pack = 1)]
+        public struct Region
+        {
+            public ushort left;
+            public ushort top;
+            public ushort right;
+            public ushort bottom;
+        }
+
+        [StructLayout(LayoutKind.Sequential, Pack = 1)]
         public struct Frame
         {
             public ushort left;
@@ -162,14 +171,8 @@ namespace carbon14.FuryStudio.Utils
             public ushort blastArea;
             public ushort active;
             public ushort unknown2;
-            public ushort unknown3;
-            public ushort unknown4;
-            public ushort unknown5;
-            public ushort unknown6;
-            public ushort unknown7;
-            public ushort unknown8;
-            public ushort unknown9;
-            public ushort unknown10;
+            public Region FuryEntryRegion;
+            public Region FuryExitRegion;
             public ushort unknown11;
             public ushort unknown12;
             public ushort unknown13;

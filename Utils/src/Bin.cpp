@@ -133,8 +133,7 @@ namespace {
 	
 	struct YamlErrorHandler {
 		void on_error(const char* msg, size_t len, ryml::Location loc) {
-			FuryUtils::Exceptions::ERROR(FuryUtils::Exceptions::INVALID_FORMAT, ryml::formatrs<std::string>("{}:{}:{} ({}B): ERROR {}",
-				loc.name, loc.line, loc.col, loc.offset, ryml::csubstr(msg, len)));
+			FuryUtils::Exceptions::ERROR(FuryUtils::Exceptions::INVALID_FORMAT, ryml::formatrs<std::string>("YAML PARSING ERROR {}", ryml::csubstr(msg, len)));
 		}
 		
 		ryml::Callbacks callbacks() {
@@ -404,7 +403,6 @@ namespace {
 				ff.remove_child(danger);
 			}
 		}
-		/// TODO Sprites
 		{
 			ryml::NodeRef start = ff["start"];
 			start |= ryml::SEQ;
@@ -514,7 +512,249 @@ namespace {
 				ff.remove_child(field);
 			}
 		}
-		/// TODO Currents
+		{
+			ryml::NodeRef current = ff["currents"];
+			current |= ryml::SEQ;
+			bool skip = false;
+			for (uint8_t i = 0; i < 5; i++) {
+				if (bin->currents[i].left == 0xFFFF) {
+					skip = true;
+				}
+				else {
+					ryml::NodeRef item = current.append_child();
+					item |= ryml::MAP;
+					if (skip) {
+						skip = false;
+						item["index"] << (i + 1);
+					}
+					item["left"] << bin->currents[i].left;
+					item["top"] << bin->currents[i].top;
+					item["right"] << bin->currents[i].right;
+					item["bottom"] << bin->currents[i].bottom;
+					ryml::NodeRef options = current["options"];
+					options |= ryml::SEQ;
+					options |= ryml::_WIP_STYLE_FLOW_SL;
+					if ((bin->currents[i].flags & 0x3) == 0)
+						options.append_child() << "down";
+					if ((bin->currents[i].flags & 0x3) == 1)
+						options.append_child() << "right";
+					if ((bin->currents[i].flags & 0x3) == 2)
+						options.append_child() << "up";
+					if ((bin->currents[i].flags & 0x3) == 3)
+						options.append_child() << "left";
+					if (bin->currents[i].flags & 0x4) 
+						options.append_child() << "strong";
+					else
+						options.append_child() << "weak";
+					if (bin->currents[i].flags & 0x8)
+						options.append_child() << "motes";
+				}
+			}
+			if (current.num_children() == 0) {
+				ff.remove_child(current);
+			}
+		}
+		{
+			ryml::NodeRef sprites = ff["sprites"];
+			sprites |= ryml::SEQ;
+			bool skip = false;
+			for (uint8_t i = 0; i < 10; i++) {
+				if (false) { // reason for skipping
+					skip = true;
+				}	
+				else {
+					ryml::NodeRef sprite = sprites.append_child();
+					sprite |= ryml::MAP;
+					if (skip) {
+						skip = false;
+						sprite["index"] << (i + 1);
+					}
+					if (bin->sprites[i].layer == 0)
+						sprite["depth"] << "middle";
+					else if (bin->sprites[i].layer == 1)
+						sprite["depth"] << "behind";
+					else if (bin->sprites[i].layer == 2)
+						sprite["depth"] << "front";
+					if (bin->sprites[i].malevolence) {
+						ryml::NodeRef kills = sprite["kills"];
+						kills |= ryml::SEQ;
+						kills |= ryml::_WIP_STYLE_FLOW_SL;
+						if (bin->sprites[i].malevolence & 0x01)
+							kills.append_child() << "red";
+						if (bin->sprites[i].malevolence & 0x02)
+							kills.append_child() << "yellow";
+						if (bin->sprites[i].malevolence & 0x04)
+							kills.append_child() << "green";
+						if (bin->sprites[i].malevolence & 0x08)
+							kills.append_child() << "blue";
+					}
+					if (bin->sprites[i].mask)
+						sprite["mask"] << true;
+					if (bin->sprites[i].cleanUp)
+						sprite["cleanUp"] << true;
+					sprite["strength"] << bin->sprites[i].strength;
+					sprite["blast"] << bin->sprites[i].blastArea;
+					if (bin->sprites[i].active)
+						sprite["active"] << true;
+					if (bin->sprites[i].furryEntryRegion.left != 0xFFFF) {
+						ryml::NodeRef item = sprite["entryRegion"];
+						item |= ryml::MAP;
+						item["left"] << bin->sprites[i].furryEntryRegion.left;
+						item["top"] << bin->sprites[i].furryEntryRegion.top;
+						item["right"] << bin->sprites[i].furryEntryRegion.right;
+						item["bottom"] << bin->sprites[i].furryEntryRegion.bottom;
+					}
+					if (bin->sprites[i].furryExitRegion.left != 0xFFFF) {
+						ryml::NodeRef item = sprite["exitRegion"];
+						item |= ryml::MAP;
+						item["left"] << bin->sprites[i].furryExitRegion.left;
+						item["top"] << bin->sprites[i].furryExitRegion.top;
+						item["right"] << bin->sprites[i].furryExitRegion.right;
+						item["bottom"] << bin->sprites[i].furryExitRegion.bottom;
+					}
+					if (bin->sprites[i].fireRate)
+						sprite["fireRate"] << bin->sprites[i].fireRate;
+					if (bin->sprites[i].fireType)
+						sprite["fireStyle"] << bin->sprites[i].fireType;
+					{
+						ryml::NodeRef states = sprite["states"];
+						states |= ryml::SEQ;
+						bool skip2 = false;
+						for (uint8_t j = 0; j < 10; j++) {
+							if (bin->sprites[i].states[j].left == 0xFFFF) { // reason for skipping
+								skip2 = true;
+							}	
+							else {
+								ryml::NodeRef state = states.append_child();
+								state |= ryml::MAP;
+								if (skip2) {
+									skip2 = false;
+									states["index"] << (j + 1);
+								}
+								state["left"] << bin->sprites[i].states[j].left;
+								state["top"] << bin->sprites[i].states[j].top;
+								state["movementTarget"] << bin->sprites[i].states[j].destState;
+								state["movementSpeed"] << bin->sprites[i].states[j].speed;
+								if (bin->sprites[i].states[j].movementType == 0) 
+									state["movementStyle"] << "h/v";
+								else if (bin->sprites[i].states[j].movementType == 1) 
+									state["movementStyle"] << "diagonal";
+								else if (bin->sprites[i].states[j].movementType == 2) 
+									state["movementStyle"] << "vertical";
+								else if (bin->sprites[i].states[j].movementType == 3) 
+									state["movementStyle"] << "horizontal";
+								else if (bin->sprites[i].states[j].movementType == 4) 
+									state["movementStyle"] << "track";
+								else if (bin->sprites[i].states[j].movementType == 5) 
+									state["movementStyle"] << "fast";
+								else if (bin->sprites[i].states[j].movementType == 6) 
+									state["movementStyle"] << "none";
+								if (bin->sprites[i].states[j].gravity)
+									state["gravity"] << true;
+								if (bin->sprites[i].states[j].current) {
+									ryml::NodeRef current = state["current"];
+									current |= ryml::MAP;
+									current["index"] << (bin->sprites[i].states[j].current & 0xF);
+									if (bin->sprites[i].states[j].current & 0x10)
+										current["change"] << "off";
+									if (bin->sprites[i].states[j].current & 0x20)
+										current["change"] << "on";
+								}
+								if (bin->sprites[i].states[j].activateSprite != 0xFFFF)
+									state["otherSprite"] << bin->sprites[i].states[j].activateSprite;
+								if (bin->sprites[i].states[j].entryTrigger.left != 0xFFFF) {
+									ryml::NodeRef trigger = state["furryEntryRegion"];
+									trigger |= ryml::MAP;
+									trigger["index"] << bin->sprites[i].states[j].entryTrigger.state;
+									trigger["left"] << bin->sprites[i].states[j].entryTrigger.left;
+									trigger["top"] << bin->sprites[i].states[j].entryTrigger.top;
+									trigger["right"] << bin->sprites[i].states[j].entryTrigger.right;
+									trigger["bottom"] << bin->sprites[i].states[j].entryTrigger.bottom;
+								}
+								if (bin->sprites[i].states[j].exitTrigger.left != 0xFFFF) {
+									ryml::NodeRef trigger = state["furryExitRegion"];
+									trigger |= ryml::MAP;
+									trigger["index"] << bin->sprites[i].states[j].exitTrigger.state;
+									trigger["left"] << bin->sprites[i].states[j].exitTrigger.left;
+									trigger["top"] << bin->sprites[i].states[j].exitTrigger.top;
+									trigger["right"] << bin->sprites[i].states[j].exitTrigger.right;
+									trigger["bottom"] << bin->sprites[i].states[j].exitTrigger.bottom;
+								}
+								if (bin->sprites[i].states[j].spriteEntryTrigger.left != 0xFFFF) {
+									ryml::NodeRef trigger = state["spriteEntryRegion"];
+									trigger |= ryml::MAP;
+									trigger["index"] << bin->sprites[i].states[j].spriteEntryTrigger.state;
+									trigger["left"] << bin->sprites[i].states[j].spriteEntryTrigger.left;
+									trigger["top"] << bin->sprites[i].states[j].spriteEntryTrigger.top;
+									trigger["right"] << bin->sprites[i].states[j].spriteEntryTrigger.right;
+									trigger["bottom"] << bin->sprites[i].states[j].spriteEntryTrigger.bottom;
+								}
+								if (bin->sprites[i].states[j].spriteExitTrigger.left != 0xFFFF) {
+									ryml::NodeRef trigger = state["spriteExitRegion"];
+									trigger |= ryml::MAP;
+									trigger["index"] << bin->sprites[i].states[j].spriteExitTrigger.state;
+									trigger["left"] << bin->sprites[i].states[j].spriteExitTrigger.left;
+									trigger["top"] << bin->sprites[i].states[j].spriteExitTrigger.top;
+									trigger["right"] << bin->sprites[i].states[j].spriteExitTrigger.right;
+									trigger["bottom"] << bin->sprites[i].states[j].spriteExitTrigger.bottom;
+								}
+								if (bin->sprites[i].states[j].destroy)
+									state["destroy"] << true;
+								if (bin->sprites[i].states[j].bounce)
+									state["bounce"] << true;
+								{
+									ryml::NodeRef water = state["empty"];
+									water |= ryml::MAP;
+									water["index"] << (bin->sprites[i].states[j].emptyWater >> 8);
+									water["speed"] << (bin->sprites[i].states[j].emptyWater & 0xFF);
+								}
+								{
+									ryml::NodeRef water = state["fill"];
+									water |= ryml::MAP;
+									water["index"] << (bin->sprites[i].states[j].fillWater >> 8);
+									water["speed"] << (bin->sprites[i].states[j].fillWater & 0xFF);
+								}
+								if (bin->sprites[i].states[j].waterTriggerLeft != 0xFFFF) {
+									ryml::NodeRef trigger = state["waterChangeRegion"];
+									trigger["index"] << bin->sprites[i].states[j].destWaterState;
+									trigger["left"] << bin->sprites[i].states[j].waterTriggerLeft;
+									trigger["top"] << bin->sprites[i].states[j].waterTriggerTop;
+									trigger["right"] << bin->sprites[i].states[j].waterTriggerRight;
+									trigger["bottom"] << bin->sprites[i].states[j].waterTriggerBottom;
+								}
+								{
+									ryml::NodeRef anim = state["animation"];
+									anim |= ryml::MAP;
+									ryml::NodeRef frames = anim["frames"];
+									frames |= ryml::SEQ;
+									for (uint8_t k = 0; k < 10; k++) {
+										if (bin->sprites[i].states[j].frames[k].left == 0xFFFF) {
+											break;
+										}
+										ryml::NodeRef frame = frames.append_child();
+										frame |= ryml::MAP;
+										frame["left"] << bin->sprites[i].states[j].frames[k].left;
+										frame["top"] << bin->sprites[i].states[j].frames[k].top;
+										frame["right"] << bin->sprites[i].states[j].frames[k].right;
+										frame["bottom"] << bin->sprites[i].states[j].frames[k].bottom;
+									}
+									if (frames.num_children() == 0)
+										anim.remove_child(frames);
+									anim["speed"] << bin->sprites[i].states[j].animationSpeed;
+									if (bin->sprites[i].states[j].cycle)
+										anim["repeat"] << true;
+									anim["count"] << bin->sprites[i].states[j].cycleCount;
+									anim["index"] << bin->sprites[i].states[j].animationTriggerState;
+								}
+							}
+						}
+					}
+				}
+			}
+			if (sprites.num_children() == 0) {
+				ff.remove_child(sprites);
+			}
+		}
 		
 		ryml::csubstr getLength = ryml::emit_yaml(tree, tree.root_id(), ryml::substr{}, false);
 		std::vector<char> charVec(getLength.len);
@@ -1064,6 +1304,55 @@ namespace FuryUtils {
 					if (n.has_child("bottom")) {
 						ref = n["bottom"];
 						if (ref.is_keyval()) ref >> this->yellowFields[i-1].bottom;
+					}
+				}
+			}
+			if (ff.has_child("currents")) {
+				ref = ff["currents"];
+				CheckNodeIsSeq(ref);
+				uint8_t i = 0;
+				for(ryml::ConstNodeRef n : ref.children()) {
+					i++;
+					if (n.has_child("index")) {
+						ref = n["index"];
+						if (ref.is_keyval()) ref >> i;
+					}
+					if (i > 5) break;
+					if (n.has_child("left")) {
+						ref = n["left"];
+						if (ref.is_keyval()) ref >> this->currents[i-1].left;
+					}
+					if (n.has_child("top")) {
+						ref = n["top"];
+						if (ref.is_keyval()) ref >> this->currents[i-1].top;
+					}
+					if (n.has_child("right")) {
+						ref = n["right"];
+						if (ref.is_keyval()) ref >> this->currents[i-1].right;
+					}
+					if (n.has_child("bottom")) {
+						ref = n["bottom"];
+						if (ref.is_keyval()) ref >> this->currents[i-1].bottom;
+					}
+					if (n.has_child("options")) {
+						ref = n["options"];
+						if (ref.is_seq()) {
+							for(ryml::ConstNodeRef m : ref.children()) {
+								CheckNodeIsVal(m);
+								if (m.val().begins_with("down"))
+									this->currents[i-1].flags = 0;
+								if (m.val().begins_with("right"))
+									this->currents[i-1].flags = 1;
+								if (m.val().begins_with("up"))
+									this->currents[i-1].flags = 2;
+								if (m.val().begins_with("left"))
+									this->currents[i-1].flags = 3;
+								if (m.val().begins_with("strong"))
+									this->currents[i-1].flags |= 0x4;
+								if (m.val().begins_with("motes"))
+									this->currents[i-1].flags |= 0x8;
+							}
+						}
 					}
 				}
 			}

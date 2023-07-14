@@ -91,6 +91,13 @@ struct Bin_ExitReturn {
 	uint16_t top INIT(0);
 };
 
+struct Bin_Region {
+	uint16_t left INIT(0xFFFF);
+	uint16_t top INIT(0xFFFF);
+	uint16_t right INIT(0xFFFF);
+	uint16_t bottom INIT(0xFFFF);
+};
+
 struct Bin_Trigger {
 	uint16_t state INIT(0);
 	uint16_t left INIT(0xFFFF);
@@ -147,14 +154,8 @@ struct Bin_Sprite {
 	uint16_t blastArea INIT(0);
 	uint16_t active INIT(0);
 	uint16_t unknown2 INIT(0);
-	uint16_t unknown3 INIT(0xFFFF);
-	uint16_t unknown4 INIT(0xFFFF);
-	uint16_t unknown5 INIT(0xFFFF);
-	uint16_t unknown6 INIT(0xFFFF);
-	uint16_t unknown7 INIT(0xFFFF);
-	uint16_t unknown8 INIT(0xFFFF);
-	uint16_t unknown9 INIT(0xFFFF);
-	uint16_t unknown10 INIT(0xFFFF);
+	struct Bin_Region furryEntryRegion;
+	struct Bin_Region furryExitRegion;
 	uint16_t unknown11 INIT(0);
 	uint16_t unknown12 INIT(0xFFFF);
 	uint16_t unknown13 INIT(0xFFFF);

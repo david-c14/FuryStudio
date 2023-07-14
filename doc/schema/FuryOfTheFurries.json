@@ -984,7 +984,7 @@
                         },
                         "repeat": {
                           "description": "repeat animation after completion",
-                          "type": "boolean",
+                          "type": "boolean"
                         },
                         "count": {
                           "description": "Number of frames before changing state",

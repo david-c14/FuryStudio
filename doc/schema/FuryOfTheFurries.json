@@ -146,6 +146,16 @@
                 "type": "integer",
                 "minimum": 0
               },
+              "returnLeft": {
+                "description": "Left position on returning from side-quest",
+                "type": "integer",
+                "minimum": 0
+              },
+              "returnTop": {
+                "description": "Top position on returning from side-quest",
+                "type": "integer",
+                "minimum": 0
+              },
               "options": {
                 "description": "Options for exit",
                 "type": "array",

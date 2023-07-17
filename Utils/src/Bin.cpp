@@ -863,13 +863,6 @@ namespace FuryUtils {
 					this->decFile--;
 				}
 			}
-			if (ff.has_child("decorFile")) {
-				ref = ff["decorFile"];
-				if (ref.is_keyval()) {
-					ref >> this->decFile;
-					this->decFile--;
-				}
-			}
 			if (ff.has_child("spriteFile")) {
 				ref = ff["spriteFile"];
 				if (ref.is_keyval()) {
@@ -978,10 +971,8 @@ namespace FuryUtils {
 						if (ref.is_seq()) {
 							for(ryml::ConstNodeRef m : ref.children()) {
 								CheckNodeIsVal(m);
-								if (m.val().begins_with("bonus"))
-									this->exits[i-1].destination |= 0x8000;
-								if (m.val().begins_with("smooth"))
-									this->exitGraphic[i-1] = 1;
+								if (m.val().begins_with("bonus")) this->exits[i-1].destination |= 0x8000;
+								if (m.val().begins_with("smooth")) this->exitGraphic[i-1] = 1;
 							}
 						}
 					}
@@ -1071,35 +1062,6 @@ namespace FuryUtils {
 					if (n.has_child("destY")) {
 						ref = n["destY"];
 						if (ref.is_keyval()) ref >> this->teleports[i-1].destY;
-					}
-				}
-			}
-			if (ff.has_child("nonStick")) {
-				ref = ff["nonStick"];
-				CheckNodeIsSeq(ref);
-				uint8_t i = 0;
-				for(ryml::ConstNodeRef n : ref.children()) {
-					i++;
-					if (n.has_child("index")) {
-						ref = n["index"];
-						if (ref.is_keyval()) ref >> i;
-					}
-					if (i > 5) break;
-					if (n.has_child("left")) {
-						ref = n["left"];
-						if (ref.is_keyval()) ref >> this->nonstick[i-1].left;
-					}
-					if (n.has_child("top")) {
-						ref = n["top"];
-						if (ref.is_keyval()) ref >> this->nonstick[i-1].top;
-					}
-					if (n.has_child("right")) {
-						ref = n["right"];
-						if (ref.is_keyval()) ref >> this->nonstick[i-1].right;
-					}
-					if (n.has_child("bottom")) {
-						ref = n["bottom"];
-						if (ref.is_keyval()) ref >> this->nonstick[i-1].bottom;
 					}
 				}
 			}
@@ -1350,18 +1312,416 @@ namespace FuryUtils {
 						if (ref.is_seq()) {
 							for(ryml::ConstNodeRef m : ref.children()) {
 								CheckNodeIsVal(m);
-								if (m.val().begins_with("down"))
-									this->currents[i-1].flags = 0;
-								if (m.val().begins_with("right"))
-									this->currents[i-1].flags = 1;
-								if (m.val().begins_with("up"))
-									this->currents[i-1].flags = 2;
-								if (m.val().begins_with("left"))
-									this->currents[i-1].flags = 3;
-								if (m.val().begins_with("strong"))
-									this->currents[i-1].flags |= 0x4;
-								if (m.val().begins_with("motes"))
-									this->currents[i-1].flags |= 0x8;
+								if (m.val().begins_with("down")) this->currents[i-1].flags = 0;
+								if (m.val().begins_with("right")) this->currents[i-1].flags = 1;
+								if (m.val().begins_with("up")) this->currents[i-1].flags = 2;
+								if (m.val().begins_with("left")) this->currents[i-1].flags = 3;
+								if (m.val().begins_with("strong")) this->currents[i-1].flags |= 0x4;
+								if (m.val().begins_with("motes")) this->currents[i-1].flags |= 0x8;
+							}
+						}
+					}
+				}
+			}
+			if (ff.has_child("sprites")) {
+				ref = ff["sprites"];
+				CheckNodeIsSeq(ref);
+				uint8_t i = 0;
+				for(ryml::ConstNodeRef n : ref.children()) {
+					i++;
+					if (n.has_child("index")) {
+						ref = n["index"];
+						if (ref.is_keyval()) ref >> i;
+					}
+					if (i > 10) break;
+					if (n.has_child("depth")) {
+						ref = n["depth"];
+						if (ref.is_keyval()) {
+							if (ref.val().begins_with("front"))
+								this->sprites[i-1].layer = 2;
+							if (ref.val().begins_with("middle"))
+								this->sprites[i-1].layer = 0;
+							if (ref.val().begins_with("behind")) 
+								this->sprites[i-1].layer = 1;
+						}
+					}
+					if (n.has_child("kills")) {
+						ref = n["kills"];
+						if (ref.is_seq()) {
+							for(ryml::ConstNodeRef m : ref.children()) {
+								CheckNodeIsVal(m);
+								if (m.val().begins_with("red")) this->sprites[i-1].malevolence |= 0x1;
+								if (m.val().begins_with("yellow")) this->sprites[i-1].malevolence |= 0x2;
+								if (m.val().begins_with("green")) this->sprites[i-1].malevolence |= 0x4;
+								if (m.val().begins_with("blue")) this->sprites[i-1].malevolence |= 0x8;
+							}
+						}
+					}
+					if (n.has_child("mask")) {
+						ref = n["mask"];
+						if (ref.is_keyval() && ref.val().begins_with("true")) this->sprites[i-1].mask = 1;
+					}
+					if (n.has_child("cleanUp")) {
+						ref = n["cleanUp"];
+						if (ref.is_keyval() && ref.val().begins_with("true")) this->sprites[i-1].cleanUp = 1;
+					}
+					if (n.has_child("strength")) {
+						ref = n["strength"];
+						if (ref.is_keyval()) ref >> this->sprites[i-1].strength;
+					}
+					if (n.has_child("blast")) {
+						ref = n["blast"];
+						if (ref.is_keyval()) ref >> this->sprites[i-1].blastArea;
+					}
+					if (n.has_child("active")) {
+						ref = n["active"];
+						if (ref.is_keyval() && ref.val().begins_with("true")) this->sprites[i-1].active = 1;
+					}
+					if (n.has_child("entryRegion")) {
+						ref = n["entryRegion"];
+						if (ref.has_child("left")) {
+							ryml::ConstNodeRef m = ref["left"];
+							if (m.is_keyval()) m >> this->sprites[i-1].furryEntryRegion.left;
+						}
+						if (ref.has_child("top")) {
+							ryml::ConstNodeRef m = ref["top"];
+							if (m.is_keyval()) m >> this->sprites[i-1].furryEntryRegion.top;
+						}
+						if (ref.has_child("right")) {
+							ryml::ConstNodeRef m = ref["right"];
+							if (m.is_keyval()) m >> this->sprites[i-1].furryEntryRegion.right;
+						}
+						if (ref.has_child("bottom")) {
+							ryml::ConstNodeRef m = ref["bottom"];
+							if (m.is_keyval()) m >> this->sprites[i-1].furryEntryRegion.bottom;
+						}
+					}
+					if (n.has_child("exitRegion")) {
+						ref = n["exitRegion"];
+						if (ref.has_child("left")) {
+							ryml::ConstNodeRef m = ref["left"];
+							if (m.is_keyval()) m >> this->sprites[i-1].furryExitRegion.left;
+						}
+						if (ref.has_child("top")) {
+							ryml::ConstNodeRef m = ref["top"];
+							if (m.is_keyval()) m >> this->sprites[i-1].furryExitRegion.top;
+						}
+						if (ref.has_child("right")) {
+							ryml::ConstNodeRef m = ref["right"];
+							if (m.is_keyval()) m >> this->sprites[i-1].furryExitRegion.right;
+						}
+						if (ref.has_child("bottom")) {
+							ryml::ConstNodeRef m = ref["bottom"];
+							if (m.is_keyval()) m >> this->sprites[i-1].furryExitRegion.bottom;
+						}
+					}
+					if (n.has_child("fireRate")) {
+						ref = n["fireRate"];
+						if (ref.is_keyval()) ref >> this->sprites[i-1].fireRate;
+					}
+					if (n.has_child("fireStyle")) {
+						ref = n["fireStyle"];
+						if (ref.is_keyval()) {
+							if (ref.val().begins_with("none")) this->sprites[i-1].fireType = 0;
+							if (ref.val().begins_with("slow")) this->sprites[i-1].fireType = 1;
+							if (ref.val().begins_with("right")) this->sprites[i-1].fireType = 2;
+							if (ref.val().begins_with("left")) this->sprites[i-1].fireType = 3;
+							if (ref.val().begins_with("medium")) this->sprites[i-1].fireType = 4;
+							if (ref.val().begins_with("fast")) this->sprites[i-1].fireType = 5;
+						}
+					}
+					if (n.has_child("states")) {
+						ref = n["states"];
+						CheckNodeIsSeq(ref);
+						uint8_t j = 0;
+						for(ryml::ConstNodeRef m : ref.children()) {
+							j++;
+							if (m.has_child("index")) {
+								ref = m["index"];
+								if (ref.is_keyval()) ref >> j;
+							}
+							if (j > 10) break;
+							if (m.has_child("left")) {
+								ref = m["left"];
+								if (ref.is_keyval()) ref >> this->sprites[i-1].states[j-1].left;
+							}
+							if (m.has_child("top")) {
+								ref = m["top"];
+								if (ref.is_keyval()) ref >> this->sprites[i-1].states[j-1].top;
+							}
+							if (m.has_child("movementTarget")) {
+								ref = m["movementTarget"];
+								if (ref.is_keyval()) {
+									ref >> this->sprites[i-1].states[j-1].destState;
+									this->sprites[i-1].states[j-1].destState--;
+								}
+							}
+							if (m.has_child("movementSpeed")) {
+								ref = m["movementSpeed"];
+								if (ref.is_keyval()) ref >> this->sprites[i-1].states[j-1].speed;
+							}
+							if (m.has_child("movementStyle")) {
+								ref = m["movementStyle"];
+								if (ref.is_keyval()) {
+									if (ref.val().begins_with("h/v")) this->sprites[i-1].states[j-1].movementType = 0;
+									if (ref.val().begins_with("diagonal")) this->sprites[i-1].states[j-1].movementType = 1;
+									if (ref.val().begins_with("vertical")) this->sprites[i-1].states[j-1].movementType = 2;
+									if (ref.val().begins_with("horizontal")) this->sprites[i-1].states[j-1].movementType = 3;
+									if (ref.val().begins_with("track")) this->sprites[i-1].states[j-1].movementType = 4;
+									if (ref.val().begins_with("fast")) this->sprites[i-1].states[j-1].movementType = 5;
+									if (ref.val().begins_with("none")) this->sprites[i-1].states[j-1].movementType = 6;
+								}
+							}
+							if (m.has_child("gravity")) {
+								ref = m["gravity"];
+								if (ref.is_keyval()) ref >> this->sprites[i-1].states[j-1].gravity;
+							}
+							if (m.has_child("current")) {
+								ref = m["current"];
+								if (ref.has_child("index")) {
+									ryml::ConstNodeRef k = ref["index"];
+									if (k.is_keyval()) {
+										ref >> this->sprites[i-1].states[j-1].current;
+										this->sprites[i-1].states[j-1].current--;
+									}
+								}
+								if (ref.has_child("change")) {
+									ryml::ConstNodeRef k = ref["change"];
+									if (k.is_keyval()) {
+										if (k.val().begins_with("on")) this->sprites[i-1].states[j-1].current |= 0x20;
+										if (k.val().begins_with("off")) this->sprites[i-1].states[j-1].current |= 0x10;
+									}
+								}
+							}
+							if (m.has_child("otherSprite")) {
+								ref = m["otherSprite"];
+								if (ref.is_keyval()) {
+									ref >> this->sprites[i-1].states[j-1].activateSprite;
+									this->sprites[i-1].states[j-1].activateSprite--;
+								}
+							}
+							if (m.has_child("furryEntryRegion")) {
+								ref = m["furryEntryRegion"];
+								if (ref.has_child("index")) {
+									ryml::ConstNodeRef k = ref["index"];
+									if (k.is_keyval()) {
+										k >> this->sprites[i-1].states[j-1].entryTrigger.state;
+										this->sprites[i-1].states[j-1].entryTrigger.state--;
+									}
+								}
+								if (ref.has_child("left")) {
+									ryml::ConstNodeRef k = ref["left"];
+									if (k.is_keyval()) k >> this->sprites[i-1].states[j-1].entryTrigger.left;
+								}
+								if (ref.has_child("top")) {
+									ryml::ConstNodeRef k = ref["top"];
+									if (k.is_keyval()) k >> this->sprites[i-1].states[j-1].entryTrigger.top;
+								}
+								if (ref.has_child("right")) {
+									ryml::ConstNodeRef k = ref["right"];
+									if (k.is_keyval()) k >> this->sprites[i-1].states[j-1].entryTrigger.right;
+								}
+								if (ref.has_child("bottom")) {
+									ryml::ConstNodeRef k = ref["bottom"];
+									if (k.is_keyval()) k >> this->sprites[i-1].states[j-1].entryTrigger.bottom;
+								}
+							}
+							if (m.has_child("furryExitRegion")) {
+								ref = m["furryExitRegion"];
+								if (ref.has_child("index")) {
+									ryml::ConstNodeRef k = ref["index"];
+									if (k.is_keyval()) {
+										k >> this->sprites[i-1].states[j-1].exitTrigger.state;
+										this->sprites[i-1].states[j-1].exitTrigger.state--;
+									}
+								}
+								if (ref.has_child("left")) {
+									ryml::ConstNodeRef k = ref["left"];
+									if (k.is_keyval()) k >> this->sprites[i-1].states[j-1].exitTrigger.left;
+								}
+								if (ref.has_child("top")) {
+									ryml::ConstNodeRef k = ref["top"];
+									if (k.is_keyval()) k >> this->sprites[i-1].states[j-1].exitTrigger.top;
+								}
+								if (ref.has_child("right")) {
+									ryml::ConstNodeRef k = ref["right"];
+									if (k.is_keyval()) k >> this->sprites[i-1].states[j-1].exitTrigger.right;
+								}
+								if (ref.has_child("bottom")) {
+									ryml::ConstNodeRef k = ref["bottom"];
+									if (k.is_keyval()) k >> this->sprites[i-1].states[j-1].exitTrigger.bottom;
+								}
+							}
+							if (m.has_child("spriteEntryRegion")) {
+								ref = m["spriteEntryRegion"];
+								if (ref.has_child("index")) {
+									ryml::ConstNodeRef k = ref["index"];
+									if (k.is_keyval()) {
+										k >> this->sprites[i-1].states[j-1].spriteEntryTrigger.state;
+										this->sprites[i-1].states[j-1].spriteEntryTrigger.state--;
+									}
+								}
+								if (ref.has_child("left")) {
+									ryml::ConstNodeRef k = ref["left"];
+									if (k.is_keyval()) k >> this->sprites[i-1].states[j-1].spriteEntryTrigger.left;
+								}
+								if (ref.has_child("top")) {
+									ryml::ConstNodeRef k = ref["top"];
+									if (k.is_keyval()) k >> this->sprites[i-1].states[j-1].spriteEntryTrigger.top;
+								}
+								if (ref.has_child("right")) {
+									ryml::ConstNodeRef k = ref["right"];
+									if (k.is_keyval()) k >> this->sprites[i-1].states[j-1].spriteEntryTrigger.right;
+								}
+								if (ref.has_child("bottom")) {
+									ryml::ConstNodeRef k = ref["bottom"];
+									if (k.is_keyval()) k >> this->sprites[i-1].states[j-1].spriteEntryTrigger.bottom;
+								}
+							}
+							if (m.has_child("spriteExitRegion")) {
+								ref = m["spriteExitRegion"];
+								if (ref.has_child("index")) {
+									ryml::ConstNodeRef k = ref["index"];
+									if (k.is_keyval()) {
+										k >> this->sprites[i-1].states[j-1].spriteExitTrigger.state;
+										this->sprites[i-1].states[j-1].spriteExitTrigger.state--;
+									}
+								}
+								if (ref.has_child("left")) {
+									ryml::ConstNodeRef k = ref["left"];
+									if (k.is_keyval()) k >> this->sprites[i-1].states[j-1].spriteExitTrigger.left;
+								}
+								if (ref.has_child("top")) {
+									ryml::ConstNodeRef k = ref["top"];
+									if (k.is_keyval()) k >> this->sprites[i-1].states[j-1].spriteExitTrigger.top;
+								}
+								if (ref.has_child("right")) {
+									ryml::ConstNodeRef k = ref["right"];
+									if (k.is_keyval()) k >> this->sprites[i-1].states[j-1].spriteExitTrigger.right;
+								}
+								if (ref.has_child("bottom")) {
+									ryml::ConstNodeRef k = ref["bottom"];
+									if (k.is_keyval()) k >> this->sprites[i-1].states[j-1].spriteExitTrigger.bottom;
+								}
+							}
+							if (m.has_child("destroy")) {
+								ref = m["destroy"];
+								if (ref.is_keyval()) ref >> this->sprites[i-1].states[j-1].destroy;
+							}
+							if (m.has_child("bounce")) {
+								ref = m["bounce"];
+								if (ref.is_keyval()) ref >> this->sprites[i-1].states[j-1].bounce;
+							}
+							if (m.has_child("empty")) {
+								ref = m["empty"];
+								if (ref.has_child("index")) {
+									ryml::ConstNodeRef k = ref["index"];
+									if (k.is_keyval()) {
+										k >> this->sprites[i-1].states[j-1].emptyWater;
+										this->sprites[i-1].states[j-1].emptyWater--;
+										this->sprites[i-1].states[j-1].emptyWater <<= 8;
+									}
+								}
+								if (ref.has_child("speed")) {
+									ryml::ConstNodeRef k = ref["speed"];
+									if (k.is_keyval()) {
+										uint8_t speed;
+										k >> speed;
+										this->sprites[i-1].states[j-1].emptyWater += speed;
+									}
+								}
+							}
+							if (m.has_child("fill")) {
+								ref = m["fill"];
+								if (ref.has_child("index")) {
+									ryml::ConstNodeRef k = ref["index"];
+									if (k.is_keyval()) {
+										k >> this->sprites[i-1].states[j-1].fillWater;
+										this->sprites[i-1].states[j-1].fillWater--;
+										this->sprites[i-1].states[j-1].fillWater <<= 8;
+									}
+								}
+								if (ref.has_child("speed")) {
+									ryml::ConstNodeRef k = ref["speed"];
+									if (k.is_keyval()) {
+										uint8_t speed;
+										k >> speed;
+										this->sprites[i-1].states[j-1].fillWater += speed;
+									}
+								}
+							}
+							if (m.has_child("waterChangeRegion")) {
+								ref = m["waterChangeRegion"];
+								if (ref.has_child("index")) {
+									ryml::ConstNodeRef k = ref["index"];
+									if (k.is_keyval()) {
+										k >> this->sprites[i-1].states[j-1].destWaterState;
+										this->sprites[i-1].states[j-1].destWaterState--;
+									}
+								}
+								if (ref.has_child("left")) {
+									ryml::ConstNodeRef k = ref["left"];
+									if (k.is_keyval()) k >> this->sprites[i-1].states[j-1].waterTriggerLeft;
+								}
+								if (ref.has_child("top")) {
+									ryml::ConstNodeRef k = ref["top"];
+									if (k.is_keyval()) k >> this->sprites[i-1].states[j-1].waterTriggerTop;
+								}
+								if (ref.has_child("right")) {
+									ryml::ConstNodeRef k = ref["right"];
+									if (k.is_keyval()) k >> this->sprites[i-1].states[j-1].waterTriggerRight;
+								}
+								if (ref.has_child("bottom")) {
+									ryml::ConstNodeRef k = ref["bottom"];
+									if (k.is_keyval()) k >> this->sprites[i-1].states[j-1].waterTriggerBottom;
+								}
+							}
+							if (m.has_child("animation")) {
+								ref = m["animation"];
+								if (ref.has_child("speed")) {
+									ryml::ConstNodeRef k = ref["speed"];
+									if (k.is_keyval()) k >> this->sprites[i-1].states[j-1].animationSpeed;
+								}
+								if (ref.has_child("repeat")) {
+									ryml::ConstNodeRef k = ref["repeat"];
+									if (k.is_keyval() && k.val().begins_with("true")) this->sprites[i-1].states[j-1].cycle = 1;
+								}
+								if (ref.has_child("count")) {
+									ryml::ConstNodeRef k = ref["count"];
+									if (k.is_keyval()) k >> this->sprites[i-1].states[j-1].cycleCount;
+								}
+								if (ref.has_child("index")) {
+									ryml::ConstNodeRef k = ref["index"];
+									if (k.is_keyval()) {
+										k >> this->sprites[i-1].states[j-1].animationTriggerState;
+										this->sprites[i-1].states[j-1].animationTriggerState--;
+									}
+								}
+								if (ref.has_child("frames")) {
+									ref = ref["frames"];
+									CheckNodeIsSeq(ref);
+									uint8_t k = 0;
+									for(ryml::ConstNodeRef l : ref.children()) {
+										k++;
+										if (k > 10) break;
+										if (l.has_child("left")) {
+											ryml::ConstNodeRef o = l["left"];
+											if (o.is_keyval()) o >> this->sprites[i-1].states[j-1].frames[k-1].left;
+										}
+										if (l.has_child("top")) {
+											ryml::ConstNodeRef o = l["top"];
+											if (o.is_keyval()) o >> this->sprites[i-1].states[j-1].frames[k-1].top;
+										}
+										if (l.has_child("right")) {
+											ryml::ConstNodeRef o = l["right"];
+											if (o.is_keyval()) o >> this->sprites[i-1].states[j-1].frames[k-1].right;
+										}
+										if (l.has_child("bottom")) {
+											ryml::ConstNodeRef o = l["bottom"];
+											if (o.is_keyval()) o >> this->sprites[i-1].states[j-1].frames[k-1].bottom;
+										}
+									}
+								}
 							}
 						}
 					}

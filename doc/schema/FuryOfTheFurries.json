@@ -67,10 +67,12 @@
                       "maxLength": 2
                     }
                   },
-                  "required": [ "xy" ]
+                  "required": [ "xy" ],
+                  "additionalProperties": false
                 }
               }
-            }
+            },
+            "additionalProperties": false
           }
         },
         "decorFile": {
@@ -165,7 +167,8 @@
                 },
                 "uniqueItems": true
               }
-            }
+            },
+            "additionalProperties": false
           }
         },
         "water1": {
@@ -200,7 +203,8 @@
                 "type": "integer",
                 "minimum": 0
               }
-            }
+            },
+            "additionalProperties": false
           }
         },
         "water2": {
@@ -235,7 +239,8 @@
                 "type": "integer",
                 "minimum": 0
               }
-            }
+            },
+            "additionalProperties": false
           }
         },
         "teleport": {
@@ -270,7 +275,8 @@
                 "type": "integer",
                 "minimum": 0
               }
-            }
+            },
+            "additionalProperties": false
           }
         },
         "nonStick": {
@@ -305,7 +311,8 @@
                 "type": "integer",
                 "minimum": 0
               }
-            }
+            },
+            "additionalProperties": false
           }
         },
         "acid": {
@@ -340,7 +347,44 @@
                 "type": "integer",
                 "minimum": 0
               }
-            }
+            },
+            "additionalProperties": false
+          }
+        },
+        "danger": {
+          "description": "Danger regions",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "index": {
+                "description": "1-based index of the region. Optional, next region is assumed",
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 20
+              },
+              "left": {
+                "description": "Left edge of region",
+                "type": "integer",
+                "minimum": 0
+              },
+              "top": {
+                "description": "Top edge of region",
+                "type": "integer",
+                "minimum": 0
+              },
+              "right": {
+                "description": "Right edge of region",
+                "type": "integer",
+                "minimum": 0
+              },
+              "bottom": {
+                "description": "Bottom edge of region",
+                "type": "integer",
+                "minimum": 0
+              }
+            },
+            "additionalProperties": false
           }
         },
         "start": {
@@ -384,7 +428,8 @@
                 "type": "integer",
                 "minimum": 0
               }
-            }
+            },
+            "additionalProperties": false
           }
         },
         "greenFields": {
@@ -419,7 +464,8 @@
                 "type": "integer",
                 "minimum": 0
               }
-            }
+            },
+            "additionalProperties": false
           }
         },
         "redFields": {
@@ -454,7 +500,8 @@
                 "type": "integer",
                 "minimum": 0
               }
-            }
+            },
+            "additionalProperties": false
           }
         },
         "yellowFields": {
@@ -489,42 +536,8 @@
                 "type": "integer",
                 "minimum": 0
               }
-            }
-          }
-        },
-        "danger": {
-          "description": "Danger regions",
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "index": {
-                "description": "1-based index of the region. Optional, next region is assumed",
-                "type": "integer",
-                "minimum": 1,
-                "maximum": 20
-              },
-              "left": {
-                "description": "Left edge of region",
-                "type": "integer",
-                "minimum": 0
-              },
-              "top": {
-                "description": "Top edge of region",
-                "type": "integer",
-                "minimum": 0
-              },
-              "right": {
-                "description": "Right edge of region",
-                "type": "integer",
-                "minimum": 0
-              },
-              "bottom": {
-                "description": "Bottom edge of region",
-                "type": "integer",
-                "minimum": 0
-              }
-            }
+            },
+            "additionalProperties": false
           }
         },
         "currents": {
@@ -568,7 +581,8 @@
                 },
                 "uniqueItems": true
               }
-            }
+            },
+            "additionalProperties": false
           }
         },
         "sprites": {
@@ -619,7 +633,7 @@
               },
               "active": {
                 "description": "Sprite is initially active in this state",
-                "type":  "boolean"
+                "type": "boolean"
               },
               "entryRegion": {
                 "description": "If the furry enters this region, the sprite will activate",
@@ -645,7 +659,8 @@
                     "type": "integer",
                     "minimum": 0
                   }
-                }
+                },
+                "additionalProperties": false
               },
               "exitRegion": {
                 "description": "If the furry leaves this region, the sprite will activate",
@@ -671,7 +686,8 @@
                     "type": "integer",
                     "minimum": 0
                   }
-                }
+                },
+                "additionalProperties": false
               },
               "fireRate": {
                 "description": "Rate of bullet fire",
@@ -682,7 +698,7 @@
               "fireStyle": {
                 "description": "Way in which bullets are fired",
                 "type": "string",
-                "enum": [ "none", "slow", "right", "left", "medium", "fast" ]
+                "enum": [ "slow", "right", "left", "medium", "fast" ]
               },
               "states": {
                 "description": "State data",
@@ -742,13 +758,14 @@
                           "type": "string",
                           "enum": [ "on", "off" ]
                         }
-                      }
+                      },
+                      "additionalProperties": false
                     },
                     "otherSprite": {
                       "description": "Index of another sprite to activate",
                       "type": "integer",
                       "minimum": 1,
-                      "maximum": 10
+                      "maximum": "10furr"
                     },
                     "furryEntryRegion": {
                       "description": "A state change will occur if the furry enters this region",
@@ -780,7 +797,8 @@
                           "type": "integer",
                           "minimum": 0
                         }
-                      }
+                      },
+                      "additionalProperties": false
                     },
                     "furryExitRegion": {
                       "description": "A state change will occur if the furry leaves this region",
@@ -812,7 +830,8 @@
                           "type": "integer",
                           "minimum": 0
                         }
-                      }
+                      },
+                      "additionalProperties": false
                     },
                     "spriteEntryRegion": {
                       "description": "A state change will occur if another sprite enters this region",
@@ -844,7 +863,8 @@
                           "type": "integer",
                           "minimum": 0
                         }
-                      }
+                      },
+                      "additionalProperties": false
                     },
                     "spriteExitRegion": {
                       "description": "A state change will occur if another sprite leaves this region",
@@ -876,7 +896,8 @@
                           "type": "integer",
                           "minimum": 0
                         }
-                      }
+                      },
+                      "additionalProperties": false
                     },
                     "destroy": {
                       "description": "Destroy the sprite if it enters this state",
@@ -902,7 +923,8 @@
                           "minimum": 1,
                           "maximum": 255
                         }
-                      }
+                      },
+                      "additionalProperties": false
                     },
                     "fill": {
                       "description": "Water should start to fill a region",
@@ -920,7 +942,8 @@
                           "minimum": 1,
                           "maximum": 255
                         }
-                      }
+                      },
+                      "additionalProperties": false
                     },
                     "waterChangeRegion": {
                       "description": "A state change will occur if a water action completes",
@@ -952,7 +975,8 @@
                           "type": "integer",
                           "minimum": 0
                         }
-                      }
+                      },
+                      "additionalProperties": false
                     },
                     "animation": {
                       "description": "Sprite animation",
@@ -984,7 +1008,8 @@
                                 "type": "integer",
                                 "minimum": 0
                               }
-                            }
+                            },
+                            "additionalProperties": false
                           }
                         },
                         "speed": {
@@ -1007,16 +1032,21 @@
                           "minimum": 1,
                           "maximum": 10
                         }
-                      }
+                      },
+                      "additionalProperties": false
                     }
-                  }
+                  },
+                  "additionalProperties": false
                 }
               }
-            }
+            },
+            "additionalProperties": false
           }
         }
-      }
+      },
+      "additionalProperties": false
     }
   },
-  "required":  ["FuryOfTheFurries"]
+  "required": [ "FuryOfTheFurries" ],
+  "additionalProperties": false
 }

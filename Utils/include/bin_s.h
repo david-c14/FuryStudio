@@ -79,16 +79,16 @@ struct Bin_Field {
 };
 
 struct Bin_Current {
-	uint16_t left INIT(0);
-	uint16_t top INIT(0);
-	uint16_t right INIT(0);
-	uint16_t bottom INIT(0);
+	uint16_t left INIT(0xFFFF);
+	uint16_t top INIT(0xFFFF);
+	uint16_t right INIT(0xFFFF);
+	uint16_t bottom INIT(0xFFFF);
 	uint16_t flags INIT(0);
 };
 
 struct Bin_ExitReturn {
-	uint16_t left INIT(0);
-	uint16_t top INIT(0);
+	uint16_t left INIT(0xFFFF);
+	uint16_t top INIT(0xFFFF);
 };
 
 struct Bin_Region {

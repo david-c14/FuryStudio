@@ -160,6 +160,8 @@ namespace {
 	YamlErrorHandler yamlErrorHandler;
 	
 	void ConvertYaml(std::vector<uint8_t> &vector, const FuryUtils::Archive::Bin *bin, std::string comment) {
+		
+		const std::string uri("# yaml-language-server: $schema=https://schema.submarine.org.uk/carbon14/FuryStudio/2023-07/FuryOfTheFurries.json\n");
 
 		ryml::NodeRef ff;
 		ryml::Tree tree;
@@ -168,7 +170,6 @@ namespace {
 		root |= ryml::MAP;
 		ff = root["FuryOfTheFurries"];
 		ff |= ryml::MAP;
-		
 		ff["version"] << std::string(UTILS_VER);
 		{
 			if (comment.c_str()[0]) {
@@ -178,7 +179,6 @@ namespace {
 		ff["mapWidth"] << bin->mapWidth;
 		ff["mapHeight"] << bin->mapHeight;
 		ff["time"] << bin->time;
-		
 		{
 			ryml::NodeRef map = ff["map"];
 			map |= ryml::SEQ;
@@ -202,6 +202,9 @@ namespace {
 					else {
 						skipX = true;
 					}
+				}
+				if (rowSeq.num_children() == 0) {
+					map.remove_child(row);
 				}
 			}
 		}
@@ -531,7 +534,7 @@ namespace {
 					item["top"] << bin->currents[i].top;
 					item["right"] << bin->currents[i].right;
 					item["bottom"] << bin->currents[i].bottom;
-					ryml::NodeRef options = current["options"];
+					ryml::NodeRef options = item["options"];
 					options |= ryml::SEQ;
 					options |= ryml::_WIP_STYLE_FLOW_SL;
 					if ((bin->currents[i].flags & 0x3) == 0)
@@ -557,208 +560,203 @@ namespace {
 		{
 			ryml::NodeRef sprites = ff["sprites"];
 			sprites |= ryml::SEQ;
-			bool skip = false;
 			for (uint8_t i = 0; i < 10; i++) {
-				if (false) { // reason for skipping
-					skip = true;
-				}	
-				else {
-					ryml::NodeRef sprite = sprites.append_child();
-					sprite |= ryml::MAP;
-					if (skip) {
-						skip = false;
-						sprite["index"] << (i + 1);
-					}
-					if (bin->sprites[i].layer == 0)
-						sprite["depth"] << "middle";
-					else if (bin->sprites[i].layer == 1)
-						sprite["depth"] << "behind";
-					else if (bin->sprites[i].layer == 2)
-						sprite["depth"] << "front";
-					if (bin->sprites[i].malevolence) {
-						ryml::NodeRef kills = sprite["kills"];
-						kills |= ryml::SEQ;
-						kills |= ryml::_WIP_STYLE_FLOW_SL;
-						if (bin->sprites[i].malevolence & 0x01)
-							kills.append_child() << "red";
-						if (bin->sprites[i].malevolence & 0x02)
-							kills.append_child() << "yellow";
-						if (bin->sprites[i].malevolence & 0x04)
-							kills.append_child() << "green";
-						if (bin->sprites[i].malevolence & 0x08)
-							kills.append_child() << "blue";
-					}
-					if (bin->sprites[i].mask)
-						sprite["mask"] << "true";
-					if (bin->sprites[i].cleanUp)
-						sprite["cleanUp"] << "true";
-					sprite["strength"] << bin->sprites[i].strength;
-					sprite["blast"] << bin->sprites[i].blastArea;
-					if (bin->sprites[i].active)
-						sprite["active"] << "true";
-					if (bin->sprites[i].furryEntryRegion.left != 0xFFFF) {
-						ryml::NodeRef item = sprite["entryRegion"];
-						item |= ryml::MAP;
-						item["left"] << bin->sprites[i].furryEntryRegion.left;
-						item["top"] << bin->sprites[i].furryEntryRegion.top;
-						item["right"] << bin->sprites[i].furryEntryRegion.right;
-						item["bottom"] << bin->sprites[i].furryEntryRegion.bottom;
-					}
-					if (bin->sprites[i].furryExitRegion.left != 0xFFFF) {
-						ryml::NodeRef item = sprite["exitRegion"];
-						item |= ryml::MAP;
-						item["left"] << bin->sprites[i].furryExitRegion.left;
-						item["top"] << bin->sprites[i].furryExitRegion.top;
-						item["right"] << bin->sprites[i].furryExitRegion.right;
-						item["bottom"] << bin->sprites[i].furryExitRegion.bottom;
-					}
-					if (bin->sprites[i].fireRate)
-						sprite["fireRate"] << bin->sprites[i].fireRate;
-					if (bin->sprites[i].fireType) {
-						if (bin->sprites[i].fireType == 1)
-							sprite["fireStyle"] << "slow";
-						if (bin->sprites[i].fireType == 1)
-							sprite["fireStyle"] << "right";
-						if (bin->sprites[i].fireType == 1)
-							sprite["fireStyle"] << "left";
-						if (bin->sprites[i].fireType == 1)
-							sprite["fireStyle"] << "medium";
-						if (bin->sprites[i].fireType == 1)
-							sprite["fireStyle"] << "fast";
-					}
-					{
-						ryml::NodeRef states = sprite["states"];
-						states |= ryml::SEQ;
-						bool skip2 = false;
-						for (uint8_t j = 0; j < 10; j++) {
-							if (bin->sprites[i].states[j].left == 0xFFFF) { // reason for skipping
-								skip2 = true;
-							}	
-							else {
-								ryml::NodeRef state = states.append_child();
-								state |= ryml::MAP;
-								if (skip2) {
-									skip2 = false;
-									states["index"] << (j + 1);
-								}
-								state["left"] << bin->sprites[i].states[j].left;
-								state["top"] << bin->sprites[i].states[j].top;
-								state["movementTarget"] << (1 + bin->sprites[i].states[j].destState);
-								if (bin->sprites[i].states[j].speed)
-									state["movementSpeed"] << bin->sprites[i].states[j].speed;
-								if (bin->sprites[i].states[j].movementType == 0) 
-									state["movementStyle"] << "h/v";
-								else if (bin->sprites[i].states[j].movementType == 1) 
-									state["movementStyle"] << "diagonal";
-								else if (bin->sprites[i].states[j].movementType == 2) 
-									state["movementStyle"] << "vertical";
-								else if (bin->sprites[i].states[j].movementType == 3) 
-									state["movementStyle"] << "horizontal";
-								else if (bin->sprites[i].states[j].movementType == 4) 
-									state["movementStyle"] << "track";
-								else if (bin->sprites[i].states[j].movementType == 5) 
-									state["movementStyle"] << "fast";
-								else if (bin->sprites[i].states[j].movementType == 6) 
-									state["movementStyle"] << "none";
-								if (bin->sprites[i].states[j].gravity)
-									state["gravity"] << true;
-								if (bin->sprites[i].states[j].current) {
-									ryml::NodeRef current = state["current"];
-									current |= ryml::MAP;
-									current["index"] << (bin->sprites[i].states[j].current & 0xF);
-									if (bin->sprites[i].states[j].current & 0x10)
-										current["change"] << "off";
-									if (bin->sprites[i].states[j].current & 0x20)
-										current["change"] << "on";
-								}
-								if (bin->sprites[i].states[j].activateSprite != 0xFFFF)
-									state["otherSprite"] << bin->sprites[i].states[j].activateSprite;
-								if (bin->sprites[i].states[j].entryTrigger.left != 0xFFFF) {
-									ryml::NodeRef trigger = state["furryEntryRegion"];
-									trigger |= ryml::MAP;
-									trigger["index"] << (1 + bin->sprites[i].states[j].entryTrigger.state);
-									trigger["left"] << bin->sprites[i].states[j].entryTrigger.left;
-									trigger["top"] << bin->sprites[i].states[j].entryTrigger.top;
-									trigger["right"] << bin->sprites[i].states[j].entryTrigger.right;
-									trigger["bottom"] << bin->sprites[i].states[j].entryTrigger.bottom;
-								}
-								if (bin->sprites[i].states[j].exitTrigger.left != 0xFFFF) {
-									ryml::NodeRef trigger = state["furryExitRegion"];
-									trigger |= ryml::MAP;
-									trigger["index"] << (1 + bin->sprites[i].states[j].exitTrigger.state);
-									trigger["left"] << bin->sprites[i].states[j].exitTrigger.left;
-									trigger["top"] << bin->sprites[i].states[j].exitTrigger.top;
-									trigger["right"] << bin->sprites[i].states[j].exitTrigger.right;
-									trigger["bottom"] << bin->sprites[i].states[j].exitTrigger.bottom;
-								}
-								if (bin->sprites[i].states[j].spriteEntryTrigger.left != 0xFFFF) {
-									ryml::NodeRef trigger = state["spriteEntryRegion"];
-									trigger |= ryml::MAP;
-									trigger["index"] << (1 + bin->sprites[i].states[j].spriteEntryTrigger.state);
-									trigger["left"] << bin->sprites[i].states[j].spriteEntryTrigger.left;
-									trigger["top"] << bin->sprites[i].states[j].spriteEntryTrigger.top;
-									trigger["right"] << bin->sprites[i].states[j].spriteEntryTrigger.right;
-									trigger["bottom"] << bin->sprites[i].states[j].spriteEntryTrigger.bottom;
-								}
-								if (bin->sprites[i].states[j].spriteExitTrigger.left != 0xFFFF) {
-									ryml::NodeRef trigger = state["spriteExitRegion"];
-									trigger |= ryml::MAP;
-									trigger["index"] << (1 + bin->sprites[i].states[j].spriteExitTrigger.state);
-									trigger["left"] << bin->sprites[i].states[j].spriteExitTrigger.left;
-									trigger["top"] << bin->sprites[i].states[j].spriteExitTrigger.top;
-									trigger["right"] << bin->sprites[i].states[j].spriteExitTrigger.right;
-									trigger["bottom"] << bin->sprites[i].states[j].spriteExitTrigger.bottom;
-								}
-								if (bin->sprites[i].states[j].destroy)
-									state["destroy"] << true;
-								if (bin->sprites[i].states[j].bounce)
-									state["bounce"] << true;
-								if (bin->sprites[i].states[j].emptyWater) {
-									ryml::NodeRef water = state["empty"];
-									water |= ryml::MAP;
-									water["index"] << (1 + (bin->sprites[i].states[j].emptyWater >> 8));
-									water["speed"] << (bin->sprites[i].states[j].emptyWater & 0xFF);
-								}
-								if (bin->sprites[i].states[j].fillWater) {
-									ryml::NodeRef water = state["fill"];
-									water |= ryml::MAP;
-									water["index"] << (1 + (bin->sprites[i].states[j].fillWater >> 8));
-									water["speed"] << (bin->sprites[i].states[j].fillWater & 0xFF);
-								}
-								if (bin->sprites[i].states[j].waterTriggerLeft != 0xFFFF) {
-									ryml::NodeRef trigger = state["waterChangeRegion"];
-									trigger["index"] << (1 + bin->sprites[i].states[j].destWaterState);
-									trigger["left"] << bin->sprites[i].states[j].waterTriggerLeft;
-									trigger["top"] << bin->sprites[i].states[j].waterTriggerTop;
-									trigger["right"] << bin->sprites[i].states[j].waterTriggerRight;
-									trigger["bottom"] << bin->sprites[i].states[j].waterTriggerBottom;
-								}
-								{
-									ryml::NodeRef anim = state["animation"];
-									anim |= ryml::MAP;
-									ryml::NodeRef frames = anim["frames"];
-									frames |= ryml::SEQ;
-									for (uint8_t k = 0; k < 10; k++) {
-										if (bin->sprites[i].states[j].frames[k].left == 0xFFFF) {
-											break;
-										}
-										ryml::NodeRef frame = frames.append_child();
-										frame |= ryml::MAP;
-										frame["left"] << bin->sprites[i].states[j].frames[k].left;
-										frame["top"] << bin->sprites[i].states[j].frames[k].top;
-										frame["right"] << bin->sprites[i].states[j].frames[k].right;
-										frame["bottom"] << bin->sprites[i].states[j].frames[k].bottom;
+				ryml::NodeRef sprite = sprites.append_child();
+				sprite |= ryml::MAP;
+				sprite["index"] << (i + 1);
+				if (bin->sprites[i].layer == 0)
+					sprite["depth"] << "middle";
+				else if (bin->sprites[i].layer == 1)
+					sprite["depth"] << "behind";
+				else if (bin->sprites[i].layer == 2)
+					sprite["depth"] << "front";
+				if (bin->sprites[i].malevolence) {
+					ryml::NodeRef kills = sprite["kills"];
+					kills |= ryml::SEQ;
+					kills |= ryml::_WIP_STYLE_FLOW_SL;
+					if (bin->sprites[i].malevolence & 0x01)
+						kills.append_child() << "red";
+					if (bin->sprites[i].malevolence & 0x02)
+						kills.append_child() << "yellow";
+					if (bin->sprites[i].malevolence & 0x04)
+						kills.append_child() << "green";
+					if (bin->sprites[i].malevolence & 0x08)
+						kills.append_child() << "blue";
+				}
+				if (bin->sprites[i].mask)
+					sprite["mask"] << "true";
+				if (bin->sprites[i].cleanUp)
+					sprite["cleanUp"] << "true";
+				sprite["strength"] << bin->sprites[i].strength;
+				sprite["blast"] << bin->sprites[i].blastArea;
+				if (bin->sprites[i].active)
+					sprite["active"] << "true";
+				if (bin->sprites[i].furryEntryRegion.left != 0xFFFF) {
+					ryml::NodeRef item = sprite["entryRegion"];
+					item |= ryml::MAP;
+					item["left"] << bin->sprites[i].furryEntryRegion.left;
+					item["top"] << bin->sprites[i].furryEntryRegion.top;
+					item["right"] << bin->sprites[i].furryEntryRegion.right;
+					item["bottom"] << bin->sprites[i].furryEntryRegion.bottom;
+				}
+				if (bin->sprites[i].furryExitRegion.left != 0xFFFF) {
+					ryml::NodeRef item = sprite["exitRegion"];
+					item |= ryml::MAP;
+					item["left"] << bin->sprites[i].furryExitRegion.left;
+					item["top"] << bin->sprites[i].furryExitRegion.top;
+					item["right"] << bin->sprites[i].furryExitRegion.right;
+					item["bottom"] << bin->sprites[i].furryExitRegion.bottom;
+				}
+				if (bin->sprites[i].fireRate)
+					sprite["fireRate"] << bin->sprites[i].fireRate;
+				if (bin->sprites[i].fireType) {
+					if (bin->sprites[i].fireType == 1)
+						sprite["fireStyle"] << "slow";
+					if (bin->sprites[i].fireType == 2)
+						sprite["fireStyle"] << "right";
+					if (bin->sprites[i].fireType == 3)
+						sprite["fireStyle"] << "left";
+					if (bin->sprites[i].fireType == 4)
+						sprite["fireStyle"] << "medium";
+					if (bin->sprites[i].fireType == 5)
+						sprite["fireStyle"] << "fast";
+				}
+				{
+					ryml::NodeRef states = sprite["states"];
+					states |= ryml::SEQ;
+					bool skip2 = false;
+					for (uint8_t j = 0; j < 10; j++) {
+						if (bin->sprites[i].states[j].left == 0xFFFF) { // reason for skipping
+							skip2 = true;
+						}	
+						else {
+							ryml::NodeRef state = states.append_child();
+							state |= ryml::MAP;
+							if (skip2) {
+								skip2 = false;
+								state["index"] << (j + 1);
+							}
+							state["left"] << bin->sprites[i].states[j].left;
+							state["top"] << bin->sprites[i].states[j].top;
+							state["movementTarget"] << (1 + bin->sprites[i].states[j].destState);
+							if (bin->sprites[i].states[j].speed)
+								state["movementSpeed"] << bin->sprites[i].states[j].speed;
+							if (bin->sprites[i].states[j].movementType == 0) 
+								state["movementStyle"] << "h/v";
+							else if (bin->sprites[i].states[j].movementType == 1) 
+								state["movementStyle"] << "diagonal";
+							else if (bin->sprites[i].states[j].movementType == 2) 
+								state["movementStyle"] << "vertical";
+							else if (bin->sprites[i].states[j].movementType == 3) 
+								state["movementStyle"] << "horizontal";
+							else if (bin->sprites[i].states[j].movementType == 4) 
+								state["movementStyle"] << "track";
+							else if (bin->sprites[i].states[j].movementType == 5) 
+								state["movementStyle"] << "fast";
+							else if (bin->sprites[i].states[j].movementType == 6) 
+								state["movementStyle"] << "none";
+							if (bin->sprites[i].states[j].gravity)
+								state["gravity"] << true;
+							if (bin->sprites[i].states[j].current) {
+								ryml::NodeRef current = state["current"];
+								current |= ryml::MAP;
+								current["index"] << (1 + (bin->sprites[i].states[j].current & 0xF));
+								if (bin->sprites[i].states[j].current & 0x10)
+									current["change"] << "off";
+								if (bin->sprites[i].states[j].current & 0x20)
+									current["change"] << "on";
+							}
+							if (bin->sprites[i].states[j].activateSprite != 0xFFFF)
+								state["otherSprite"] << (1 + bin->sprites[i].states[j].activateSprite);
+							if (bin->sprites[i].states[j].entryTrigger.left != 0xFFFF) {
+								ryml::NodeRef trigger = state["furryEntryRegion"];
+								trigger |= ryml::MAP;
+								trigger["index"] << (1 + bin->sprites[i].states[j].entryTrigger.state);
+								trigger["left"] << bin->sprites[i].states[j].entryTrigger.left;
+								trigger["top"] << bin->sprites[i].states[j].entryTrigger.top;
+								trigger["right"] << bin->sprites[i].states[j].entryTrigger.right;
+								trigger["bottom"] << bin->sprites[i].states[j].entryTrigger.bottom;
+							}
+							if (bin->sprites[i].states[j].exitTrigger.left != 0xFFFF) {
+								ryml::NodeRef trigger = state["furryExitRegion"];
+								trigger |= ryml::MAP;
+								trigger["index"] << (1 + bin->sprites[i].states[j].exitTrigger.state);
+								trigger["left"] << bin->sprites[i].states[j].exitTrigger.left;
+								trigger["top"] << bin->sprites[i].states[j].exitTrigger.top;
+								trigger["right"] << bin->sprites[i].states[j].exitTrigger.right;
+								trigger["bottom"] << bin->sprites[i].states[j].exitTrigger.bottom;
+							}
+							if (bin->sprites[i].states[j].spriteEntryTrigger.left != 0xFFFF) {
+								ryml::NodeRef trigger = state["spriteEntryRegion"];
+								trigger |= ryml::MAP;
+								trigger["index"] << (1 + bin->sprites[i].states[j].spriteEntryTrigger.state);
+								trigger["left"] << bin->sprites[i].states[j].spriteEntryTrigger.left;
+								trigger["top"] << bin->sprites[i].states[j].spriteEntryTrigger.top;
+								trigger["right"] << bin->sprites[i].states[j].spriteEntryTrigger.right;
+								trigger["bottom"] << bin->sprites[i].states[j].spriteEntryTrigger.bottom;
+							}
+							if (bin->sprites[i].states[j].spriteExitTrigger.left != 0xFFFF) {
+								ryml::NodeRef trigger = state["spriteExitRegion"];
+								trigger |= ryml::MAP;
+								trigger["index"] << (1 + bin->sprites[i].states[j].spriteExitTrigger.state);
+								trigger["left"] << bin->sprites[i].states[j].spriteExitTrigger.left;
+								trigger["top"] << bin->sprites[i].states[j].spriteExitTrigger.top;
+								trigger["right"] << bin->sprites[i].states[j].spriteExitTrigger.right;
+								trigger["bottom"] << bin->sprites[i].states[j].spriteExitTrigger.bottom;
+							}
+							if (bin->sprites[i].states[j].destroy)
+								state["destroy"] << "true";
+							if (bin->sprites[i].states[j].bounce)
+								state["bounce"] << "true";
+							if (bin->sprites[i].states[j].emptyWater) {
+								ryml::NodeRef water = state["empty"];
+								water |= ryml::MAP;
+								water["index"] << (1 + (bin->sprites[i].states[j].emptyWater >> 8));
+								water["speed"] << (bin->sprites[i].states[j].emptyWater & 0xFF);
+							}
+							if (bin->sprites[i].states[j].fillWater) {
+								ryml::NodeRef water = state["fill"];
+								water |= ryml::MAP;
+								water["index"] << (1 + (bin->sprites[i].states[j].fillWater >> 8));
+								water["speed"] << (bin->sprites[i].states[j].fillWater & 0xFF);
+							}
+							if (bin->sprites[i].states[j].waterTriggerLeft != 0xFFFF) {
+								ryml::NodeRef trigger = state["waterChangeRegion"];
+								trigger |= ryml::MAP;
+								trigger["index"] << (1 + bin->sprites[i].states[j].destWaterState);
+								trigger["left"] << bin->sprites[i].states[j].waterTriggerLeft;
+								trigger["top"] << bin->sprites[i].states[j].waterTriggerTop;
+								trigger["right"] << bin->sprites[i].states[j].waterTriggerRight;
+								trigger["bottom"] << bin->sprites[i].states[j].waterTriggerBottom;
+							}
+							{
+								ryml::NodeRef anim = state["animation"];
+								anim |= ryml::MAP;
+								ryml::NodeRef frames = anim["frames"];
+								frames |= ryml::SEQ;
+								for (uint8_t k = 0; k < 10; k++) {
+									if (bin->sprites[i].states[j].frames[k].left == 0xFFFF) {
+										break;
 									}
-									if (frames.num_children() == 0)
-										anim.remove_child(frames);
-									anim["speed"] << bin->sprites[i].states[j].animationSpeed;
-									if (bin->sprites[i].states[j].cycle)
-										anim["repeat"] << "true";
-									anim["count"] << bin->sprites[i].states[j].cycleCount;
-									anim["index"] << (1 + bin->sprites[i].states[j].animationTriggerState);
+									ryml::NodeRef frame = frames.append_child();
+									frame |= ryml::MAP;
+									frame["left"] << bin->sprites[i].states[j].frames[k].left;
+									frame["top"] << bin->sprites[i].states[j].frames[k].top;
+									frame["right"] << bin->sprites[i].states[j].frames[k].right;
+									frame["bottom"] << bin->sprites[i].states[j].frames[k].bottom;
 								}
+								if (frames.num_children() == 0)
+									anim.remove_child(frames);
+								anim["speed"] << bin->sprites[i].states[j].animationSpeed;
+								if (bin->sprites[i].states[j].cycle)
+									anim["repeat"] << "true";
+								anim["count"] << bin->sprites[i].states[j].cycleCount;
+								anim["index"] << (1 + bin->sprites[i].states[j].animationTriggerState);
 							}
 						}
+					}
+					if (states.num_children() == 0) {
+						sprites.remove_child(sprite);
 					}
 				}
 			}
@@ -770,6 +768,7 @@ namespace {
 		ryml::csubstr getLength = ryml::emit_yaml(tree, tree.root_id(), ryml::substr{}, false);
 		std::vector<char> charVec(getLength.len);
 		ryml::emit_yaml(tree, tree.root_id(), ryml::to_substr(charVec), true);
+		std::copy( uri.begin(), uri.end(), std::inserter(charVec, charVec.begin()));
 		std::vector<uint8_t> outputVec((uint8_t *)charVec.data(), (uint8_t *)charVec.data() + charVec.size());
 		vector.swap(outputVec);
 	}
@@ -805,6 +804,14 @@ namespace FuryUtils {
 				inputBuffer[3] == 'y') {
 				ParseYaml(inputBuffer);
 			}
+			else if (inputBuffer[0] == '#' &&
+				inputBuffer[1] == ' ' &&
+				inputBuffer[2] == 'y' &&
+				inputBuffer[3] == 'a' &&
+				inputBuffer[4] == 'm' &&
+				inputBuffer[5] == 'l') {
+				ParseYaml(inputBuffer);
+			}
 			else {
 				Exceptions::ERROR(Exceptions::UNSUPPORTED_FORMAT, Exceptions::ERROR_BIN_UNRECOGNISED_FORMAT);
 			}
@@ -826,10 +833,8 @@ namespace FuryUtils {
 		}
 		
 		void Bin::ParseYaml(std::vector<uint8_t> &inputBuffer) {
-			
 			std::vector<char> charBuf(inputBuffer.data(), inputBuffer.data() + inputBuffer.size() + 1);
 			charBuf[charBuf.size() - 1] = 0;
-			
 			ryml::Tree tree = ryml::parse_in_place(ryml::to_substr(charBuf));
 			ryml::ConstNodeRef root = tree.rootref();
 			CheckNodeIsMap(root);
@@ -962,7 +967,7 @@ namespace FuryUtils {
 						ref = n["returnLeft"];
 						if (ref.is_keyval()) ref >> this->exitReturns[i-1].left;
 					}
-					if (n.has_child("returnRight")) {
+					if (n.has_child("returnTop")) {
 						ref = n["returnTop"];
 						if (ref.is_keyval()) ref >> this->exitReturns[i-1].top;
 					}
@@ -1474,14 +1479,14 @@ namespace FuryUtils {
 							}
 							if (m.has_child("gravity")) {
 								ref = m["gravity"];
-								if (ref.is_keyval()) ref >> this->sprites[i-1].states[j-1].gravity;
+								if (ref.is_keyval() && ref.val().begins_with("true")) this->sprites[i-1].states[j-1].gravity = 1;
 							}
 							if (m.has_child("current")) {
 								ref = m["current"];
 								if (ref.has_child("index")) {
 									ryml::ConstNodeRef k = ref["index"];
 									if (k.is_keyval()) {
-										ref >> this->sprites[i-1].states[j-1].current;
+										k >> this->sprites[i-1].states[j-1].current;
 										this->sprites[i-1].states[j-1].current--;
 									}
 								}
@@ -1606,11 +1611,11 @@ namespace FuryUtils {
 							}
 							if (m.has_child("destroy")) {
 								ref = m["destroy"];
-								if (ref.is_keyval()) ref >> this->sprites[i-1].states[j-1].destroy;
+								if (ref.is_keyval() && ref.val().begins_with("true")) this->sprites[i-1].states[j-1].destroy = 1;
 							}
 							if (m.has_child("bounce")) {
 								ref = m["bounce"];
-								if (ref.is_keyval()) ref >> this->sprites[i-1].states[j-1].bounce;
+								if (ref.is_keyval() && ref.val().begins_with("true")) this->sprites[i-1].states[j-1].bounce = 1;
 							}
 							if (m.has_child("empty")) {
 								ref = m["empty"];

@@ -32,8 +32,8 @@ bin_p Test_Bin_create(uint8_t *buffer, uint32_t size) {
 	return Bin_create(buffer, size);
 }
 
-void Test_Bin_setComment(bin_p bin, const char *comment) {
-	Bin_setComment(bin, comment);
+uint8_t Test_Bin_setComment(bin_p bin, const char *comment) {
+	return Bin_setComment(bin, comment);
 }
 
 uint32_t Test_Bin_getComment(bin_p bin, char *buffer, uint32_t length) {

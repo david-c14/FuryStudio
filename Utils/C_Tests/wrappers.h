@@ -21,7 +21,7 @@ extern "C" {
 	
 	bin_p Test_Bin_createNew();
 	bin_p Test_Bin_create(uint8_t *buffer, uint32_t size);
-	void Test_Bin_setComment(bin_p bin, const char *comment);
+	uint8_t Test_Bin_setComment(bin_p bin, const char *comment);
 	uint32_t Test_Bin_getComment(bin_p bin, char *buffer, uint32_t length);
 	void Test_Bin_destroy(bin_p bin);
 	binBuffer_p Test_Bin_convert(bin_p bin, uint32_t conversionType);

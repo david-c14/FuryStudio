@@ -8,8 +8,8 @@ bin_p Bin_create(uint8_t *buffer, uint32_t size) {
 	return _Bin_create(buffer, size);
 }
 
-void Bin_setComment(bin_p bin, const char *comment) {
-	_Bin_setComment(bin, comment);
+uint8_t Bin_setComment(bin_p bin, const char *comment) {
+	return _Bin_setComment(bin, comment);
 }
 
 uint32_t Bin_getComment(bin_p bin, char *buffer, uint32_t length) {

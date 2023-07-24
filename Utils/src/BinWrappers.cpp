@@ -28,14 +28,16 @@ extern "C" {
 		}
 	}
 	
-	void _Bin_setComment(bin_p bin, const char *comment) {
+	uint8_t _Bin_setComment(bin_p bin, const char *comment) {
 		ErrorCode = FuryUtils::Exceptions::NO_ERROR;
 		ErrorString = "";
 		try {
 			bin->SetComment(std::string(comment));
+			return 0;
 		}
 		catch (...) {
 			FuryUtils::Exceptions::HANDLE();
+			return 1;
 		}
 	}
 	

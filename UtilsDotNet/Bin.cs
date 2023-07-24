@@ -1,4 +1,5 @@
 ﻿using System.Runtime.InteropServices;
+using System.Text;
 
 namespace carbon14.FuryStudio.Utils
 {
@@ -290,8 +291,15 @@ namespace carbon14.FuryStudio.Utils
         [DllImport(Constants.dllPath, CallingConvention = CallingConvention.Cdecl)]
         private static extern IntPtr Bin_createNew();
 
+        [DllImport(Constants.dllPath, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+        private static extern byte Bin_setComment(IntPtr binFile, string comment);
+
+        [DllImport(Constants.dllPath, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+        private static extern uint Bin_getComment(IntPtr binFile, StringBuilder buffer, int size);
+
         [DllImport(Constants.dllPath, CallingConvention = CallingConvention.Cdecl)]
         private static extern IntPtr Bin_create([MarshalAs(UnmanagedType.LPArray)] byte[] buffer, int size);
+
 
         [DllImport(Constants.dllPath, CallingConvention = CallingConvention.Cdecl)]
         private static extern void Bin_destroy(IntPtr binFile);
@@ -300,7 +308,7 @@ namespace carbon14.FuryStudio.Utils
         private static extern IntPtr Bin_convert(IntPtr binFile, ConversionType type);
 
         [DllImport(Constants.dllPath, CallingConvention = CallingConvention.Cdecl)]
-        private static extern int BinBuffer_size(IntPtr binBuffer);
+        private static extern uint BinBuffer_size(IntPtr binBuffer);
 
         [DllImport(Constants.dllPath, CallingConvention = CallingConvention.Cdecl)]
         private static extern byte BinBuffer_buffer(IntPtr binBuffer, [MarshalAs(UnmanagedType.LPArray)] byte[] buffer, int size);
@@ -313,6 +321,7 @@ namespace carbon14.FuryStudio.Utils
         public Bin()
         {
             _bin = Bin_createNew();
+            FuryException.Throw();
             _binStruct = Marshal.PtrToStructure<BinStruct>(_bin);
             FuryException.Throw();
         }
@@ -320,11 +329,30 @@ namespace carbon14.FuryStudio.Utils
         public Bin(byte[] buffer)
         {
             _bin = Bin_create(buffer, buffer.Length);
+            FuryException.Throw();
             _binStruct = Marshal.PtrToStructure<BinStruct>(_bin);
             FuryException.Throw();
         }
 
         public BinStruct Data => _binStruct;
+
+        public string Comment
+        {
+            get
+            {
+                StringBuilder sb = new StringBuilder(3001);
+                int result = (int)Bin_getComment(_bin, sb, sb.Capacity);
+                return sb.ToString();
+
+            }
+            set
+            {
+                if (Bin_setComment(_bin, value) != 0)
+                {
+                    FuryException.Throw();
+                }
+            }
+        }
 
         public byte[]? Convert(ConversionType type)
         {

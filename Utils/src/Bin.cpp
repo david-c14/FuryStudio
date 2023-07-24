@@ -560,10 +560,14 @@ namespace {
 		{
 			ryml::NodeRef sprites = ff["sprites"];
 			sprites |= ryml::SEQ;
+			bool skip = false;
 			for (uint8_t i = 0; i < 10; i++) {
 				ryml::NodeRef sprite = sprites.append_child();
 				sprite |= ryml::MAP;
-				sprite["index"] << (i + 1);
+				if (skip) {
+					skip = false;
+					sprite["index"] << (i + 1);
+				}
 				if (bin->sprites[i].layer == 0)
 					sprite["depth"] << "middle";
 				else if (bin->sprites[i].layer == 1)
@@ -757,6 +761,7 @@ namespace {
 					}
 					if (states.num_children() == 0) {
 						sprites.remove_child(sprite);
+						skip = true;
 					}
 				}
 			}
@@ -1750,7 +1755,7 @@ namespace FuryUtils {
 			}
 		}
 		void Bin::SetComment(std::string comment) {
-			int16_t len = (int16_t)comment.length();
+			int16_t len = (int16_t)comment.length() + 1;
 			if (len > 3000) {
 				Exceptions::ERROR(Exceptions::BUFFER_OVERFLOW, Exceptions::ERROR_BIN_COMMENT_OVERFLOW);
 			}
@@ -1771,14 +1776,13 @@ namespace FuryUtils {
 				uint8_t x = (1024 / (y + 1));
 				for (; x < 78; x++) {
 					char c = (char)this->map[y][x].x;
+					if (!c) return str;
 					str += c;
-					if (!c) return str;
 					c = (char)this->map[y][x].y;
-					str+= c;
 					if (!c) return str;
+					str+= c;
 				}
 			}
-			str += '\0';
 			return str;
 		}
 	}

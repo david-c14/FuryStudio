@@ -58,7 +58,7 @@ int Info(int argc, char* argv[]) {
 		{
 			FuryUtils::Archive::Bin b(buffer);
 			printf("%s: Summary of %s\n\n", name.c_str(), argv[2]);
-			printf("Width: %d Height %d\n", b.mapWidth, b.mapHeight);
+			printf("Width: %d Height: %d\n", b.mapWidth, b.mapHeight);
 			std::string comment = b.GetComment();
 			if (comment.c_str()[0]) {
 				printf("Comment: %s\n", comment.c_str());

@@ -1,0 +1,27 @@
+# yaml-language-server: $schema=https://schema.submarine.org.uk/carbon14/FuryStudio/2023-07/FuryOfTheFurries.json
+FuryOfTheFurries:
+  version: 0.4.0
+  comment: "Bad yaml description. The file contains a map which should be an array"
+  mapWidth: 25
+  mapHeight: 20
+  time: 300
+  map:
+    - row: 1
+      tiles:
+        - xy: AB
+        - xy: AC
+        - column: 5
+          xy: AD
+  decorFile: 7
+  spriteFile: 2
+  startLeft: 100
+  startTop: 120
+  foreground: 5
+  water: 6
+  air: 7
+  motes: 8
+  exits:
+    left: 10
+    top: 15
+    destination: 3
+    options: [smooth]

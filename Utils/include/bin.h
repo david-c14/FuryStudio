@@ -8,6 +8,8 @@
 
 bin_p Bin_createNew();
 bin_p Bin_create(uint8_t *buffer, uint32_t size);
+void Bin_setComment(bin_p bin, const char *comment);
+uint32_t Bin_getComment(bin_p bin, char *buffer, uint32_t length);
 void Bin_destroy(bin_p bin);
 
 binBuffer_p Bin_convert(bin_p bin, uint32_t conversionType);

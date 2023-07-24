@@ -1,0 +1,7 @@
+# yaml-language-server: $schema=https://schema.submarine.org.uk/carbon14/FuryStudio/2023-07/FuryOfTheFurries.json
+FuryOfTheFurries:
+  version: 0.4.0
+  comment: "Bad yaml description. The file contains a field which cannot be correctly converted"
+  mapWidth: 25
+  mapHeight: 20
+  time: "NotCorrect"

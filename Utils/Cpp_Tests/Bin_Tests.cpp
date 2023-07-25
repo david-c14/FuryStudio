@@ -100,7 +100,7 @@ TEST_CASE("Given a good file When an overlong comment is added Then an exception
 }
 
 TEST_CASE("Given a bad file with an overflow type 1 When the file is parsed Then an exception is raised") {
-	std::vector<uint8_t> binFile = utils::ReadFile("overflow1.bin");
+	std::vector<uint8_t> binFile = utils::ReadFile("overflow1.BIN");
 	try {
 		FuryUtils::Archive::Bin bin(binFile);
 		INFO("Exception not raised");
@@ -113,7 +113,7 @@ TEST_CASE("Given a bad file with an overflow type 1 When the file is parsed Then
 }
 
 TEST_CASE("Given a bad file with an overflow type 2 When the file is parsed Then an exception is raised") {
-	std::vector<uint8_t> binFile = utils::ReadFile("overflow2.bin");
+	std::vector<uint8_t> binFile = utils::ReadFile("overflow2.BIN");
 	try {
 		FuryUtils::Archive::Bin bin(binFile);
 		INFO("Exception not raised");
@@ -126,7 +126,7 @@ TEST_CASE("Given a bad file with an overflow type 2 When the file is parsed Then
 }
 
 TEST_CASE("Given a bad file with an overflow type 3 When the file is parsed Then an exception is raised") {
-	std::vector<uint8_t> binFile = utils::ReadFile("overflow3.bin");
+	std::vector<uint8_t> binFile = utils::ReadFile("overflow3.BIN");
 	try {
 		FuryUtils::Archive::Bin bin(binFile);
 		INFO("Exception not raised");

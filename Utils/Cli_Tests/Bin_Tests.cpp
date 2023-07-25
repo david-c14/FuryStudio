@@ -243,9 +243,9 @@ TEST_CASE("BIN_Too_many_uncompressed_parameters_should_yield_usage_message") {
 TEST_CASE("BIN_b_option_on_invalid_yaml_file_should_yield_exception") {
 	std::string expected = "BinFile Error:\n\n1 YAML PARSING ERROR could not deserialize value\n";
 	ADDFILE(EXE)
-	ADDFILE(ASSETS "bad1.yml")
+	ADDFILE(ASSETS "BAD1.yml")
 
-	EXEC(COMM " -b bad1.yml bad1.bin")
+	EXEC(COMM " -b BAD1.yml bad1.bin")
 
 	RETURNVALUE(1)
 	ISEMPTY(CLITEST_STDERR)

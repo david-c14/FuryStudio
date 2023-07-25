@@ -286,6 +286,7 @@ namespace carbon14.FuryStudio.Utils
         {
             Uncompressed = 0,
             Compressed = 1,
+            Yaml = 2
         }
 
         [DllImport(Constants.dllPath, CallingConvention = CallingConvention.Cdecl)]
@@ -342,6 +343,10 @@ namespace carbon14.FuryStudio.Utils
             {
                 StringBuilder sb = new StringBuilder(3001);
                 int result = (int)Bin_getComment(_bin, sb, sb.Capacity);
+                if (result == 0)
+                {
+                    FuryException.Throw();
+                }
                 return sb.ToString();
 
             }

@@ -21,7 +21,7 @@ TEST_CASE("Given a file which is too short When it is parsed Then an exception i
 }
 
 TEST_CASE("Given a good file When it is converted to an unrecognised format Then an exception is raised") {
-	std::vector<uint8_t> inputFile = utils::ReadFile("BASICU.bin");
+	std::vector<uint8_t> inputFile = utils::ReadFile("BASICU.BIN");
 	bin_p bin = Test_Bin_create(inputFile.data(), uint32_t(inputFile.size()));
 	try {
 		binBuffer_p uncompressedBuffer = Test_Bin_convert(bin, 7);
@@ -35,7 +35,7 @@ TEST_CASE("Given a good file When it is converted to an unrecognised format Then
 }
 
 TEST_CASE("Given a good file When an overlong comment is added Then an exception is raised") {
-	std::vector<uint8_t> inputFile = utils::ReadFile("BASICU.bin");
+	std::vector<uint8_t> inputFile = utils::ReadFile("BASICU.BIN");
 	bin_p bin = Test_Bin_create(inputFile.data(), uint32_t(inputFile.size()));
 	std::string comment(3001, 'x');
 	uint8_t result = Test_Bin_setComment(bin, comment.c_str());

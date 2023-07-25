@@ -70,7 +70,7 @@ TEST_CASE("Given a file which is too short When it is parsed Then an exception i
 }
 
 TEST_CASE("Given a good file When it is converted to an unrecognised format Then an exception is raised") {
-	std::vector<uint8_t> binFile = utils::ReadFile("BASICU.bin");
+	std::vector<uint8_t> binFile = utils::ReadFile("BASICU.BIN");
 	FuryUtils::Archive::Bin bin(binFile);
 	try {
 		std::vector<uint8_t> buffer;
@@ -85,7 +85,7 @@ TEST_CASE("Given a good file When it is converted to an unrecognised format Then
 }
 
 TEST_CASE("Given a good file When an overlong comment is added Then an exception is raised") {
-	std::vector<uint8_t> binFile = utils::ReadFile("BASICU.bin");
+	std::vector<uint8_t> binFile = utils::ReadFile("BASICU.BIN");
 	FuryUtils::Archive::Bin bin(binFile);
 	try {
 		std::string bigComment(3001, 'x');
@@ -186,8 +186,8 @@ TEST_CASE("Given a bin When the bin is converted with compression Then the outpu
 
 TEST_CASE("Given a file When the file is converted Then the output round trips") {
 	std::vector<uint8_t> yamlFile = utils::ReadFile("BASIC.yml");
-	std::vector<uint8_t> binFile = utils::ReadFile("BASIC.bin");
-	std::vector<uint8_t> unFile = utils::ReadFile("BASICU.bin");
+	std::vector<uint8_t> binFile = utils::ReadFile("BASIC.BIN");
+	std::vector<uint8_t> unFile = utils::ReadFile("BASICU.BIN");
 	FuryUtils::Archive::Bin yaml(yamlFile);
 	FuryUtils::Archive::Bin bin(binFile);
 	FuryUtils::Archive::Bin un(unFile);
@@ -464,7 +464,7 @@ TEST_CASE("Given a file in yaml format When the file is loaded Then the binary d
 }
 
 TEST_CASE("Given a newly created bin file When a comment is set Then the comment can be extracted") {
-	std::vector<uint8_t> binFile = utils::ReadFile("BASIC.bin");
+	std::vector<uint8_t> binFile = utils::ReadFile("BASIC.BIN");
 	FuryUtils::Archive::Bin bin(binFile);
 	std::string comment = "This is a test comment";
 	bin.SetComment(comment);

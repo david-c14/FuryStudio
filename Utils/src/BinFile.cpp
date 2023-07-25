@@ -23,8 +23,8 @@ std::string GetFileName(const std::string &s) {
 int Usage(char *arg0) {
 	std::string name = GetFileName(arg0);
 	printf("%s usage:\n\n", name.c_str());
-	printf("Print this Message\n"          "\t%s -? \n"                    "\t%s --help \n\n",                        name.c_str(), name.c_str());
-	printf("Print Version\n"               "\t%s -v \n"                    "\t%s --version \n\n",                     name.c_str(), name.c_str());
+	printf("Print this Message\n"          "\t%s -?\n"                    "\t%s --help \n\n",                        name.c_str(), name.c_str());
+	printf("Print Version\n"               "\t%s -v\n"                     "\t%s --version \n\n",                     name.c_str(), name.c_str());
 	printf("Show Information\n"            "\t%s -i input\n"               "\t%s --info input\n\n",                   name.c_str(), name.c_str());
 	printf("Convert to YAML\n"             "\t%s -y input output\n"        "\t%s --yaml input output\n\n",            name.c_str(), name.c_str());
 	printf("Convert to BIN\n"              "\t%s -b input output\n"        "\t%s --bin input output\n\n",             name.c_str(), name.c_str());

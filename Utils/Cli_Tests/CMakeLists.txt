@@ -4,6 +4,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 project(Cli_Tests VERSION 1.0)
 add_executable(Cli_Tests
     catchmain.cpp
+	Bin_Tests.cpp
     Dat_Tests.cpp 
     Imm_Tests.cpp 
 )

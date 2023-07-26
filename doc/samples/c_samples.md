@@ -5,8 +5,8 @@
 [Converting an Lbm file to a windows Bmp file](../../Utils/C_Samples/lbm2bmp.c)  
 [Packing files into a Dat archive file](../../Utils/C_Samples/dat_create.c)  
 [Reading files from a Dat archive file](../../Utils/C_Samples/dat_read.c)  
-[Creating and saving a Bin game level file](../../Utils/C_Samples/bin_create.c)
-[Converting and reading a Yaml description to a Bin game level](../../Utils/C_Samples/bin_convert.c)
+[Creating and saving a Bin game level file](../../Utils/C_Samples/bin_create.c)  
+[Converting and reading a Yaml description to a Bin game level](../../Utils/C_Samples/bin_convert.c)  
 
 ## Linking
 

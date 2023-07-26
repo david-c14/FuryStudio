@@ -27,6 +27,13 @@ jobs:
         cd Utils\build
         .\Debug\Cli_Tests.exe
 
+    - name: Archive Test Results
+      if: ${{ failure() }}
+      uses: actions/upload-artifact@v1
+      with:
+        name: test-results
+        path: ./Cli_test_output
+
     - name: Test Dynamic Library using C
       run: |
         cd Utils\build
@@ -138,6 +145,13 @@ jobs:
       run: |
         cd Utils/build
         ./Debug/Cli_Tests
+
+    - name: Archive Test Results
+      if: ${{ failure() }}
+      uses: actions/upload-artifact@v1
+      with:
+        name: test-results
+        path: ./Cli_test_output
 
     - name: Test Dynamic Library using C
       run: |

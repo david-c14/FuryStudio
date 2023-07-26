@@ -1,3 +1,6 @@
+### 0.4.1
+- 26/07/23 Add bin file schema to utils artifact documentation
+
 ### 0.4.0
 - 03/07/23 Add Bin read functionality to C++ library
 - 06/07/23 Bug fix. Memory violation in Lbm compressor

@@ -82,6 +82,7 @@ jobs:
         copy ..\..\..\LICENSE utils
         copy ..\..\..\rapidyaml_LICENSE.txt utils
         copy ..\..\..\doc\utilities\* utils
+        copy ..\..\..\doc\schema\* utils
         Compress-Archive -Path ".\utils\*" -DestinationPath "Utils-win-x64-${{ github.event.release.name }}.zip"
         mkdir lib
         mkdir lib\lib
@@ -202,6 +203,7 @@ jobs:
         cp ../../../LICENSE utils
         cp ../../../rapidyaml_LICENSE.txt utils
         cp ../../../doc/utilities/* utils
+        cp ../../../doc/schema/* utils
         tar -cvzf "Utils-linux-x64-${{ github.event.release.name }}.tgz" utils
         mkdir lib
         mkdir lib/lib

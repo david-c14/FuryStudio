@@ -11,6 +11,8 @@ void bmp2imm(const char * bmpFileName, const char * immFileName, const char * pa
 void lbm2bmp(const char * lbmFileName, const char * bmpFileName);
 void dat_create(const char * immFileName, const char * pamFileName, const char * datFileName);
 void dat_read(const char * datFileName, const char * bmpFileName);
+void bin_create(const char * binFileName);
+void bin_convert(const char * yamlFileName, const char * binFileName);
 
 int main(int argc, char *argv[]) {
 	printf("FuryUtils C Samples\n\n");
@@ -21,4 +23,7 @@ int main(int argc, char *argv[]) {
 
 	dat_create(ASSETDIR "pal8out.imm", ASSETDIR "pal8out.pam", "pal8out.dat");
 	dat_read(ASSETDIR "basic.dat", "pal4out.bmp");
+
+	bin_create("create.bin");
+	bin_convert(ASSETDIR "BASIC.yml", "convert.bin");
 }

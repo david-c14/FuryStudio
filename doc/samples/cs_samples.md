@@ -7,6 +7,8 @@ You will need the include directory and the FuryUtils shared library,  either Fu
 [Converting an Lbm file to a windows Bmp file](../../CS_Samples/lbm2bmp.cs)  
 [Packing files into a Dat archive file](../../CS_Samples/dat_create.cs)  
 [Reading files from a Dat archive file](../../CS_Samples/dat_read.cs)  
+[Creating and saving a Bin game level file](../../CS_Samples/bin_create.cs)
+[Converting and reading a Yaml description to a Bin game level](../../CS_Samples/bin_convert.cs)
 
 
 ## Linking

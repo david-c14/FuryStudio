@@ -7,5 +7,7 @@ add_executable(Cpp_Samples
 	lbm2bmp.cpp
 	dat_create.cpp
 	dat_read.cpp
+	bin_create.cpp
+	bin_convert.cpp
 )
 target_link_libraries(Cpp_Samples FuryUtils)

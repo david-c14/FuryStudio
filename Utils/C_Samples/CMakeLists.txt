@@ -7,6 +7,8 @@ add_executable(C_Samples
 	lbm2bmp.c
 	dat_create.c
 	dat_read.c
+	bin_create.c
+	bin_convert.c
 )
 if (MSVC) 
   add_definitions(-D_CRT_SECURE_NO_WARNINGS)

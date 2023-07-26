@@ -22,13 +22,15 @@ Create a new Bin instance, from a buffer containing an existing bin file, or a y
 
 If an error occurs a [FuryException](exception.md) is thrown.
 
+## members
+
+### data
+
+`BinStruct data`
+
+A mutable [Bin.BinStruct](binstruct.md) structure containing the game level data.
+
 ## properties
-
-### Count
-
-`BinStruct Data`
-
-Returns a mutable [Bin.BinStruct](binstruct.md) structure containing the game level data.
 
 ### Comment
 

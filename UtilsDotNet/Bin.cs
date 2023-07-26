@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using System;
+using System.Runtime.InteropServices;
 using System.Text;
 
 namespace carbon14.FuryStudio.Utils
@@ -318,24 +319,20 @@ namespace carbon14.FuryStudio.Utils
         private static extern void BinBuffer_destroy(IntPtr binBuffer);
 
         readonly private IntPtr _bin;
-        private BinStruct _binStruct;
+        public BinStruct data;
         public Bin()
         {
             _bin = Bin_createNew();
             FuryException.Throw();
-            _binStruct = Marshal.PtrToStructure<BinStruct>(_bin);
-            FuryException.Throw();
+            LoadData();
         }
 
         public Bin(byte[] buffer)
         {
             _bin = Bin_create(buffer, buffer.Length);
             FuryException.Throw();
-            _binStruct = Marshal.PtrToStructure<BinStruct>(_bin);
-            FuryException.Throw();
+            LoadData();
         }
-
-        public BinStruct Data => _binStruct;
 
         public string Comment
         {
@@ -352,16 +349,20 @@ namespace carbon14.FuryStudio.Utils
             }
             set
             {
+                SaveData();
                 if (Bin_setComment(_bin, value) != 0)
                 {
                     FuryException.Throw();
                 }
+                LoadData();
             }
         }
 
         public byte[]? Convert(ConversionType type)
         {
             CheckDisposed();
+            SaveData();
+
             IntPtr ptr = Bin_convert(_bin, type);
             if (ptr != IntPtr.Zero)
             {
@@ -375,6 +376,16 @@ namespace carbon14.FuryStudio.Utils
             }
             FuryException.Throw();
             return null;
+        }
+
+        private void SaveData()
+        {
+            Marshal.StructureToPtr<BinStruct>(data, _bin, true);
+        }
+
+        private void LoadData()
+        {
+            data = Marshal.PtrToStructure<BinStruct>(_bin);
         }
 
         protected void CheckDisposed()

@@ -10,9 +10,9 @@ namespace carbon14.FuryStudio.Tests.Utils
         public void Given_a_valid_bin_file_When_a_BIN_object_is_created_Then_the_map_size_is_correct()
         {
             using (Bin bf = new(TestHelpers.ReadFile("BASIC.BIN"))) {
-                Assert.Equal(25518, Marshal.SizeOf(bf.Data));
-                Assert.Equal(25, bf.Data.mapWidth);
-                Assert.Equal(20, bf.Data.mapHeight);
+                Assert.Equal(25518, Marshal.SizeOf(bf.data));
+                Assert.Equal(25, bf.data.mapWidth);
+                Assert.Equal(20, bf.data.mapHeight);
             }
 
         }
@@ -22,9 +22,9 @@ namespace carbon14.FuryStudio.Tests.Utils
         {
             using (Bin bf = new())
             {
-                Assert.Equal(25518, Marshal.SizeOf(bf.Data));
-                Assert.Equal(20, bf.Data.mapWidth);
-                Assert.Equal(13, bf.Data.mapHeight);
+                Assert.Equal(25518, Marshal.SizeOf(bf.data));
+                Assert.Equal(20, bf.data.mapWidth);
+                Assert.Equal(13, bf.data.mapHeight);
             }
         }
 
@@ -36,8 +36,8 @@ namespace carbon14.FuryStudio.Tests.Utils
                 byte[]? uncompressed = bf.Convert(Bin.ConversionType.Uncompressed);
                 Assert.NotNull(uncompressed);
                 Assert.Equal(25526, uncompressed.Length);
-                Assert.Equal(25, bf.Data.mapWidth);
-                Assert.Equal(20, bf.Data.mapHeight);
+                Assert.Equal(25, bf.data.mapWidth);
+                Assert.Equal(20, bf.data.mapHeight);
                 using (Bin bf2 = new(uncompressed))
                 {
                     byte[]? uc2 = bf2.Convert(Bin.ConversionType.Uncompressed);
@@ -54,8 +54,8 @@ namespace carbon14.FuryStudio.Tests.Utils
                 byte[]? compressed = bf.Convert(Bin.ConversionType.Compressed);
                 Assert.NotNull(compressed);
                 Assert.True(compressed.Length < 25526);
-                Assert.Equal(25, bf.Data.mapWidth);
-                Assert.Equal(20, bf.Data.mapHeight);
+                Assert.Equal(25, bf.data.mapWidth);
+                Assert.Equal(20, bf.data.mapHeight);
                 using (Bin bf2 = new(compressed))
                 {
                     byte[]? c2 = bf2.Convert(Bin.ConversionType.Compressed);
@@ -98,5 +98,38 @@ namespace carbon14.FuryStudio.Tests.Utils
             }
         }
 
+        [Fact]
+        public void Given_a_valid_bin_file_When_it_is_converted_Then_it_will_correctly_round_trip()
+        {
+            byte[]? original = TestHelpers.ReadFile("BASIC.yml");
+            byte[]? expected = TestHelpers.ReadFile("BASIC.BIN");
+            byte[]? actual;
+            using (Bin bin = new(original))
+            {
+                actual = bin.Convert(Bin.ConversionType.Compressed);
+            }
+            Assert.True(actual?.SequenceEqual(expected), "Buffer differs");
+            Assert.True(actual?.SequenceEqual(expected), "Buffer differs");
+        }
+
+        [Fact]
+        public void Given_a_valid_bin_When_it_is_serialised_and_deserialised_Then_it_matches()
+        {
+            byte[]? file;
+            using (Bin bin = new())
+            {
+                bin.data.mapWidth = 25;
+                bin.data.mapHeight = 20;
+                bin.Comment = "This is a test comment";
+                file = bin.Convert(Bin.ConversionType.Compressed);
+            }
+            Assert.NotNull(file);
+            using (Bin bin = new(file))
+            {
+                Assert.Equal("This is a test comment", bin.Comment);
+                Assert.Equal(25, bin.data.mapWidth);
+                Assert.Equal(20, bin.data.mapHeight);
+            }
+        }
     }
 }

@@ -32,7 +32,7 @@ jobs:
       uses: actions/upload-artifact@v1
       with:
         name: test-results
-        path: .Utils/build/Cli_test_output
+        path: ./Utils/build/Cli_test_output
 
     - name: Test Dynamic Library using C
       run: |

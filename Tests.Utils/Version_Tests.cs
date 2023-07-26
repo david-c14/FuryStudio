@@ -2,6 +2,7 @@
 
 namespace carbon14.FuryStudio.Tests.Utils
 {
+    [Collection("Utils")]
     public class Version_Tests
     {
         [DllImport("FuryUtils", CallingConvention = CallingConvention.Cdecl)]

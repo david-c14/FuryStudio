@@ -2,7 +2,7 @@
 
 namespace carbon14.FuryStudio.Tests.Utils
 {
-    [Collection("Image Test Collection")]
+    [Collection("Utils")]
     public class Bmp_Tests
     {
         [Fact]

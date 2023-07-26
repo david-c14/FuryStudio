@@ -4,6 +4,7 @@ using Xunit.Sdk;
 
 namespace carbon14.FuryStudio.Tests.Utils
 {
+    [Collection("Utils")]
     public class Bin_Tests
     {
         [Fact]

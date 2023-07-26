@@ -2,7 +2,7 @@
 
 namespace carbon14.FuryStudio.Tests.Utils
 {
-    [Collection("Image Test Collection")]
+    [Collection("Utils")]
     public class Lbm_Tests
     {
         [Fact]
@@ -10,7 +10,7 @@ namespace carbon14.FuryStudio.Tests.Utils
         {
             try
             {
-                Assert.Throws<FuryException>(() => { Lbm lbm = new Lbm(TestHelpers.ReadFile("tooshort.lbm")); });
+                throw Assert.Throws<FuryException>(() => { Lbm lbm = new Lbm(TestHelpers.ReadFile("tooshort.lbm")); });
             }
             catch (FuryException ex)
             {
@@ -24,7 +24,7 @@ namespace carbon14.FuryStudio.Tests.Utils
         {
             try
             {
-                Assert.Throws<FuryException>(() => { Lbm lbm = new Lbm(TestHelpers.ReadFile("tooshort.bmp"), TestHelpers.ReadFile("pal8out.pam")); });
+                throw Assert.Throws<FuryException>(() => { Lbm lbm = new Lbm(TestHelpers.ReadFile("tooshort.bmp"), TestHelpers.ReadFile("pal8out.pam")); });
             }
             catch (FuryException ex)
             {

@@ -2,7 +2,7 @@
 
 namespace carbon14.FuryStudio.Tests.Utils
 {
-    [Collection("Image Test Collection")]
+    [Collection("Utils")]
     public class Bmp_Tests
     {
         [Fact]
@@ -10,7 +10,7 @@ namespace carbon14.FuryStudio.Tests.Utils
         {
             try
             {
-                Assert.Throws<FuryException>(() => { Bmp bmp = new Bmp(TestHelpers.ReadFile("badrle.bmp")); });
+                throw Assert.Throws<FuryException>(() => { Bmp bmp = new Bmp(TestHelpers.ReadFile("badrle.bmp")); });
             }
             catch (FuryException ex)
             {
@@ -24,7 +24,7 @@ namespace carbon14.FuryStudio.Tests.Utils
         {
             try
             {
-                Assert.Throws<FuryException>(() => { Bmp bmp = new Bmp(TestHelpers.ReadFile("tooshort.bmp"), TestHelpers.ReadFile("pal8out.pam")); });
+                throw Assert.Throws<FuryException>(() => { Bmp bmp = new Bmp(TestHelpers.ReadFile("tooshort.bmp"), TestHelpers.ReadFile("pal8out.pam")); });
             }
             catch (FuryException ex)
             {

@@ -10,6 +10,8 @@
 
 ## [Utilities](utilities/index.md)
 
+- [BinFile](utilities/binfile.md) - Converting BIN game level data
+
 - [DatFile](utilities/datfile.md) - Packing and Unpacking DAT archives
 
 - [ImmFile](utilities/immfile.md) - Converting IMM images to and from BMP format

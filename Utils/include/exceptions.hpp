@@ -48,6 +48,12 @@ namespace FuryUtils {
 
 		const char ERROR_DAT_COMPRESSION_SIZE_MISMATCH[] = "Uncompressed data is larger than declared size";
 		const char ERROR_DAT_BUFFER_TOO_SMALL[] = "Buffer too small";
+		
+		const char ERROR_BIN_BUFFER_TOO_SMALL[] = "Buffer too small";
+		const char ERROR_BIN_UNRECOGNISED_FORMAT[] = "Unrecognised format";
+		const char ERROR_BIN_COMPRESSION_ERROR[] = "Compressed data contains an error";
+		const char ERROR_BIN_INVALID_YAML[] = "Yaml contains an error";
+		const char ERROR_BIN_COMMENT_OVERFLOW[] = "Comment is too large to be stored";
 
 		enum Error
 #include "errorcodes.hpp"

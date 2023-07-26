@@ -1,0 +1,2 @@
+# Yaml files should have *NIX line endings
+*.yml text eol=lf

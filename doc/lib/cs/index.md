@@ -1,5 +1,6 @@
 # Library documentation for C# users
 
+- [Bin](bin.md) - Bin level data functions
 - [Bmp](bmp.md) - Bmp class for Windows bitmap format image handling
 - [Dat](dat.md) - Dat class for dat archive handling
 - [Lbm](lbm.md) - Lbm class for lbm format image handling

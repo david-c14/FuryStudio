@@ -3,6 +3,7 @@
 #pragma once
 
 #include "imm.hpp"
+#include "bin.hpp"
 #include "bmp.hpp"
 #include "lbm.hpp"
 #include "dat.hpp"

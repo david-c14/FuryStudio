@@ -6,6 +6,7 @@
 #undef __cdecl
 #define __cdecl
 
+#include "bin.h"
 #include "bmp.h"
 #include "dat.h"
 #include "imm.h"

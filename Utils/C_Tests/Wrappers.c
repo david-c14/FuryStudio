@@ -24,6 +24,42 @@ const char *Test_Version_string() {
 	return Version_string();
 }
 
+bin_p Test_Bin_createNew() {
+	return Bin_createNew();
+}
+
+bin_p Test_Bin_create(uint8_t *buffer, uint32_t size) {
+	return Bin_create(buffer, size);
+}
+
+uint8_t Test_Bin_setComment(bin_p bin, const char *comment) {
+	return Bin_setComment(bin, comment);
+}
+
+uint32_t Test_Bin_getComment(bin_p bin, char *buffer, uint32_t length) {
+	return Bin_getComment(bin, buffer, length);
+}
+
+void Test_Bin_destroy(bin_p bin) {
+	Bin_destroy(bin);
+}
+
+binBuffer_p Test_Bin_convert(bin_p bin, uint32_t conversionType) {
+	return Bin_convert(bin, conversionType);
+}
+
+uint32_t Test_BinBuffer_size(binBuffer_p binBuffer) {
+	return BinBuffer_size(binBuffer);
+}
+
+uint8_t Test_BinBuffer_buffer(binBuffer_p binBuffer, uint8_t *buffer, uint32_t size) {
+	return BinBuffer_buffer(binBuffer, buffer, size);
+}
+
+void Test_BinBuffer_destroy(binBuffer_p binBuffer) {
+	BinBuffer_destroy(binBuffer);
+}
+
 dat_p Test_Dat_createNew() {
 	return Dat_createNew();
 }

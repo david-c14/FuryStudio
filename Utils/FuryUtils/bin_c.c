@@ -1,0 +1,1 @@
+#include "../src/bin_c.c"

@@ -1,6 +1,11 @@
+### 0.4.0
+- 03/07/23 Add Bin read functionality to C++ library
+- 06/07/23 Bug fix. Memory violation in Lbm compressor
+- 07/07/23 Add Bin write functionality to C++ library
+
 ### 0.3.0
-- 19/03/23 Add extended options to command line utilities
-- 28/03/23 Add Lbm functionality to C++ library
+- 19/06/23 Add extended options to command line utilities
+- 28/06/23 Add Lbm functionality to C++ library
 
 ### 0.2.1
 - 16/06/23 Add some helpful comments to the samples

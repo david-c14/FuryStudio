@@ -27,6 +27,13 @@ jobs:
         cd Utils\build
         .\Debug\Cli_Tests.exe
 
+    - name: Archive Test Results
+      if: ${{ failure() }}
+      uses: actions/upload-artifact@v1
+      with:
+        name: test-results
+        path: ./Utils/build/Cli_test_output
+
     - name: Test Dynamic Library using C
       run: |
         cd Utils\build
@@ -71,9 +78,10 @@ jobs:
         mkdir utils
         copy ..\Debug\DatFile.exe utils
         copy ..\Debug\ImmFile.exe utils
+        copy ..\Debug\BinFile.exe utils
         copy ..\..\..\LICENSE utils
-        copy ..\..\..\doc\utilities\datfile.md utils
-        copy ..\..\..\doc\utilities\immfile.md utils
+        copy ..\..\..\rapidyaml_LICENSE.txt utils
+        copy ..\..\..\doc\utilities\* utils
         Compress-Archive -Path ".\utils\*" -DestinationPath "Utils-win-x64-${{ github.event.release.name }}.zip"
         mkdir lib
         mkdir lib\lib
@@ -102,6 +110,7 @@ jobs:
         del lib\samples\cs\Program.cs
         del lib\samples\cs\TestHelpers.cs
         copy ..\..\..\LICENSE lib
+        copy ..\..\..\rapidyaml_LICENSE.txt utils
         Compress-Archive -Path ".\lib\*" -DestinationPath "Lib-win-x64-${{ github.event.release.name }}.zip"
         mkdir testassets
         copy ..\..\..\testassets\* testassets
@@ -136,6 +145,13 @@ jobs:
       run: |
         cd Utils/build
         ./Debug/Cli_Tests
+
+    - name: Archive Test Results
+      if: ${{ failure() }}
+      uses: actions/upload-artifact@v1
+      with:
+        name: test-results
+        path: ./Utils/build/Cli_test_output
 
     - name: Test Dynamic Library using C
       run: |
@@ -181,10 +197,11 @@ jobs:
         mkdir utils
         cp ../Debug/DatFile utils
         cp ../Debug/ImmFile utils
+        cp ../Debug/BinFile utils
         chmod 775 utils/*
         cp ../../../LICENSE utils
-        cp ../../../doc/utilities/datfile.md utils
-        cp ../../../doc/utilities/immfile.md utils
+        cp ../../../rapidyaml_LICENSE.txt utils
+        cp ../../../doc/utilities/* utils
         tar -cvzf "Utils-linux-x64-${{ github.event.release.name }}.tgz" utils
         mkdir lib
         mkdir lib/lib
@@ -212,6 +229,7 @@ jobs:
         rm lib/samples/cs/Program.cs
         rm lib/samples/cs/TestHelpers.cs
         cp ../../../LICENSE lib
+        cp ../../../rapidyaml_LICENSE.txt utils
         tar -cvzf "Lib-linux-x64-${{ github.event.release.name }}.tgz" lib
         mkdir testassets
         cp ../../../testassets/* testassets

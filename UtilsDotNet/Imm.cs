@@ -22,14 +22,14 @@ namespace carbon14.FuryStudio.Utils
         [DllImport(Constants.dllPath, CallingConvention = CallingConvention.Cdecl)]
         private static extern byte Imm_pamBuffer(IntPtr imm, [MarshalAs(UnmanagedType.LPArray)] byte[] buffer, int size);
 		
-		[DllImport(Constants.dllPath, CallingConvention = CallingConvention.Cdecl)]
-		private static extern ushort Imm_width(IntPtr imm);
+		    [DllImport(Constants.dllPath, CallingConvention = CallingConvention.Cdecl)]
+		    private static extern ushort Imm_width(IntPtr imm);
 		
-		[DllImport(Constants.dllPath, CallingConvention = CallingConvention.Cdecl)]
-		private static extern ushort Imm_height(IntPtr imm);
+		    [DllImport(Constants.dllPath, CallingConvention = CallingConvention.Cdecl)]
+		    private static extern ushort Imm_height(IntPtr imm);
 		
-		[DllImport(Constants.dllPath, CallingConvention = CallingConvention.Cdecl)]
-		private static extern ushort Imm_depth(IntPtr imm);
+		    [DllImport(Constants.dllPath, CallingConvention = CallingConvention.Cdecl)]
+		    private static extern ushort Imm_depth(IntPtr imm);
 		
 		
 

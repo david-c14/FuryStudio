@@ -10,3 +10,6 @@ lbm2bmp.Execute($"{prefix}pal8out.lbm", "pal8out.bmp");
 
 dat_create.Execute($"{prefix}pal8out.imm", $"{prefix}pal8out.pam", "pal8out.dat");
 dat_read.Execute($"{prefix}basic.dat", $"pal4out.bmp");
+
+bin_create.Execute($"create.bin");
+bin_convert.Execute($"{prefix}BASIC.yml", $"convert.bin");

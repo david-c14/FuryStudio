@@ -6,6 +6,15 @@ EXPORTS
 	Version_minor
 	Version_revision
 	Version_string
+	Bin_createNew
+	Bin_create
+	Bin_setComment
+	Bin_getComment
+	Bin_destroy
+	Bin_convert
+	BinBuffer_size
+	BinBuffer_buffer
+	BinBuffer_destroy
 	Dat_createNew
 	Dat_create
 	Dat_destroy

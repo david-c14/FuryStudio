@@ -1,1 +1,0 @@
-#include "../Cpp_Tests/Bmp_Tests.cpp"

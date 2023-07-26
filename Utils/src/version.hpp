@@ -2,7 +2,7 @@
 #define str(a) #a
 
 #define UTILS_VER_MAJOR 0
-#define UTILS_VER_MINOR 3
+#define UTILS_VER_MINOR 4
 #define UTILS_VER_REVISION 0
 
 #define UTILS_VER xstr(UTILS_VER_MAJOR) "." xstr(UTILS_VER_MINOR) "." xstr(UTILS_VER_REVISION)

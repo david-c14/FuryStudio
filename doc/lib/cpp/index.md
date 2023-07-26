@@ -1,5 +1,6 @@
 # Library documentation for C++ users
 
+- [Bin](bin.md) - Bin level data functions
 - [Bmp](bmp.md) - Windows bitmap format image functions
 - [Dat](dat.md) - Dat archive functions
 - [Lbm](lbm.md) - Lbm format image functions

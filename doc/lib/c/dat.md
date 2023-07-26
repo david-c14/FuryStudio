@@ -125,7 +125,7 @@ Use this in conjunction with `Dat_buffer` when saving an archive.
 
 ## Dat_buffer
 
-`uint8 _t Dat_buffer(dat_p dat, uint8_t * buffer, uint32_t size)`
+`uint8_t Dat_buffer(dat_p dat, uint8_t * buffer, uint32_t size)`
 
 Copies the archive into a provided buffer.
 

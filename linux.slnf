@@ -5,6 +5,8 @@
       "AvaloniaUI\\AvaloniaUI.csproj",
       "Core.Interfaces\\Core.Interfaces.csproj",
       "Core\\Core.csproj",
+	  "Resources\\Resources.csproj",
+	  "Tests.CS_Samples\\Tests.CS_Samples.csproj",
       "Tests.Core\\Tests.Core.csproj",
       "Tests.Utils\\Tests.Utils.csproj",
       "Tests.ViewModels\\Tests.ViewModels.csproj",

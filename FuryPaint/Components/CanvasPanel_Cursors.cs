@@ -52,6 +52,9 @@ namespace carbon14.FuryStudio.FuryPaint.Components
                 case EditMode.Fill:
                     Cursor = _cursorFill;
                     break;
+                case EditMode.Marquis:
+                    Cursor = Cursors.Cross;
+                    break;
                 default:
                     Cursor = Cursors.Default;
                     break;

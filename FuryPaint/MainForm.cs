@@ -151,14 +151,9 @@ namespace carbon14.FuryStudio.FuryPaint
             canvas.Redo();
         }
 
-        private void MainForm_KeyDown(object sender, KeyEventArgs e)
+        private void buttonMarquis_Click(object sender, EventArgs e)
         {
-            //canvas.KeyDownHandler(sender, e);
-        }
-
-        private void MainForm_KeyUp(object sender, KeyEventArgs e)
-        {
-            //canvas.KeyUpHandler(sender, e);
+            SetMode((Button)sender, CanvasPanel.EditMode.Marquis);
         }
     }
 }

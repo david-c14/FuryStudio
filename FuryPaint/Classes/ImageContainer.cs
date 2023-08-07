@@ -10,7 +10,6 @@ namespace carbon14.FuryStudio.FuryPaint.Classes
         private int _height;
         private Bitmap _bitmap;
         private int _zoom = 1;
-        private GraphicsPath? _marquis = null;
         private byte[] _paletteBuffer;
         private bool _dirty = false;
 
@@ -101,14 +100,6 @@ namespace carbon14.FuryStudio.FuryPaint.Classes
                     Invalidate();
                 }
             }
-        }
-
-        public GraphicsPath? Marquis 
-        {
-            get 
-            { 
-                return _marquis; 
-            } 
         }
 
         /// <summary>
@@ -304,6 +295,45 @@ namespace carbon14.FuryStudio.FuryPaint.Classes
                 }, 
                 () => {
                     this.Blit(setRect.Top, setRect.Height, redoData);
+                }
+                );
+        }
+
+        public Undo ClearRectangle(Rectangle rect, int colorIndex)
+        {
+            byte color = (byte)(colorIndex & 0x0F);
+            Rectangle bufferRect = new Rectangle(0, rect.Top, _bitmap.Width, rect.Height);
+            BitmapData bmpData = _bitmap.LockBits(bufferRect, ImageLockMode.ReadWrite, PixelFormat.Format4bppIndexed);
+            IntPtr ptr = bmpData.Scan0;
+            byte[] data = new byte[bmpData.Stride * rect.Height];
+            System.Runtime.InteropServices.Marshal.Copy(ptr, data, 0, data.Length);
+            byte[] undoData = (byte[])data.Clone();
+            for (int y = 0; y < rect.Height; y++)
+            {
+                for (int x = 0; x < rect.Width; x++)
+                {
+                    int index = (rect.Left + x) / 2 + y * bmpData.Stride;
+                    if (((rect.Left + x) % 2) == 0)
+                    {
+                        data[index] = (byte)((data[index] & 0x0F) | (color << 4));
+                    }
+                    else
+                    {
+                        data[index] = (byte)((data[index] & 0xF0) | (color));
+                    }
+
+                }
+            }
+            byte[] redoData = (byte[])data.Clone();
+            System.Runtime.InteropServices.Marshal.Copy(data, 0, ptr, data.Length);
+            _bitmap.UnlockBits(bmpData);
+            _dirty = true;
+            Invalidate();
+            return new Undo(() => {
+                this.Blit(rect.Top, rect.Height, undoData);
+            },
+                () => {
+                    this.Blit(rect.Top, rect.Height, redoData);
                 }
                 );
         }

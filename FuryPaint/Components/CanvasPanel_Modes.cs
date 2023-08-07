@@ -79,6 +79,18 @@ namespace carbon14.FuryStudio.FuryPaint.Components
                         }
                     }
                     break;
+                case EditMode.Marquis:
+                    {
+                        if (e.Button == MouseButtons.Left)
+                        {
+                            _activeMode = EditMode.Marquis;
+                            _activeModeButton = MouseButtons.Left;
+                            _activeOrigin = CanvasToImage(e.Location);
+                            _marquis = new Rectangle(-1, 0, 0, 0);
+                            Invalidate();
+                        }
+                    }
+                    break;
                 case EditMode.Zoom:
                     {
                         Point underPointer = CanvasToImage(e.Location);
@@ -136,12 +148,18 @@ namespace carbon14.FuryStudio.FuryPaint.Components
                         _activeMode = EditMode.Pencil;
                         if (e.Button == MouseButtons.Left)
                         {
-                            PaintLocalBitmap(location, _palette.Foreground);
+                            if (IsImagePointInMarquis(location))
+                            {
+                                PaintLocalBitmap(location, _palette.Foreground);
+                            }
                             _activeModeButton = MouseButtons.Left;
                         }
                         else if (e.Button == MouseButtons.Right)
                         {
-                            PaintLocalBitmap(location, _palette.Background);
+                            if (IsImagePointInMarquis(location))
+                            {
+                                PaintLocalBitmap(location, _palette.Background);
+                            }
                             _activeModeButton = MouseButtons.Right;
                         }
                     }
@@ -164,10 +182,50 @@ namespace carbon14.FuryStudio.FuryPaint.Components
                         Invalidate();
                     }
                     break;
+                case EditMode.Marquis:
+                    {
+                        Point p = CanvasToImage(e.Location);
+                        int Left = _activeOrigin.X;
+                        int Top = _activeOrigin.Y;
+                        int Height = 0;
+                        int Width = 0;
+                        if (p.X == Left || p.Y == Top)
+                        {
+                            _marquis = new Rectangle(-1, 0, 0, 0);
+                        }
+                        else
+                        {
+                            if (p.X < Left)
+                            {
+                                Left = p.X;
+                                Width = _activeOrigin.X - p.X;
+                            }
+                            else
+                            {
+                                Width = p.X - _activeOrigin.X;
+                            }
+                            if (p.Y < Top)
+                            {
+                                Top = p.Y;
+                                Height = _activeOrigin.Y - p.Y;
+                            }
+                            else
+                            {
+                                Height = p.Y - _activeOrigin.Y;
+                            }
+                            _marquis = new Rectangle(Left, Top, Width, Height);
+                        }
+                        Invalidate();
+                    }
+                    break;
                 case EditMode.Pencil:
                     {
                         Point location = CanvasToImage(e.Location);
                         if (!IsImagePointInImage(location))
+                        {
+                            return;
+                        }
+                        if (!IsImagePointInMarquis(location))
                         {
                             return;
                         }
@@ -193,6 +251,15 @@ namespace carbon14.FuryStudio.FuryPaint.Components
             switch (_activeMode)
             {
                 case EditMode.Move:
+                    {
+                        if (e.Button == _activeModeButton)
+                        {
+                            _activeMode = EditMode.None;
+                            _activeModeButton = MouseButtons.None;
+                        }
+                    }
+                    break;
+                case EditMode.Marquis:
                     {
                         if (e.Button == _activeModeButton)
                         {
@@ -234,9 +301,26 @@ namespace carbon14.FuryStudio.FuryPaint.Components
             {
                 return;
             }
+            if (_activeMode == EditMode.Marquis)
+            {
+                if (e.KeyCode == Keys.Escape)
+                {
+                    _activeMode = EditMode.None;
+                    _activeModeButton = MouseButtons.None;
+                    _marquis = new Rectangle(-1, 0, 0, 0);
+                    Invalidate();
+                }
+            }
             if (_activeMode != EditMode.None)
             {
                 return;
+            }
+            if (e.KeyCode == Keys.Delete)
+            {
+                if (HasMarquis)
+                {
+                    ClearMarquis();
+                }
             }
             switch (_mode)
             {

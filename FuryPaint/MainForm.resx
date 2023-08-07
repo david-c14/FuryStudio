@@ -66,6 +66,19 @@
   <metadata name="openFileDialog.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>353, 17</value>
   </metadata>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="buttonMarquis.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
+        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAFESURBVDhPpZPNLkNRFIXPO3kqg1KNehBDEwaMTERK
+        y1wHBBV/aYgIEvf2+g0qQS37u7ut9Gpp4iRfstfZa+2c3HNukPQvwtRaoslKQ8VKYmq4hZcM2UDx8iHl
+        V2ONr8TKlX4HD14yZEPRprAxuhyp9Sm9WeO95VBnNR68ZMhyohGmvlpz+9qZ3nJ2rIaO7vTxkiHLgDBm
+        otGU9hrSQSLN7DrUWY0HL5k0zGLa5ZM0uy/NGcc3DnVW48HbPoEvxOmDtHAkzRv1O4c6q/Hg/THg8NYa
+        985i3Rmk8fYMyJuo2RHPHp2lE2eQxkumHQ9hwq6kZlPXL6TyuXT17FBnNR68ZNIwr6lgIleKtGlfuBpL
+        G5FTbdPV1sODl0z3JTbtXgvlON1kMsfrBz08eMmkL7HzL6TT/GH8SSbT0xx2fWf6/aLDo/AFv7u8Y2sK
+        z3sAAAAASUVORK5CYII=
+</value>
+  </data>
   <metadata name="toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>493, 17</value>
   </metadata>

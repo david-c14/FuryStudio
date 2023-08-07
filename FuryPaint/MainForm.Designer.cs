@@ -31,6 +31,7 @@ namespace carbon14.FuryStudio.FuryPaint
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             statusStrip = new StatusStrip();
             statusLabelCursor = new ToolStripStatusLabel();
             toolStripStatusLabel2 = new ToolStripStatusLabel();
@@ -44,6 +45,7 @@ namespace carbon14.FuryStudio.FuryPaint
             menuItemZoomOut = new ToolStripMenuItem();
             openFileDialog = new OpenFileDialog();
             panelToolbar = new Panel();
+            buttonMarquis = new Button();
             buttonRedo = new Button();
             buttonUndo = new Button();
             buttonSaveFile = new Button();
@@ -131,7 +133,7 @@ namespace carbon14.FuryStudio.FuryPaint
             // 
             menuItemZoomIn.Image = Properties.Resources.zoom_in;
             menuItemZoomIn.Name = "menuItemZoomIn";
-            menuItemZoomIn.Size = new Size(180, 22);
+            menuItemZoomIn.Size = new Size(129, 22);
             menuItemZoomIn.Text = "Zoom &In";
             menuItemZoomIn.Click += actionZoomIn;
             // 
@@ -139,7 +141,7 @@ namespace carbon14.FuryStudio.FuryPaint
             // 
             menuItemZoomOut.Image = Properties.Resources.zoom_out;
             menuItemZoomOut.Name = "menuItemZoomOut";
-            menuItemZoomOut.Size = new Size(180, 22);
+            menuItemZoomOut.Size = new Size(129, 22);
             menuItemZoomOut.Text = "Zoom &Out";
             menuItemZoomOut.Click += actionZoomOut;
             // 
@@ -152,6 +154,7 @@ namespace carbon14.FuryStudio.FuryPaint
             // 
             // panelToolbar
             // 
+            panelToolbar.Controls.Add(buttonMarquis);
             panelToolbar.Controls.Add(buttonRedo);
             panelToolbar.Controls.Add(buttonUndo);
             panelToolbar.Controls.Add(buttonSaveFile);
@@ -169,15 +172,27 @@ namespace carbon14.FuryStudio.FuryPaint
             panelToolbar.Size = new Size(800, 56);
             panelToolbar.TabIndex = 4;
             // 
+            // buttonMarquis
+            // 
+            buttonMarquis.FlatStyle = FlatStyle.Flat;
+            buttonMarquis.Image = (Image)resources.GetObject("buttonMarquis.Image");
+            buttonMarquis.Location = new Point(104, 29);
+            buttonMarquis.Name = "buttonMarquis";
+            buttonMarquis.Size = new Size(23, 23);
+            buttonMarquis.TabIndex = 11;
+            toolTip.SetToolTip(buttonMarquis, "Select Region");
+            buttonMarquis.UseVisualStyleBackColor = true;
+            buttonMarquis.Click += buttonMarquis_Click;
+            // 
             // buttonRedo
             // 
             buttonRedo.FlatStyle = FlatStyle.Flat;
             buttonRedo.Image = Properties.Resources.redo;
-            buttonRedo.Location = new Point(133, 29);
+            buttonRedo.Location = new Point(169, 29);
             buttonRedo.Name = "buttonRedo";
             buttonRedo.Size = new Size(23, 23);
             buttonRedo.TabIndex = 10;
-            toolTip.SetToolTip(buttonRedo, "Zoom In");
+            toolTip.SetToolTip(buttonRedo, "Redo");
             buttonRedo.UseVisualStyleBackColor = true;
             buttonRedo.Click += actionRedo;
             // 
@@ -185,11 +200,11 @@ namespace carbon14.FuryStudio.FuryPaint
             // 
             buttonUndo.FlatStyle = FlatStyle.Flat;
             buttonUndo.Image = Properties.Resources.undo;
-            buttonUndo.Location = new Point(108, 29);
+            buttonUndo.Location = new Point(144, 29);
             buttonUndo.Name = "buttonUndo";
             buttonUndo.Size = new Size(23, 23);
             buttonUndo.TabIndex = 9;
-            toolTip.SetToolTip(buttonUndo, "Zoom In");
+            toolTip.SetToolTip(buttonUndo, "Undo");
             buttonUndo.UseVisualStyleBackColor = true;
             buttonUndo.Click += actionUndo;
             // 
@@ -279,7 +294,7 @@ namespace carbon14.FuryStudio.FuryPaint
             // 
             // palette
             // 
-            palette.Location = new Point(158, 4);
+            palette.Location = new Point(199, 4);
             palette.Name = "palette";
             palette.Size = new Size(190, 40);
             palette.TabIndex = 1;
@@ -325,8 +340,6 @@ namespace carbon14.FuryStudio.FuryPaint
             MainMenuStrip = menuStrip;
             Name = "MainForm";
             Text = "FuryPaint";
-            KeyDown += MainForm_KeyDown;
-            KeyUp += MainForm_KeyUp;
             statusStrip.ResumeLayout(false);
             statusStrip.PerformLayout();
             menuStrip.ResumeLayout(false);
@@ -365,5 +378,6 @@ namespace carbon14.FuryStudio.FuryPaint
         private CanvasPanel canvas;
         private Button buttonRedo;
         private Button buttonUndo;
+        private Button buttonMarquis;
     }
 }

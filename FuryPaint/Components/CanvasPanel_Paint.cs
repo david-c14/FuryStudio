@@ -1,4 +1,5 @@
 ﻿using carbon14.FuryStudio.FuryPaint.Classes;
+using Microsoft.VisualBasic;
 using System.Drawing.Drawing2D;
 
 namespace carbon14.FuryStudio.FuryPaint.Components
@@ -50,6 +51,18 @@ namespace carbon14.FuryStudio.FuryPaint.Components
                 
             }
             e.Graphics.DrawImage(_bitmap, new Point(0, 0));
+            if (HasMarquis)
+            {
+                Point point = ImageToCanvas(new Point(_marquis.Left, _marquis.Top));
+                Size size = new Size(_marquis.Width * _image.Zoom - ((_image.Zoom==1)?0:1), _marquis.Height * _image.Zoom - ((_image.Zoom==1)?0:1));
+                using (Brush brush = new HatchBrush(HatchStyle.WideDownwardDiagonal, Color.Black, Color.White))
+                {
+                    using (Pen pen = new Pen(brush))
+                    {
+                        e.Graphics.DrawRectangle(pen, new Rectangle(point, size));
+                    }
+                }
+            }
         }
 
         internal void PaintLocalBitmap(Point point, int colorIndex)
@@ -96,6 +109,12 @@ namespace carbon14.FuryStudio.FuryPaint.Components
             Undo undo = _image.ApplyPaintSet(_paintSet);
             _undoList.Add(undo);
             _paintSet = null;
+        }
+
+        internal void ClearMarquis()
+        {
+            Undo undo = _image.ClearRectangle(_marquis, _palette.Background);
+            _undoList.Add(undo);
         }
 
         internal Point CanvasToImage(Point canvasPoint)

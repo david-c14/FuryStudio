@@ -1,6 +1,5 @@
 ﻿using System.Drawing.Imaging;
 using System.Drawing.Drawing2D;
-using System.Runtime.CompilerServices;
 using carbon14.FuryStudio.Utils;
 
 namespace carbon14.FuryStudio.FuryPaint.Classes
@@ -12,7 +11,6 @@ namespace carbon14.FuryStudio.FuryPaint.Classes
         private Bitmap _bitmap;
         private int _zoom = 1;
         private GraphicsPath? _marquis = null;
-        private byte[] _imageBuffer;
         private byte[] _paletteBuffer;
         private bool _dirty = false;
 
@@ -21,7 +19,6 @@ namespace carbon14.FuryStudio.FuryPaint.Classes
             _bitmap = new Bitmap(width, height, PixelFormat.Format4bppIndexed);
             _width = width;
             _height = height;
-            _imageBuffer = new byte[width * height];
             _paletteBuffer = new byte[48];
         }
 
@@ -50,34 +47,8 @@ namespace carbon14.FuryStudio.FuryPaint.Classes
                 }
                 _width = _bitmap.Width;
                 _height = _bitmap.Height;
-                _imageBuffer = new byte[_width * _height];
-                BitmapData? bmpData = _bitmap.LockBits(Rectangle, ImageLockMode.ReadOnly, PixelFormat.Format4bppIndexed);
-                if (bmpData == null)
-                {
-                    throw new FuryException(ErrorCodes.UNKNOWN_ERROR, "Unable to access pixels of bitmap");
-                }
-                IntPtr ptr = bmpData.Scan0;
-                int bytes = Math.Abs(bmpData.Stride) * bmpData.Height;
-                byte[] values = new byte[bytes];
-
-                System.Runtime.InteropServices.Marshal.Copy(ptr, values, 0, bytes);
+                BitmapData bmpData = _bitmap.LockBits(new Rectangle(0,0,1,1), ImageLockMode.ReadWrite, PixelFormat.Format4bppIndexed);
                 _bitmap.UnlockBits(bmpData);
-
-                for (int y = 0; y < _height; y++)
-                {
-                    for (int x = 0; x < _width; x++)
-                    {
-                        byte pixelPair = values[y * bmpData.Stride + x / 2];
-                        if (x % 2 == 0)
-                        {
-                            _imageBuffer[y * _width + x] = (byte)(pixelPair >> 4);
-                        }
-                        else
-                        {
-                            _imageBuffer[y * _width + x] = (byte)(pixelPair & 0x0F);
-                        }
-                    }
-                }
 
                 _paletteBuffer = new byte[48];
                 ColorPalette pal = _bitmap.Palette;
@@ -140,6 +111,9 @@ namespace carbon14.FuryStudio.FuryPaint.Classes
             } 
         }
 
+        /// <summary>
+        /// Width of the image in pixels
+        /// </summary>
         public int Width
         {
             get
@@ -148,6 +122,20 @@ namespace carbon14.FuryStudio.FuryPaint.Classes
             }
         }
 
+        /// <summary>
+        /// Width of the image on the canvas
+        /// </summary>
+        public int ZoomedWidth
+        {
+            get
+            {
+                return _width * _zoom;
+            }
+        }
+
+        /// <summary>
+        /// Height of the image in pixels
+        /// </summary>
         public int Height
         {
             get
@@ -156,6 +144,20 @@ namespace carbon14.FuryStudio.FuryPaint.Classes
             }
         }
 
+        /// <summary>
+        /// Height of the image on the canvas
+        /// </summary>
+        public int ZoomedHeight
+        {
+            get
+            {
+                return _height * _zoom;
+            }
+        }
+
+        /// <summary>
+        /// Size of the image in pixels
+        /// </summary>
         public Size Size
         {
             get
@@ -164,14 +166,20 @@ namespace carbon14.FuryStudio.FuryPaint.Classes
             }
         }
 
+        /// <summary>
+        /// Size of the image on the canvas
+        /// </summary>
         public Size ZoomedSize
         {
             get
             {
-                return new Size(Width * Zoom, Height * Zoom);
+                return new Size(ZoomedWidth, ZoomedHeight);
             }
         }
 
+        /// <summary>
+        /// Bounds of the image in pixels
+        /// </summary>
         public Rectangle Rectangle
         {
             get
@@ -180,6 +188,9 @@ namespace carbon14.FuryStudio.FuryPaint.Classes
             }
         }
         
+        /// <summary>
+        /// Bounds of the image on the canvas
+        /// </summary>
         public Rectangle ZoomedRectangle
         {
             get
@@ -211,15 +222,23 @@ namespace carbon14.FuryStudio.FuryPaint.Classes
 
         public int IndexAt(int x, int y)
         {
-            byte index = _imageBuffer[y * Width + x];
-            if (index > 15)
-                index = 15;
-            return index;
+            BitmapData bmpData = _bitmap.LockBits(new Rectangle(2 * (x / 2), y, 2, 1), ImageLockMode.ReadOnly, PixelFormat.Format4bppIndexed);
+            IntPtr ptr = bmpData.Scan0;
+            byte[] data = new byte[1];
+            System.Runtime.InteropServices.Marshal.Copy(ptr, data, 0, 1);
+            _bitmap.UnlockBits(bmpData);
+            if ((x % 2) == 0)
+            {
+                return data[0] >> 4;
+            }
+            else
+            {
+                return data[0] & 0x0F;
+            }
         }
 
         public void SetIndexAt(int x, int y, int index)
         {
-            _imageBuffer[y * Width + x] = (byte)(index & 0x0F);
             BitmapData bmpData = _bitmap.LockBits(new Rectangle(2 * (x / 2), y, 2, 1), ImageLockMode.ReadWrite, PixelFormat.Format4bppIndexed);
             IntPtr ptr = bmpData.Scan0;
             byte[] data = new byte[1];
@@ -235,6 +254,51 @@ namespace carbon14.FuryStudio.FuryPaint.Classes
             System.Runtime.InteropServices.Marshal.Copy(data, 0, ptr, 1);
             _bitmap.UnlockBits(bmpData);
             Invalidate();
+        }
+
+        private void Blit(int top, int height, byte[] data)
+        {
+            Rectangle bufferRect = (new Rectangle(0, top, _bitmap.Width, height));
+            BitmapData bmpData = _bitmap.LockBits(bufferRect, ImageLockMode.WriteOnly, PixelFormat.Format4bppIndexed);
+            IntPtr ptr = bmpData.Scan0;
+            System.Runtime.InteropServices.Marshal.Copy(data, 0, ptr, data.Length);
+            _bitmap.UnlockBits(bmpData);
+            Invalidate();
+        }
+
+        public Undo ApplyPaintSet(PaintSet set)
+        {
+            byte color = (byte)(set.ColorIndex & 0x0F);
+            Rectangle setRect = set.Bounds;
+            Rectangle bufferRect = new Rectangle(0, setRect.Top, _bitmap.Width, setRect.Height);
+            BitmapData bmpData = _bitmap.LockBits(bufferRect, ImageLockMode.ReadWrite, PixelFormat.Format4bppIndexed);
+            IntPtr ptr = bmpData.Scan0;
+            byte[] data = new byte[bmpData.Stride * setRect.Height];
+            System.Runtime.InteropServices.Marshal.Copy(ptr, data, 0, data.Length);
+            byte[] undoData = (byte[])data.Clone();
+            foreach (Point p in set.Points)
+            {
+                int index = p.X / 2 + (p.Y - setRect.Top) * bmpData.Stride;
+                if ((p.X % 2) == 0)
+                {
+                    data[index] = (byte)((data[index] & 0x0F) | (color << 4));
+                }
+                else
+                {
+                    data[index] = (byte)((data[index] & 0xF0) | (color));
+                }
+            }
+            byte[] redoData = (byte[])data.Clone();
+            System.Runtime.InteropServices.Marshal.Copy(data, 0, ptr, data.Length);
+            _bitmap.UnlockBits(bmpData);
+            Invalidate();
+            return new Undo(() => { 
+                    this.Blit(setRect.Top, setRect.Height, undoData); 
+                }, 
+                () => {
+                    this.Blit(setRect.Top, setRect.Height, redoData);
+                }
+                );
         }
     }
 }

@@ -15,6 +15,13 @@ Eventually there will be a full Graphical IDE, but that's still quite a way off.
 
 # [Documentation](https://github.com/david-c14/FuryStudio/blob/main/doc/index.md)
 
+# Contributions
+
+FuryStudio is a personal project. It's published under the (GPLv3)[LICENSE] License, but I'm not 
+generally accepting contributions at this time. 
+
+If you really need to discuss contributing, please open an issue. 
+
 # Thanks
 
 Fury Studio includes work by others. Each of these projects may have its own 

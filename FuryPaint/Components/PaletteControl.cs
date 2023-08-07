@@ -1,15 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
+﻿using System.ComponentModel;
 using System.Drawing.Imaging;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
-namespace carbon14.FuryStudio.FuryPaint
+namespace carbon14.FuryStudio.FuryPaint.Components
 {
     public partial class PaletteControl : UserControl
     {

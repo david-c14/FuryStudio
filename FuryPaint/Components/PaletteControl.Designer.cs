@@ -1,4 +1,4 @@
-﻿namespace carbon14.FuryStudio.FuryPaint
+﻿namespace carbon14.FuryStudio.FuryPaint.Components
 {
     partial class PaletteControl
     {

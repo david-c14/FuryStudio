@@ -1,4 +1,6 @@
-﻿namespace carbon14.FuryStudio.FuryPaint
+﻿using carbon14.FuryStudio.FuryPaint.Components;
+
+namespace carbon14.FuryStudio.FuryPaint
 {
     partial class MainForm
     {
@@ -29,50 +31,52 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            statusStrip1 = new StatusStrip();
-            toolStripStatusLabel1 = new ToolStripStatusLabel();
+            statusStrip = new StatusStrip();
+            statusLabelCursor = new ToolStripStatusLabel();
             toolStripStatusLabel2 = new ToolStripStatusLabel();
             toolStripStatusLabel3 = new ToolStripStatusLabel();
-            menuStrip1 = new MenuStrip();
-            fileToolStripMenuItem = new ToolStripMenuItem();
-            openToolStripMenuItem = new ToolStripMenuItem();
-            viewToolStripMenuItem = new ToolStripMenuItem();
-            zoomInToolStripMenuItem = new ToolStripMenuItem();
-            zoomOutToolStripMenuItem = new ToolStripMenuItem();
-            ScrollPanel = new ScrollPanel();
-            ImagePanel = new Panel();
-            openFileDialog1 = new OpenFileDialog();
-            panel1 = new Panel();
-            button7 = new Button();
-            button6 = new Button();
-            button5 = new Button();
-            button4 = new Button();
-            button3 = new Button();
-            button2 = new Button();
-            paletteControl1 = new PaletteControl();
-            button1 = new Button();
-            toolTip1 = new ToolTip(components);
-            statusStrip1.SuspendLayout();
-            menuStrip1.SuspendLayout();
-            ScrollPanel.SuspendLayout();
-            panel1.SuspendLayout();
+            menuStrip = new MenuStrip();
+            menuItemFile = new ToolStripMenuItem();
+            menuItemOpenFile = new ToolStripMenuItem();
+            menuItemSaveFile = new ToolStripMenuItem();
+            menuItemView = new ToolStripMenuItem();
+            menuItemZoomIn = new ToolStripMenuItem();
+            menuItemZoomOut = new ToolStripMenuItem();
+            openFileDialog = new OpenFileDialog();
+            panelToolbar = new Panel();
+            buttonRedo = new Button();
+            buttonUndo = new Button();
+            buttonSaveFile = new Button();
+            buttonEyedropper = new Button();
+            buttonPencil = new Button();
+            buttonZoom = new Button();
+            buttonMove = new Button();
+            buttonZoomOut = new Button();
+            buttonZoomIn = new Button();
+            palette = new PaletteControl();
+            buttonOpenFile = new Button();
+            toolTip = new ToolTip(components);
+            saveFileDialog = new SaveFileDialog();
+            canvas = new CanvasPanel();
+            statusStrip.SuspendLayout();
+            menuStrip.SuspendLayout();
+            panelToolbar.SuspendLayout();
             SuspendLayout();
             // 
-            // statusStrip1
+            // statusStrip
             // 
-            statusStrip1.Items.AddRange(new ToolStripItem[] { toolStripStatusLabel1, toolStripStatusLabel2, toolStripStatusLabel3 });
-            statusStrip1.Location = new Point(0, 428);
-            statusStrip1.Name = "statusStrip1";
-            statusStrip1.Size = new Size(800, 22);
-            statusStrip1.TabIndex = 0;
-            statusStrip1.Text = "statusStrip1";
+            statusStrip.Items.AddRange(new ToolStripItem[] { statusLabelCursor, toolStripStatusLabel2, toolStripStatusLabel3 });
+            statusStrip.Location = new Point(0, 428);
+            statusStrip.Name = "statusStrip";
+            statusStrip.Size = new Size(800, 22);
+            statusStrip.TabIndex = 0;
+            statusStrip.Text = "statusStrip1";
             // 
-            // toolStripStatusLabel1
+            // statusLabelCursor
             // 
-            toolStripStatusLabel1.AutoSize = false;
-            toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            toolStripStatusLabel1.Size = new Size(60, 17);
+            statusLabelCursor.AutoSize = false;
+            statusLabelCursor.Name = "statusLabelCursor";
+            statusLabelCursor.Size = new Size(60, 17);
             // 
             // toolStripStatusLabel2
             // 
@@ -84,229 +88,282 @@
             toolStripStatusLabel3.Name = "toolStripStatusLabel3";
             toolStripStatusLabel3.Size = new Size(0, 17);
             // 
-            // menuStrip1
+            // menuStrip
             // 
-            menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, viewToolStripMenuItem });
-            menuStrip1.Location = new Point(0, 0);
-            menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(800, 24);
-            menuStrip1.TabIndex = 1;
-            menuStrip1.Text = "menuStrip1";
+            menuStrip.Items.AddRange(new ToolStripItem[] { menuItemFile, menuItemView });
+            menuStrip.Location = new Point(0, 0);
+            menuStrip.Name = "menuStrip";
+            menuStrip.Size = new Size(800, 24);
+            menuStrip.TabIndex = 1;
+            menuStrip.Text = "menuStrip1";
             // 
-            // fileToolStripMenuItem
+            // menuItemFile
             // 
-            fileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { openToolStripMenuItem });
-            fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            fileToolStripMenuItem.Size = new Size(37, 20);
-            fileToolStripMenuItem.Text = "&File";
+            menuItemFile.DropDownItems.AddRange(new ToolStripItem[] { menuItemOpenFile, menuItemSaveFile });
+            menuItemFile.Name = "menuItemFile";
+            menuItemFile.Size = new Size(37, 20);
+            menuItemFile.Text = "&File";
             // 
-            // openToolStripMenuItem
+            // menuItemOpenFile
             // 
-            openToolStripMenuItem.Name = "openToolStripMenuItem";
-            openToolStripMenuItem.Size = new Size(112, 22);
-            openToolStripMenuItem.Text = "&Open...";
-            openToolStripMenuItem.Click += openToolStripMenuItem_Click;
+            menuItemOpenFile.Image = Properties.Resources.folder;
+            menuItemOpenFile.Name = "menuItemOpenFile";
+            menuItemOpenFile.Size = new Size(112, 22);
+            menuItemOpenFile.Text = "&Open...";
+            menuItemOpenFile.Click += actionOpenFile;
             // 
-            // viewToolStripMenuItem
+            // menuItemSaveFile
             // 
-            viewToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { zoomInToolStripMenuItem, zoomOutToolStripMenuItem });
-            viewToolStripMenuItem.Name = "viewToolStripMenuItem";
-            viewToolStripMenuItem.Size = new Size(44, 20);
-            viewToolStripMenuItem.Text = "&View";
+            menuItemSaveFile.Image = Properties.Resources.diskette;
+            menuItemSaveFile.Name = "menuItemSaveFile";
+            menuItemSaveFile.Size = new Size(112, 22);
+            menuItemSaveFile.Text = "&Save...";
+            menuItemSaveFile.Click += actionSaveFile;
             // 
-            // zoomInToolStripMenuItem
+            // menuItemView
             // 
-            zoomInToolStripMenuItem.Name = "zoomInToolStripMenuItem";
-            zoomInToolStripMenuItem.Size = new Size(129, 22);
-            zoomInToolStripMenuItem.Text = "Zoom &In";
-            zoomInToolStripMenuItem.Click += zoomInToolStripMenuItem_Click;
+            menuItemView.DropDownItems.AddRange(new ToolStripItem[] { menuItemZoomIn, menuItemZoomOut });
+            menuItemView.Name = "menuItemView";
+            menuItemView.Size = new Size(44, 20);
+            menuItemView.Text = "&View";
             // 
-            // zoomOutToolStripMenuItem
+            // menuItemZoomIn
             // 
-            zoomOutToolStripMenuItem.Name = "zoomOutToolStripMenuItem";
-            zoomOutToolStripMenuItem.Size = new Size(129, 22);
-            zoomOutToolStripMenuItem.Text = "Zoom &Out";
-            zoomOutToolStripMenuItem.Click += zoomOutToolStripMenuItem_Click;
+            menuItemZoomIn.Image = Properties.Resources.zoom_in;
+            menuItemZoomIn.Name = "menuItemZoomIn";
+            menuItemZoomIn.Size = new Size(180, 22);
+            menuItemZoomIn.Text = "Zoom &In";
+            menuItemZoomIn.Click += actionZoomIn;
             // 
-            // ScrollPanel
+            // menuItemZoomOut
             // 
-            ScrollPanel.AutoScroll = true;
-            ScrollPanel.Controls.Add(ImagePanel);
-            ScrollPanel.Dock = DockStyle.Fill;
-            ScrollPanel.Location = new Point(0, 80);
-            ScrollPanel.Name = "ScrollPanel";
-            ScrollPanel.Size = new Size(800, 348);
-            ScrollPanel.TabIndex = 3;
+            menuItemZoomOut.Image = Properties.Resources.zoom_out;
+            menuItemZoomOut.Name = "menuItemZoomOut";
+            menuItemZoomOut.Size = new Size(180, 22);
+            menuItemZoomOut.Text = "Zoom &Out";
+            menuItemZoomOut.Click += actionZoomOut;
             // 
-            // ImagePanel
+            // openFileDialog
             // 
-            ImagePanel.Location = new Point(0, 0);
-            ImagePanel.Name = "ImagePanel";
-            ImagePanel.Size = new Size(200, 100);
-            ImagePanel.TabIndex = 0;
-            ImagePanel.Paint += ImagePanel_Paint;
-            ImagePanel.MouseDown += ImagePanel_MouseDown;
-            ImagePanel.MouseMove += ScrollPanel_MouseMove;
+            openFileDialog.DefaultExt = "LBM";
+            openFileDialog.FileName = "*.LBM";
+            openFileDialog.Filter = "Lbm Files|*.LBM";
+            openFileDialog.Title = "Open Lbm File";
             // 
-            // openFileDialog1
+            // panelToolbar
             // 
-            openFileDialog1.FileName = "*.LBM";
-            openFileDialog1.Filter = "Lbm Files|*.LBM";
-            openFileDialog1.Title = "Open Lbm File";
+            panelToolbar.Controls.Add(buttonRedo);
+            panelToolbar.Controls.Add(buttonUndo);
+            panelToolbar.Controls.Add(buttonSaveFile);
+            panelToolbar.Controls.Add(buttonEyedropper);
+            panelToolbar.Controls.Add(buttonPencil);
+            panelToolbar.Controls.Add(buttonZoom);
+            panelToolbar.Controls.Add(buttonMove);
+            panelToolbar.Controls.Add(buttonZoomOut);
+            panelToolbar.Controls.Add(buttonZoomIn);
+            panelToolbar.Controls.Add(palette);
+            panelToolbar.Controls.Add(buttonOpenFile);
+            panelToolbar.Dock = DockStyle.Top;
+            panelToolbar.Location = new Point(0, 24);
+            panelToolbar.Name = "panelToolbar";
+            panelToolbar.Size = new Size(800, 56);
+            panelToolbar.TabIndex = 4;
             // 
-            // panel1
+            // buttonRedo
             // 
-            panel1.Controls.Add(button7);
-            panel1.Controls.Add(button6);
-            panel1.Controls.Add(button5);
-            panel1.Controls.Add(button4);
-            panel1.Controls.Add(button3);
-            panel1.Controls.Add(button2);
-            panel1.Controls.Add(paletteControl1);
-            panel1.Controls.Add(button1);
-            panel1.Dock = DockStyle.Top;
-            panel1.Location = new Point(0, 24);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(800, 56);
-            panel1.TabIndex = 4;
+            buttonRedo.FlatStyle = FlatStyle.Flat;
+            buttonRedo.Image = Properties.Resources.redo;
+            buttonRedo.Location = new Point(133, 29);
+            buttonRedo.Name = "buttonRedo";
+            buttonRedo.Size = new Size(23, 23);
+            buttonRedo.TabIndex = 10;
+            toolTip.SetToolTip(buttonRedo, "Zoom In");
+            buttonRedo.UseVisualStyleBackColor = true;
+            buttonRedo.Click += actionRedo;
             // 
-            // button7
+            // buttonUndo
             // 
-            button7.FlatStyle = FlatStyle.Flat;
-            button7.Image = (Image)resources.GetObject("button7.Image");
-            button7.Location = new Point(79, 29);
-            button7.Name = "button7";
-            button7.Size = new Size(23, 23);
-            button7.TabIndex = 7;
-            toolTip1.SetToolTip(button7, "Eye dropper");
-            button7.UseVisualStyleBackColor = true;
-            button7.Click += button7_Click;
+            buttonUndo.FlatStyle = FlatStyle.Flat;
+            buttonUndo.Image = Properties.Resources.undo;
+            buttonUndo.Location = new Point(108, 29);
+            buttonUndo.Name = "buttonUndo";
+            buttonUndo.Size = new Size(23, 23);
+            buttonUndo.TabIndex = 9;
+            toolTip.SetToolTip(buttonUndo, "Zoom In");
+            buttonUndo.UseVisualStyleBackColor = true;
+            buttonUndo.Click += actionUndo;
             // 
-            // button6
+            // buttonSaveFile
             // 
-            button6.FlatStyle = FlatStyle.Flat;
-            button6.Image = (Image)resources.GetObject("button6.Image");
-            button6.Location = new Point(54, 29);
-            button6.Name = "button6";
-            button6.Size = new Size(23, 23);
-            button6.TabIndex = 6;
-            toolTip1.SetToolTip(button6, "Pen");
-            button6.UseVisualStyleBackColor = true;
-            button6.Click += button6_Click;
+            buttonSaveFile.FlatStyle = FlatStyle.Flat;
+            buttonSaveFile.Image = Properties.Resources.diskette;
+            buttonSaveFile.Location = new Point(29, 4);
+            buttonSaveFile.Name = "buttonSaveFile";
+            buttonSaveFile.Size = new Size(23, 23);
+            buttonSaveFile.TabIndex = 8;
+            toolTip.SetToolTip(buttonSaveFile, "Save File");
+            buttonSaveFile.UseVisualStyleBackColor = true;
+            buttonSaveFile.Click += actionSaveFile;
             // 
-            // button5
+            // buttonEyedropper
             // 
-            button5.FlatStyle = FlatStyle.Flat;
-            button5.Image = (Image)resources.GetObject("button5.Image");
-            button5.Location = new Point(29, 29);
-            button5.Name = "button5";
-            button5.Size = new Size(23, 23);
-            button5.TabIndex = 5;
-            toolTip1.SetToolTip(button5, "Zoom");
-            button5.UseVisualStyleBackColor = true;
-            button5.Click += button5_Click;
+            buttonEyedropper.FlatStyle = FlatStyle.Flat;
+            buttonEyedropper.Image = Properties.Resources.pipette;
+            buttonEyedropper.Location = new Point(79, 29);
+            buttonEyedropper.Name = "buttonEyedropper";
+            buttonEyedropper.Size = new Size(23, 23);
+            buttonEyedropper.TabIndex = 7;
+            toolTip.SetToolTip(buttonEyedropper, "Eye dropper");
+            buttonEyedropper.UseVisualStyleBackColor = true;
+            buttonEyedropper.Click += actionEyedropper;
             // 
-            // button4
+            // buttonPencil
             // 
-            button4.FlatStyle = FlatStyle.Flat;
-            button4.Image = (Image)resources.GetObject("button4.Image");
-            button4.Location = new Point(4, 29);
-            button4.Name = "button4";
-            button4.Size = new Size(23, 23);
-            button4.TabIndex = 4;
-            toolTip1.SetToolTip(button4, "Move");
-            button4.UseVisualStyleBackColor = true;
-            button4.Click += button4_Click;
+            buttonPencil.FlatStyle = FlatStyle.Flat;
+            buttonPencil.Image = Properties.Resources.pencil;
+            buttonPencil.Location = new Point(54, 29);
+            buttonPencil.Name = "buttonPencil";
+            buttonPencil.Size = new Size(23, 23);
+            buttonPencil.TabIndex = 6;
+            toolTip.SetToolTip(buttonPencil, "Pen");
+            buttonPencil.UseVisualStyleBackColor = true;
+            buttonPencil.Click += actionPencil;
             // 
-            // button3
+            // buttonZoom
             // 
-            button3.FlatStyle = FlatStyle.Flat;
-            button3.Image = (Image)resources.GetObject("button3.Image");
-            button3.Location = new Point(73, 4);
-            button3.Name = "button3";
-            button3.Size = new Size(23, 23);
-            button3.TabIndex = 3;
-            toolTip1.SetToolTip(button3, "Zoom Out");
-            button3.UseVisualStyleBackColor = true;
-            button3.Click += button3_Click;
+            buttonZoom.FlatStyle = FlatStyle.Flat;
+            buttonZoom.Image = Properties.Resources.zoom;
+            buttonZoom.Location = new Point(29, 29);
+            buttonZoom.Name = "buttonZoom";
+            buttonZoom.Size = new Size(23, 23);
+            buttonZoom.TabIndex = 5;
+            toolTip.SetToolTip(buttonZoom, "Zoom");
+            buttonZoom.UseVisualStyleBackColor = true;
+            buttonZoom.Click += actionZoom;
             // 
-            // button2
+            // buttonMove
             // 
-            button2.FlatStyle = FlatStyle.Flat;
-            button2.Image = (Image)resources.GetObject("button2.Image");
-            button2.Location = new Point(48, 4);
-            button2.Name = "button2";
-            button2.Size = new Size(23, 23);
-            button2.TabIndex = 2;
-            toolTip1.SetToolTip(button2, "Zoom In");
-            button2.UseVisualStyleBackColor = true;
-            button2.Click += button2_Click;
+            buttonMove.FlatStyle = FlatStyle.Flat;
+            buttonMove.Image = Properties.Resources.hand;
+            buttonMove.Location = new Point(4, 29);
+            buttonMove.Name = "buttonMove";
+            buttonMove.Size = new Size(23, 23);
+            buttonMove.TabIndex = 4;
+            toolTip.SetToolTip(buttonMove, "Move");
+            buttonMove.UseVisualStyleBackColor = true;
+            buttonMove.Click += actionMove;
             // 
-            // paletteControl1
+            // buttonZoomOut
             // 
-            paletteControl1.Location = new Point(158, 4);
-            paletteControl1.Name = "paletteControl1";
-            paletteControl1.Size = new Size(190, 40);
-            paletteControl1.TabIndex = 1;
+            buttonZoomOut.FlatStyle = FlatStyle.Flat;
+            buttonZoomOut.Image = Properties.Resources.zoom_out;
+            buttonZoomOut.Location = new Point(97, 4);
+            buttonZoomOut.Name = "buttonZoomOut";
+            buttonZoomOut.Size = new Size(23, 23);
+            buttonZoomOut.TabIndex = 3;
+            toolTip.SetToolTip(buttonZoomOut, "Zoom Out");
+            buttonZoomOut.UseVisualStyleBackColor = true;
+            buttonZoomOut.Click += actionZoomOut;
             // 
-            // button1
+            // buttonZoomIn
             // 
-            button1.FlatStyle = FlatStyle.Flat;
-            button1.Image = (Image)resources.GetObject("button1.Image");
-            button1.Location = new Point(4, 4);
-            button1.Name = "button1";
-            button1.Size = new Size(23, 23);
-            button1.TabIndex = 0;
-            toolTip1.SetToolTip(button1, "Open File");
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
+            buttonZoomIn.FlatStyle = FlatStyle.Flat;
+            buttonZoomIn.Image = Properties.Resources.zoom_in;
+            buttonZoomIn.Location = new Point(72, 4);
+            buttonZoomIn.Name = "buttonZoomIn";
+            buttonZoomIn.Size = new Size(23, 23);
+            buttonZoomIn.TabIndex = 2;
+            toolTip.SetToolTip(buttonZoomIn, "Zoom In");
+            buttonZoomIn.UseVisualStyleBackColor = true;
+            buttonZoomIn.Click += actionZoomIn;
+            // 
+            // palette
+            // 
+            palette.Location = new Point(158, 4);
+            palette.Name = "palette";
+            palette.Size = new Size(190, 40);
+            palette.TabIndex = 1;
+            // 
+            // buttonOpenFile
+            // 
+            buttonOpenFile.FlatStyle = FlatStyle.Flat;
+            buttonOpenFile.Image = Properties.Resources.folder;
+            buttonOpenFile.Location = new Point(4, 4);
+            buttonOpenFile.Name = "buttonOpenFile";
+            buttonOpenFile.Size = new Size(23, 23);
+            buttonOpenFile.TabIndex = 0;
+            toolTip.SetToolTip(buttonOpenFile, "Open File");
+            buttonOpenFile.UseVisualStyleBackColor = true;
+            buttonOpenFile.Click += actionOpenFile;
+            // 
+            // saveFileDialog
+            // 
+            saveFileDialog.DefaultExt = "LBM";
+            saveFileDialog.Filter = "Lbm Files|*.LBM";
+            saveFileDialog.Title = "Save Lbm File";
+            // 
+            // canvas
+            // 
+            canvas.Dock = DockStyle.Fill;
+            canvas.Location = new Point(0, 80);
+            canvas.Mode = CanvasPanel.EditMode.Move;
+            canvas.Name = "canvas";
+            canvas.Size = new Size(800, 348);
+            canvas.TabIndex = 5;
+            canvas.StatusChanged += canvasStatusChangedHandler;
             // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(ScrollPanel);
-            Controls.Add(panel1);
-            Controls.Add(statusStrip1);
-            Controls.Add(menuStrip1);
-            MainMenuStrip = menuStrip1;
+            Controls.Add(canvas);
+            Controls.Add(panelToolbar);
+            Controls.Add(statusStrip);
+            Controls.Add(menuStrip);
+            KeyPreview = true;
+            MainMenuStrip = menuStrip;
             Name = "MainForm";
             Text = "FuryPaint";
-            statusStrip1.ResumeLayout(false);
-            statusStrip1.PerformLayout();
-            menuStrip1.ResumeLayout(false);
-            menuStrip1.PerformLayout();
-            ScrollPanel.ResumeLayout(false);
-            panel1.ResumeLayout(false);
+            KeyDown += MainForm_KeyDown;
+            KeyUp += MainForm_KeyUp;
+            statusStrip.ResumeLayout(false);
+            statusStrip.PerformLayout();
+            menuStrip.ResumeLayout(false);
+            menuStrip.PerformLayout();
+            panelToolbar.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
 
-        private StatusStrip statusStrip1;
-        private MenuStrip menuStrip1;
-        private ScrollPanel ScrollPanel;
-        private Panel ImagePanel;
-        private ToolStripMenuItem fileToolStripMenuItem;
-        private ToolStripMenuItem openToolStripMenuItem;
-        private OpenFileDialog openFileDialog1;
-        private ToolStripMenuItem viewToolStripMenuItem;
-        private ToolStripMenuItem zoomInToolStripMenuItem;
-        private ToolStripMenuItem zoomOutToolStripMenuItem;
-        private Panel panel1;
-        private Button button1;
-        private PaletteControl paletteControl1;
-        private Button button3;
-        private Button button2;
-        private ToolTip toolTip1;
-        private ToolStripStatusLabel toolStripStatusLabel1;
+        private StatusStrip statusStrip;
+        private MenuStrip menuStrip;
+        private ToolStripMenuItem menuItemFile;
+        private ToolStripMenuItem menuItemOpenFile;
+        private OpenFileDialog openFileDialog;
+        private ToolStripMenuItem menuItemView;
+        private ToolStripMenuItem menuItemZoomIn;
+        private ToolStripMenuItem menuItemZoomOut;
+        private Panel panelToolbar;
+        private Button buttonOpenFile;
+        private PaletteControl palette;
+        private Button buttonZoomOut;
+        private Button buttonZoomIn;
+        private ToolTip toolTip;
+        private ToolStripStatusLabel statusLabelCursor;
         private ToolStripStatusLabel toolStripStatusLabel2;
         private ToolStripStatusLabel toolStripStatusLabel3;
-        private Button button7;
-        private Button button6;
-        private Button button5;
-        private Button button4;
+        private Button buttonEyedropper;
+        private Button buttonPencil;
+        private Button buttonZoom;
+        private Button buttonMove;
+        private Button buttonSaveFile;
+        private SaveFileDialog saveFileDialog;
+        private ToolStripMenuItem menuItemSaveFile;
+        private CanvasPanel canvas;
+        private Button buttonRedo;
+        private Button buttonUndo;
     }
 }

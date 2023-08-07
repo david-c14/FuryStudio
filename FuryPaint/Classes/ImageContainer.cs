@@ -201,6 +201,10 @@ namespace carbon14.FuryStudio.FuryPaint.Classes
         
         public bool Dirty
         {
+            set
+            {
+                _dirty = value;
+            }
             get
             {
                 return _dirty;
@@ -253,6 +257,7 @@ namespace carbon14.FuryStudio.FuryPaint.Classes
             }
             System.Runtime.InteropServices.Marshal.Copy(data, 0, ptr, 1);
             _bitmap.UnlockBits(bmpData);
+            _dirty = true;
             Invalidate();
         }
 
@@ -264,6 +269,7 @@ namespace carbon14.FuryStudio.FuryPaint.Classes
             System.Runtime.InteropServices.Marshal.Copy(data, 0, ptr, data.Length);
             _bitmap.UnlockBits(bmpData);
             Invalidate();
+            _dirty = true;
         }
 
         public Undo ApplyPaintSet(PaintSet set)
@@ -291,6 +297,7 @@ namespace carbon14.FuryStudio.FuryPaint.Classes
             byte[] redoData = (byte[])data.Clone();
             System.Runtime.InteropServices.Marshal.Copy(data, 0, ptr, data.Length);
             _bitmap.UnlockBits(bmpData);
+            _dirty = true;
             Invalidate();
             return new Undo(() => { 
                     this.Blit(setRect.Top, setRect.Height, undoData); 

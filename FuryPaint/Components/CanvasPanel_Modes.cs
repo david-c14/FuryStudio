@@ -23,6 +23,8 @@ namespace carbon14.FuryStudio.FuryPaint.Components
         // Mode currently executing during mouse operation
         private EditMode _activeMode = EditMode.None;
         private MouseButtons _activeModeButton = MouseButtons.None;
+        private Point _activeOrigin = new Point(0, 0);
+        private Point _activeMouseLocation = new Point(0, 0);
 
         public EditMode Mode
         {
@@ -66,6 +68,17 @@ namespace carbon14.FuryStudio.FuryPaint.Components
             }
             switch (ActualMode)
             {
+                case EditMode.Move:
+                    {
+                        if (e.Button == MouseButtons.Left)
+                        {
+                            _activeMode = EditMode.Move;
+                            _activeOrigin = new Point(_offsetX, _offsetY);
+                            _activeMouseLocation = e.Location;
+                            _activeModeButton = MouseButtons.Left;
+                        }
+                    }
+                    break;
                 case EditMode.Zoom:
                     {
                         Point underPointer = CanvasToImage(e.Location);
@@ -83,7 +96,7 @@ namespace carbon14.FuryStudio.FuryPaint.Components
                         }
                         Point locationNow = ImageToCanvas(underPointer);
                         Point offset = new((locationNow.X - e.Location.X) / _image.Zoom, (locationNow.Y - e.Location.Y) / _image.Zoom);
-                        SetOffset(offset);
+                        Offset(offset);
                     }
                     break;
                 case EditMode.Eyedropper:
@@ -144,6 +157,13 @@ namespace carbon14.FuryStudio.FuryPaint.Components
             }
             switch (_activeMode)
             {
+                case EditMode.Move:
+                    {
+                        Point delta = new Point((e.Location.X - _activeMouseLocation.X) / _image.Zoom, (e.Location.Y - _activeMouseLocation.Y) / _image.Zoom);
+                        SetOffset(new Point(_activeOrigin.X - delta.X, _activeOrigin.Y - delta.Y));
+                        Invalidate();
+                    }
+                    break;
                 case EditMode.Pencil:
                     {
                         Point location = CanvasToImage(e.Location);
@@ -172,6 +192,15 @@ namespace carbon14.FuryStudio.FuryPaint.Components
         {
             switch (_activeMode)
             {
+                case EditMode.Move:
+                    {
+                        if (e.Button == _activeModeButton)
+                        {
+                            _activeMode = EditMode.None;
+                            _activeModeButton = MouseButtons.None;
+                        }
+                    }
+                    break;
                 case EditMode.Pencil:
                     {
                         if (e.Button == _activeModeButton)

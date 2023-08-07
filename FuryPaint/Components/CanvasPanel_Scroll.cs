@@ -160,7 +160,7 @@ namespace carbon14.FuryStudio.FuryPaint.Components
 
         internal void SetOffset(Point offset)
         {
-            _offsetX += offset.X;
+            _offsetX = offset.X;
             if (_offsetX < 0)
             {
                 _offsetX = 0;
@@ -169,7 +169,7 @@ namespace carbon14.FuryStudio.FuryPaint.Components
             {
                 _offsetX = HorizontalScroll.Maximum;
             }
-            _offsetY += offset.Y;
+            _offsetY = offset.Y;
             if (_offsetY < 0)
             {
                 _offsetY = 0;
@@ -179,6 +179,11 @@ namespace carbon14.FuryStudio.FuryPaint.Components
                 _offsetY = VerticalScroll.Maximum;
             }
             ReconfigureScroll();
+        }
+
+        internal void Offset(Point offset)
+        {
+            SetOffset(new Point(_offsetX + offset.X, _offsetY + offset.Y));
         }
 
         [EditorBrowsable(EditorBrowsableState.Advanced)]

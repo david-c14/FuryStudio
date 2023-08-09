@@ -31,6 +31,8 @@ license terms. All are used within this project in a license compatible fashion.
 
 - [Rapid YAML](https://github.com/biojppm/rapidyaml) is used for serialising and deserialising.
 
+- [xUnit](https://xunit.net) is used for unit testing the .NET assembly.
+
 - [FatCow](http://www.fatcow.com) provided the icons used in the UI applications.
 
 - [DOS Game Modding Wiki](https://moddingwiki.shikadi.net/wiki/Main_Page) is a very helpful resource.

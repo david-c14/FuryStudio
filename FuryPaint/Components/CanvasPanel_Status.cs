@@ -36,5 +36,11 @@ namespace carbon14.FuryStudio.FuryPaint.Components
             _status.Mode = mode;
             UpdateStatus(CanvasStatus.Flags.Mode);
         }
+
+        private void SetMarquisStatus(Rectangle marquis)
+        {
+            _status.Marquis = marquis;
+            UpdateStatus(CanvasStatus.Flags.Marquis);
+        }
     }
 }

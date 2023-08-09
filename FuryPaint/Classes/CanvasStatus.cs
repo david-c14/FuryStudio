@@ -11,11 +11,13 @@ namespace carbon14.FuryStudio.FuryPaint.Classes
             ImageSize = 1,
             Cursor = 2,
             Mode = 4,
+            Marquis = 8,
         }
 
         public Point Cursor { get; set; }
         public Size ImageSize { get; set; }
         public CanvasPanel.EditMode Mode { get; set; } = CanvasPanel.EditMode.None;
         public Flags Changed { get; set; }
+        public Rectangle Marquis { get; set; }
     }
 }

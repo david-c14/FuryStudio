@@ -1,7 +1,6 @@
 ﻿using carbon14.FuryStudio.FuryPaint.Classes;
 using carbon14.FuryStudio.FuryPaint.Components;
 using carbon14.FuryStudio.Utils;
-using System.ComponentModel;
 using System.Drawing.Imaging;
 
 namespace carbon14.FuryStudio.FuryPaint
@@ -63,25 +62,25 @@ namespace carbon14.FuryStudio.FuryPaint
 
         private void actionMove(object sender, EventArgs e)
         {
-            SetMode((Button)sender, CanvasPanel.EditMode.Move);
+            SetMode(CanvasPanel.EditMode.Move);
         }
 
         private void actionZoom(object sender, EventArgs e)
         {
-            SetMode((Button)sender, CanvasPanel.EditMode.Zoom);
+            SetMode(CanvasPanel.EditMode.Zoom);
         }
 
         private void actionPencil(object sender, EventArgs e)
         {
-            SetMode((Button)sender, CanvasPanel.EditMode.Pencil);
+            SetMode(CanvasPanel.EditMode.Pencil);
         }
 
         private void actionEyedropper(object sender, EventArgs e)
         {
-            SetMode((Button)sender, CanvasPanel.EditMode.Eyedropper);
+            SetMode(CanvasPanel.EditMode.Eyedropper);
         }
 
-        private void SetMode(Button sender, CanvasPanel.EditMode mode)
+        private void SetMode(CanvasPanel.EditMode mode)
         {
             canvas.Mode = mode;
         }
@@ -125,11 +124,15 @@ namespace carbon14.FuryStudio.FuryPaint
             int y = e.Cursor.Y;
             if (x >= 0 && x < e.ImageSize.Width && y >= 0 && y < e.ImageSize.Height)
             {
-                statusLabelCursor.Text = $"{x} x {y}";
+                statusLabelCursorX.Text = $"{x}";
+                statusLabelCursorSep.Text = "×";
+                statusLabelCursorY.Text = $"{y}";
             }
             else
             {
-                statusLabelCursor.Text = string.Empty;
+                statusLabelCursorX.Text = string.Empty;
+                statusLabelCursorSep.Text = string.Empty;
+                statusLabelCursorY.Text = string.Empty;
             }
             if ((e.Changed & CanvasStatus.Flags.Mode) > CanvasStatus.Flags.None)
             {
@@ -137,6 +140,27 @@ namespace carbon14.FuryStudio.FuryPaint
                 buttonZoom.BackColor = (e.Mode == CanvasPanel.EditMode.Zoom) ? SystemColors.Highlight : SystemColors.Control;
                 buttonPencil.BackColor = (e.Mode == CanvasPanel.EditMode.Pencil) ? SystemColors.Highlight : SystemColors.Control;
                 buttonEyedropper.BackColor = (e.Mode == CanvasPanel.EditMode.Eyedropper) ? SystemColors.Highlight : SystemColors.Control;
+            }
+            if ((e.Changed & CanvasStatus.Flags.Marquis) > CanvasStatus.Flags.None)
+            {
+                if (e.Marquis.Left < 0)
+                {
+                    statusLabelMarquisLeft.Text = string.Empty;
+                    statusLabelMarquisSep1.Text = string.Empty;
+                    statusLabelMarquisTop.Text = string.Empty;
+                    statusLabelMarquisWidth.Text = string.Empty;
+                    statusLabelMarquisSep2.Text = string.Empty;
+                    statusLabelMarquisHeight.Text = string.Empty;
+                }
+                else
+                {
+                    statusLabelMarquisLeft.Text = $"{e.Marquis.Left}";
+                    statusLabelMarquisSep1.Text = "×";
+                    statusLabelMarquisTop.Text = $"{e.Marquis.Top}";
+                    statusLabelMarquisWidth.Text = $"{e.Marquis.Width}";
+                    statusLabelMarquisSep2.Text = "×";
+                    statusLabelMarquisHeight.Text = $"{e.Marquis.Height}";
+                }
             }
 
         }
@@ -153,7 +177,12 @@ namespace carbon14.FuryStudio.FuryPaint
 
         private void buttonMarquis_Click(object sender, EventArgs e)
         {
-            SetMode((Button)sender, CanvasPanel.EditMode.Marquis);
+            SetMode(CanvasPanel.EditMode.Marquis);
+        }
+
+        private void buttonFlood_Click(object sender, EventArgs e)
+        {
+            SetMode(CanvasPanel.EditMode.Fill);
         }
     }
 }

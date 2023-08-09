@@ -1,6 +1,7 @@
 ﻿using System.Drawing.Imaging;
 using System.Drawing.Drawing2D;
 using carbon14.FuryStudio.Utils;
+using System.Drawing;
 
 namespace carbon14.FuryStudio.FuryPaint.Classes
 {
@@ -322,6 +323,86 @@ namespace carbon14.FuryStudio.FuryPaint.Classes
                         data[index] = (byte)((data[index] & 0xF0) | (color));
                     }
 
+                }
+            }
+            byte[] redoData = (byte[])data.Clone();
+            System.Runtime.InteropServices.Marshal.Copy(data, 0, ptr, data.Length);
+            _bitmap.UnlockBits(bmpData);
+            _dirty = true;
+            Invalidate();
+            return new Undo(() => {
+                this.Blit(rect.Top, rect.Height, undoData);
+            },
+                () => {
+                    this.Blit(rect.Top, rect.Height, redoData);
+                }
+                );
+        }
+        public Undo Fill(Point point, Rectangle rect, int colorIndex)
+        {
+            byte fillColor = (byte)(colorIndex & 0x0F);
+            byte targetColor;
+            Queue<Point> points = new Queue<Point>();
+            Rectangle bufferRect = new Rectangle(0, rect.Top, _bitmap.Width, rect.Height);
+            BitmapData bmpData = _bitmap.LockBits(bufferRect, ImageLockMode.ReadWrite, PixelFormat.Format4bppIndexed);
+            IntPtr ptr = bmpData.Scan0;
+            byte[] data = new byte[bmpData.Stride * rect.Height];
+            System.Runtime.InteropServices.Marshal.Copy(ptr, data, 0, data.Length);
+            byte[] undoData = (byte[])data.Clone();
+            int index = point.X / 2 + (point.Y - rect.Top) * bmpData.Stride;
+            if ((point.X % 2) == 0)
+            {
+                targetColor = (byte)(data[index] >> 4);
+            }
+            else
+            {
+                targetColor = (byte)(data[index] & 0x0F);
+            }
+            if (targetColor == fillColor)
+            {
+                return null;
+            }
+            points.Enqueue(point);
+            while (points.Count > 0)
+            {
+                Point thisPoint = points.Dequeue();
+                byte testColor;
+                index = thisPoint.X / 2 + (thisPoint.Y - rect.Top) * bmpData.Stride;
+                if ((thisPoint.X % 2) == 0)
+                {
+                    testColor = (byte)(data[index] >> 4);
+                }
+                else
+                {
+                    testColor = (byte)(data[index] & 0x0F);
+                }
+                if (testColor != targetColor)
+                {
+                    continue;
+                }
+                if ((thisPoint.X % 2) == 0)
+                {
+                    data[index] = (byte)((data[index] & 0x0F) | (fillColor << 4));
+                }
+                else
+                {
+                    data[index] = (byte)((data[index] & 0xF0) | (fillColor));
+                }
+                if (thisPoint.X > rect.Left)
+                {
+                    points.Enqueue(new Point(thisPoint.X - 1, thisPoint.Y));
+                }
+                if (thisPoint.X < rect.Right - 1)
+                {
+                    points.Enqueue(new Point(thisPoint.X + 1, thisPoint.Y));
+                }
+                if (thisPoint.Y > rect.Top)
+                {
+                    points.Enqueue(new Point(thisPoint.X, thisPoint.Y - 1));
+                }
+                if (thisPoint.Y < rect.Bottom - 1)
+                {
+                    points.Enqueue(new Point(thisPoint.X, thisPoint.Y + 1));
                 }
             }
             byte[] redoData = (byte[])data.Clone();

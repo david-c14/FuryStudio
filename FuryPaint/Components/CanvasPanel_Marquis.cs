@@ -1,40 +1,66 @@
 ﻿
+using System.ComponentModel;
+using System.Diagnostics;
+
 namespace carbon14.FuryStudio.FuryPaint.Components
 {
     public partial class CanvasPanel
     {
-        Rectangle _marquis = new Rectangle(-1, 0, 0, 0);
+        static Rectangle EmptyMarquis = new Rectangle(int.MinValue, 0, 0, 0);
+        Rectangle _marquis = EmptyMarquis;
 
-        public bool HasMarquis => (_marquis.Left > -1);
+        public bool HasMarquis => (_marquis.Left != EmptyMarquis.Left);
 
+
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        [Bindable(false)]
+        [Browsable(false)]
         public Rectangle Marquis
         {
             get => _marquis;
+            set {
+                _marquis = value;
+                SetMarquisStatus(_marquis);
+            }
         }
 
         public bool IsImagePointInMarquis(Point point)
         {
-            if (_marquis.Left < 0)
+            if (Marquis.Left < 0)
             {
                 return true;
             }
-            if (point.X < _marquis.Left)
+            if (point.X < Marquis.Left)
             {
                 return false;
             }
-            if (point.X > _marquis.Right)
+            if (point.X > Marquis.Right - 1)
             {
                 return false;
             }
-            if (point.Y < _marquis.Top)
+            if (point.Y < Marquis.Top)
             {
                 return false;
             }
-            if (point.Y  > _marquis.Bottom)
+            if (point.Y > Marquis.Bottom - 1)
             {
                 return false;
             }
             return true;
+        }
+
+        internal void ClipMarquis()
+        {
+            if (!HasMarquis) {
+                return;
+            }
+            _marquis.Intersect(_image.Rectangle);
+            if (_marquis.Width < 1 || _marquis.Height < 1)
+            {
+                _marquis = EmptyMarquis;
+            }
+            Invalidate();
         }
     }
 }

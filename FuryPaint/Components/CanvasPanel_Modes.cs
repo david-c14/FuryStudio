@@ -86,7 +86,7 @@ namespace carbon14.FuryStudio.FuryPaint.Components
                             _activeMode = EditMode.Marquis;
                             _activeModeButton = MouseButtons.Left;
                             _activeOrigin = CanvasToImage(e.Location);
-                            _marquis = new Rectangle(-1, 0, 0, 0);
+                            Marquis = EmptyMarquis;
                             Invalidate();
                         }
                     }
@@ -164,6 +164,28 @@ namespace carbon14.FuryStudio.FuryPaint.Components
                         }
                     }
                     break;
+                case EditMode.Fill:
+                    {
+                        Point location = CanvasToImage(e.Location);
+                        if (!IsImagePointInImage(location))
+                        {
+                            return;
+                        }
+                        if (_palette == null)
+                        {
+                            return;
+                        }
+                        if (e.Button == MouseButtons.Left)
+                        {
+                            FloodFill(location, _palette.Foreground);
+                        }
+                        else if (e.Button == MouseButtons.Right)
+                        {
+                            FloodFill(location, _palette.Background);
+                        }
+
+                    }
+                    break;
             }
         }
         private void MouseMoveHandler(object sender, MouseEventArgs e)
@@ -191,7 +213,7 @@ namespace carbon14.FuryStudio.FuryPaint.Components
                         int Width = 0;
                         if (p.X == Left || p.Y == Top)
                         {
-                            _marquis = new Rectangle(-1, 0, 0, 0);
+                            Marquis = EmptyMarquis;
                         }
                         else
                         {
@@ -213,7 +235,7 @@ namespace carbon14.FuryStudio.FuryPaint.Components
                             {
                                 Height = p.Y - _activeOrigin.Y;
                             }
-                            _marquis = new Rectangle(Left, Top, Width, Height);
+                            Marquis = new Rectangle(Left, Top, Width, Height);
                         }
                         Invalidate();
                     }
@@ -265,6 +287,7 @@ namespace carbon14.FuryStudio.FuryPaint.Components
                         {
                             _activeMode = EditMode.None;
                             _activeModeButton = MouseButtons.None;
+                            ClipMarquis();
                         }
                     }
                     break;
@@ -307,7 +330,7 @@ namespace carbon14.FuryStudio.FuryPaint.Components
                 {
                     _activeMode = EditMode.None;
                     _activeModeButton = MouseButtons.None;
-                    _marquis = new Rectangle(-1, 0, 0, 0);
+                    Marquis = EmptyMarquis;
                     Invalidate();
                 }
             }
@@ -331,6 +354,16 @@ namespace carbon14.FuryStudio.FuryPaint.Components
                             _tempMode = EditMode.Eyedropper;
                             SetCursor();
                         }
+                    }
+                    break;
+                case EditMode.Fill:
+                    {
+                        if (e.KeyCode == Keys.ControlKey)
+                        {
+                            _tempMode = EditMode.Eyedropper;
+                            SetCursor();
+                        }
+                        
                     }
                     break;
             }

@@ -31,11 +31,19 @@ namespace carbon14.FuryStudio.FuryPaint
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             statusStrip = new StatusStrip();
-            statusLabelCursor = new ToolStripStatusLabel();
-            toolStripStatusLabel2 = new ToolStripStatusLabel();
-            toolStripStatusLabel3 = new ToolStripStatusLabel();
+            statusImageCursor = new ToolStripStatusLabel();
+            statusLabelCursorX = new ToolStripStatusLabel();
+            statusLabelCursorSep = new ToolStripStatusLabel();
+            statusLabelCursorY = new ToolStripStatusLabel();
+            statusImageMarquis = new ToolStripStatusLabel();
+            statusLabelMarquisLeft = new ToolStripStatusLabel();
+            statusLabelMarquisSep1 = new ToolStripStatusLabel();
+            statusLabelMarquisTop = new ToolStripStatusLabel();
+            statusLabelMarquisSpace = new ToolStripStatusLabel();
+            statusLabelMarquisWidth = new ToolStripStatusLabel();
+            statusLabelMarquisSep2 = new ToolStripStatusLabel();
+            statusLabelMarquisHeight = new ToolStripStatusLabel();
             menuStrip = new MenuStrip();
             menuItemFile = new ToolStripMenuItem();
             menuItemOpenFile = new ToolStripMenuItem();
@@ -45,6 +53,7 @@ namespace carbon14.FuryStudio.FuryPaint
             menuItemZoomOut = new ToolStripMenuItem();
             openFileDialog = new OpenFileDialog();
             panelToolbar = new Panel();
+            buttonFlood = new Button();
             buttonMarquis = new Button();
             buttonRedo = new Button();
             buttonUndo = new Button();
@@ -67,28 +76,90 @@ namespace carbon14.FuryStudio.FuryPaint
             // 
             // statusStrip
             // 
-            statusStrip.Items.AddRange(new ToolStripItem[] { statusLabelCursor, toolStripStatusLabel2, toolStripStatusLabel3 });
+            statusStrip.Items.AddRange(new ToolStripItem[] { statusImageCursor, statusLabelCursorX, statusLabelCursorSep, statusLabelCursorY, statusImageMarquis, statusLabelMarquisLeft, statusLabelMarquisSep1, statusLabelMarquisTop, statusLabelMarquisSpace, statusLabelMarquisWidth, statusLabelMarquisSep2, statusLabelMarquisHeight });
             statusStrip.Location = new Point(0, 428);
             statusStrip.Name = "statusStrip";
             statusStrip.Size = new Size(800, 22);
             statusStrip.TabIndex = 0;
             statusStrip.Text = "statusStrip1";
             // 
-            // statusLabelCursor
+            // statusImageCursor
             // 
-            statusLabelCursor.AutoSize = false;
-            statusLabelCursor.Name = "statusLabelCursor";
-            statusLabelCursor.Size = new Size(60, 17);
+            statusImageCursor.AutoSize = false;
+            statusImageCursor.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            statusImageCursor.Image = Properties.Resources.cursor;
+            statusImageCursor.ImageAlign = ContentAlignment.MiddleRight;
+            statusImageCursor.Name = "statusImageCursor";
+            statusImageCursor.Size = new Size(16, 17);
             // 
-            // toolStripStatusLabel2
+            // statusLabelCursorX
             // 
-            toolStripStatusLabel2.Name = "toolStripStatusLabel2";
-            toolStripStatusLabel2.Size = new Size(0, 17);
+            statusLabelCursorX.AutoSize = false;
+            statusLabelCursorX.Name = "statusLabelCursorX";
+            statusLabelCursorX.Size = new Size(25, 17);
             // 
-            // toolStripStatusLabel3
+            // statusLabelCursorSep
             // 
-            toolStripStatusLabel3.Name = "toolStripStatusLabel3";
-            toolStripStatusLabel3.Size = new Size(0, 17);
+            statusLabelCursorSep.AutoSize = false;
+            statusLabelCursorSep.Name = "statusLabelCursorSep";
+            statusLabelCursorSep.Size = new Size(15, 17);
+            // 
+            // statusLabelCursorY
+            // 
+            statusLabelCursorY.AutoSize = false;
+            statusLabelCursorY.Name = "statusLabelCursorY";
+            statusLabelCursorY.Size = new Size(25, 17);
+            // 
+            // statusImageMarquis
+            // 
+            statusImageMarquis.AutoSize = false;
+            statusImageMarquis.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            statusImageMarquis.Image = Properties.Resources.layer_shape;
+            statusImageMarquis.ImageAlign = ContentAlignment.MiddleRight;
+            statusImageMarquis.Name = "statusImageMarquis";
+            statusImageMarquis.Size = new Size(25, 17);
+            // 
+            // statusLabelMarquisLeft
+            // 
+            statusLabelMarquisLeft.AutoSize = false;
+            statusLabelMarquisLeft.Name = "statusLabelMarquisLeft";
+            statusLabelMarquisLeft.Size = new Size(25, 17);
+            // 
+            // statusLabelMarquisSep1
+            // 
+            statusLabelMarquisSep1.AutoSize = false;
+            statusLabelMarquisSep1.Name = "statusLabelMarquisSep1";
+            statusLabelMarquisSep1.Size = new Size(15, 17);
+            // 
+            // statusLabelMarquisTop
+            // 
+            statusLabelMarquisTop.AutoSize = false;
+            statusLabelMarquisTop.Name = "statusLabelMarquisTop";
+            statusLabelMarquisTop.Size = new Size(25, 17);
+            // 
+            // statusLabelMarquisSpace
+            // 
+            statusLabelMarquisSpace.AutoSize = false;
+            statusLabelMarquisSpace.Name = "statusLabelMarquisSpace";
+            statusLabelMarquisSpace.Size = new Size(5, 17);
+            // 
+            // statusLabelMarquisWidth
+            // 
+            statusLabelMarquisWidth.AutoSize = false;
+            statusLabelMarquisWidth.Name = "statusLabelMarquisWidth";
+            statusLabelMarquisWidth.Size = new Size(25, 17);
+            // 
+            // statusLabelMarquisSep2
+            // 
+            statusLabelMarquisSep2.AutoSize = false;
+            statusLabelMarquisSep2.Name = "statusLabelMarquisSep2";
+            statusLabelMarquisSep2.Size = new Size(15, 17);
+            // 
+            // statusLabelMarquisHeight
+            // 
+            statusLabelMarquisHeight.AutoSize = false;
+            statusLabelMarquisHeight.Name = "statusLabelMarquisHeight";
+            statusLabelMarquisHeight.Size = new Size(25, 17);
             // 
             // menuStrip
             // 
@@ -154,6 +225,7 @@ namespace carbon14.FuryStudio.FuryPaint
             // 
             // panelToolbar
             // 
+            panelToolbar.Controls.Add(buttonFlood);
             panelToolbar.Controls.Add(buttonMarquis);
             panelToolbar.Controls.Add(buttonRedo);
             panelToolbar.Controls.Add(buttonUndo);
@@ -172,10 +244,22 @@ namespace carbon14.FuryStudio.FuryPaint
             panelToolbar.Size = new Size(800, 56);
             panelToolbar.TabIndex = 4;
             // 
+            // buttonFlood
+            // 
+            buttonFlood.FlatStyle = FlatStyle.Flat;
+            buttonFlood.Image = Properties.Resources.paintcan;
+            buttonFlood.Location = new Point(129, 29);
+            buttonFlood.Name = "buttonFlood";
+            buttonFlood.Size = new Size(23, 23);
+            buttonFlood.TabIndex = 12;
+            toolTip.SetToolTip(buttonFlood, "Flood Fill");
+            buttonFlood.UseVisualStyleBackColor = true;
+            buttonFlood.Click += buttonFlood_Click;
+            // 
             // buttonMarquis
             // 
             buttonMarquis.FlatStyle = FlatStyle.Flat;
-            buttonMarquis.Image = (Image)resources.GetObject("buttonMarquis.Image");
+            buttonMarquis.Image = Properties.Resources.layer_shape;
             buttonMarquis.Location = new Point(104, 29);
             buttonMarquis.Name = "buttonMarquis";
             buttonMarquis.Size = new Size(23, 23);
@@ -188,7 +272,7 @@ namespace carbon14.FuryStudio.FuryPaint
             // 
             buttonRedo.FlatStyle = FlatStyle.Flat;
             buttonRedo.Image = Properties.Resources.redo;
-            buttonRedo.Location = new Point(169, 29);
+            buttonRedo.Location = new Point(199, 29);
             buttonRedo.Name = "buttonRedo";
             buttonRedo.Size = new Size(23, 23);
             buttonRedo.TabIndex = 10;
@@ -200,7 +284,7 @@ namespace carbon14.FuryStudio.FuryPaint
             // 
             buttonUndo.FlatStyle = FlatStyle.Flat;
             buttonUndo.Image = Properties.Resources.undo;
-            buttonUndo.Location = new Point(144, 29);
+            buttonUndo.Location = new Point(174, 29);
             buttonUndo.Name = "buttonUndo";
             buttonUndo.Size = new Size(23, 23);
             buttonUndo.TabIndex = 9;
@@ -294,7 +378,7 @@ namespace carbon14.FuryStudio.FuryPaint
             // 
             // palette
             // 
-            palette.Location = new Point(199, 4);
+            palette.Location = new Point(241, 4);
             palette.Name = "palette";
             palette.Size = new Size(190, 40);
             palette.TabIndex = 1;
@@ -365,9 +449,7 @@ namespace carbon14.FuryStudio.FuryPaint
         private Button buttonZoomOut;
         private Button buttonZoomIn;
         private ToolTip toolTip;
-        private ToolStripStatusLabel statusLabelCursor;
-        private ToolStripStatusLabel toolStripStatusLabel2;
-        private ToolStripStatusLabel toolStripStatusLabel3;
+        private ToolStripStatusLabel statusLabelCursorX;
         private Button buttonEyedropper;
         private Button buttonPencil;
         private Button buttonZoom;
@@ -379,5 +461,17 @@ namespace carbon14.FuryStudio.FuryPaint
         private Button buttonRedo;
         private Button buttonUndo;
         private Button buttonMarquis;
+        private ToolStripStatusLabel statusImageCursor;
+        private ToolStripStatusLabel statusLabelCursorY;
+        private ToolStripStatusLabel statusLabelCursorSep;
+        private ToolStripStatusLabel statusImageMarquis;
+        private ToolStripStatusLabel statusLabelMarquisLeft;
+        private ToolStripStatusLabel statusLabelMarquisTop;
+        private ToolStripStatusLabel statusLabelMarquisWidth;
+        private ToolStripStatusLabel statusLabelMarquisHeight;
+        private ToolStripStatusLabel statusLabelMarquisSep1;
+        private ToolStripStatusLabel statusLabelMarquisSep2;
+        private ToolStripStatusLabel statusLabelMarquisSpace;
+        private Button buttonFlood;
     }
 }

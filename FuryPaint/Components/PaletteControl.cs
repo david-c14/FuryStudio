@@ -1,5 +1,7 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Drawing.Imaging;
+using System.Reflection;
 
 namespace carbon14.FuryStudio.FuryPaint.Components
 {
@@ -109,6 +111,14 @@ namespace carbon14.FuryStudio.FuryPaint.Components
                 {
                     newTip += " foreground";
                 }
+            }
+            if (e.X >= 164 && e.X < 180 && e.Y >= 16 && e.Y < 32)
+            {
+                newTip = $"{_foregroundIndex}: {_palette.Entries[_foregroundIndex].R},{_palette.Entries[_foregroundIndex].G},{_palette.Entries[_foregroundIndex].B}";
+            }
+            else if (e.X >= 172 && e.X < 188 && e.Y >= 8 && e.Y < 24)
+            {
+                newTip = $"{_backgroundIndex}: {_palette.Entries[_backgroundIndex].R},{_palette.Entries[_backgroundIndex].G},{_palette.Entries[_backgroundIndex].B}";
             }
             if (newTip != _toolTip)
             {

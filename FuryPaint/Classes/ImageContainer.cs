@@ -47,8 +47,18 @@ namespace carbon14.FuryStudio.FuryPaint.Classes
                 }
                 _width = _bitmap.Width;
                 _height = _bitmap.Height;
-                BitmapData bmpData = _bitmap.LockBits(new Rectangle(0,0,1,1), ImageLockMode.ReadWrite, PixelFormat.Format4bppIndexed);
-                _bitmap.UnlockBits(bmpData);
+                BitmapData? bmpData = null;
+                try
+                {
+                    bmpData = _bitmap.LockBits(new Rectangle(0, 0, 1, 1), ImageLockMode.ReadWrite, PixelFormat.Format4bppIndexed);
+                }
+                finally
+                {
+                    if (bmpData != null)
+                    {
+                        _bitmap.UnlockBits(bmpData);
+                    }
+                }
 
                 _paletteBuffer = new byte[48];
                 ColorPalette pal = _bitmap.Palette;
@@ -218,11 +228,21 @@ namespace carbon14.FuryStudio.FuryPaint.Classes
 
         public int IndexAt(int x, int y)
         {
-            BitmapData bmpData = _bitmap.LockBits(new Rectangle(2 * (x / 2), y, 2, 1), ImageLockMode.ReadOnly, PixelFormat.Format4bppIndexed);
-            IntPtr ptr = bmpData.Scan0;
+            BitmapData? bmpData = null;
             byte[] data = new byte[1];
-            System.Runtime.InteropServices.Marshal.Copy(ptr, data, 0, 1);
-            _bitmap.UnlockBits(bmpData);
+            try
+            {
+                bmpData = _bitmap.LockBits(new Rectangle(2 * (x / 2), y, 2, 1), ImageLockMode.ReadOnly, PixelFormat.Format4bppIndexed);
+                IntPtr ptr = bmpData.Scan0;
+                System.Runtime.InteropServices.Marshal.Copy(ptr, data, 0, 1);
+            }
+            finally
+            {
+                if (bmpData != null)
+                {
+                    _bitmap.UnlockBits(bmpData);
+                }
+            }
             if ((x % 2) == 0)
             {
                 return data[0] >> 4;
@@ -235,20 +255,30 @@ namespace carbon14.FuryStudio.FuryPaint.Classes
 
         public void SetIndexAt(int x, int y, int index)
         {
-            BitmapData bmpData = _bitmap.LockBits(new Rectangle(2 * (x / 2), y, 2, 1), ImageLockMode.ReadWrite, PixelFormat.Format4bppIndexed);
-            IntPtr ptr = bmpData.Scan0;
-            byte[] data = new byte[1];
-            System.Runtime.InteropServices.Marshal.Copy(ptr, data, 0, 1);
-            if ((x % 2) == 0)
+            BitmapData? bmpData = null;
+            try
             {
-                data[0] = (byte)((data[0] & 0x0F) | (index << 4));
+                bmpData = _bitmap.LockBits(new Rectangle(2 * (x / 2), y, 2, 1), ImageLockMode.ReadWrite, PixelFormat.Format4bppIndexed);
+                IntPtr ptr = bmpData.Scan0;
+                byte[] data = new byte[1];
+                System.Runtime.InteropServices.Marshal.Copy(ptr, data, 0, 1);
+                if ((x % 2) == 0)
+                {
+                    data[0] = (byte)((data[0] & 0x0F) | (index << 4));
+                }
+                else
+                {
+                    data[0] = (byte)((data[0] & 0xF0) | (index & 0x0F));
+                }
+                System.Runtime.InteropServices.Marshal.Copy(data, 0, ptr, 1);
             }
-            else
+            finally
             {
-                data[0] = (byte)((data[0] & 0xF0) | (index & 0x0F));
+                if (bmpData != null)
+                {
+                    _bitmap.UnlockBits(bmpData);
+                }
             }
-            System.Runtime.InteropServices.Marshal.Copy(data, 0, ptr, 1);
-            _bitmap.UnlockBits(bmpData);
             _dirty = true;
             Invalidate();
         }
@@ -256,10 +286,20 @@ namespace carbon14.FuryStudio.FuryPaint.Classes
         private void Blit(int top, int height, byte[] data)
         {
             Rectangle bufferRect = (new Rectangle(0, top, _bitmap.Width, height));
-            BitmapData bmpData = _bitmap.LockBits(bufferRect, ImageLockMode.WriteOnly, PixelFormat.Format4bppIndexed);
-            IntPtr ptr = bmpData.Scan0;
-            System.Runtime.InteropServices.Marshal.Copy(data, 0, ptr, data.Length);
-            _bitmap.UnlockBits(bmpData);
+            BitmapData? bmpData = null;
+            try
+            {
+                bmpData = _bitmap.LockBits(bufferRect, ImageLockMode.WriteOnly, PixelFormat.Format4bppIndexed);
+                IntPtr ptr = bmpData.Scan0;
+                System.Runtime.InteropServices.Marshal.Copy(data, 0, ptr, data.Length);
+            }
+            finally
+            {
+                if (bmpData != null )
+                {
+                    _bitmap.UnlockBits(bmpData);
+                }
+            }
             Invalidate();
             _dirty = true;
         }
@@ -269,26 +309,39 @@ namespace carbon14.FuryStudio.FuryPaint.Classes
             byte color = (byte)(set.ColorIndex & 0x0F);
             Rectangle setRect = set.Bounds;
             Rectangle bufferRect = new Rectangle(0, setRect.Top, _bitmap.Width, setRect.Height);
-            BitmapData bmpData = _bitmap.LockBits(bufferRect, ImageLockMode.ReadWrite, PixelFormat.Format4bppIndexed);
-            IntPtr ptr = bmpData.Scan0;
-            byte[] data = new byte[bmpData.Stride * setRect.Height];
-            System.Runtime.InteropServices.Marshal.Copy(ptr, data, 0, data.Length);
-            byte[] undoData = (byte[])data.Clone();
-            foreach (Point p in set.Points)
+            BitmapData? bmpData = null;
+            byte[]? undoData = null;
+            byte[]? redoData = null;
+            try
             {
-                int index = p.X / 2 + (p.Y - setRect.Top) * bmpData.Stride;
-                if ((p.X % 2) == 0)
+                bmpData = _bitmap.LockBits(bufferRect, ImageLockMode.ReadWrite, PixelFormat.Format4bppIndexed);
+                IntPtr ptr = bmpData.Scan0;
+                byte[] data = new byte[bmpData.Stride * setRect.Height];
+                System.Runtime.InteropServices.Marshal.Copy(ptr, data, 0, data.Length);
+                undoData = (byte[])data.Clone();
+                foreach (Point p in set.Points)
                 {
-                    data[index] = (byte)((data[index] & 0x0F) | (color << 4));
+                    int index = p.X / 2 + (p.Y - setRect.Top) * bmpData.Stride;
+                    if ((p.X % 2) == 0)
+                    {
+                        data[index] = (byte)((data[index] & 0x0F) | (color << 4));
+                    }
+                    else
+                    {
+                        data[index] = (byte)((data[index] & 0xF0) | (color));
+                    }
                 }
-                else
+                redoData = (byte[])data.Clone();
+                System.Runtime.InteropServices.Marshal.Copy(data, 0, ptr, data.Length);
+            }
+            finally
+            {
+                if (bmpData != null)
                 {
-                    data[index] = (byte)((data[index] & 0xF0) | (color));
+                    _bitmap.UnlockBits(bmpData);
+
                 }
             }
-            byte[] redoData = (byte[])data.Clone();
-            System.Runtime.InteropServices.Marshal.Copy(data, 0, ptr, data.Length);
-            _bitmap.UnlockBits(bmpData);
             _dirty = true;
             Invalidate();
             return new Undo(() => { 
@@ -304,30 +357,42 @@ namespace carbon14.FuryStudio.FuryPaint.Classes
         {
             byte color = (byte)(colorIndex & 0x0F);
             Rectangle bufferRect = new Rectangle(0, rect.Top, _bitmap.Width, rect.Height);
-            BitmapData bmpData = _bitmap.LockBits(bufferRect, ImageLockMode.ReadWrite, PixelFormat.Format4bppIndexed);
-            IntPtr ptr = bmpData.Scan0;
-            byte[] data = new byte[bmpData.Stride * rect.Height];
-            System.Runtime.InteropServices.Marshal.Copy(ptr, data, 0, data.Length);
-            byte[] undoData = (byte[])data.Clone();
-            for (int y = 0; y < rect.Height; y++)
+            BitmapData? bmpData = null;
+            byte[]? undoData = null;
+            byte[]? redoData = null;
+            try
             {
-                for (int x = 0; x < rect.Width; x++)
+                bmpData = _bitmap.LockBits(bufferRect, ImageLockMode.ReadWrite, PixelFormat.Format4bppIndexed);
+                IntPtr ptr = bmpData.Scan0;
+                byte[] data = new byte[bmpData.Stride * rect.Height];
+                System.Runtime.InteropServices.Marshal.Copy(ptr, data, 0, data.Length);
+                undoData = (byte[])data.Clone();
+                for (int y = 0; y < rect.Height; y++)
                 {
-                    int index = (rect.Left + x) / 2 + y * bmpData.Stride;
-                    if (((rect.Left + x) % 2) == 0)
+                    for (int x = 0; x < rect.Width; x++)
                     {
-                        data[index] = (byte)((data[index] & 0x0F) | (color << 4));
-                    }
-                    else
-                    {
-                        data[index] = (byte)((data[index] & 0xF0) | (color));
-                    }
+                        int index = (rect.Left + x) / 2 + y * bmpData.Stride;
+                        if (((rect.Left + x) % 2) == 0)
+                        {
+                            data[index] = (byte)((data[index] & 0x0F) | (color << 4));
+                        }
+                        else
+                        {
+                            data[index] = (byte)((data[index] & 0xF0) | (color));
+                        }
 
+                    }
+                }
+                redoData = (byte[])data.Clone();
+                System.Runtime.InteropServices.Marshal.Copy(data, 0, ptr, data.Length);
+            }
+            finally
+            {
+                if (bmpData != null)
+                {
+                    _bitmap.UnlockBits(bmpData);
                 }
             }
-            byte[] redoData = (byte[])data.Clone();
-            System.Runtime.InteropServices.Marshal.Copy(data, 0, ptr, data.Length);
-            _bitmap.UnlockBits(bmpData);
             _dirty = true;
             Invalidate();
             return new Undo(() => {
@@ -344,70 +409,82 @@ namespace carbon14.FuryStudio.FuryPaint.Classes
             byte targetColor;
             Queue<Point> points = new Queue<Point>();
             Rectangle bufferRect = new Rectangle(0, rect.Top, _bitmap.Width, rect.Height);
-            BitmapData bmpData = _bitmap.LockBits(bufferRect, ImageLockMode.ReadWrite, PixelFormat.Format4bppIndexed);
-            IntPtr ptr = bmpData.Scan0;
-            byte[] data = new byte[bmpData.Stride * rect.Height];
-            System.Runtime.InteropServices.Marshal.Copy(ptr, data, 0, data.Length);
-            byte[] undoData = (byte[])data.Clone();
-            int index = point.X / 2 + (point.Y - rect.Top) * bmpData.Stride;
-            if ((point.X % 2) == 0)
+            BitmapData? bmpData = null;
+            byte[]? undoData = null;
+            byte[]? redoData = null; ;
+            try
             {
-                targetColor = (byte)(data[index] >> 4);
-            }
-            else
-            {
-                targetColor = (byte)(data[index] & 0x0F);
-            }
-            if (targetColor == fillColor)
-            {
-                return null;
-            }
-            points.Enqueue(point);
-            while (points.Count > 0)
-            {
-                Point thisPoint = points.Dequeue();
-                byte testColor;
-                index = thisPoint.X / 2 + (thisPoint.Y - rect.Top) * bmpData.Stride;
-                if ((thisPoint.X % 2) == 0)
+                bmpData = _bitmap.LockBits(bufferRect, ImageLockMode.ReadWrite, PixelFormat.Format4bppIndexed);
+                IntPtr ptr = bmpData.Scan0;
+                byte[] data = new byte[bmpData.Stride * rect.Height];
+                System.Runtime.InteropServices.Marshal.Copy(ptr, data, 0, data.Length);
+                undoData = (byte[])data.Clone();
+                int index = point.X / 2 + (point.Y - rect.Top) * bmpData.Stride;
+                if ((point.X % 2) == 0)
                 {
-                    testColor = (byte)(data[index] >> 4);
+                    targetColor = (byte)(data[index] >> 4);
                 }
                 else
                 {
-                    testColor = (byte)(data[index] & 0x0F);
+                    targetColor = (byte)(data[index] & 0x0F);
                 }
-                if (testColor != targetColor)
+                if (targetColor == fillColor)
                 {
-                    continue;
+                    return null;
                 }
-                if ((thisPoint.X % 2) == 0)
+                points.Enqueue(point);
+                while (points.Count > 0)
                 {
-                    data[index] = (byte)((data[index] & 0x0F) | (fillColor << 4));
+                    Point thisPoint = points.Dequeue();
+                    byte testColor;
+                    index = thisPoint.X / 2 + (thisPoint.Y - rect.Top) * bmpData.Stride;
+                    if ((thisPoint.X % 2) == 0)
+                    {
+                        testColor = (byte)(data[index] >> 4);
+                    }
+                    else
+                    {
+                        testColor = (byte)(data[index] & 0x0F);
+                    }
+                    if (testColor != targetColor)
+                    {
+                        continue;
+                    }
+                    if ((thisPoint.X % 2) == 0)
+                    {
+                        data[index] = (byte)((data[index] & 0x0F) | (fillColor << 4));
+                    }
+                    else
+                    {
+                        data[index] = (byte)((data[index] & 0xF0) | (fillColor));
+                    }
+                    if (thisPoint.X > rect.Left)
+                    {
+                        points.Enqueue(new Point(thisPoint.X - 1, thisPoint.Y));
+                    }
+                    if (thisPoint.X < rect.Right - 1)
+                    {
+                        points.Enqueue(new Point(thisPoint.X + 1, thisPoint.Y));
+                    }
+                    if (thisPoint.Y > rect.Top)
+                    {
+                        points.Enqueue(new Point(thisPoint.X, thisPoint.Y - 1));
+                    }
+                    if (thisPoint.Y < rect.Bottom - 1)
+                    {
+                        points.Enqueue(new Point(thisPoint.X, thisPoint.Y + 1));
+                    }
                 }
-                else
+                redoData = (byte[])data.Clone();
+                System.Runtime.InteropServices.Marshal.Copy(data, 0, ptr, data.Length);
+            }
+            finally
+            {
+                if (bmpData != null)
                 {
-                    data[index] = (byte)((data[index] & 0xF0) | (fillColor));
-                }
-                if (thisPoint.X > rect.Left)
-                {
-                    points.Enqueue(new Point(thisPoint.X - 1, thisPoint.Y));
-                }
-                if (thisPoint.X < rect.Right - 1)
-                {
-                    points.Enqueue(new Point(thisPoint.X + 1, thisPoint.Y));
-                }
-                if (thisPoint.Y > rect.Top)
-                {
-                    points.Enqueue(new Point(thisPoint.X, thisPoint.Y - 1));
-                }
-                if (thisPoint.Y < rect.Bottom - 1)
-                {
-                    points.Enqueue(new Point(thisPoint.X, thisPoint.Y + 1));
+                    _bitmap.UnlockBits(bmpData);
                 }
             }
-            byte[] redoData = (byte[])data.Clone();
-            System.Runtime.InteropServices.Marshal.Copy(data, 0, ptr, data.Length);
-            _bitmap.UnlockBits(bmpData);
             _dirty = true;
             Invalidate();
             return new Undo(() => {

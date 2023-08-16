@@ -2,6 +2,9 @@
 using System.Drawing.Drawing2D;
 using carbon14.FuryStudio.Utils;
 using System.Drawing;
+using System;
+using static System.Net.Mime.MediaTypeNames;
+using System.Reflection;
 
 namespace carbon14.FuryStudio.FuryPaint.Classes
 {
@@ -492,6 +495,128 @@ namespace carbon14.FuryStudio.FuryPaint.Classes
             },
                 () => {
                     this.Blit(rect.Top, rect.Height, redoData);
+                }
+                );
+        }
+
+        public ClipboardData GetCopyForClipboard(Rectangle rect)
+        {
+            ClipboardData cp = new ClipboardData();
+            cp.Width = rect.Width;
+            cp.Height = rect.Height;
+            cp.Data = new byte[cp.Width * cp.Height];
+
+            Rectangle bufferRect = new Rectangle(0, rect.Top, _bitmap.Width, rect.Height);
+            BitmapData? bmpData = null;
+            byte[] data;
+            try
+            {
+                bmpData = _bitmap.LockBits(bufferRect, ImageLockMode.ReadOnly, PixelFormat.Format4bppIndexed);
+                IntPtr ptr = bmpData.Scan0;
+                data = new byte[bmpData.Stride * rect.Height];
+                System.Runtime.InteropServices.Marshal.Copy(ptr, data, 0, data.Length);
+            }
+            finally
+            {
+                if (bmpData != null)
+                {
+                    _bitmap.UnlockBits(bmpData);
+                }
+            }
+
+            for (int y = 0; y < cp.Height; y++)
+            {
+                for (int x = 0; x < cp.Width; x++)
+                {
+                    int index = (y * bmpData.Stride + (x + rect.Left) / 2);
+                    if (((x + rect.Left) % 2) == 0)
+                    {
+                        cp.Data[y * cp.Width + x] = (byte)(data[index] >> 4);
+                    }
+                    else
+                    {
+                        cp.Data[y * cp.Width + x] = (byte)(data[index] & 0x0F);
+                    }
+                }
+            }
+            return cp;
+        }
+        public Undo? Paste(Bitmap clipboardBitmap, Point offset)
+        {
+            Rectangle srcRect = new Rectangle(offset, clipboardBitmap.Size);
+            if (!srcRect.IntersectsWith(Rectangle))
+            {
+                return null;
+            }
+            srcRect.Intersect(Rectangle);
+            Rectangle destRect = srcRect;
+            srcRect.Offset(-offset.X, -offset.Y);
+            int height = destRect.Height;
+            Rectangle bufferRect = new Rectangle(0, destRect.Top, Width, height);
+            BitmapData? bmpData = null;
+            byte[] srcData;
+            int srcStride;
+            try
+            {
+                Rectangle rect = new Rectangle(0, srcRect.Top, clipboardBitmap.Width, height);
+                bmpData = clipboardBitmap.LockBits(rect, ImageLockMode.ReadOnly, PixelFormat.Format8bppIndexed);
+                srcStride = bmpData.Stride;
+                IntPtr ptr = bmpData.Scan0;
+                srcData = new byte[bmpData.Stride * height];
+                System.Runtime.InteropServices.Marshal.Copy(ptr, srcData, 0, srcData.Length);
+            }
+            finally
+            {
+                if (bmpData != null)
+                {
+                    clipboardBitmap.UnlockBits(bmpData);
+                }
+            }
+
+            byte[]? undoData = null;
+            byte[]? redoData = null;
+            try
+            {
+                bmpData = _bitmap.LockBits(bufferRect, ImageLockMode.ReadWrite, PixelFormat.Format4bppIndexed);
+                IntPtr ptr = bmpData.Scan0;
+                byte[] data = new byte[bmpData.Stride * height];
+                System.Runtime.InteropServices.Marshal.Copy(ptr, data, 0, data.Length);
+                undoData = (byte[])data.Clone();
+
+                for (int y = 0; y < height; y++)
+                {
+                    for(int x = 0; x < srcRect.Width; x++)
+                    {
+                        int srcIndex = y * srcStride + x + srcRect.Left;
+                        int destIndex = y * bmpData.Stride + (x + destRect.Left) / 2;
+                        if (((x + destRect.Left) % 2) == 0)
+                        {
+                            data[destIndex] = (byte)((data[destIndex] & 0x0F) | (srcData[srcIndex] << 4));
+                        }
+                        else
+                        {
+                            data[destIndex] = (byte)((data[destIndex] & 0xF0) | (srcData[srcIndex]));
+                        }
+                    }
+                }
+                redoData = (byte[])data.Clone();
+                System.Runtime.InteropServices.Marshal.Copy(data, 0, ptr, data.Length);
+            }
+            finally
+            {
+                if (bmpData != null)
+                {
+                    _bitmap.UnlockBits(bmpData);
+
+                }
+            }
+            _dirty = true;
+            Invalidate();
+            return new Undo(() => {
+                this.Blit(destRect.Top, destRect.Height, undoData);
+                },
+                () => {
+                    this.Blit(destRect.Top, destRect.Height, redoData);
                 }
                 );
         }

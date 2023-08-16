@@ -14,6 +14,7 @@ namespace carbon14.FuryStudio.FuryPaint.Components
             Zoom,
             Fill,
             Eyedropper,
+            Paste,
         }
 
         // Mode currently selected in the toolbar
@@ -37,6 +38,10 @@ namespace carbon14.FuryStudio.FuryPaint.Components
                 if (Mode == value)
                 {
                     return;
+                }
+                if (_mode == EditMode.Paste)
+                {
+                    CompletePaste();
                 }
                 _mode = value;
                 SetCursor();
@@ -76,6 +81,27 @@ namespace carbon14.FuryStudio.FuryPaint.Components
                             _activeOrigin = new Point(_offsetX, _offsetY);
                             _activeMouseLocation = e.Location;
                             _activeModeButton = MouseButtons.Left;
+                        }
+                    }
+                    break;
+                case EditMode.Paste:
+                    {
+                        if (e.Button == MouseButtons.Left)
+                        {
+                            Point underMouse = CanvasToImage(e.Location);
+                            if (underMouse.X < _clipboardOffset.X)
+                                break;
+                            if (underMouse.Y < _clipboardOffset.Y)
+                                break;
+                            if (underMouse.X >= (_clipboardOffset.X + _clipboardBitmap.Width))
+                                break;
+                            if (underMouse.Y >= (_clipboardOffset.Y + _clipboardBitmap.Height))
+                                break;
+                            _activeMode = EditMode.Paste;
+                            _activeOrigin = _clipboardOffset;
+                            _activeMouseLocation = e.Location;
+                            _activeModeButton = MouseButtons.Left;
+                            SetClipboardStatus();
                         }
                     }
                     break;
@@ -204,6 +230,14 @@ namespace carbon14.FuryStudio.FuryPaint.Components
                         Invalidate();
                     }
                     break;
+                case EditMode.Paste:
+                    {
+                        Point delta = new Point((e.Location.X - _activeMouseLocation.X) / _image.Zoom, (e.Location.Y - _activeMouseLocation.Y) / _image.Zoom);
+                        _clipboardOffset = new Point(_activeOrigin.X + delta.X, _activeOrigin.Y + delta.Y);
+                        Invalidate();
+                        SetClipboardStatus();
+                    }
+                    break;
                 case EditMode.Marquis:
                     {
                         Point p = CanvasToImage(e.Location);
@@ -281,6 +315,15 @@ namespace carbon14.FuryStudio.FuryPaint.Components
                         }
                     }
                     break;
+                case EditMode.Paste:
+                    {
+                        if (e.Button == _activeModeButton)
+                        {
+                            _activeMode = EditMode.None;
+                            _activeModeButton = MouseButtons.None;
+                        }
+                    }
+                    break;
                 case EditMode.Marquis:
                     {
                         if (e.Button == _activeModeButton)
@@ -306,6 +349,7 @@ namespace carbon14.FuryStudio.FuryPaint.Components
 
         public void KeyDownHandler(object sender, KeyEventArgs e)
         {
+            /*
             if (e.KeyCode == Keys.Z)
             {
                 if (e.KeyData.HasFlag(Keys.Control))
@@ -318,6 +362,19 @@ namespace carbon14.FuryStudio.FuryPaint.Components
                     { 
                         Undo(); 
                     } 
+                }
+            }*/
+            if (_mode == EditMode.Paste)
+            {
+                if (e.KeyCode == Keys.Escape)
+                {
+                    ResetPaste();
+                    return;
+                }
+                if (e.KeyCode == Keys.Enter)
+                {
+                    Mode = EditMode.Move;
+                    return;
                 }
             }
             if (_tempMode != EditMode.None)
@@ -338,13 +395,13 @@ namespace carbon14.FuryStudio.FuryPaint.Components
             {
                 return;
             }
-            if (e.KeyCode == Keys.Delete)
+/*            if (e.KeyCode == Keys.Delete)
             {
                 if (HasMarquis)
                 {
                     ClearMarquis();
                 }
-            }
+             } */
             switch (_mode)
             {
                 case EditMode.Pencil:
@@ -388,5 +445,144 @@ namespace carbon14.FuryStudio.FuryPaint.Components
                     break;
             }
         }
+
+        public void Left(bool shift)
+        {
+            if (_activeMode != EditMode.None)
+            {
+                return;
+            }
+            if (_mode == EditMode.Paste && !shift)
+            {
+                _clipboardOffset.Offset(-1, 0);
+                Invalidate();
+                SetClipboardStatus();
+                return;
+            }
+            if (HasMarquis && !shift)
+            {
+                if (Marquis.Left > 0)
+                {
+                    _marquis.Offset(-1, 0);
+                    Invalidate();
+                    SetMarquisStatus(Marquis);
+                }
+                return;
+            }
+            if (HasMarquis && shift)
+            {
+                if (Marquis.Width > 1)
+                {
+                    Marquis = new Rectangle(Marquis.Left, Marquis.Top, Marquis.Width - 1, Marquis.Height);
+                    Invalidate();
+                }
+                return;
+            }
+
+        }
+        public void Up(bool shift)
+        {
+            if (_activeMode != EditMode.None)
+            {
+                return;
+            }
+            if (_mode == EditMode.Paste && !shift)
+            {
+                _clipboardOffset.Offset(0, -1);
+                Invalidate();
+                SetClipboardStatus();
+                return;
+            }
+            if (HasMarquis && !shift)
+            {
+                if (Marquis.Top > 0)
+                {
+                    _marquis.Offset(0, -1);
+                    Invalidate();
+                    SetMarquisStatus(Marquis);
+                }
+                return;
+            }
+            if (HasMarquis && shift)
+            {
+                if (Marquis.Height > 1)
+                {
+                    Marquis = new Rectangle(Marquis.Left, Marquis.Top, Marquis.Width, Marquis.Height - 1);
+                    Invalidate();
+                }
+                return;
+            }
+
+        }
+
+        public void Right(bool shift)
+        {
+            if (_activeMode != EditMode.None)
+            {
+                return;
+            }
+            if (_mode == EditMode.Paste && !shift)
+            {
+                _clipboardOffset.Offset(1, 0);
+                Invalidate();
+                SetClipboardStatus();
+                return;
+            }
+            if (HasMarquis && !shift)
+            {
+                if (Marquis.Right < (_image.Width - 1))
+                {
+                    _marquis.Offset(1, 0);
+                    Invalidate();
+                    SetMarquisStatus(Marquis);
+                }
+                return;
+            }
+            if (HasMarquis && shift)
+            {
+                if (Marquis.Right < (_image.Width - 1))
+                {
+                    Marquis = new Rectangle(Marquis.Left, Marquis.Top, Marquis.Width + 1, Marquis.Height);
+                    Invalidate();
+                }
+                return;
+            }
+        }
+
+        public void Down(bool shift)
+        {
+            if (_activeMode != EditMode.None)
+            {
+                return;
+            }
+            if (_mode == EditMode.Paste && !shift)
+            {
+                _clipboardOffset.Offset(0, 1);
+                Invalidate();
+                SetClipboardStatus();
+                return;
+            }
+            if (HasMarquis && !shift)
+            {
+                if (Marquis.Bottom < (_image.Height - 1))
+                {
+                    _marquis.Offset(0, 1);
+                    Invalidate();
+                    SetMarquisStatus(Marquis);
+                }
+                return;
+            }
+            if (HasMarquis && shift)
+            {
+                if (Marquis.Bottom < (_image.Height - 1))
+                {
+                    Marquis = new Rectangle(Marquis.Left, Marquis.Top, Marquis.Width, Marquis.Height + 1);
+                    Invalidate();
+                }
+                return;
+            }
+
+        }
+
     }
 }

@@ -10,6 +10,7 @@ namespace carbon14.FuryStudio.FuryPaint.Components
 
         private void UpdateStatus()
         {
+            _status.Zoom = _image.Zoom;
             StatusChanged?.Invoke(this, _status);
             _status.Changed = CanvasStatus.Flags.None;
         }
@@ -41,6 +42,19 @@ namespace carbon14.FuryStudio.FuryPaint.Components
         {
             _status.Marquis = marquis;
             UpdateStatus(CanvasStatus.Flags.Marquis);
+        }
+
+        private void SetClipboardStatus()
+        {
+            if (_clipboardBitmap == null)
+            {
+                _status.Clipboard = EmptyMarquis;
+            }
+            else
+            {
+                _status.Clipboard = new Rectangle(_clipboardOffset, _clipboardBitmap.Size);
+            }
+            UpdateStatus(CanvasStatus.Flags.Clipboard);
         }
     }
 }

@@ -19,6 +19,10 @@ namespace carbon14.FuryStudio.FuryPaint.Components
                 return;
             }
             ApplyPaintSet();
+            if (AvailableWidth < 1 || AvailableHeight < 1)
+            {
+                return;
+            }
             if ((_bitmap.Width != AvailableWidth) || (_bitmap.Height != AvailableHeight))
             {
                 _bitmap.Dispose();
@@ -53,13 +57,49 @@ namespace carbon14.FuryStudio.FuryPaint.Components
             if (HasMarquis)
             {
                 Point point = ImageToCanvas(new Point(Marquis.Left, Marquis.Top));
-                Size size = new Size(Marquis.Width * _image.Zoom - ((_image.Zoom==1)?0:1), Marquis.Height * _image.Zoom - ((_image.Zoom==1)?0:1));
+                int width = Marquis.Width * _image.Zoom;
+                int height = Marquis.Height * _image.Zoom;
+                if (width < 1)
+                {
+                    width = 1;
+                }
+                if (height < 1)
+                {
+                    height = 1;
+                }
+                Size size = new Size(width, height);
                 using (Brush brush = new HatchBrush(HatchStyle.WideDownwardDiagonal, Color.Black, Color.White))
                 {
                     using (Pen pen = new Pen(brush))
                     {
                         e.Graphics.DrawRectangle(pen, new Rectangle(point, size));
                     }
+                }
+            }
+            if (_clipboardBitmap != null)
+            {
+                Rectangle srcRect = new Rectangle(_clipboardOffset, _clipboardBitmap.Size);
+                if (srcRect.IntersectsWith(_image.Rectangle))
+                {
+                    srcRect.Intersect(_image.Rectangle);
+                    Rectangle destRect = srcRect;
+                    srcRect.Offset(-_clipboardOffset.X, -_clipboardOffset.Y);
+                    destRect.Offset(-_offsetX, -_offsetY);
+                    destRect = new Rectangle(destRect.Left * _image.Zoom, destRect.Top * _image.Zoom, destRect.Width * _image.Zoom, destRect.Height * _image.Zoom);
+                    e.Graphics.InterpolationMode = InterpolationMode.NearestNeighbor;
+                    e.Graphics.PixelOffsetMode = PixelOffsetMode.Half;
+                    e.Graphics.DrawImage(_clipboardBitmap, destRect, srcRect, GraphicsUnit.Pixel);
+                    using (Brush brush = new HatchBrush(HatchStyle.DarkDownwardDiagonal, Color.Black, Color.White))
+                    {
+                        using (Pen pen = new Pen(brush))
+                        {
+                            destRect.Offset(1, 1);
+                            int width = (destRect.Width < 2) ? 1 : (destRect.Width - 1);
+                            int height = (destRect.Height < 2) ? 1 : (destRect.Height - 1);
+                            e.Graphics.DrawRectangle(pen, destRect.Left, destRect.Top, width, height);
+                        }
+                    }
+
                 }
             }
         }
@@ -134,6 +174,10 @@ namespace carbon14.FuryStudio.FuryPaint.Components
 
         internal void ClearMarquis()
         {
+            if (!HasMarquis)
+            {
+                return;
+            }
             Undo undo = _image.ClearRectangle(Marquis, _palette.Background);
             _undoList.Add(undo);
         }

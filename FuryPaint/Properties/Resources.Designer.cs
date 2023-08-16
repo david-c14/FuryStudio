@@ -73,6 +73,16 @@ namespace carbon14.FuryStudio.FuryPaint.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap cut {
+            get {
+                object obj = ResourceManager.GetObject("cut", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap diskette {
             get {
                 object obj = ResourceManager.GetObject("diskette", resourceCulture);
@@ -106,6 +116,26 @@ namespace carbon14.FuryStudio.FuryPaint.Properties {
         internal static System.Drawing.Bitmap layer_shape {
             get {
                 object obj = ResourceManager.GetObject("layer_shape", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap page_white_copy {
+            get {
+                object obj = ResourceManager.GetObject("page_white_copy", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap page_white_paste {
+            get {
+                object obj = ResourceManager.GetObject("page_white_paste", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

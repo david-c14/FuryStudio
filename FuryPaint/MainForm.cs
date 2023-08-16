@@ -31,12 +31,12 @@ namespace carbon14.FuryStudio.FuryPaint
 
         private void actionZoomIn(object sender, EventArgs e)
         {
-            _image.Zoom++;
+            canvas.ZoomIn();
         }
 
         private void actionZoomOut(object sender, EventArgs e)
         {
-            _image.Zoom--;
+            canvas.ZoomOut();
         }
 
         private void Open()
@@ -134,12 +134,15 @@ namespace carbon14.FuryStudio.FuryPaint
                 statusLabelCursorSep.Text = string.Empty;
                 statusLabelCursorY.Text = string.Empty;
             }
+            statusLabelZoom.Text = $"{e.Zoom}×";
             if ((e.Changed & CanvasStatus.Flags.Mode) > CanvasStatus.Flags.None)
             {
                 buttonMove.BackColor = (e.Mode == CanvasPanel.EditMode.Move) ? SystemColors.Highlight : SystemColors.Control;
                 buttonZoom.BackColor = (e.Mode == CanvasPanel.EditMode.Zoom) ? SystemColors.Highlight : SystemColors.Control;
                 buttonPencil.BackColor = (e.Mode == CanvasPanel.EditMode.Pencil) ? SystemColors.Highlight : SystemColors.Control;
                 buttonEyedropper.BackColor = (e.Mode == CanvasPanel.EditMode.Eyedropper) ? SystemColors.Highlight : SystemColors.Control;
+                buttonMarquis.BackColor = (e.Mode == CanvasPanel.EditMode.Marquis) ? SystemColors.Highlight : SystemColors.Control;
+                buttonFlood.BackColor = (e.Mode == CanvasPanel.EditMode.Fill) ? SystemColors.Highlight : SystemColors.Control;
             }
             if ((e.Changed & CanvasStatus.Flags.Marquis) > CanvasStatus.Flags.None)
             {
@@ -162,6 +165,28 @@ namespace carbon14.FuryStudio.FuryPaint
                     statusLabelMarquisHeight.Text = $"{e.Marquis.Height}";
                 }
             }
+            if ((e.Changed & CanvasStatus.Flags.Clipboard) > CanvasStatus.Flags.None)
+            {
+                if (e.Clipboard.Left < 0)
+                {
+                    statusLabelClipboardLeft.Text = string.Empty;
+                    statusLabelClipboardSep1.Text = string.Empty;
+                    statusLabelClipboardTop.Text = string.Empty;
+                    statusLabelClipboardWidth.Text = string.Empty;
+                    statusLabelClipboardSep2.Text = string.Empty;
+                    statusLabelClipboardHeight.Text = string.Empty;
+                }
+                else
+                {
+                    statusLabelClipboardLeft.Text = $"{e.Clipboard.Left}";
+                    statusLabelClipboardSep1.Text = "×";
+                    statusLabelClipboardTop.Text = $"{e.Clipboard.Top}";
+                    statusLabelClipboardWidth.Text = $"{e.Clipboard.Width}";
+                    statusLabelClipboardSep2.Text = "×";
+                    statusLabelClipboardHeight.Text = $"{e.Clipboard.Height}";
+                }
+
+            }
 
         }
 
@@ -175,14 +200,74 @@ namespace carbon14.FuryStudio.FuryPaint
             canvas.Redo();
         }
 
-        private void buttonMarquis_Click(object sender, EventArgs e)
+        private void actionMarquis(object sender, EventArgs e)
         {
             SetMode(CanvasPanel.EditMode.Marquis);
         }
 
-        private void buttonFlood_Click(object sender, EventArgs e)
+        private void actionFlood(object sender, EventArgs e)
         {
             SetMode(CanvasPanel.EditMode.Fill);
+        }
+
+        private void actionCut(object sender, EventArgs e)
+        {
+            canvas.Cut();
+        }
+
+        private void actionCopy(object sender, EventArgs e)
+        {
+            canvas.Copy();
+        }
+
+        private void actionPaste(object sender, EventArgs e)
+        {
+            canvas.Paste();
+        }
+
+        private void actionClear(object sender, EventArgs e)
+        {
+            canvas.ClearMarquis();
+        }
+
+        private void actionLeft(object sender, EventArgs e)
+        {
+            canvas.Left(false);
+        }
+
+        private void actionUp(object sender, EventArgs e)
+        {
+            canvas.Up(false);
+        }
+
+        private void actionRight(object sender, EventArgs e)
+        {
+            canvas.Right(false);
+        }
+
+        private void actionDown(object sender, EventArgs e)
+        {
+            canvas.Down(false);
+        }
+
+        private void actionNarrower(object sender, EventArgs e)
+        {
+            canvas.Left(true);
+        }
+
+        private void actionShorter(object sender, EventArgs e)
+        {
+            canvas.Up(true);
+        }
+
+        private void actionWider(object sender, EventArgs e)
+        {
+            canvas.Right(true);
+        }
+
+        private void actionTaller(object sender, EventArgs e)
+        {
+            canvas.Down(true);
         }
     }
 }

@@ -36,6 +36,18 @@ namespace carbon14.FuryStudio.FuryPaint.Components
             }
         }
 
+        public void ZoomIn()
+        {
+            _image.Zoom++;
+            UpdateStatus();
+        }
+
+        public void ZoomOut()
+        {
+            _image.Zoom--;
+            UpdateStatus();
+        }
+
 
     }
 }

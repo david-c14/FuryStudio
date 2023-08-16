@@ -12,6 +12,7 @@ namespace carbon14.FuryStudio.FuryPaint.Classes
             Cursor = 2,
             Mode = 4,
             Marquis = 8,
+            Clipboard = 16,
         }
 
         public Point Cursor { get; set; }
@@ -19,5 +20,7 @@ namespace carbon14.FuryStudio.FuryPaint.Classes
         public CanvasPanel.EditMode Mode { get; set; } = CanvasPanel.EditMode.None;
         public Flags Changed { get; set; }
         public Rectangle Marquis { get; set; }
+        public Rectangle Clipboard { get; set; }
+        public int Zoom { get; set; }
     }
 }

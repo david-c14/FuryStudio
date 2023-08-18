@@ -364,6 +364,7 @@ namespace carbon14.FuryStudio.FuryPaint.Components
                     } 
                 }
             }*/
+            /*
             if (_mode == EditMode.Paste)
             {
                 if (e.KeyCode == Keys.Escape)
@@ -376,7 +377,7 @@ namespace carbon14.FuryStudio.FuryPaint.Components
                     Mode = EditMode.Move;
                     return;
                 }
-            }
+            }*/
             if (_tempMode != EditMode.None)
             {
                 return;
@@ -530,7 +531,7 @@ namespace carbon14.FuryStudio.FuryPaint.Components
             }
             if (HasMarquis && !shift)
             {
-                if (Marquis.Right < (_image.Width - 1))
+                if (Marquis.Right < _image.Width)
                 {
                     _marquis.Offset(1, 0);
                     Invalidate();
@@ -540,7 +541,7 @@ namespace carbon14.FuryStudio.FuryPaint.Components
             }
             if (HasMarquis && shift)
             {
-                if (Marquis.Right < (_image.Width - 1))
+                if (Marquis.Right < _image.Width)
                 {
                     Marquis = new Rectangle(Marquis.Left, Marquis.Top, Marquis.Width + 1, Marquis.Height);
                     Invalidate();
@@ -564,7 +565,7 @@ namespace carbon14.FuryStudio.FuryPaint.Components
             }
             if (HasMarquis && !shift)
             {
-                if (Marquis.Bottom < (_image.Height - 1))
+                if (Marquis.Bottom < _image.Height)
                 {
                     _marquis.Offset(0, 1);
                     Invalidate();
@@ -574,7 +575,7 @@ namespace carbon14.FuryStudio.FuryPaint.Components
             }
             if (HasMarquis && shift)
             {
-                if (Marquis.Bottom < (_image.Height - 1))
+                if (Marquis.Bottom < _image.Height)
                 {
                     Marquis = new Rectangle(Marquis.Left, Marquis.Top, Marquis.Width, Marquis.Height + 1);
                     Invalidate();

@@ -127,12 +127,14 @@ namespace carbon14.FuryStudio.FuryPaint
                 statusLabelCursorX.Text = $"{x}";
                 statusLabelCursorSep.Text = "×";
                 statusLabelCursorY.Text = $"{y}";
+                statusLabelCursorCoords.Text = $"{(char)(65 + x / 16)}{(char)(65 + y / 16)}";
             }
             else
             {
                 statusLabelCursorX.Text = string.Empty;
                 statusLabelCursorSep.Text = string.Empty;
                 statusLabelCursorY.Text = string.Empty;
+                statusLabelCursorCoords.Text = string.Empty;
             }
             statusLabelZoom.Text = $"{e.Zoom}×";
             if ((e.Changed & CanvasStatus.Flags.Mode) > CanvasStatus.Flags.None)
@@ -167,7 +169,7 @@ namespace carbon14.FuryStudio.FuryPaint
             }
             if ((e.Changed & CanvasStatus.Flags.Clipboard) > CanvasStatus.Flags.None)
             {
-                if (e.Clipboard.Left < 0)
+                if (e.Clipboard.Left == int.MinValue)
                 {
                     statusLabelClipboardLeft.Text = string.Empty;
                     statusLabelClipboardSep1.Text = string.Empty;
@@ -227,7 +229,14 @@ namespace carbon14.FuryStudio.FuryPaint
 
         private void actionClear(object sender, EventArgs e)
         {
-            canvas.ClearMarquis();
+            if (canvas.Mode == CanvasPanel.EditMode.Paste)
+            {
+                canvas.ResetPaste();
+            }
+            else
+            {
+                canvas.ClearMarquis();
+            }
         }
 
         private void actionLeft(object sender, EventArgs e)
@@ -268,6 +277,26 @@ namespace carbon14.FuryStudio.FuryPaint
         private void actionTaller(object sender, EventArgs e)
         {
             canvas.Down(true);
+        }
+
+        private void actionAccept(object sender, EventArgs e)
+        {
+            if (canvas.Mode == CanvasPanel.EditMode.Paste)
+            {
+                canvas.Mode = CanvasPanel.EditMode.None;
+            }
+        }
+
+        private void menuItemEdit_Click(object sender, EventArgs e)
+        {
+            if (canvas.Mode == CanvasPanel.EditMode.Paste)
+            {
+                menuItemClear.Text = "Cance&l Paste";
+            }
+            else
+            {
+                menuItemClear.Text = "C&lear";
+            }
         }
     }
 }

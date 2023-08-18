@@ -66,6 +66,7 @@ namespace carbon14.FuryStudio.FuryPaint
             menuItemCut = new ToolStripMenuItem();
             menuItemPaste = new ToolStripMenuItem();
             menuItemClear = new ToolStripMenuItem();
+            menuItemAccept = new ToolStripMenuItem();
             menuItemEditSep1 = new ToolStripSeparator();
             menuItemUndo = new ToolStripMenuItem();
             menuItemRedo = new ToolStripMenuItem();
@@ -99,6 +100,7 @@ namespace carbon14.FuryStudio.FuryPaint
             toolTip = new ToolTip(components);
             saveFileDialog = new SaveFileDialog();
             canvas = new CanvasPanel();
+            statusLabelCursorCoords = new ToolStripStatusLabel();
             statusStrip.SuspendLayout();
             menuStrip.SuspendLayout();
             panelToolbar.SuspendLayout();
@@ -106,7 +108,7 @@ namespace carbon14.FuryStudio.FuryPaint
             // 
             // statusStrip
             // 
-            statusStrip.Items.AddRange(new ToolStripItem[] { statusImageZoom, statusLabelZoom, statusImageCursor, statusLabelCursorX, statusLabelCursorSep, statusLabelCursorY, statusImageMarquis, statusLabelMarquisLeft, statusLabelMarquisSep1, statusLabelMarquisTop, statusLabelMarquisSpace, statusLabelMarquisWidth, statusLabelMarquisSep2, statusLabelMarquisHeight, statusImageClipboard, statusLabelClipboardLeft, statusLabelClipboardSep1, statusLabelClipboardTop, statusLabelClipboardSpace, statusLabelClipboardWidth, statusLabelClipboardSep2, statusLabelClipboardHeight });
+            statusStrip.Items.AddRange(new ToolStripItem[] { statusImageZoom, statusLabelZoom, statusImageCursor, statusLabelCursorX, statusLabelCursorSep, statusLabelCursorY, statusLabelCursorCoords, statusImageMarquis, statusLabelMarquisLeft, statusLabelMarquisSep1, statusLabelMarquisTop, statusLabelMarquisSpace, statusLabelMarquisWidth, statusLabelMarquisSep2, statusLabelMarquisHeight, statusImageClipboard, statusLabelClipboardLeft, statusLabelClipboardSep1, statusLabelClipboardTop, statusLabelClipboardSpace, statusLabelClipboardWidth, statusLabelClipboardSep2, statusLabelClipboardHeight });
             statusStrip.Location = new Point(0, 428);
             statusStrip.Name = "statusStrip";
             statusStrip.Size = new Size(800, 22);
@@ -120,7 +122,7 @@ namespace carbon14.FuryStudio.FuryPaint
             statusImageZoom.Image = Properties.Resources.zoom;
             statusImageZoom.ImageAlign = ContentAlignment.MiddleRight;
             statusImageZoom.Name = "statusImageZoom";
-            statusImageZoom.Size = new Size(25, 17);
+            statusImageZoom.Size = new Size(20, 17);
             // 
             // statusLabelZoom
             // 
@@ -131,11 +133,13 @@ namespace carbon14.FuryStudio.FuryPaint
             // statusImageCursor
             // 
             statusImageCursor.AutoSize = false;
+            statusImageCursor.BorderSides = ToolStripStatusLabelBorderSides.Left;
+            statusImageCursor.BorderStyle = Border3DStyle.Etched;
             statusImageCursor.DisplayStyle = ToolStripItemDisplayStyle.Image;
             statusImageCursor.Image = Properties.Resources.cursor;
             statusImageCursor.ImageAlign = ContentAlignment.MiddleRight;
             statusImageCursor.Name = "statusImageCursor";
-            statusImageCursor.Size = new Size(16, 17);
+            statusImageCursor.Size = new Size(20, 17);
             // 
             // statusLabelCursorX
             // 
@@ -158,11 +162,13 @@ namespace carbon14.FuryStudio.FuryPaint
             // statusImageMarquis
             // 
             statusImageMarquis.AutoSize = false;
+            statusImageMarquis.BorderSides = ToolStripStatusLabelBorderSides.Left;
+            statusImageMarquis.BorderStyle = Border3DStyle.Etched;
             statusImageMarquis.DisplayStyle = ToolStripItemDisplayStyle.Image;
             statusImageMarquis.Image = Properties.Resources.layer_shape;
             statusImageMarquis.ImageAlign = ContentAlignment.MiddleRight;
             statusImageMarquis.Name = "statusImageMarquis";
-            statusImageMarquis.Size = new Size(25, 17);
+            statusImageMarquis.Size = new Size(20, 17);
             // 
             // statusLabelMarquisLeft
             // 
@@ -209,11 +215,13 @@ namespace carbon14.FuryStudio.FuryPaint
             // statusImageClipboard
             // 
             statusImageClipboard.AutoSize = false;
+            statusImageClipboard.BorderSides = ToolStripStatusLabelBorderSides.Left;
+            statusImageClipboard.BorderStyle = Border3DStyle.Etched;
             statusImageClipboard.DisplayStyle = ToolStripItemDisplayStyle.Image;
             statusImageClipboard.Image = Properties.Resources.page_white_paste;
             statusImageClipboard.ImageAlign = ContentAlignment.MiddleRight;
             statusImageClipboard.Name = "statusImageClipboard";
-            statusImageClipboard.Size = new Size(25, 17);
+            statusImageClipboard.Size = new Size(20, 17);
             // 
             // statusLabelClipboardLeft
             // 
@@ -277,7 +285,7 @@ namespace carbon14.FuryStudio.FuryPaint
             // 
             menuItemOpenFile.Image = Properties.Resources.folder;
             menuItemOpenFile.Name = "menuItemOpenFile";
-            menuItemOpenFile.Size = new Size(180, 22);
+            menuItemOpenFile.Size = new Size(112, 22);
             menuItemOpenFile.Text = "&Open...";
             menuItemOpenFile.Click += actionOpenFile;
             // 
@@ -285,7 +293,7 @@ namespace carbon14.FuryStudio.FuryPaint
             // 
             menuItemSaveFile.Image = Properties.Resources.diskette;
             menuItemSaveFile.Name = "menuItemSaveFile";
-            menuItemSaveFile.Size = new Size(180, 22);
+            menuItemSaveFile.Size = new Size(112, 22);
             menuItemSaveFile.Text = "&Save...";
             menuItemSaveFile.Click += actionSaveFile;
             // 
@@ -300,7 +308,7 @@ namespace carbon14.FuryStudio.FuryPaint
             // 
             menuItemZoomIn.Image = Properties.Resources.zoom_in;
             menuItemZoomIn.Name = "menuItemZoomIn";
-            menuItemZoomIn.Size = new Size(180, 22);
+            menuItemZoomIn.Size = new Size(129, 22);
             menuItemZoomIn.Text = "Zoom &In";
             menuItemZoomIn.Click += actionZoomIn;
             // 
@@ -308,16 +316,17 @@ namespace carbon14.FuryStudio.FuryPaint
             // 
             menuItemZoomOut.Image = Properties.Resources.zoom_out;
             menuItemZoomOut.Name = "menuItemZoomOut";
-            menuItemZoomOut.Size = new Size(180, 22);
+            menuItemZoomOut.Size = new Size(129, 22);
             menuItemZoomOut.Text = "Zoom &Out";
             menuItemZoomOut.Click += actionZoomOut;
             // 
             // menuItemEdit
             // 
-            menuItemEdit.DropDownItems.AddRange(new ToolStripItem[] { menuItemCopy, menuItemCut, menuItemPaste, menuItemClear, menuItemEditSep1, menuItemUndo, menuItemRedo });
+            menuItemEdit.DropDownItems.AddRange(new ToolStripItem[] { menuItemCopy, menuItemCut, menuItemPaste, menuItemClear, menuItemAccept, menuItemEditSep1, menuItemUndo, menuItemRedo });
             menuItemEdit.Name = "menuItemEdit";
             menuItemEdit.Size = new Size(39, 20);
             menuItemEdit.Text = "&Edit";
+            menuItemEdit.Click += menuItemEdit_Click;
             // 
             // menuItemCopy
             // 
@@ -353,6 +362,14 @@ namespace carbon14.FuryStudio.FuryPaint
             menuItemClear.Size = new Size(180, 22);
             menuItemClear.Text = "C&lear";
             menuItemClear.Click += actionClear;
+            // 
+            // menuItemAccept
+            // 
+            menuItemAccept.Name = "menuItemAccept";
+            menuItemAccept.ShortcutKeys = Keys.Insert;
+            menuItemAccept.Size = new Size(180, 22);
+            menuItemAccept.Text = "&Accept";
+            menuItemAccept.Click += actionAccept;
             // 
             // menuItemEditSep1
             // 
@@ -682,6 +699,13 @@ namespace carbon14.FuryStudio.FuryPaint
             canvas.TabIndex = 5;
             canvas.StatusChanged += canvasStatusChangedHandler;
             // 
+            // statusLabelCursorCoords
+            // 
+            statusLabelCursorCoords.AutoSize = false;
+            statusLabelCursorCoords.Name = "statusLabelCursorCoords";
+            statusLabelCursorCoords.Size = new Size(25, 17);
+            statusLabelCursorCoords.TextAlign = ContentAlignment.MiddleRight;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -774,5 +798,7 @@ namespace carbon14.FuryStudio.FuryPaint
         private ToolStripMenuItem menuItemShorter;
         private ToolStripMenuItem menuItemWider;
         private ToolStripMenuItem menuItemTaller;
+        private ToolStripMenuItem menuItemAccept;
+        private ToolStripStatusLabel statusLabelCursorCoords;
     }
 }

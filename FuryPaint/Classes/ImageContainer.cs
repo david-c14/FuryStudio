@@ -543,6 +543,10 @@ namespace carbon14.FuryStudio.FuryPaint.Classes
         }
         public Undo? Paste(Bitmap clipboardBitmap, Point offset)
         {
+            if (clipboardBitmap == null)
+            {
+                return null;
+            }
             Rectangle srcRect = new Rectangle(offset, clipboardBitmap.Size);
             if (!srcRect.IntersectsWith(Rectangle))
             {

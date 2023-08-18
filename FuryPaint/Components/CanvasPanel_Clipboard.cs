@@ -104,7 +104,7 @@ namespace carbon14.FuryStudio.FuryPaint.Components
             SetClipboardStatus();
         }
 
-        private void ResetPaste()
+        internal void ResetPaste()
         {
             _clipboardBitmap?.Dispose();
             _clipboardBitmap = null;

@@ -17,7 +17,7 @@ FuryOfTheFurries:
     Tight spaces - how narrow is narrow?
   mapWidth: 78
   mapHeight: 13
-  time: 3000
+  time: 6000
   map:
   - row: 1
     tiles: 
@@ -403,13 +403,13 @@ FuryOfTheFurries:
     - xy: TF
     - xy: TF
     - xy: TF
+    - xy: AA
+    - xy: AA
     - xy: TF
     - xy: TF
     - xy: TF
-    - xy: TF
-    - xy: TF
-    - xy: TF
-    - xy: TF
+    - xy: AA
+    - xy: II
     - xy: TF
     - xy: TF
     - xy: TF
@@ -487,9 +487,9 @@ FuryOfTheFurries:
     - xy: AA
     - xy: AA
     - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
+    - xy: TF
+    - xy: EH
+    - xy: SI
     - xy: AA
     - xy: AA
     - xy: AA
@@ -567,9 +567,9 @@ FuryOfTheFurries:
     - xy: AA
     - xy: AA
     - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
+    - xy: TF
+    - xy: FH
+    - xy: TF
     - xy: AA
     - xy: AA
     - xy: AA
@@ -647,9 +647,9 @@ FuryOfTheFurries:
     - xy: AA
     - xy: AA
     - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
+    - xy: TF
+    - xy: GH
+    - xy: TF
     - xy: AA
     - xy: AA
     - xy: AA
@@ -727,9 +727,9 @@ FuryOfTheFurries:
     - xy: AA
     - xy: AA
     - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
+    - xy: TF
+    - xy: HH
+    - xy: TF
     - xy: AA
     - xy: AA
     - xy: AA
@@ -807,9 +807,9 @@ FuryOfTheFurries:
     - xy: AA
     - xy: AA
     - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
+    - xy: TF
+    - xy: IH
+    - xy: TF
     - xy: AA
     - xy: AA
     - xy: AA
@@ -845,32 +845,32 @@ FuryOfTheFurries:
     - xy: AA
     - xy: AA
     - xy: AA
+    - xy: IK
+    - xy: JK
     - xy: AA
     - xy: AA
     - xy: AA
     - xy: AA
     - xy: AA
+    - xy: KK
     - xy: AA
     - xy: AA
     - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
     - xy: AA
     - xy: AA
     - xy: AA
@@ -905,23 +905,64 @@ FuryOfTheFurries:
     - xy: AA
     - xy: AA
     - xy: AA
+    - xy: EJ
+    - xy: FJ
+    - xy: GJ
+    - xy: HJ
+    - xy: IJ
+    - xy: JJ
+    - xy: KJ
+    - xy: LJ
     - xy: AA
     - xy: AA
     - xy: AA
+    - xy: EK
+    - xy: FK
+    - xy: GK
+    - xy: HK
     - xy: AA
     - xy: AA
     - xy: AA
+    - xy: IK
+    - xy: JK
     - xy: AA
     - xy: AA
     - xy: AA
     - xy: AA
     - xy: AA
     - xy: AA
+    - xy: KK
     - xy: AA
     - xy: AA
     - xy: AA
     - xy: AA
+    - xy: OG
+    - xy: NG
+    - xy: MG
+    - xy: LG
+    - xy: KG
+    - xy: JG
+    - xy: IG
+    - xy: HG
+    - xy: HG
+    - xy: GG
+    - xy: GG
+    - xy: FG
+    - xy: FG
+    - xy: EG
+    - xy: EG
     - xy: AA
+    - xy: LF
+    - xy: KF
+    - xy: JF
+    - xy: IF
+    - xy: HF
+    - xy: GF
+    - xy: GF
+    - xy: FF
+    - xy: FF
+    - xy: EF
+    - xy: EF
     - xy: AA
     - xy: AA
     - xy: AA
@@ -932,133 +973,92 @@ FuryOfTheFurries:
     - xy: AA
     - xy: AA
     - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
+    - xy: TF
+    - xy: TF
     - xy: AA
     - xy: AA
     - xy: AA
     - xy: AA
   - row: 13
     tiles: 
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
-    - xy: AA
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: AA
+    - xy: AA
+    - xy: TF
   decorFile: 1
   spriteFile: 1
   startLeft: 24
@@ -1069,4 +1069,32 @@ FuryOfTheFurries:
     - left: 1216
       top: 56
       destination: 2
+  teleport:
+    - index: 1
+      sourceX: 1104
+      sourceY: 160
+      destX: 1104
+      destY: 16
+    - index: 2
+      sourceX: 1124
+      sourceY: 152
+      destX: 1124
+      destY: 12
+    - index: 3
+      sourceX: 1144
+      sourceY: 144
+      destX: 1144
+      destY: 8
+    - index: 4
+      sourceX: 1164
+      sourceY: 136
+      destX: 1164
+      destY: 4
+    - index: 5
+      sourceX: 1184
+      sourceY: 128
+      destX: 1184
+      destY: 0
+
+      
 

@@ -464,4 +464,5 @@ Utils/build/*
 ##
 ## Experiments
 ##
-testassets/experiments/*.BIN
+doc/reference/experiments/*.BIN
+doc/reference/experiments/*.cmd

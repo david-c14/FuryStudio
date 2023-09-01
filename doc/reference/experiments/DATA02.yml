@@ -1,0 +1,168 @@
+# yaml-language-server: $schema=https://schema.submarine.org.uk/carbon14/FuryStudio/2023-07/FuryOfTheFurries.json
+FuryOfTheFurries:
+  comment: |-
+    Experiment 2
+    Teleport tests.
+    Test trigger points for teleports
+    Also test trigger points for exits
+    and sparkle location mapping for teleports
+    Main level. Goes to bonus levels 100, 101, 102, 104
+  mapWidth: 20
+  mapHeight: 15
+  time: 18090
+  map:
+  - row: 3
+    tiles:
+    - xy: TF
+    - xy: TF
+    - xy: TF
+  - row: 5
+    tiles:
+    - xy: AH
+    - xy: BH
+  - row: 6
+    tiles:
+    - xy: QU
+    - xy: QU
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+  - row: 8
+    tiles:
+    - xy: AA
+    - xy: AA
+    - xy: AA
+    - xy: AH
+    - xy: BH
+  - row: 9
+    tiles:
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: RU
+    - xy: RU
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+  - row: 11
+    tiles:
+    - xy: AA
+    - xy: AA
+    - xy: AA
+    - xy: AA
+    - xy: AA
+    - xy: AA
+    - xy: AH
+    - xy: BH
+  - row: 12
+    tiles:
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: SU
+    - xy: SU
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+  - row: 14
+    tiles:
+    - xy: AA
+    - xy: AA
+    - xy: AA
+    - xy: AA
+    - xy: AA
+    - xy: AA
+    - xy: AA
+    - xy: AA
+    - xy: AA
+    - xy: AH
+    - xy: BH
+    - xy: AA
+    - xy: AA
+    - xy: AA
+    - xy: AA
+    - xy: AA
+    - xy: AA
+    - xy: AA
+    - xy: AH
+    - xy: BH
+  - row: 15
+    tiles:
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TU
+    - xy: TU
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+    - xy: TF
+  decorFile: 1
+  spriteFile: 1
+  startLeft: 0
+  startTop: 0
+  foreground: 9
+  start: [green]
+  exits:
+    - left: 304
+      top: 216
+      destination: 3
+    - left: 16
+      top: 72
+      destination: 100
+      options: [bonus]
+    - left: 64
+      top: 120
+      destination: 101
+      options: [bonus]
+    - left: 112
+      top: 168
+      destination: 102
+      options: [bonus]
+    - left: 160
+      top: 216
+      destination: 103
+      options: [bonus]
+  teleport:
+    - sourceX: 188
+      sourceY: 28
+      destX: 24
+      destY: 24
+    - sourceX: 205
+      sourceY: 29
+      destX: 24
+      destY: 24
+    - sourceX: 222
+      sourceY: 30
+      destX: 24
+      destY: 24
+    - sourceX: 239
+      sourceY: 31
+      destX: 24
+      destY: 24
+    - sourceX: 256
+      sourceY: 32
+      destX: 24
+      destY: 24
+
+      
+
+
+  

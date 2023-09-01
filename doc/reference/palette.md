@@ -14,7 +14,9 @@ These palette of 1 of these files (either the tilemap or the spritemap TBC) is u
 
 Whether or not areas of the level are considered foreground (which the furry will bump into) or background (which the furry can pass over) is determined by the colors of the pixels in the tiles.
 
-Palette entry 0 is always foreground, and is typically colored black. The [foreground](map_schema.md#FuryOfTheFurries.foreground) entry in the level data determines which other colors are foreground. Palette entries below this value are background, palette entries equal to or above this value are foreground.
+Palette entry 0 is always foreground, and is typically colored black. The [foreground](map_schema.md#furyofthefurriesforeground) entry in the level data determines which other colors are foreground. Palette entries below this value are background, palette entries equal to or above this value are foreground. 
+
+<sup>[1](experiments/experiment1.md)</sup>
 
 ## Furry colors
 
@@ -39,10 +41,12 @@ The actual colours used are :-
 
 Palette entry 15 is typically white.
 
+<sup>[1](experiments/experiment1.md)</sup>
+
 The level data also specifies other palette entries for specific uses. These can vary from level to level :-
 
-* [The color used for water](map_schema.md#FurryOfTheFurries.water) TBC
+* [The color used for water](map_schema.md#furyofthefurrieswater) TBC
 
-* [The color used for air](map_schema.md#FurryOfTheFurries.air) TBC
+* [The color used for air](map_schema.md#furyofthefurriesair) TBC
 
-* [The color used for dust](map_schema.md#FurryOfTheFurries.motes) TBC
+* [The color used for dust](map_schema.md#furyofhhefurriesmotes) TBC

@@ -387,8 +387,10 @@ TEST_CASE("Given a file in yaml format When the file is loaded Then the binary d
 	REQUIRE(bin.sprites[1].states[1].spriteExitTrigger.right == 45);
 	REQUIRE(bin.sprites[1].states[1].spriteExitTrigger.bottom == 50);
 	REQUIRE(bin.sprites[1].states[1].destroy == 1);
-	REQUIRE(bin.sprites[1].states[1].emptyWater == 0x60A);
-	REQUIRE(bin.sprites[1].states[1].fillWater == 0x40F);
+	REQUIRE(bin.sprites[1].states[1].emptyWater.speed == 0xA);
+	REQUIRE(bin.sprites[1].states[1].emptyWater.region == 0x6);
+	REQUIRE(bin.sprites[1].states[1].fillWater.speed == 0xF);
+	REQUIRE(bin.sprites[1].states[1].fillWater.region == 0x4);
 	REQUIRE(bin.sprites[1].states[1].destWaterState == 1);
 	REQUIRE(bin.sprites[1].states[1].waterTriggerLeft == 45);
 	REQUIRE(bin.sprites[1].states[1].waterTriggerTop == 40);

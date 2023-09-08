@@ -11,7 +11,7 @@ namespace carbon14.FuryStudio.Utils
         {
             public byte x;
             public byte y;
-        };
+        }
 
         [StructLayout(LayoutKind.Sequential, Pack = 1)]
         public struct Row
@@ -26,7 +26,7 @@ namespace carbon14.FuryStudio.Utils
             public ushort left;
             public ushort top;
             public ushort destination;
-        };
+        }
 
         [StructLayout(LayoutKind.Sequential, Pack = 1)]
         public struct Water
@@ -44,7 +44,7 @@ namespace carbon14.FuryStudio.Utils
             public ushort srcY;
             public ushort destX;
             public ushort destY;
-        };
+        }
 
         [StructLayout(LayoutKind.Sequential, Pack = 1)]
         public struct Nonstick
@@ -53,7 +53,7 @@ namespace carbon14.FuryStudio.Utils
             public ushort top;
             public ushort right;
             public ushort bottom;
-        };
+        }
 
         [StructLayout(LayoutKind.Sequential, Pack = 1)]
         public struct Acid
@@ -62,7 +62,7 @@ namespace carbon14.FuryStudio.Utils
             public ushort top;
             public ushort right;
             public ushort bottom;
-        };
+        }
 
         [StructLayout(LayoutKind.Sequential, Pack = 1)]
         public struct Danger
@@ -71,7 +71,7 @@ namespace carbon14.FuryStudio.Utils
             public ushort top;
             public ushort right;
             public ushort bottom;
-        };
+        }
 
         [StructLayout(LayoutKind.Sequential, Pack = 1)]
         public struct Field
@@ -80,7 +80,7 @@ namespace carbon14.FuryStudio.Utils
             public ushort top;
             public ushort right;
             public ushort bottom;
-        };
+        }
 
         [StructLayout(LayoutKind.Sequential, Pack = 1)]
         public struct Current
@@ -90,14 +90,14 @@ namespace carbon14.FuryStudio.Utils
             public ushort right;
             public ushort bottom;
             public ushort flags;
-        };
+        }
 
         [StructLayout(LayoutKind.Sequential, Pack = 1)]
         public struct ExitReturn
         {
             public ushort left;
             public ushort top;
-        };
+        }
 
         [StructLayout(LayoutKind.Sequential, Pack = 1)]
         public struct Trigger
@@ -107,7 +107,7 @@ namespace carbon14.FuryStudio.Utils
             public ushort top;
             public ushort right;
             public ushort bottom;
-        };
+        }
 
         [StructLayout(LayoutKind.Sequential, Pack = 1)]
         public struct Region
@@ -125,7 +125,14 @@ namespace carbon14.FuryStudio.Utils
             public ushort top;
             public ushort right;
             public ushort bottom;
-        };
+        }
+
+        [StructLayout(LayoutKind.Sequential, Pack = 1)]
+        public struct Flow
+        {
+            public byte region;
+            public byte speed;
+        }
 
         [StructLayout(LayoutKind.Sequential, Pack = 1)]
         public struct State
@@ -145,8 +152,8 @@ namespace carbon14.FuryStudio.Utils
             public Trigger spriteExitTrigger;
             public byte destroy;
             public byte bounce;
-            public ushort emptyWater;
-            public ushort fillWater;
+            public Flow emptyWater;
+            public Flow fillWater;
             public ushort unknown1;
             public ushort unknown2;
             public ushort waterTriggerLeft;
@@ -159,7 +166,7 @@ namespace carbon14.FuryStudio.Utils
             public byte cycleCount;
             public byte animationTriggerState;
             public ushort waterTriggerBottom;
-        };
+        }
 
         [StructLayout(LayoutKind.Sequential, Pack = 1)]
         public struct Sprite
@@ -215,7 +222,7 @@ namespace carbon14.FuryStudio.Utils
             public ushort fireType;
             [MarshalAs(UnmanagedType.ByValArray, SizeConst = 10)]
             public State[] states;
-        };
+        }
 
         [StructLayout(LayoutKind.Sequential, Pack = 1)]
         public struct BinStruct

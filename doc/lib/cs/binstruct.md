@@ -9,7 +9,7 @@ public struct Tile
 {
 	public byte x;
 	public byte y;
-};
+}
 
 public struct Row
 {
@@ -21,7 +21,7 @@ public struct Exit
 	public ushort left;
 	public ushort top;
 	public ushort destination;
-};
+}
 
 public struct Water
 {
@@ -29,7 +29,7 @@ public struct Water
 	public ushort top;
 	public ushort right;
 	public ushort bottom;
-};
+}
 
 public struct Teleport
 {
@@ -37,7 +37,7 @@ public struct Teleport
 	public ushort srcY;
 	public ushort destX;
 	public ushort destY;
-};
+}
 
 public struct Nonstick
 {
@@ -45,7 +45,7 @@ public struct Nonstick
 	public ushort top;
 	public ushort right;
 	public ushort bottom;
-};
+}
 
 public struct Acid
 {
@@ -53,7 +53,7 @@ public struct Acid
 	public ushort top;
 	public ushort right;
 	public ushort bottom;
-};
+}
 
 public struct Danger
 {
@@ -61,7 +61,7 @@ public struct Danger
 	public ushort top;
 	public ushort right;
 	public ushort bottom;
-};
+}
 
 public struct Field
 {
@@ -69,7 +69,7 @@ public struct Field
 	public ushort top;
 	public ushort right;
 	public ushort bottom;
-};
+}
 
 public struct Current
 {
@@ -78,13 +78,13 @@ public struct Current
 	public ushort right;
 	public ushort bottom;
 	public ushort flags;
-};
+}
 
 public struct ExitReturn
 {
 	public ushort left;
 	public ushort top;
-};
+}
 
 public struct Trigger
 {
@@ -93,7 +93,7 @@ public struct Trigger
 	public ushort top;
 	public ushort right;
 	public ushort bottom;
-};
+}
 
 public struct Region
 {
@@ -109,7 +109,13 @@ public struct Frame
 	public ushort top;
 	public ushort right;
 	public ushort bottom;
-};
+}
+
+public struct Flow
+{
+	public byte region;
+	public byte speed;
+}
 
 public struct State
 {
@@ -128,20 +134,21 @@ public struct State
 	public Trigger spriteExitTrigger;
 	public byte destroy;
 	public byte bounce;
-	public ushort emptyWater;
-	public ushort fillWater;
+	public Flow emptyWater;
+	public Flow fillWater;
 	public ushort unknown1;
 	public ushort unknown2;
 	public ushort waterTriggerLeft;
 	public ushort waterTriggerTop;
 	public ushort waterTriggerRight;
-	public Frame[10] frames;
+	[MarshalAs(UnmanagedType.ByValArray, SizeConst = 10)]
+	public Frame[] frames;
 	public ushort animationSpeed;
 	public ushort cycle;
 	public byte cycleCount;
 	public byte animationTriggerState;
 	public ushort waterTriggerBottom;
-};
+}
 
 public struct Sprite
 {
@@ -195,7 +202,7 @@ public struct Sprite
 	public ushort fireRate;
 	public ushort fireType;
 	public State[10] states;
-};
+}
 
 public struct BinStruct
 {

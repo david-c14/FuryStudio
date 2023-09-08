@@ -113,6 +113,11 @@ struct Bin_Frame {
 	uint16_t bottom INIT(0xFFFF);
 };	
 
+struct Bin_Flow {
+	uint8_t region INIT(0);
+	uint8_t speed INIT(0);
+};
+
 struct Bin_State {
 	uint16_t left INIT(0xFFFF);
 	uint16_t top INIT(0xFFFF);
@@ -129,8 +134,8 @@ struct Bin_State {
 	struct Bin_Trigger spriteExitTrigger;
 	uint8_t destroy INIT(0);
 	uint8_t bounce INIT(0);
-	uint16_t emptyWater INIT(0);
-	uint16_t fillWater INIT(0);
+	struct Bin_Flow emptyWater;
+	struct Bin_Flow fillWater;
 	uint16_t unknown1 INIT(0);
 	uint16_t unknown2 INIT(0);
 	uint16_t waterTriggerLeft INIT(0xFFFF);

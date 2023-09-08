@@ -660,7 +660,7 @@ namespace {
 							else if (bin->sprites[i].states[j].movementType == 6) 
 								state["movementStyle"] << "none";
 							if (bin->sprites[i].states[j].gravity)
-								state["gravity"] << true;
+								state["gravity"] << "true";
 							if (bin->sprites[i].states[j].current) {
 								ryml::NodeRef current = state["current"];
 								current |= ryml::MAP;
@@ -712,17 +712,17 @@ namespace {
 								state["destroy"] << "true";
 							if (bin->sprites[i].states[j].bounce)
 								state["bounce"] << "true";
-							if (bin->sprites[i].states[j].emptyWater) {
+							if (bin->sprites[i].states[j].emptyWater.speed) {
 								ryml::NodeRef water = state["empty"];
 								water |= ryml::MAP;
-								water["index"] << (1 + (bin->sprites[i].states[j].emptyWater >> 8));
-								water["speed"] << (bin->sprites[i].states[j].emptyWater & 0xFF);
+								water["index"] << (1 + (bin->sprites[i].states[j].emptyWater.region));
+								water["speed"] << bin->sprites[i].states[j].emptyWater.speed;
 							}
-							if (bin->sprites[i].states[j].fillWater) {
+							if (bin->sprites[i].states[j].fillWater.speed) {
 								ryml::NodeRef water = state["fill"];
 								water |= ryml::MAP;
-								water["index"] << (1 + (bin->sprites[i].states[j].fillWater >> 8));
-								water["speed"] << (bin->sprites[i].states[j].fillWater & 0xFF);
+								water["index"] << (1 + (bin->sprites[i].states[j].fillWater.region));
+								water["speed"] << bin->sprites[i].states[j].fillWater.speed;
 							}
 							if (bin->sprites[i].states[j].waterTriggerLeft != 0xFFFF) {
 								ryml::NodeRef trigger = state["waterChangeRegion"];
@@ -1627,17 +1627,14 @@ namespace FuryUtils {
 								if (ref.has_child("index")) {
 									ryml::ConstNodeRef k = ref["index"];
 									if (k.is_keyval()) {
-										k >> this->sprites[i-1].states[j-1].emptyWater;
-										this->sprites[i-1].states[j-1].emptyWater--;
-										this->sprites[i-1].states[j-1].emptyWater <<= 8;
+										k >> this->sprites[i-1].states[j-1].emptyWater.region;
+										this->sprites[i-1].states[j-1].emptyWater.region--;
 									}
 								}
 								if (ref.has_child("speed")) {
 									ryml::ConstNodeRef k = ref["speed"];
 									if (k.is_keyval()) {
-										uint8_t speed;
-										k >> speed;
-										this->sprites[i-1].states[j-1].emptyWater += speed;
+										k >> this->sprites[i-1].states[j-1].emptyWater.speed;
 									}
 								}
 							}
@@ -1646,17 +1643,14 @@ namespace FuryUtils {
 								if (ref.has_child("index")) {
 									ryml::ConstNodeRef k = ref["index"];
 									if (k.is_keyval()) {
-										k >> this->sprites[i-1].states[j-1].fillWater;
-										this->sprites[i-1].states[j-1].fillWater--;
-										this->sprites[i-1].states[j-1].fillWater <<= 8;
+										k >> this->sprites[i-1].states[j-1].fillWater.region;
+										this->sprites[i-1].states[j-1].fillWater.region--;
 									}
 								}
 								if (ref.has_child("speed")) {
 									ryml::ConstNodeRef k = ref["speed"];
 									if (k.is_keyval()) {
-										uint8_t speed;
-										k >> speed;
-										this->sprites[i-1].states[j-1].fillWater += speed;
+										k >> this->sprites[i-1].states[j-1].fillWater.speed;
 									}
 								}
 							}

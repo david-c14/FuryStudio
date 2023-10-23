@@ -18,6 +18,7 @@ files used in unit tests and in code samples.
 - `basic.dat`			A dat file with compression.
 - `bigchunk.lbm`		An lbm file with a chunk size that overflows the file size.
 - `bigpal.lbm`			An lbm file with an oversized cmap section.
+- `full8out.pam`		A canonical 8-bpp pam with 8 bits per channel.
 - `invalidbmhd`			An lbm file with an incorrect header section size.
 - `mask.lbm`			An lbm file containing a mask.
 - `overflow.lbm`		An lbm file with compressed data that overflows.
@@ -32,7 +33,7 @@ files used in unit tests and in code samples.
 - `pal4out.bmp`			A canonical 4-bpp bitmap.
 - `pal4out.imm`			A canonical 4-bpp imm.
 - `pal4out.lbm`			A canonical 4-bpp lbm.
-- `pal4out.pam`			A canonical 4-bpp pam.
+- `pal4out.pam`			A canonical 4-bpp vga pam.
 - `pal4rle.bmp`			4-bpp image that uses RLE compression.
 - `pal8.bmp`			Paletted image, with 252 palette colors, and 8-bpp.
 - `pal8.imm`			An 8-bpp imm.
@@ -44,7 +45,7 @@ files used in unit tests and in code samples.
 - `pal8out.bmp`			A canonical 8-bpp bitmap.
 - `pal8out.imm`			A canonical 8-bpp imm.
 - `pal8out.lbm`			A canonical 8-bpp lbm.
-- `pal8out.pam`			A canonical 8-bpp pam.
+- `pal8out.pam`			A canonical 8-bpp vga pam.
 - `pal8qnt.bmp`			A canonical 8-bpp bitmap with a palette quantised to 6 bits.
 - `pal8qnt.lbm`			A canonical 8-bpp lbm with a palette quantised to 6 bits.
 - `pal8rle.bmp`			8-bpp image that uses RLE compression.

@@ -393,6 +393,30 @@ int main(int argc, char* argv[]) {
 	if (!strncmp(argv[1], "--version", 9)) {
 		return Version(argv[0]);
 	}
+	if (!strncmp(argv[1], "-8b", 3)) {
+		return ImmToBmp(argc, argv, false);
+	}
+	if (!strncmp(argv[1], "--imm8-to-bmp", 13)) {
+		return ImmToBmp(argc, argv, false);
+	}
+	if (!strncmp(argv[1], "-b8", 3)) {
+		return BmpToImm(argc, argv, false);
+	}
+	if (!strncmp(argv[1], "--bmp-to-imm8", 13)) {
+		return BmpToImm(argc, argv, false);
+	}
+	if (!strncmp(argv[1], "-8l", 3)) {
+		return ImmToLbm(argc, argv, false);
+	}
+	if (!strncmp(argv[1], "--imm8-to-lbm", 13)) {
+		return ImmToLbm(argc, argv, false);
+	}
+	if (!strncmp(argv[1], "-l8", 3)) {
+		return LbmToImm(argc, argv, false);
+	}
+	if (!strncmp(argv[1], "--lbm-to-imm8", 13)) {
+		return LbmToImm(argc, argv, false);
+	}
 	if (!strncmp(argv[1], "-ib", 3)) {
 		return ImmToBmp(argc, argv, true);
 	}
@@ -428,30 +452,6 @@ int main(int argc, char* argv[]) {
 	}
 	if (!strncmp(argv[1], "--lbm-to-bmp", 12)) {
 		return LbmToBmp(argc, argv);
-	}
-	if (!strncmp(argv[1], "-8b", 3)) {
-		return ImmToBmp(argc, argv, false);
-	}
-	if (!strncmp(argv[1], "--imm8-to-bmp", 13)) {
-		return ImmToBmp(argc, argv, false);
-	}
-	if (!strncmp(argv[1], "-b8", 3)) {
-		return BmpToImm(argc, argv, false);
-	}
-	if (!strncmp(argv[1], "--bmp-to-imm8", 13)) {
-		return BmpToImm(argc, argv, false);
-	}
-	if (!strncmp(argv[1], "-8l", 3)) {
-		return ImmToLbm(argc, argv, false);
-	}
-	if (!strncmp(argv[1], "--imm8-to-lbm", 13)) {
-		return ImmToLbm(argc, argv, false);
-	}
-	if (!strncmp(argv[1], "-l8", 3)) {
-		return LbmToImm(argc, argv, false);
-	}
-	if (!strncmp(argv[1], "--lbm-to-imm8", 13)) {
-		return LbmToImm(argc, argv, false);
 	}
 	return Usage(argv[0]);
 }

@@ -45,11 +45,52 @@ TEST_CASE("Given a sound bmp When used to create an imm Then the correct buffers
 	Test_Bmp_destroy(bmp);
 }
 
+TEST_CASE("Given a sound bmp When used to create an imm and 8bpp pam Then the correct buffers are returned") {
+	std::vector<uint8_t> inputFile = utils::ReadFile("pal8out.bmp");
+	std::vector<uint8_t> expectedPixelFile = utils::ReadFile("pal8out.imm");
+	std::vector<uint8_t> expectedPaletteFile = utils::ReadFile("full8out.pam");
+	bmp_p bmp = Test_Bmp_createFromBmp(inputFile.data(), uint32_t(inputFile.size()));
+	try {
+		std::vector<uint8_t> actualPixelFile(Test_Imm_immSize(bmp));
+		uint8_t result1 = Test_Imm_immBuffer(bmp, actualPixelFile.data(), uint32_t(actualPixelFile.size()));
+		std::vector<uint8_t> actualPaletteFile(Test_Imm_pamSize(bmp));
+		uint8_t result2 = Test_Imm_pamBuffer(bmp, actualPaletteFile.data(), uint32_t(actualPaletteFile.size()), 0);
+		REQUIRE(result1 == (uint8_t)true);
+		REQUIRE(result2 == (uint8_t)true);
+		REQUIRE(actualPixelFile.size() == expectedPixelFile.size());
+		REQUIRE(actualPaletteFile.size() == expectedPaletteFile.size());
+		REQUIRE(expectedPixelFile == actualPixelFile);
+		REQUIRE(expectedPaletteFile == actualPaletteFile);
+	}
+	catch (...) {
+
+	}
+	Test_Bmp_destroy(bmp);
+}
+
 TEST_CASE("Given a sound imm and pam When used to create a bmp Then the correct buffers are returned") {
 	std::vector<uint8_t> inputPixelFile = utils::ReadFile("pal8out.imm");
 	std::vector<uint8_t> inputPaletteFile = utils::ReadFile("pal8out.pam");
 	std::vector<uint8_t> expectedFile = utils::ReadFile("pal8qnt.bmp");
 	bmp_p bmp = Test_Bmp_createFromImmAndPam(inputPixelFile.data(), uint32_t(inputPixelFile.size()), inputPaletteFile.data(), uint32_t(inputPaletteFile.size()), 1);
+	try {
+		std::vector<uint8_t> actualFile(Test_Imm_size(bmp));
+		uint8_t result = Test_Imm_buffer(bmp, actualFile.data(), uint32_t(actualFile.size()));
+		REQUIRE(result == (uint8_t)true);
+		REQUIRE(actualFile.size() == expectedFile.size());
+		REQUIRE(expectedFile == actualFile);
+	}
+	catch (...) {
+
+	}
+	Test_Bmp_destroy(bmp);
+}
+
+TEST_CASE("Given a sound imm and 8bpp pam When used to create a bmp Then the correct buffers are returned") {
+	std::vector<uint8_t> inputPixelFile = utils::ReadFile("pal8out.imm");
+	std::vector<uint8_t> inputPaletteFile = utils::ReadFile("full8out.pam");
+	std::vector<uint8_t> expectedFile = utils::ReadFile("pal8out.bmp");
+	bmp_p bmp = Test_Bmp_createFromImmAndPam(inputPixelFile.data(), uint32_t(inputPixelFile.size()), inputPaletteFile.data(), uint32_t(inputPaletteFile.size()), 0);
 	try {
 		std::vector<uint8_t> actualFile(Test_Imm_size(bmp));
 		uint8_t result = Test_Imm_buffer(bmp, actualFile.data(), uint32_t(actualFile.size()));

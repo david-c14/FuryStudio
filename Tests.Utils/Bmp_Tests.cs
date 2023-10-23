@@ -49,6 +49,33 @@ namespace carbon14.FuryStudio.Tests.Utils
         }
 
         [Fact]
+        public void Given_a_valid_bmp_file_When_bmp_buffer_is_requested_Then_the_correct_8bpp_buffer_is_returned()
+        {
+            Bmp bmp = new Bmp(TestHelpers.ReadFile("pal8out.imm"), TestHelpers.ReadFile("full8out.pam"), false);
+            byte[] expectedBuffer = TestHelpers.ReadFile("pal8out.bmp");
+            byte[]? actualBuffer = bmp.Buffer;
+            Assert.True(actualBuffer?.SequenceEqual(expectedBuffer), "Buffer is not correct");
+            Assert.Equal(127, bmp.Width);
+            Assert.Equal(64, bmp.Height);
+            Assert.Equal(8, bmp.Depth);
+        }
+
+        [Fact]
+        public void Given_a_valid_bmp_file_When_pixel_and_8bpp_palette_buffers_are_requested_Then_the_correct_buffers_are_returned()
+        {
+            Bmp bmp = new Bmp(TestHelpers.ReadFile("pal8out.bmp"));
+            byte[] expectedPixelBuffer = TestHelpers.ReadFile("pal8out.imm");
+            byte[] expectedPaletteBuffer = TestHelpers.ReadFile("full8out.pam");
+            byte[]? actualPixelBuffer = bmp.ImmBuffer;
+            byte[]? actualPaletteBuffer = bmp.PaletteBuffer;
+            Assert.True(actualPixelBuffer?.SequenceEqual(expectedPixelBuffer), "Imm buffer is not correct");
+            Assert.True(actualPaletteBuffer?.SequenceEqual(expectedPaletteBuffer), "Pam buffer is not correct");
+            Assert.Equal(127, bmp.Width);
+            Assert.Equal(64, bmp.Height);
+            Assert.Equal(8, bmp.Depth);
+        }
+
+        [Fact]
         public void Given_a_valid_bmp_file_When_bmp_buffer_is_requested_Then_the_correct_buffer_is_returned()
         {
             Bmp bmp = new Bmp(TestHelpers.ReadFile("pal8out.imm"), TestHelpers.ReadFile("pal8out.pam"), true);
@@ -59,7 +86,6 @@ namespace carbon14.FuryStudio.Tests.Utils
             Assert.Equal(64, bmp.Height);
             Assert.Equal(8, bmp.Depth);
         }
-
         [Fact]
         public void Given_a_valid_bmp_When_another_bmp_is_constructed_Then_the_correct_buffer_is_returned()
         {

@@ -59,6 +59,33 @@ namespace carbon14.FuryStudio.Tests.Utils
             Assert.Equal(64, lbm.Height);
             Assert.Equal(8, lbm.Depth);
         }
+        [Fact]
+        public void Given_a_valid_lbm_file_When_pixel_and_8bpp_palette_buffers_are_requested_Then_the_correct_buffers_are_returned()
+        {
+            Lbm lbm = new Lbm(TestHelpers.ReadFile("pal8out.lbm"));
+            byte[] expectedPixelBuffer = TestHelpers.ReadFile("pal8out.imm");
+            byte[] expectedPaletteBuffer = TestHelpers.ReadFile("full8out.pam");
+            byte[]? actualPixelBuffer = lbm.ImmBuffer;
+            byte[]? actualPaletteBuffer = lbm.PaletteBuffer;
+            Assert.True(actualPixelBuffer?.SequenceEqual(expectedPixelBuffer), "Imm buffer is not correct");
+            Assert.True(actualPaletteBuffer?.SequenceEqual(expectedPaletteBuffer), "Pam buffer is not correct");
+            Assert.Equal(127, lbm.Width);
+            Assert.Equal(64, lbm.Height);
+            Assert.Equal(8, lbm.Depth);
+        }
+
+        [Fact]
+        public void Given_a_valid_lbm_file_When_bmp_buffer_is_requested_Then_the_correct_8bpp_buffer_is_returned()
+        {
+            Lbm lbm = new Lbm(TestHelpers.ReadFile("pal8out.imm"), TestHelpers.ReadFile("full8out.pam"), false);
+            byte[] expectedBuffer = TestHelpers.ReadFile("pal8out.lbm");
+            byte[]? actualBuffer = lbm.Buffer;
+            Assert.True(actualBuffer?.SequenceEqual(expectedBuffer), "Buffer is not correct");
+            Assert.Equal(127, lbm.Width);
+            Assert.Equal(64, lbm.Height);
+            Assert.Equal(8, lbm.Depth);
+        }
+
 
         [Fact]
         public void Given_a_valid_lbm_When_another_lbm_is_constructed_Then_the_correct_buffer_is_returned()

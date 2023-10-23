@@ -12,7 +12,12 @@ namespace {
 	"Convert IMM/PAM to LBM\n" "\tImmFile -il immfile pamfile lbmfile\n" "\tImmFile --imm-to-lbm immfile pamfile lbmfile\n\n"
 	"Convert LBM to IMM/PAM\n" "\tImmFile -li lbmfile immfile pamfile\n" "\tImmFile --lbm-to-imm lbmfile immfile pamfile\n\n"
 	"Convert BMP to LBM\n"     "\tImmFile -bl bmpfile lbmfile\n"         "\tImmFile --bmp-to-lbm bmpfile lbmfile\n\n"
-	"Convert LBM to BMP\n"     "\tImmFile -lb lbmfile bmpfile\n"         "\tImmFile --lbm-to-bmp lbmfile bmpfile\n\n";
+	"Convert LBM to BMP\n"     "\tImmFile -lb lbmfile bmpfile\n"         "\tImmFile --lbm-to-bmp lbmfile bmpfile\n\n"
+	"Conversions with 8-bits per channel palette:\n\n"
+	"Convert IMM/PAM to BMP\n" "\tImmFile -8b immfile pamfile bmpfile\n" "\tImmFile --imm8-to-bmp immfile pamfile bmpfile\n\n"
+	"Convert BMP to IMM/PAM\n" "\tImmFile -b8 bmpfile immfile pamfile\n" "\tImmFile --bmp-to-imm8 bmpfile immfile pamfile\n\n"
+	"Convert IMM/PAM to LBM\n" "\tImmFile -8l immfile pamfile lbmfile\n" "\tImmFile --imm8-to-lbm immfile pamfile lbmfile\n\n"
+	"Convert LBM to IMM/PAM\n" "\tImmFile -l8 lbmfile immfile pamfile\n" "\tImmFile --lbm-to-imm8 lbmfile immfile pamfile\n\n";
 			
 #include "../src/version.hpp"
 			

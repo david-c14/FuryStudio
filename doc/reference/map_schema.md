@@ -32,23 +32,23 @@ The time on the clock when the level starts. This is a number given in 30ths of 
 
 #### FuryOfTheFurries.map
 
-TBD
+The tiles for the static landscape of the map. Contains an array of up to 51 elements
 
 #### FuryOfTheFurries.map.row
 
-TBD
+The 1-based index of the row from the top of the map down. This field is mandatory, but you can skip entire rows.
 
 #### FuryOfTheFurries.map.tiles
 
-TBD
+An array of tiles on this row.
 
 #### FuryOfTheFurries.map.tiles.column
 
-TBD
+The 1-based index of the column, from the left of the map to the right. This field is optional. By specifying an index, you can skip columns if they contain only [blank tiles](tilemap.md#tile-00).
 
 #### FuryOfTheFurries.map.tiles.xy
 
-TBD
+Which tile in the [tilemap](tilemap.md) should be used for this place in the map. This is two uppercase letters; the first character indicates column in the tilemap (from A-T) the second gives the row (from A-Y)
 
 #### FuryOfTheFurries.decorFile
 
@@ -60,15 +60,15 @@ TBD
 
 #### FuryOfTheFurries.startLeft
 
-TBD
+This is the starting position of the furry. A value of 0 indicates that the centre of the furry will be 24 pixels in from the left edge of the map, higher values proceed in pixels toward the right.
 
 #### FuryOfTheFurries.startTop
 
-TBD
+This is the starting position of the furry. A value of 0 indicates that the centre of the furry will be 24 pixels down from the top edge of the map, higher values proceed in pixels downward.
 
 #### FuryOfTheFurries.foreground
 
-TBD
+This is which colour in the [palette](palette.md#foreground--background) is the first colour which should be regarded as foreground (after colour 0 which is always foreground). So a value of 9 indicates that colours 9-15 would be foreground and colours 1-8 would be background
 
 #### FuryOfTheFurries.water
 
@@ -84,35 +84,37 @@ TBD
 
 #### FuryOfTheFurries.exits
 
-TBD
+An array of up to 5 exits. When the furry touches the point defined by [left](#furyofthefurriesexitsleft) and [top](#furyofthefurriesexitstop) the furry will leave the level. Either to the next level, to another part of this level, or to a bonus level.
 
 #### FuryOfTheFurries.exits.index
 
-TBD
+The 1-based index of this exit. This field is optional and can be used if you wish to skip exits.
 
 #### FuryOfTheFurries.exits.left
 
-TBD
+The position of the exit in pixels from the left of the map
 
 #### FuryOfTheFurries.exits.top
 
-TBD
+The position of the exit in pixels from the top of the map
 
 #### FuryOfTheFurries.exits.destination
 
-TBD
+The 1-based index of the next level.
 
 #### FuryOfTheFurries.exits.returnLeft
 
-TBD
+The position of the furry in pixels from the left of the map when returning from another part of the level, or from a bonus level.
 
 #### FuryOfTheFurries.exits.returnTop
 
-TBD
+The position of the furry in pixels from the top of the map when returning from another part of the level, or from a bonus level.
 
 #### FuryOfTheFurries.exits.options (bonus, smooth)
 
-TBD
+An array containg optional values.  
+*bonus* means that the destination is a bonus level. A particular animation is used to indicate bonus levels. When the furry exits the bonus level, it will return to the position indicated by [returnLeft](#furyofthefurriesexitsreturnLeft) and [returnTop](#furyofthefurriesexitsreturntop)  
+*smooth* means that no animation should be played. This is typically used when the next level is not a bonus level but is instead another part of this level.
 
 #### FuryOfTheFurries.water1
 

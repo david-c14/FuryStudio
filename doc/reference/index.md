@@ -22,7 +22,7 @@ J K L [M](#m) N O [P](#p) Q [R](#r)
 [Furry - Red](#R)
 
 ## M
-[Map](map_schema.md)
+[Map](map_schema.md#furyofthefurriesmap)
 
 ## P
 [Palette](palette.md)

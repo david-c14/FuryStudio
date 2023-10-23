@@ -10,7 +10,7 @@ namespace FuryUtils {
 
 		}
 
-		Imm::Imm(std::vector<uint8_t> &inputPalette, std::vector<uint8_t> &inputPixels) {
+		Imm::Imm(std::vector<uint8_t> &inputPalette, std::vector<uint8_t> &inputPixels, char vga) {
 			uint32_t inputSize = uint32_t(inputPixels.size());
 			if (inputSize < 9) {
 				Exceptions::ERROR(Exceptions::INVALID_FORMAT, Exceptions::ERROR_IMM_SHORT_HEADER);
@@ -45,7 +45,7 @@ namespace FuryUtils {
 			uint8_t *paletteArray = (uint8_t *)(paletteVector.data());
 			memcpy(paletteArray, inputPalette.data(), 768);
 			for (unsigned int i = 0; i < 768; i++) {
-				*paletteArray = (*paletteArray) << 2;
+				*paletteArray = (*paletteArray) << (2 * vga);
 				paletteArray++;
 			}
 			_depth = 8;
@@ -89,12 +89,12 @@ namespace FuryUtils {
 			return uint32_t(1 << _depth) * sizeof(RGBTriple);
 		}
 
-		void Imm::PamBuffer(std::vector<uint8_t> &inputBuffer) {
+		void Imm::PamBuffer(std::vector<uint8_t> &inputBuffer, char vga) {
 			std::vector<uint8_t> outputBuffer(_palette.size() * sizeof(RGBTriple));
 			uint8_t *outputArray = outputBuffer.data();
 			memcpy(outputArray, _palette.data(), _palette.size() * sizeof(RGBTriple));
 			for (unsigned int i = 0; i < outputBuffer.size(); i++) {
-				outputArray[i] = (outputArray[i] >> 2);
+				outputArray[i] = (outputArray[i] >> (2 * vga));
 			}
 
 			inputBuffer.swap(outputBuffer);

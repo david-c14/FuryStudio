@@ -13,7 +13,7 @@ TEST_CASE("Given a 4bpp bmp When the file is used to construct an imm Then the i
 	std::vector<uint8_t> actualImm;
 	std::vector<uint8_t> actualPam;
 	bmp.ImmBuffer(actualImm);
-	bmp.PamBuffer(actualPam);
+	bmp.PamBuffer(actualPam, 1);
 
 	REQUIRE(actualImm == expectedImm);
 	REQUIRE(actualPam == expectedPam);
@@ -31,7 +31,7 @@ TEST_CASE("Given an 8bpp bmp When the file is used to construct an imm Then the 
 	std::vector<uint8_t> actualImm;
 	std::vector<uint8_t> actualPam;
 	bmp.ImmBuffer(actualImm);
-	bmp.PamBuffer(actualPam);
+	bmp.PamBuffer(actualPam, 1);
 
 	REQUIRE(actualImm == expectedImm);
 	REQUIRE(actualPam == expectedPam);
@@ -49,7 +49,7 @@ TEST_CASE("Given an 8bpp quantized bmp When the file is used to construct an imm
 	std::vector<uint8_t> actualImm;
 	std::vector<uint8_t> actualPam;
 	bmp.ImmBuffer(actualImm);
-	bmp.PamBuffer(actualPam);
+	bmp.PamBuffer(actualPam, 1);
 
 	REQUIRE(actualImm == expectedImm);
 	REQUIRE(actualPam == expectedPam);

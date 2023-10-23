@@ -18,5 +18,5 @@ typedef void* imm_p;
 
 lbm_p _Lbm_createFromImage(const imm_p src);
 lbm_p _Lbm_createFromLbm(uint8_t *buffer, uint32_t size);
-lbm_p _Lbm_createFromImmAndPam(uint8_t *pixelBuffer, uint32_t pixelSize, uint8_t *paletteBuffer, uint32_t paletteSize);
+lbm_p _Lbm_createFromImmAndPam(uint8_t *pixelBuffer, uint32_t pixelSize, uint8_t *paletteBuffer, uint32_t paletteSize, char vga);
 void _Lbm_destroy(lbm_p lbm);

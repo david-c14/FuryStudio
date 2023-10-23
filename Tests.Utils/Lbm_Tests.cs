@@ -24,7 +24,7 @@ namespace carbon14.FuryStudio.Tests.Utils
         {
             try
             {
-                throw Assert.Throws<FuryException>(() => { Lbm lbm = new Lbm(TestHelpers.ReadFile("tooshort.bmp"), TestHelpers.ReadFile("pal8out.pam")); });
+                throw Assert.Throws<FuryException>(() => { Lbm lbm = new Lbm(TestHelpers.ReadFile("tooshort.bmp"), TestHelpers.ReadFile("pal8out.pam"), true); });
             }
             catch (FuryException ex)
             {
@@ -40,7 +40,7 @@ namespace carbon14.FuryStudio.Tests.Utils
             byte[] expectedPixelBuffer = TestHelpers.ReadFile("pal8out.imm");
             byte[] expectedPaletteBuffer = TestHelpers.ReadFile("pal8out.pam");
             byte[]? actualPixelBuffer = lbm.ImmBuffer;
-            byte[]? actualPaletteBuffer = lbm.PamBuffer;
+            byte[]? actualPaletteBuffer = lbm.VgaBuffer;
             Assert.True(actualPixelBuffer?.SequenceEqual(expectedPixelBuffer), "Imm buffer is not correct");
             Assert.True(actualPaletteBuffer?.SequenceEqual(expectedPaletteBuffer), "Pam buffer is not correct");
             Assert.Equal(127, lbm.Width);
@@ -51,7 +51,7 @@ namespace carbon14.FuryStudio.Tests.Utils
         [Fact]
         public void Given_a_valid_lbm_file_When_bmp_buffer_is_requested_Then_the_correct_buffer_is_returned()
         {
-            Lbm lbm = new Lbm(TestHelpers.ReadFile("pal8out.imm"), TestHelpers.ReadFile("pal8out.pam"));
+            Lbm lbm = new Lbm(TestHelpers.ReadFile("pal8out.imm"), TestHelpers.ReadFile("pal8out.pam"), true);
             byte[] expectedBuffer = TestHelpers.ReadFile("pal8qnt.lbm");
             byte[]? actualBuffer = lbm.Buffer;
             Assert.True(actualBuffer?.SequenceEqual(expectedBuffer), "Buffer is not correct");

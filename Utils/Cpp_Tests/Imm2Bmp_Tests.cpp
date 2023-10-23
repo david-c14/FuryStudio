@@ -9,7 +9,7 @@ TEST_CASE("Given an imm and 8bpp pam When the files are used to construct a bmp 
 	std::vector<uint8_t> pam = utils::ReadFile("pal8out.pam");
 	std::vector<uint8_t> imm = utils::ReadFile("pal8out.imm");
 
-	FuryUtils::Image::Bmp bmp(pam, imm);
+	FuryUtils::Image::Bmp bmp(pam, imm, 1);
 	std::vector<uint8_t> actual;
 	bmp.Buffer(actual);
 

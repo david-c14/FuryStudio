@@ -39,13 +39,13 @@ extern "C" {
 		}
 	}
 
-	FuryUtils::Image::Bmp * _Bmp_createFromImmAndPam(uint8_t *pixelBuffer, uint32_t pixelSize, uint8_t *paletteBuffer, uint32_t paletteSize) {
+	FuryUtils::Image::Bmp * _Bmp_createFromImmAndPam(uint8_t *pixelBuffer, uint32_t pixelSize, uint8_t *paletteBuffer, uint32_t paletteSize, char vga) {
 		ErrorCode = FuryUtils::Exceptions::NO_ERROR;
 		ErrorString = "";
 		try {
 			std::vector<uint8_t> vBufferPalette(paletteBuffer, paletteBuffer + paletteSize);
 			std::vector<uint8_t> vBufferPixel(pixelBuffer, pixelBuffer + pixelSize);
-			return new FuryUtils::Image::Bmp(vBufferPalette, vBufferPixel);
+			return new FuryUtils::Image::Bmp(vBufferPalette, vBufferPixel, vga);
 		}
 		catch (...) {
 			FuryUtils::Exceptions::HANDLE();

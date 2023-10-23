@@ -37,14 +37,14 @@ namespace carbon14.FuryStudio.CS_Samples
                 }
 
                 byte[]? immBuffer;
-                byte[]? pamBuffer;
+                byte[]? vgaBuffer;
 
                 // Create a Bmp object from the buffer.
                 // and get buffers for the raw image and palette data.
                 using (Bmp bmp = new Bmp(bmpBuffer))
                 {
                     immBuffer = bmp.ImmBuffer;
-                    pamBuffer = bmp.PamBuffer;
+                    vgaBuffer = bmp.VgaBuffer;
                 }
 
                 // Write the raw image buffer into a file
@@ -57,11 +57,11 @@ namespace carbon14.FuryStudio.CS_Samples
                 }
 
                 // Write the raw palette buffer into a file
-                if (pamBuffer != null)
+                if (vgaBuffer != null)
                 {
                     using (FileStream fs = new FileStream(pamFileName, FileMode.Create))
                     {
-                        fs.Write(pamBuffer, 0, pamBuffer.Length);
+                        fs.Write(vgaBuffer, 0, vgaBuffer.Length);
                     }
                 }
             }

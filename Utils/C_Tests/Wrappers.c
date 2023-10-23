@@ -124,8 +124,8 @@ uint32_t Test_Imm_pamSize(imm_p imm) {
 	return Imm_pamSize(imm);
 }
 
-uint8_t Test_Imm_pamBuffer(imm_p imm, uint8_t *buffer, uint32_t size) {
-	return Imm_pamBuffer(imm, buffer, size);
+uint8_t Test_Imm_pamBuffer(imm_p imm, uint8_t *buffer, uint32_t size, char vga) {
+	return Imm_pamBuffer(imm, buffer, size, vga);
 }
 
 uint16_t Test_Imm_width(imm_p imm) {
@@ -148,8 +148,8 @@ bmp_p Test_Bmp_createFromBmp(uint8_t *buffer, uint32_t size) {
 	return Bmp_createFromBmp(buffer, size);
 }
 
-bmp_p Test_Bmp_createFromImmAndPam(uint8_t *pixelBuffer, uint32_t pixelSize, uint8_t *paletteBuffer, uint32_t paletteSize) {
-	return Bmp_createFromImmAndPam(pixelBuffer, pixelSize, paletteBuffer, paletteSize);
+bmp_p Test_Bmp_createFromImmAndPam(uint8_t *pixelBuffer, uint32_t pixelSize, uint8_t *paletteBuffer, uint32_t paletteSize, char vga) {
+	return Bmp_createFromImmAndPam(pixelBuffer, pixelSize, paletteBuffer, paletteSize, vga);
 }
 
 void Test_Bmp_destroy(bmp_p bmp) {
@@ -164,8 +164,8 @@ lbm_p Test_Lbm_createFromLbm(uint8_t *buffer, uint32_t size) {
 	return Lbm_createFromLbm(buffer, size);
 }
 
-lbm_p Test_Lbm_createFromImmAndPam(uint8_t *pixelBuffer, uint32_t pixelSize, uint8_t *paletteBuffer, uint32_t paletteSize) {
-	return Lbm_createFromImmAndPam(pixelBuffer, pixelSize, paletteBuffer, paletteSize);
+lbm_p Test_Lbm_createFromImmAndPam(uint8_t *pixelBuffer, uint32_t pixelSize, uint8_t *paletteBuffer, uint32_t paletteSize, char vga) {
+	return Lbm_createFromImmAndPam(pixelBuffer, pixelSize, paletteBuffer, paletteSize, vga);
 }
 
 void Test_Lbm_destroy(lbm_p lbm) {

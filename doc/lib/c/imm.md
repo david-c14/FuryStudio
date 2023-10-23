@@ -55,14 +55,17 @@ Returns the size of a buffer required to hold the palette of this image.
 
 ## Imm_pamBuffer
 
-`uint8_t Imm_pamBuffer(imm_p imm, uint8_t * buffer, uint32_t size)`
+`uint8_t Imm_pamBuffer(imm_p imm, uint8_t * buffer, uint32_t size, char vga)`
 
 Stores the palette into a provided buffer.
 
 - `imm` is a pointer to an image.
 - `buffer` is a byte array large enough to hold the palette.
 - `size` is the size in bytes of the buffer provided.
+- `vga` is a boolean indicating that the palette is a VGA palette (6-bits per channel).
 - returns 0 if sucessful, 1 if an error occurs. See [Exception_Code](exception.md) for more details.
+
+Fury of the Furries PAM files are vga palettes and so you should set `vga = 1` if you wish to preserve this when you extract a palette.
 
 ## Imm_width
 

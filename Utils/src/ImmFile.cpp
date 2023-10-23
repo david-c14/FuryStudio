@@ -81,7 +81,7 @@ int ImmToBmp(int argc, char* argv[]) {
 			return FuryUtils::Exceptions::IO_ERROR;
 		}
 
-		FuryUtils::Image::Bmp bmp(pamBuffer, immBuffer);
+		FuryUtils::Image::Bmp bmp(pamBuffer, immBuffer, true);
 
 		std::vector<uint8_t> outBuffer;
 		bmp.Buffer(outBuffer);
@@ -141,7 +141,7 @@ int BmpToImm(int argc, char* argv[]) {
 		}
 
 		std::vector<uint8_t> pamBuffer;
-		bmp.PamBuffer(pamBuffer);
+		bmp.PamBuffer(pamBuffer, 1);
 
 		std::ofstream pamFile(argv[4], std::ios::binary | std::ios::trunc);
 		if (pamFile) {
@@ -199,7 +199,7 @@ int ImmToLbm(int argc, char* argv[]) {
 			return FuryUtils::Exceptions::IO_ERROR;
 		}
 
-		FuryUtils::Image::Lbm lbm(pamBuffer, immBuffer);
+		FuryUtils::Image::Lbm lbm(pamBuffer, immBuffer, 1);
 
 		std::vector<uint8_t> outBuffer;
 		lbm.Buffer(outBuffer);
@@ -259,7 +259,7 @@ int LbmToImm(int argc, char* argv[]) {
 		}
 
 		std::vector<uint8_t> pamBuffer;
-		lbm.PamBuffer(pamBuffer);
+		lbm.PamBuffer(pamBuffer, 1);
 
 		std::ofstream pamFile(argv[4], std::ios::binary | std::ios::trunc);
 		if (pamFile) {

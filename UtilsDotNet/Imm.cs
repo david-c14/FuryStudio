@@ -20,7 +20,7 @@ namespace carbon14.FuryStudio.Utils
         private static extern int Imm_pamSize(IntPtr imm);
 
         [DllImport(Constants.dllPath, CallingConvention = CallingConvention.Cdecl)]
-        private static extern byte Imm_pamBuffer(IntPtr imm, [MarshalAs(UnmanagedType.LPArray)] byte[] buffer, int size);
+        private static extern byte Imm_pamBuffer(IntPtr imm, [MarshalAs(UnmanagedType.LPArray)] byte[] buffer, int size, byte vga);
 		
 		    [DllImport(Constants.dllPath, CallingConvention = CallingConvention.Cdecl)]
 		    private static extern ushort Imm_width(IntPtr imm);
@@ -79,13 +79,13 @@ namespace carbon14.FuryStudio.Utils
             }
         }
 
-        public byte[]? PamBuffer
+        public byte[]? VgaBuffer
         {
             get
             {
                 CheckDisposed();
                 byte[] buffer = new byte[Imm_pamSize(_imm)];
-                if (Imm_pamBuffer(_imm, buffer, buffer.Length) == 1)
+                if (Imm_pamBuffer(_imm, buffer, buffer.Length, vga : 1) == 1)
                 {
                     return buffer;
                 }
@@ -93,33 +93,48 @@ namespace carbon14.FuryStudio.Utils
                 return null;
             }
         }
+
+        public byte[]? PaletteBuffer
+        {
+            get
+            {
+                CheckDisposed();
+                byte[] buffer = new byte[Imm_pamSize(_imm)];
+                if (Imm_pamBuffer(_imm, buffer, buffer.Length, vga : 0) == 1)
+                {
+                    return buffer;
+                }
+                FuryException.Throw();
+                return null;
+            }
+        }
+
+        public ushort Width
+		    {
+			    get
+			    {
+				    CheckDisposed();
+				    return Imm_width(_imm);
+			    }
+		    }
 		
-		public ushort Width
-		{
-			get
-			{
-				CheckDisposed();
-				return Imm_width(_imm);
-			}
-		}
+		    public ushort Height
+		    {
+			    get
+			    {
+				    CheckDisposed();
+				    return Imm_height(_imm);
+			    }
+		    }
 		
-		public ushort Height
-		{
-			get
-			{
-				CheckDisposed();
-				return Imm_height(_imm);
-			}
-		}
-		
-		public ushort Depth
-		{
-			get 
-			{
-				CheckDisposed();
-				return Imm_depth(_imm);
-			}
-		}
+		    public ushort Depth
+		    {
+			    get 
+			    {
+				    CheckDisposed();
+				    return Imm_depth(_imm);
+			    }
+		    }
 
         protected virtual void Destroy()
         {

@@ -84,12 +84,12 @@ extern "C" {
 		return 0;
 	}
 
-	uint8_t _Imm_pamBuffer(FuryUtils::Image::Imm *imm, uint8_t *buffer, uint32_t size) {
+	uint8_t _Imm_pamBuffer(FuryUtils::Image::Imm *imm, uint8_t *buffer, uint32_t size, char vga) {
 		ErrorCode = FuryUtils::Exceptions::NO_ERROR;
 		ErrorString = "";
 		try {
 			std::vector<uint8_t> internal_buffer;
-			imm->PamBuffer(internal_buffer);
+			imm->PamBuffer(internal_buffer, vga);
 			if (internal_buffer.size() > size) {
 				ErrorCode = FuryUtils::Exceptions::BUFFER_OVERFLOW;
 				ErrorString = FuryUtils::Exceptions::ERROR_DAT_BUFFER_TOO_SMALL;

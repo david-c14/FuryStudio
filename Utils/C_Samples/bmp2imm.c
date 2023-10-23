@@ -95,7 +95,7 @@ void bmp2imm(const char * bmpFileName, const char * immFileName, const char * pa
 	pamSize = Imm_pamSize(bitmap);
 	pamBuffer = (unsigned char *)malloc(sizeof(unsigned char) * pamSize);
 	/* get the bitmap buffer */
-	Imm_pamBuffer(bitmap, pamBuffer, pamSize);
+	Imm_pamBuffer(bitmap, pamBuffer, pamSize, 1);
 	
 	/* save the palette */
 	fp = fopen(pamFileName, "wb");

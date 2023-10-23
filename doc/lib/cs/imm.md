@@ -28,9 +28,17 @@ This read-only property returns a byte array containing the image in its native 
 
 This read-only property returns a byte array containing the raw pixel data for the image. If an error occurs a [FuryException](exception.md) is thrown.
 
-### PamBuffer
+### VgaBuffer
 
-`byte[]? PamBuffer
+`byte[]? VgaBuffer
+
+This read-only property returns a byte array containing the palette for the image in VGA form. If an error occurs a [FuryException](exception.md) is thrown.
+
+VGA allows only 6 bits per channel, so the dynamic range of the palette is reduced. Each channel has a value between 0 and 63.
+
+### PaletteBuffer
+
+`byte[]? PaletteBuffer
 
 This read-only property returns a byte array containing the palette for the image. If an error occurs a [FuryException](exception.md) is thrown.
 

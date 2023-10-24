@@ -15,7 +15,7 @@ TEST_CASE("Given a faulty lbm When created Then an exception is raised") {
 TEST_CASE("Given a faulty imm When an lbm is created Then an exception is raised") {
 	std::vector<uint8_t> pixelFile = utils::ReadFile("tooshort.bmp");
 	std::vector<uint8_t> paletteFile = utils::ReadFile("pal8out.pam");
-	lbm_p lbm = Test_Lbm_createFromImmAndPam(pixelFile.data(), uint32_t(pixelFile.size()), paletteFile.data(), uint32_t(paletteFile.size()));
+	lbm_p lbm = Test_Lbm_createFromImmAndPam(pixelFile.data(), uint32_t(pixelFile.size()), paletteFile.data(), uint32_t(paletteFile.size()), 1);
 	REQUIRE(lbm == NULL);
 	REQUIRE(Test_Exception_code() == 1);
 	REQUIRE_THAT(Test_Exception_string(), Equals("Image buffer size is too short for valid Imm"));
@@ -31,7 +31,7 @@ TEST_CASE("Given a sound lbm When used to create an imm Then the correct buffers
 		std::vector<uint8_t> actualPixelFile(Test_Imm_immSize(lbm));
 		uint8_t result1 = Test_Imm_immBuffer(lbm, actualPixelFile.data(), uint32_t(actualPixelFile.size()));
 		std::vector<uint8_t> actualPaletteFile(Test_Imm_pamSize(lbm));
-		uint8_t result2 = Test_Imm_pamBuffer(lbm, actualPaletteFile.data(), uint32_t(actualPaletteFile.size()));
+		uint8_t result2 = Test_Imm_pamBuffer(lbm, actualPaletteFile.data(), uint32_t(actualPaletteFile.size()), 1);
 		REQUIRE(result1 == (uint8_t)true);
 		REQUIRE(result2 == (uint8_t)true);
 		REQUIRE(actualPixelFile.size() == expectedPixelFile.size());
@@ -49,7 +49,7 @@ TEST_CASE("Given a sound imm and pam When used to create an lbm Then the correct
 	std::vector<uint8_t> inputPixelFile = utils::ReadFile("pal8out.imm");
 	std::vector<uint8_t> inputPaletteFile = utils::ReadFile("pal8out.pam");
 	std::vector<uint8_t> expectedFile = utils::ReadFile("pal8qnt.lbm");
-	lbm_p lbm = Test_Lbm_createFromImmAndPam(inputPixelFile.data(), uint32_t(inputPixelFile.size()), inputPaletteFile.data(), uint32_t(inputPaletteFile.size()));
+	lbm_p lbm = Test_Lbm_createFromImmAndPam(inputPixelFile.data(), uint32_t(inputPixelFile.size()), inputPaletteFile.data(), uint32_t(inputPaletteFile.size()), 1);
 	try {
 		std::vector<uint8_t> actualFile(Test_Imm_size(lbm));
 		uint8_t result = Test_Imm_buffer(lbm, actualFile.data(), uint32_t(actualFile.size()));
@@ -66,7 +66,7 @@ TEST_CASE("Given a sound imm and pam When used to create an lbm Then the correct
 TEST_CASE("Given a sound imm and pam Whe used to create a lbm Then the correct size and depth are returned") {
 	std::vector<uint8_t> inputPixelFile = utils::ReadFile("pal8out.imm");
 	std::vector<uint8_t> inputPaletteFile = utils::ReadFile("pal8out.pam");
-	lbm_p lbm = Test_Lbm_createFromImmAndPam(inputPixelFile.data(), uint32_t(inputPixelFile.size()), inputPaletteFile.data(), uint32_t(inputPaletteFile.size()));
+	lbm_p lbm = Test_Lbm_createFromImmAndPam(inputPixelFile.data(), uint32_t(inputPixelFile.size()), inputPaletteFile.data(), uint32_t(inputPaletteFile.size()), 1);
 	try {
 		uint16_t width = Test_Imm_width(lbm);
 		uint16_t height = Test_Imm_height(lbm);

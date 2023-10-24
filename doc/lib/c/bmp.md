@@ -31,7 +31,7 @@ When you have finished with the bitmap, you should pass the pointer to `Bmp_dest
 
 ## Bmp_createFromImmAndPam
 
-`bmp_p Bmp_createFromImmAndPam(uint8_t * pixelBuffer, uint32_t pixelSize, uint8_t * paletteBuffer, uint32_t paletteSize)`
+`bmp_p Bmp_createFromImmAndPam(uint8_t * pixelBuffer, uint32_t pixelSize, uint8_t * paletteBuffer, uint32_t paletteSize, char vga)`
 
 Creates an image from buffers containing a raw bitmap and a palette.
 
@@ -39,9 +39,12 @@ Creates an image from buffers containing a raw bitmap and a palette.
 - `pixelSize` is the size in bytes of the pixel buffer.
 - `paletteBuffer` is a byte array containing the palette for the image.
 - `paletteSize` is the size in bytes of the palette buffer.
+- `vga` is a boolean indicating that the palette is a VGA palette (6-bits per channel).
 - returns a pointer to a bitmap object.
 
 When you have finished with the bitmap, you should pass the pointer to `Bmp_destroy` to free up the memory.
+
+Fury of the Furries PAM files are vga palettes and so you should set `vga = 1` when creating an image from such a file.
 
 ## Bmp_destroy
 

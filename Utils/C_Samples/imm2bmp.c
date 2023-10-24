@@ -71,7 +71,7 @@ void imm2bmp(const char * immFileName, const char * pamFileName, const char * bm
 	printf("Read %d bytes from %s\n", pamSize, pamFileName);
 	
 	/* Use FuryUtils library to create internal bitmap */
-	bitmap = Bmp_createFromImmAndPam(immBuffer, immSize, pamBuffer, pamSize);
+	bitmap = Bmp_createFromImmAndPam(immBuffer, immSize, pamBuffer, pamSize, 1);
 	free(immBuffer);
 	free(pamBuffer);
 	

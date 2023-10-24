@@ -168,7 +168,7 @@ TEST_CASE("Given a good 8bpp imm and pam file When the file is used to construct
 	std::vector<uint8_t> expected = utils::ReadFile("pal8qnt.lbm");
 
 	std::vector<uint8_t> actual;
-	FuryUtils::Image::Lbm lbm(pamFile, immFile);
+	FuryUtils::Image::Lbm lbm(pamFile, immFile, 1);
 	lbm.Buffer(actual);
 
 	REQUIRE(actual == expected);

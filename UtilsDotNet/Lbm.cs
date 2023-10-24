@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using System;
+using System.Runtime.InteropServices;
 
 namespace carbon14.FuryStudio.Utils
 {
@@ -11,7 +12,7 @@ namespace carbon14.FuryStudio.Utils
         private static extern IntPtr Lbm_createFromLbm([MarshalAs(UnmanagedType.LPArray)] byte[] buffer, int size);
 
         [DllImport(Constants.dllPath, CallingConvention = CallingConvention.Cdecl)]
-        private static extern IntPtr Lbm_createFromImmAndPam([MarshalAs(UnmanagedType.LPArray)] byte[] pixelBuffer, int pixelSize, [MarshalAs(UnmanagedType.LPArray)] byte[] paletteBuffer, int paletteSize);
+        private static extern IntPtr Lbm_createFromImmAndPam([MarshalAs(UnmanagedType.LPArray)] byte[] pixelBuffer, int pixelSize, [MarshalAs(UnmanagedType.LPArray)] byte[] paletteBuffer, int paletteSize, byte vga);
 
         [DllImport(Constants.dllPath, CallingConvention = CallingConvention.Cdecl)]
         private static extern void Lbm_destroy(IntPtr lbmFile);
@@ -26,7 +27,7 @@ namespace carbon14.FuryStudio.Utils
             FuryException.Throw();
         }
 
-        public Lbm(byte[] pixelBuffer, byte[] paletteBuffer) : base(Lbm_createFromImmAndPam(pixelBuffer, pixelBuffer.Length, paletteBuffer, paletteBuffer.Length))
+        public Lbm(byte[] pixelBuffer, byte[] paletteBuffer, bool vga) : base(Lbm_createFromImmAndPam(pixelBuffer, pixelBuffer.Length, paletteBuffer, paletteBuffer.Length, (byte)(vga ? 1 : 0)))
         {
             FuryException.Throw();
         }

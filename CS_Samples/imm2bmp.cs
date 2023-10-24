@@ -30,7 +30,7 @@ namespace carbon14.FuryStudio.CS_Samples
             {
                 // Read an image and palette file into buffers
                 byte[] immBuffer;
-                byte[] pamBuffer;
+                byte[] vgaBuffer;
                 using (FileStream fs = new FileStream(immFileName, FileMode.Open))
                 {
                     immBuffer = new byte[fs.Length];
@@ -38,15 +38,15 @@ namespace carbon14.FuryStudio.CS_Samples
                 }
                 using (FileStream fs = new FileStream(pamFileName, FileMode.Open))
                 {
-                    pamBuffer = new byte[fs.Length];
-                    fs.Read(pamBuffer, 0, pamBuffer.Length);
+                    vgaBuffer = new byte[fs.Length];
+                    fs.Read(vgaBuffer, 0, vgaBuffer.Length);
                 }
 
                 byte[]? bmpBuffer;
 
                 // Create a Bmp object from the raw buffers.
                 // Get a buffer for the Bmp object data.
-                using (Bmp bmp = new Bmp(immBuffer, pamBuffer))
+                using (Bmp bmp = new Bmp(immBuffer, vgaBuffer, true))
                 {
                     bmpBuffer = bmp.Buffer;
                 }

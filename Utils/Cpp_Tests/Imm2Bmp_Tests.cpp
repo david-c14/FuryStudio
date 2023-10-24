@@ -4,16 +4,31 @@
 
 using Catch::Matchers::Equals;
 
-TEST_CASE("Given an imm and 8bpp pam When the files are used to construct a bmp Then the bmp is correct") {
+TEST_CASE("Given an imm and 6bpp pam When the files are used to construct a bmp Then the bmp is correct") {
 	std::vector<uint8_t> expected = utils::ReadFile("pal8qnt.bmp");
 	std::vector<uint8_t> pam = utils::ReadFile("pal8out.pam");
 	std::vector<uint8_t> imm = utils::ReadFile("pal8out.imm");
 
-	FuryUtils::Image::Bmp bmp(pam, imm);
+	FuryUtils::Image::Bmp bmp(pam, imm, 1);
 	std::vector<uint8_t> actual;
 	bmp.Buffer(actual);
 
-			REQUIRE(actual == expected);
+	REQUIRE(actual == expected);
+	REQUIRE(bmp.Width() == (uint16_t)127);
+	REQUIRE(bmp.Height() == (uint16_t)64);
+	REQUIRE(bmp.Depth() == (uint16_t)8);
+}
+
+TEST_CASE("Given an imm and 8bpp pam When the files are used to construct a bmp Then the bmp is correct") {
+	std::vector<uint8_t> expected = utils::ReadFile("pal8out.bmp");
+	std::vector<uint8_t> pam = utils::ReadFile("full8out.pam");
+	std::vector<uint8_t> imm = utils::ReadFile("pal8out.imm");
+
+	FuryUtils::Image::Bmp bmp(pam, imm, 0);
+	std::vector<uint8_t> actual;
+	bmp.Buffer(actual);
+
+	REQUIRE(actual == expected);
 	REQUIRE(bmp.Width() == (uint16_t)127);
 	REQUIRE(bmp.Height() == (uint16_t)64);
 	REQUIRE(bmp.Depth() == (uint16_t)8);

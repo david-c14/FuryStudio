@@ -16,7 +16,7 @@ uint8_t _Imm_buffer(imm_p imm, uint8_t *buffer, uint32_t size);
 uint32_t _Imm_immSize(imm_p imm);
 uint8_t _Imm_immBuffer(imm_p imm, uint8_t *buffer, uint32_t size);
 uint32_t _Imm_pamSize(imm_p imm);
-uint8_t _Imm_pamBuffer(imm_p imm, uint8_t *buffer, uint32_t size);
+uint8_t _Imm_pamBuffer(imm_p imm, uint8_t *buffer, uint32_t size, char vga);
 uint16_t _Imm_width(imm_p imm);
 uint16_t _Imm_height(imm_p imm);
 uint16_t _Imm_depth(imm_p imm);

@@ -35,6 +35,11 @@ int Usage(char *arg0) {
 	printf("Convert LBM to IMM/PAM\n" "\t%s -li lbmfile immfile pamfile\n" "\t%s --lbm-to-imm lbmfile immfile pamfile\n\n", name.c_str(), name.c_str());
 	printf("Convert BMP to LBM\n"     "\t%s -bl bmpfile lbmfile\n"         "\t%s --bmp-to-lbm bmpfile lbmfile\n\n",         name.c_str(), name.c_str());
 	printf("Convert LBM to BMP\n"     "\t%s -lb lbmfile bmpfile\n"         "\t%s --lbm-to-bmp lbmfile bmpfile\n\n",         name.c_str(), name.c_str());
+	printf("Conversions with 8-bits per channel palette:\n\n");
+	printf("Convert IMM/PAM to BMP\n" "\t%s -8b immfile pamfile bmpfile\n" "\t%s --imm8-to-bmp immfile pamfile bmpfile\n\n", name.c_str(), name.c_str());
+	printf("Convert BMP to IMM/PAM\n" "\t%s -b8 bmpfile immfile pamfile\n" "\t%s --bmp-to-imm8 bmpfile immfile pamfile\n\n", name.c_str(), name.c_str());
+	printf("Convert IMM/PAM to LBM\n" "\t%s -8l immfile pamfile lbmfile\n" "\t%s --imm8-to-lbm immfile pamfile lbmfile\n\n", name.c_str(), name.c_str());
+	printf("Convert LBM to IMM/PAM\n" "\t%s -l8 lbmfile immfile pamfile\n" "\t%s --lbm-to-imm8 lbmfile immfile pamfile\n\n", name.c_str(), name.c_str());
 	return 0;
 }
 
@@ -44,7 +49,7 @@ int Version(char *arg0) {
 	return 0;
 }
 
-int ImmToBmp(int argc, char* argv[]) {
+int ImmToBmp(int argc, char* argv[], bool vga) {
 	if (argc != 5) {
 		return Usage(argv[0]);
 	}
@@ -81,7 +86,7 @@ int ImmToBmp(int argc, char* argv[]) {
 			return FuryUtils::Exceptions::IO_ERROR;
 		}
 
-		FuryUtils::Image::Bmp bmp(pamBuffer, immBuffer);
+		FuryUtils::Image::Bmp bmp(pamBuffer, immBuffer, vga);
 
 		std::vector<uint8_t> outBuffer;
 		bmp.Buffer(outBuffer);
@@ -104,7 +109,7 @@ int ImmToBmp(int argc, char* argv[]) {
 	return FuryUtils::Exceptions::UNKNOWN_ERROR;
 }
 
-int BmpToImm(int argc, char* argv[]) {
+int BmpToImm(int argc, char* argv[], bool vga) {
 	if (argc != 5) {
 		return Usage(argv[0]);
 	}
@@ -141,7 +146,7 @@ int BmpToImm(int argc, char* argv[]) {
 		}
 
 		std::vector<uint8_t> pamBuffer;
-		bmp.PamBuffer(pamBuffer);
+		bmp.PamBuffer(pamBuffer, vga);
 
 		std::ofstream pamFile(argv[4], std::ios::binary | std::ios::trunc);
 		if (pamFile) {
@@ -162,7 +167,7 @@ int BmpToImm(int argc, char* argv[]) {
 	return FuryUtils::Exceptions::UNKNOWN_ERROR;
 }
 
-int ImmToLbm(int argc, char* argv[]) {
+int ImmToLbm(int argc, char* argv[], bool vga) {
 	if (argc != 5) {
 		return Usage(argv[0]);
 	}
@@ -199,7 +204,7 @@ int ImmToLbm(int argc, char* argv[]) {
 			return FuryUtils::Exceptions::IO_ERROR;
 		}
 
-		FuryUtils::Image::Lbm lbm(pamBuffer, immBuffer);
+		FuryUtils::Image::Lbm lbm(pamBuffer, immBuffer, vga);
 
 		std::vector<uint8_t> outBuffer;
 		lbm.Buffer(outBuffer);
@@ -222,7 +227,7 @@ int ImmToLbm(int argc, char* argv[]) {
 	return FuryUtils::Exceptions::UNKNOWN_ERROR;
 }
 
-int LbmToImm(int argc, char* argv[]) {
+int LbmToImm(int argc, char* argv[], bool vga) {
 	if (argc != 5) {
 		return Usage(argv[0]);
 	}
@@ -259,7 +264,7 @@ int LbmToImm(int argc, char* argv[]) {
 		}
 
 		std::vector<uint8_t> pamBuffer;
-		lbm.PamBuffer(pamBuffer);
+		lbm.PamBuffer(pamBuffer, vga);
 
 		std::ofstream pamFile(argv[4], std::ios::binary | std::ios::trunc);
 		if (pamFile) {
@@ -388,29 +393,53 @@ int main(int argc, char* argv[]) {
 	if (!strncmp(argv[1], "--version", 9)) {
 		return Version(argv[0]);
 	}
+	if (!strncmp(argv[1], "-8b", 3)) {
+		return ImmToBmp(argc, argv, false);
+	}
+	if (!strncmp(argv[1], "--imm8-to-bmp", 13)) {
+		return ImmToBmp(argc, argv, false);
+	}
+	if (!strncmp(argv[1], "-b8", 3)) {
+		return BmpToImm(argc, argv, false);
+	}
+	if (!strncmp(argv[1], "--bmp-to-imm8", 13)) {
+		return BmpToImm(argc, argv, false);
+	}
+	if (!strncmp(argv[1], "-8l", 3)) {
+		return ImmToLbm(argc, argv, false);
+	}
+	if (!strncmp(argv[1], "--imm8-to-lbm", 13)) {
+		return ImmToLbm(argc, argv, false);
+	}
+	if (!strncmp(argv[1], "-l8", 3)) {
+		return LbmToImm(argc, argv, false);
+	}
+	if (!strncmp(argv[1], "--lbm-to-imm8", 13)) {
+		return LbmToImm(argc, argv, false);
+	}
 	if (!strncmp(argv[1], "-ib", 3)) {
-		return ImmToBmp(argc, argv);
+		return ImmToBmp(argc, argv, true);
 	}
 	if (!strncmp(argv[1], "--imm-to-bmp", 12)) {
-		return ImmToBmp(argc, argv);
+		return ImmToBmp(argc, argv, true);
 	}
 	if (!strncmp(argv[1], "-bi", 3)) {
-		return BmpToImm(argc, argv);
+		return BmpToImm(argc, argv, true);
 	}
 	if (!strncmp(argv[1], "--bmp-to-imm", 12)) {
-		return BmpToImm(argc, argv);
+		return BmpToImm(argc, argv, true);
 	}
 	if (!strncmp(argv[1], "-il", 3)) {
-		return ImmToLbm(argc, argv);
+		return ImmToLbm(argc, argv, true);
 	}
 	if (!strncmp(argv[1], "--imm-to-lbm", 12)) {
-		return ImmToLbm(argc, argv);
+		return ImmToLbm(argc, argv, true);
 	}
 	if (!strncmp(argv[1], "-li", 3)) {
-		return LbmToImm(argc, argv);
+		return LbmToImm(argc, argv, true);
 	}
 	if (!strncmp(argv[1], "--lbm-to-imm", 12)) {
-		return LbmToImm(argc, argv);
+		return LbmToImm(argc, argv, true);
 	}
 	if (!strncmp(argv[1], "-bl", 3)) {
 		return BmpToLbm(argc, argv);

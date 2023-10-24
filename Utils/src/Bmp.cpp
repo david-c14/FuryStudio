@@ -51,7 +51,7 @@ namespace FuryUtils {
 			MakeBmp();
 		}
 
-		Bmp::Bmp(std::vector<uint8_t> &inputPalette, std::vector<uint8_t> &inputPixels) : Imm(inputPalette, inputPixels) {
+		Bmp::Bmp(std::vector<uint8_t> &inputPalette, std::vector<uint8_t> &inputPixels, char vga) : Imm(inputPalette, inputPixels, vga) {
 			MakeBmp();
 		}
 

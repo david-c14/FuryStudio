@@ -6,14 +6,17 @@ The Imm class is the base class for handling images. All image formats in the li
 
 ## constructor
 
-`Imm(std::vector<uint8_t> &inputPalette, std::vector<uint8_t> &inputPixels)`
+`Imm(std::vector<uint8_t> &inputPalette, std::vector<uint8_t> &inputPixels, char vga)`
 
 Creates an imm from byte vectors containing a palette and raw bitmap data.
 
 - `inputPalette` is a byte vector containing the palette for the image.
 - `inputPixels` is a byte vector containing the pixel data for the image.
+- `vga` is a boolean indicating that the palette is a VGA palette (6-bits per channel).
 
 The `Imm` object takes a copy of the pixel and palette data. The supplied vectors can safely be disposed afterwards.
+
+Fury of the Furries PAM files are vga palettes and so you should set `vga = 1` when creating an image from such a file.
 
 ## Size
 
@@ -65,12 +68,15 @@ Note below that it is *not* necessary for you to determine the size of the vecto
 
 ## PamBuffer
 
-`void PamBuffer(std::vector<uint8_t> &inputBuffer)`
+`void PamBuffer(std::vector<uint8_t> &inputBuffer, char vga)`
 
 Swaps the provided byte vector with a vector containing the palette for this image. Note that because the vector is swapped, you
 do *not* need to provide a vector of the correct size.
 
 - `inputBuffer` is a byte vector of any length.
+- `vga` is a boolean indicating that the palette is a VGA palette (6-bits per channel).
+
+Fury of the Furries PAM files are vga palettes and so you should set `vga = 1` if you wish to preserve this when you extract a palette.
 
 ## Width
 

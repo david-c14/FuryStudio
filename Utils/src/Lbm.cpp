@@ -164,7 +164,7 @@ namespace FuryUtils {
 			MakeLbm();
 		}
 
-		Lbm::Lbm(std::vector<uint8_t> &inputPalette, std::vector<uint8_t> &inputPixels) : Imm(inputPalette, inputPixels) {
+		Lbm::Lbm(std::vector<uint8_t> &inputPalette, std::vector<uint8_t> &inputPixels, char vga) : Imm(inputPalette, inputPixels, vga) {
 			MakeLbm();
 		}
 

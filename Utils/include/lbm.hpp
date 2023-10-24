@@ -21,7 +21,7 @@ namespace FuryUtils {
 
 			Lbm(const Imm &src);
 			Lbm(const Lbm &src);
-			Lbm(std::vector<uint8_t> &inputPalette, std::vector<uint8_t> &inputPixels);
+			Lbm(std::vector<uint8_t> &inputPalette, std::vector<uint8_t> &inputPixels, char vga);
 			Lbm(std::vector<uint8_t> &lbmBuffer);
 		};
 

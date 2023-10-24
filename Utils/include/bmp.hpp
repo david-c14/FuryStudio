@@ -30,7 +30,7 @@ namespace FuryUtils {
 
 			Bmp(const Imm &src);
 			Bmp(const Bmp &src);
-			Bmp(std::vector<uint8_t> &inputPalette, std::vector<uint8_t> &inputPixels);
+			Bmp(std::vector<uint8_t> &inputPalette, std::vector<uint8_t> &inputPixels, char vga);
 			Bmp(std::vector<uint8_t> &bmpBuffer);
 		};
 

@@ -12,7 +12,12 @@ namespace {
 	"Convert IMM/PAM to LBM\n" "\tImmFile -il immfile pamfile lbmfile\n" "\tImmFile --imm-to-lbm immfile pamfile lbmfile\n\n"
 	"Convert LBM to IMM/PAM\n" "\tImmFile -li lbmfile immfile pamfile\n" "\tImmFile --lbm-to-imm lbmfile immfile pamfile\n\n"
 	"Convert BMP to LBM\n"     "\tImmFile -bl bmpfile lbmfile\n"         "\tImmFile --bmp-to-lbm bmpfile lbmfile\n\n"
-	"Convert LBM to BMP\n"     "\tImmFile -lb lbmfile bmpfile\n"         "\tImmFile --lbm-to-bmp lbmfile bmpfile\n\n";
+	"Convert LBM to BMP\n"     "\tImmFile -lb lbmfile bmpfile\n"         "\tImmFile --lbm-to-bmp lbmfile bmpfile\n\n"
+	"Conversions with 8-bits per channel palette:\n\n"
+	"Convert IMM/PAM to BMP\n" "\tImmFile -8b immfile pamfile bmpfile\n" "\tImmFile --imm8-to-bmp immfile pamfile bmpfile\n\n"
+	"Convert BMP to IMM/PAM\n" "\tImmFile -b8 bmpfile immfile pamfile\n" "\tImmFile --bmp-to-imm8 bmpfile immfile pamfile\n\n"
+	"Convert IMM/PAM to LBM\n" "\tImmFile -8l immfile pamfile lbmfile\n" "\tImmFile --imm8-to-lbm immfile pamfile lbmfile\n\n"
+	"Convert LBM to IMM/PAM\n" "\tImmFile -l8 lbmfile immfile pamfile\n" "\tImmFile --lbm-to-imm8 lbmfile immfile pamfile\n\n";
 			
 #include "../src/version.hpp"
 			
@@ -329,6 +334,170 @@ TEST_CASE("IMM_Too_many_lbm-to-bmp_parameters_should_yield_usage_message") {
 	FILECONTENT(CLITEST_STDOUT, usage)
 }
 
+// Incorrect number of parameters bmp/imm8
+
+TEST_CASE("IMM_Too_few_b8_parameters_should_yield_usage_message") {
+	ADDFILE(EXE)
+
+	EXEC(COMM " -b8 file1 file2")
+
+	RETURNVALUE(0)
+	ISEMPTY(CLITEST_STDERR)
+	FILECONTENT(CLITEST_STDOUT, usage)
+}
+
+TEST_CASE("IMM_Too_few_bmp-to-imm8_parameters_should_yield_usage_message") {
+	ADDFILE(EXE)
+
+	EXEC(COMM " --bmp-to-imm8 file1 file2")
+
+	RETURNVALUE(0)
+	ISEMPTY(CLITEST_STDERR)
+	FILECONTENT(CLITEST_STDOUT, usage)
+}
+
+TEST_CASE("IMM_Too_few_8b_parameters_should_yield_usage_message") {
+	ADDFILE(EXE)
+
+	EXEC(COMM " -8b file1 file2")
+
+	RETURNVALUE(0)
+	ISEMPTY(CLITEST_STDERR)
+	FILECONTENT(CLITEST_STDOUT, usage)
+}
+
+TEST_CASE("IMM_Too_few_imm8-to-bmp_parameters_should_yield_usage_message") {
+	ADDFILE(EXE)
+
+	EXEC(COMM " --imm8-to-bmp file1 file2")
+
+	RETURNVALUE(0)
+	ISEMPTY(CLITEST_STDERR)
+	FILECONTENT(CLITEST_STDOUT, usage)
+}
+
+TEST_CASE("IMM_Too_many_b8_parameters_should_yield_usage_message") {
+	ADDFILE(EXE)
+
+	EXEC(COMM " -b8 file1 file2 file3 file4")
+
+	RETURNVALUE(0)
+	ISEMPTY(CLITEST_STDERR)
+	FILECONTENT(CLITEST_STDOUT, usage)
+}
+
+TEST_CASE("IMM_Too_many_bmp-to-imm8_parameters_should_yield_usage_message") {
+	ADDFILE(EXE)
+
+	EXEC(COMM " --bmp-to-imm8 file1 file2 file3 file4")
+
+	RETURNVALUE(0)
+	ISEMPTY(CLITEST_STDERR)
+	FILECONTENT(CLITEST_STDOUT, usage)
+}
+
+TEST_CASE("IMM_Too_many_8b_parameters_should_yield_usage_message") {
+	ADDFILE(EXE)
+
+	EXEC(COMM " -8b file1 file2 file3 file4")
+
+	RETURNVALUE(0)
+	ISEMPTY(CLITEST_STDERR)
+	FILECONTENT(CLITEST_STDOUT, usage)
+}
+
+TEST_CASE("IMM_Too_many_imm8-to-bmp_parameters_should_yield_usage_message") {
+	ADDFILE(EXE)
+
+	EXEC(COMM " --imm8-to-bmp file1 file2 file3 file4")
+
+	RETURNVALUE(0)
+	ISEMPTY(CLITEST_STDERR)
+	FILECONTENT(CLITEST_STDOUT, usage)
+}
+
+// Incorrect number of parameters lbm/imm
+
+TEST_CASE("IMM_Too_few_l8_parameters_should_yield_usage_message") {
+	ADDFILE(EXE)
+
+	EXEC(COMM " -l8 file1 file2")
+
+	RETURNVALUE(0)
+	ISEMPTY(CLITEST_STDERR)
+	FILECONTENT(CLITEST_STDOUT, usage)
+}
+
+TEST_CASE("IMM_Too_few_lbm-to-imm8_parameters_should_yield_usage_message") {
+	ADDFILE(EXE)
+
+	EXEC(COMM " --lbm-to-imm8 file1 file2")
+
+	RETURNVALUE(0)
+	ISEMPTY(CLITEST_STDERR)
+	FILECONTENT(CLITEST_STDOUT, usage)
+}
+
+TEST_CASE("IMM_Too_few_8l_parameters_should_yield_usage_message") {
+	ADDFILE(EXE)
+
+	EXEC(COMM " -8l	file1 file2")
+
+	RETURNVALUE(0)
+	ISEMPTY(CLITEST_STDERR)
+	FILECONTENT(CLITEST_STDOUT, usage)
+}
+
+TEST_CASE("IMM_Too_few_imm8-to-lbm_parameters_should_yield_usage_message") {
+	ADDFILE(EXE)
+
+	EXEC(COMM " --imm8-to-lbm file1 file2")
+
+	RETURNVALUE(0)
+	ISEMPTY(CLITEST_STDERR)
+	FILECONTENT(CLITEST_STDOUT, usage)
+}
+
+TEST_CASE("IMM_Too_many_l8_parameters_should_yield_usage_message") {
+	ADDFILE(EXE)
+
+	EXEC(COMM " -l8 file1 file2 file3 file4")
+
+	RETURNVALUE(0)
+	ISEMPTY(CLITEST_STDERR)
+	FILECONTENT(CLITEST_STDOUT, usage)
+}
+
+TEST_CASE("IMM_Too_many_lbm-to-imm8_parameters_should_yield_usage_message") {
+	ADDFILE(EXE)
+
+	EXEC(COMM " --lbm-to-imm8 file1 file2 file3 file4")
+
+	RETURNVALUE(0)
+	ISEMPTY(CLITEST_STDERR)
+	FILECONTENT(CLITEST_STDOUT, usage)
+}
+
+TEST_CASE("IMM_Too_many_8l_parameters_should_yield_usage_message") {
+	ADDFILE(EXE)
+
+	EXEC(COMM " -8l	file1 file2 file3 file4")
+
+	RETURNVALUE(0)
+	ISEMPTY(CLITEST_STDERR)
+	FILECONTENT(CLITEST_STDOUT, usage)
+}
+
+TEST_CASE("IMM_Too_many_imm8-to-lbm_parameters_should_yield_usage_message") {
+	ADDFILE(EXE)
+
+	EXEC(COMM " --imm8-to-lbm file1 file2 file3 file4")
+
+	RETURNVALUE(0)
+	ISEMPTY(CLITEST_STDERR)
+	FILECONTENT(CLITEST_STDOUT, usage)
+}
+
 // Bmp
 
 TEST_CASE("IMM_Unsupported_bmp_file_should_raise_exception") {
@@ -485,6 +654,70 @@ TEST_CASE("IMM_Convert_an_imm_and_pam_to_bmp") {
 	ISEMPTY(CLITEST_STDERR)
 }
 
+TEST_CASE("IMM_Convert_using_b8") {
+	ADDFILE(ASSETS "pal8out.bmp")
+	ADDFILE(ASSETS "pal8out.imm")
+	ADDFILE(ASSETS "full8out.pam")
+	ADDFILE(EXE)
+
+	EXEC(COMM " -b8 pal8out.bmp out.imm out.pam")
+
+	RETURNVALUE(0)
+	EXISTS("out.imm")
+	EXISTS("out.pam")
+	FILECOMPARE("pal8out.imm", "out.imm")
+	FILECOMPARE("full8out.pam", "out.pam")
+	ISEMPTY(CLITEST_STDOUT)
+	ISEMPTY(CLITEST_STDERR)
+}
+
+TEST_CASE("IMM_Convert_a_bmp_to_imm8_and_pam") {
+	ADDFILE(ASSETS "pal8out.bmp")
+	ADDFILE(ASSETS "pal8out.imm")
+	ADDFILE(ASSETS "full8out.pam")
+	ADDFILE(EXE)
+
+	EXEC(COMM " --bmp-to-imm8 pal8out.bmp out.imm out.pam")
+
+	RETURNVALUE(0)
+	EXISTS("out.imm")
+	EXISTS("out.pam")
+	FILECOMPARE("pal8out.imm", "out.imm")
+	FILECOMPARE("full8out.pam", "out.pam")
+	ISEMPTY(CLITEST_STDOUT)
+	ISEMPTY(CLITEST_STDERR)
+}
+
+TEST_CASE("IMM_Convert_using_8b") {
+	ADDFILE(ASSETS "pal8out.bmp")
+	ADDFILE(ASSETS "pal8out.imm")
+	ADDFILE(ASSETS "full8out.pam")
+	ADDFILE(EXE)
+
+	EXEC(COMM " -8b pal8out.imm full8out.pam out.bmp")
+
+	RETURNVALUE(0)
+	EXISTS("out.bmp")
+	FILECOMPARE("pal8out.bmp", "out.bmp")
+	ISEMPTY(CLITEST_STDOUT)
+	ISEMPTY(CLITEST_STDERR)
+}
+
+TEST_CASE("IMM_Convert_an_imm8_and_pam_to_bmp") {
+	ADDFILE(ASSETS "pal8out.bmp")
+	ADDFILE(ASSETS "pal8out.imm")
+	ADDFILE(ASSETS "full8out.pam")
+	ADDFILE(EXE)
+
+	EXEC(COMM " --imm8-to-bmp pal8out.imm full8out.pam out.bmp")
+
+	RETURNVALUE(0)
+	EXISTS("out.bmp")
+	FILECOMPARE("pal8out.bmp", "out.bmp")
+	ISEMPTY(CLITEST_STDOUT)
+	ISEMPTY(CLITEST_STDERR)
+}
+
 // Lbm
 
 TEST_CASE("IMM_Unsupported_lbm_file_should_raise_exception") {
@@ -637,6 +870,70 @@ TEST_CASE("IMM_Convert_an_imm_and_pam_to_lbm") {
 	RETURNVALUE(0)
 	EXISTS("out.lbm")
 	FILECOMPARE("pal8qnt.lbm", "out.lbm")
+	ISEMPTY(CLITEST_STDOUT)
+	ISEMPTY(CLITEST_STDERR)
+}
+
+TEST_CASE("IMM_Convert_using_l8") {
+	ADDFILE(ASSETS "pal8out.lbm")
+	ADDFILE(ASSETS "pal8out.imm")
+	ADDFILE(ASSETS "full8out.pam")
+	ADDFILE(EXE)
+
+	EXEC(COMM " -l8 pal8out.lbm out.imm out.pam")
+
+	RETURNVALUE(0)
+	EXISTS("out.imm")
+	EXISTS("out.pam")
+	FILECOMPARE("pal8out.imm", "out.imm")
+	FILECOMPARE("full8out.pam", "out.pam")
+	ISEMPTY(CLITEST_STDOUT)
+	ISEMPTY(CLITEST_STDERR)
+}
+
+TEST_CASE("IMM_Convert_an_lbm_to_imm8_and_pam") {
+	ADDFILE(ASSETS "pal8out.lbm")
+	ADDFILE(ASSETS "pal8out.imm")
+	ADDFILE(ASSETS "full8out.pam")
+	ADDFILE(EXE)
+
+	EXEC(COMM " --lbm-to-imm8 pal8out.lbm out.imm out.pam")
+
+	RETURNVALUE(0)
+	EXISTS("out.imm")
+	EXISTS("out.pam")
+	FILECOMPARE("pal8out.imm", "out.imm")
+	FILECOMPARE("full8out.pam", "out.pam")
+	ISEMPTY(CLITEST_STDOUT)
+	ISEMPTY(CLITEST_STDERR)
+}
+
+TEST_CASE("IMM_Convert_using_8l") {
+	ADDFILE(ASSETS "pal8out.lbm")
+	ADDFILE(ASSETS "pal8out.imm")
+	ADDFILE(ASSETS "full8out.pam")
+	ADDFILE(EXE)
+
+	EXEC(COMM " -8l pal8out.imm full8out.pam out.lbm")
+
+	RETURNVALUE(0)
+	EXISTS("out.lbm")
+	FILECOMPARE("pal8out.lbm", "out.lbm")
+	ISEMPTY(CLITEST_STDOUT)
+	ISEMPTY(CLITEST_STDERR)
+}
+
+TEST_CASE("IMM_Convert_an_imm8_and_pam_to_lbm") {
+	ADDFILE(ASSETS "pal8out.lbm")
+	ADDFILE(ASSETS "pal8out.imm")
+	ADDFILE(ASSETS "full8out.pam")
+	ADDFILE(EXE)
+
+	EXEC(COMM " --imm8-to-lbm pal8out.imm full8out.pam out.lbm")
+
+	RETURNVALUE(0)
+	EXISTS("out.lbm")
+	FILECOMPARE("pal8out.lbm", "out.lbm")
 	ISEMPTY(CLITEST_STDOUT)
 	ISEMPTY(CLITEST_STDERR)
 }

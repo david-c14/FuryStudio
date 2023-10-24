@@ -38,13 +38,13 @@ namespace FuryUtils {
 			Imm();
 
 		public:
-			Imm(std::vector<uint8_t> &inputPalette, std::vector<uint8_t> &inputPixels);
+			Imm(std::vector<uint8_t> &inputPalette, std::vector<uint8_t> &inputPixels, char vga);
 			uint32_t Size();
 			void Buffer(std::vector<uint8_t> &inputBuffer);
 			uint32_t ImmSize();
 			void ImmBuffer(std::vector<uint8_t> &inputBuffer);
 			uint32_t PamSize();
-			void PamBuffer(std::vector<uint8_t> &inputBuffer);
+			void PamBuffer(std::vector<uint8_t> &inputBuffer, char vga);
 			uint16_t Width();
 			uint16_t Height();
 			uint16_t Depth();

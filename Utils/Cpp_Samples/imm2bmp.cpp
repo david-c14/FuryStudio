@@ -41,7 +41,7 @@ void imm2bmp(const char * immFileName, const char * pamFileName, const char * bm
 		pamStream.read((char *)(pamBuffer.data()), size);
 
 		// Create a Bmp object from the palette and image file
-		FuryUtils::Image::Bmp bmp(pamBuffer, immBuffer);
+		FuryUtils::Image::Bmp bmp(pamBuffer, immBuffer, 1);
 
 		// Get a buffer of the image in Bmp format and save it to a stream
 		std::vector<uint8_t> outBuffer;

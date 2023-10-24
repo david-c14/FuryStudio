@@ -10,7 +10,7 @@ The Lbm class is a subclass of [Imm](imm.md) for handling images in lbm format.
 
 Creates an image from an existing image.
 
-`Lbm(std::vector<uint8_t> &inputPalette, std::vector<uint8_t> &inputPixels)` inherited from [Imm](imm.md)
+`Lbm(std::vector<uint8_t> &inputPalette, std::vector<uint8_t> &inputPixels, char vga)` inherited from [Imm](imm.md)
 
 Creates an image from byte vectors containing a palette and raw bitmap data.
 
@@ -21,9 +21,12 @@ Creates an image from a byte vector containing a windows bitmap.
 - `src` is an existing image; either a Bmp or Lbm.
 - `inputPalette` is a byte vector containing the palette for the image.
 - `inputPixels` is a byte vector containing the pixel data for the image.
+- `vga` is a boolean indicating that the palette is a VGA palette (6-bits per channel).
 - `lbmBuffer` is a byte vector containing the lbm bitmap.
 
 The `Lbm` object takes a copy of the pixel and palette data. The supplied vectors can safely be disposed afterwards.
+
+Fury of the Furries PAM files are vga palettes and so you should set `vga = 1` when creating an image from such a file.
 
 ## Size 
 
@@ -75,12 +78,15 @@ Note below that it is *not* necessary for you to determine the size of the vecto
 
 ## PamBuffer
 
-`void PamBuffer(std::vector<uint8_t> &inputBuffer)` inherited from [Imm](imm.md)
+`void PamBuffer(std::vector<uint8_t> &inputBuffer, char vga)` inherited from [Imm](imm.md)
 
 Swaps the provided byte vector with a vector containing the palette for this image. Note that because the vector is swapped, you
 do *not* need to provide a vector of the correct size.
 
 - `inputBuffer` is a byte vector of any length.
+- `vga` is a boolean indicating that the palette is a VGA palette (6-bits per channel).
+
+Fury of the Furries PAM files are vga palettes and so you should set `vga = 1` if you wish to preserve this when you extract a palette.
 
 ## Width
 

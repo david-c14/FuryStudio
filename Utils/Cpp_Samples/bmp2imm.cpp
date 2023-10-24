@@ -44,7 +44,7 @@ void bmp2imm(const char * bmpFileName, const char * immFileName, const char * pa
 
 		// Get a buffer of the palette and save it to a stream
 		std::vector<uint8_t> pamBuffer;
-		bmp.PamBuffer(pamBuffer);
+		bmp.PamBuffer(pamBuffer, 1);
 
 		std::ofstream pamStream(pamFileName, std::ios::binary | std::ios::trunc);
 		pamStream.write((char *)(pamBuffer.data()), pamBuffer.size());

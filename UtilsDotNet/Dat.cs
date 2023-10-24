@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Text;
 
@@ -31,13 +33,13 @@ namespace carbon14.FuryStudio.Utils
                 Index = index;
             }
 
-            public string FileName => new(_header.FileName, 0, Array.IndexOf(_header.FileName, '\0'));
+            public string FileName => new string(_header.FileName, 0, Array.IndexOf(_header.FileName, '\0'));
             public uint UncompressedSize => _header.UncompressedSize;
             public uint CompressedSize => _header.CompressedSize;
             public bool IsCompressed => !_header.IsNotCompressed;
             public uint Index { get; }
 
-            public byte[]? Buffer
+            public byte[] Buffer
             {
                 get
                 {
@@ -105,7 +107,7 @@ namespace carbon14.FuryStudio.Utils
         protected void CheckDisposed()
         {
             if (_disposed)
-                throw new(nameof(Dat));
+                throw new ObjectDisposedException(nameof(Dat));
         }
 
         protected IntPtr Pointer => _dat;
@@ -126,7 +128,7 @@ namespace carbon14.FuryStudio.Utils
                 CheckDisposed();
                 Reset();
                 _index = 0;
-                DatItem? dfe = Next();
+                DatItem dfe = Next();
                 while (dfe != null)
                 {
                     FuryException.Throw();
@@ -144,24 +146,24 @@ namespace carbon14.FuryStudio.Utils
             FuryException.Throw();
         }
 
-        protected DatItem? Next()
+        protected DatItem Next()
         {
-            DatHeader header = new();
+            DatHeader header = new DatHeader();
             if (Dat_next(_dat, ref header) == 1)
             {
-                return new(header, this, _index);
+                return new DatItem(header, this, _index);
             }
             FuryException.Throw();
             return null;
         }
 
-        public DatItem? Item(int index)
+        public DatItem Item(int index)
         {
             CheckDisposed();
-            DatHeader header = new();
+            DatHeader header = new DatHeader();
             if (Dat_header(_dat, (uint)index, ref header) == 1)
             {
-                return new(header, this, (uint)index);
+                return new DatItem(header, this, (uint)index);
             }
             FuryException.Throw();
             return null;
@@ -175,7 +177,7 @@ namespace carbon14.FuryStudio.Utils
             FuryException.Throw();
         }
 
-        public byte[]? Buffer
+        public byte[] Buffer
         {
             get
             {

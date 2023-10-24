@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using System;
+using System.Runtime.InteropServices;
 
 namespace carbon14.FuryStudio.Utils
 {
@@ -49,7 +50,7 @@ namespace carbon14.FuryStudio.Utils
 
         internal IntPtr Pointer => _imm;
 
-        public byte[]? Buffer
+        public byte[] Buffer
         {
             get
             {
@@ -64,7 +65,7 @@ namespace carbon14.FuryStudio.Utils
             }
         }
 
-        public byte[]? ImmBuffer
+        public byte[] ImmBuffer
         {
             get
             {
@@ -79,7 +80,7 @@ namespace carbon14.FuryStudio.Utils
             }
         }
 
-        public byte[]? VgaBuffer
+        public byte[] VgaBuffer
         {
             get
             {
@@ -94,7 +95,7 @@ namespace carbon14.FuryStudio.Utils
             }
         }
 
-        public byte[]? PaletteBuffer
+        public byte[] PaletteBuffer
         {
             get
             {

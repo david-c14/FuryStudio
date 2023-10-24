@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Text;
 
@@ -365,7 +366,7 @@ namespace carbon14.FuryStudio.Utils
             }
         }
 
-        public byte[]? Convert(ConversionType type)
+        public byte[] Convert(ConversionType type)
         {
             CheckDisposed();
             SaveData();
@@ -398,7 +399,7 @@ namespace carbon14.FuryStudio.Utils
         protected void CheckDisposed()
         {
             if (_disposed)
-                throw new(nameof(Bin));
+                throw new ObjectDisposedException(nameof(Bin));
         }
 
         private bool _disposed = false;

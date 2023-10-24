@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using System;
+using System.Runtime.InteropServices;
 
 namespace carbon14.FuryStudio.Utils
 {
@@ -31,7 +32,7 @@ namespace carbon14.FuryStudio.Utils
             return Version_revision();
         }
 
-        public static string? String()
+        public static string String()
         {
             IntPtr ptr = Version_string();
             return Marshal.PtrToStringAnsi(ptr);

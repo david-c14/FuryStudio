@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using System;
+using System.Runtime.InteropServices;
 
 namespace carbon14.FuryStudio.Utils
 {
@@ -8,11 +9,11 @@ namespace carbon14.FuryStudio.Utils
         {
         }
 
-        public FuryException(ErrorCodes errorCode, string? message) : this(errorCode, message, null)
+        public FuryException(ErrorCodes errorCode, string message) : this(errorCode, message, null)
         {
         }
 
-        public FuryException(ErrorCodes errorCode, string? message, Exception? innerException) : base(message, innerException)
+        public FuryException(ErrorCodes errorCode, string message, Exception innerException) : base(message, innerException)
         {
             ErrorCode = errorCode;
         }
@@ -30,7 +31,7 @@ namespace carbon14.FuryStudio.Utils
             return Exception_code();
         }
 
-        public static string? ErrorString()
+        public static string ErrorString()
         {
             return Marshal.PtrToStringAnsi(Exception_string());
         }
@@ -38,7 +39,7 @@ namespace carbon14.FuryStudio.Utils
         public static void Throw()
         {
             int code = Code();
-            string? message = ErrorString();
+            string message = ErrorString();
             if (code > 0)
             {
                 throw new FuryException((ErrorCodes)code, message);
